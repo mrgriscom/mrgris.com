@@ -10,3 +10,37 @@ title: Home
 </ul>
 
 <p>If you need any help with customizing your nanoc web site, be sure to check out the documentation (see sidebar), and be sure to subscribe to the discussion group (also see sidebar). Enjoy!</p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="/script/age.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  DRDOB = 434285910. //1983-10-06 06:58:30 -0400
+  MLDOB = 438915600. //1983-11-29 03:00:00 +0300
+  setInterval(function() {run(DRDOB, 'm', ['drs', 'drd', 'dry', 'drle']);}, 10);
+  setInterval(function() {run(MLDOB, 'f', ['mls', 'mld', 'mly', 'mlle']);}, 10);
+});
+</script>
+
+
+<style>
+.r {
+  text-align: right;
+}
+</style>
+
+<h3>dr</h3>
+<table border="0">
+<tr><td class="r" id="drs"></td><td> seconds</td></tr>
+<tr><td class="r" id="drd"></td><td> days</td></tr>
+<tr><td class="r" id="dry"></td><td> years</td></tr>
+<tr><td class="r" id="drle"></td><td> life expectancy</td></tr>
+</table>
+
+<h3>ml</h3>
+<table border="0">
+<tr><td class="r" id="mls"></td><td> seconds</td></tr>
+<tr><td class="r" id="mld"></td><td> days</td></tr>
+<tr><td class="r" id="mly"></td><td> years</td></tr>
+<tr><td class="r" id="mlle"></td><td> life expectancy</td></tr>
+</table>
