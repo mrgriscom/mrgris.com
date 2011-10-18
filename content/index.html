@@ -16,7 +16,7 @@ title: Home
 <script type="text/javascript">
 $(document).ready(function() {
   DRDOB = 434285910. //1983-10-06 06:58:30 -0400
-  MLDOB = 438915600. //1983-11-29 03:00:00 +0300
+  MLDOB = 438915600. //1983-11-29 03:00:00 +0200
   setInterval(function() {run(DRDOB, 'm', ['drs', 'drd', 'dry', 'drle']);}, 10);
   setInterval(function() {run(MLDOB, 'f', ['mls', 'mld', 'mly', 'mlle']);}, 10);
 });
@@ -24,23 +24,31 @@ $(document).ready(function() {
 
 
 <style>
+
+td {
+  line-height: 20px;
+}
+
 .r {
   text-align: right;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ccc;
 }
 </style>
 
 <h3>dr</h3>
 <table border="0">
-<tr><td class="r" id="drs"></td><td> seconds</td></tr>
-<tr><td class="r" id="drd"></td><td> days</td></tr>
-<tr><td class="r" id="dry"></td><td> years</td></tr>
-<tr><td class="r" id="drle"></td><td> life expectancy</td></tr>
+<tr><td class="r" id="drs"></td><td>seconds</td></tr>
+<tr><td class="r" id="drd"></td><td>days</td></tr>
+<tr><td class="r" id="dry"></td><td>years</td></tr>
+<tr><td class="r" id="drle"></td><td>life expectancy</td></tr>
 </table>
 
 <h3>ml</h3>
 <table border="0">
-<tr><td class="r" id="mls"></td><td> seconds</td></tr>
-<tr><td class="r" id="mld"></td><td> days</td></tr>
-<tr><td class="r" id="mly"></td><td> years</td></tr>
-<tr><td class="r" id="mlle"></td><td> life expectancy</td></tr>
+<tr><td class="r" id="mls"></td><td>seconds</td></tr>
+<tr><td class="r" id="mld"></td><td>days</td></tr>
+<tr><td class="r" id="mly"></td><td>years</td></tr>
+<tr><td class="r" id="mlle"></td><td>life expectancy</td></tr>
 </table>

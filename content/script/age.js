@@ -1,3 +1,4 @@
+// return life expectancy (expected age of death) for person of given gender and # years old
 function life_expectancy(years, gender) {
   actuarial_tables = {
     m: { //US, male, white
@@ -56,40 +57,59 @@ function life_expectancy(years, gender) {
     brackets.push(+age);
   });
   brackets.sort(function(a, b) { return a - b; });
+
   for (var i = 0; i < brackets.length; i++) {
     if (years < brackets[i]) {
       break;
     }
   }
   i -= 1;
+
   var a0 = brackets[i];
   if (i + 1 < brackets.length) {
     var a1 = brackets[i + 1];
-    var left = (life_exp[a0] * (a1 - years) + life_exp[a1] * (years - a0)) / (a1 - a0);
-    var exp = years + left;
+    var remain = (life_exp[a0] * (a1 - years) + life_exp[a1] * (years - a0)) / (a1 - a0);
+    return years + remain;
   } else {
-    var exp = a0 + life_exp[a0];
+    return Math.max(a0 + life_exp[a0], years);
   }
-  return exp;
 }
 
+// format a number (as string) with commas
 function commaize (numstr) {
-  var pointat = numstr.indexOf(".");
-  if (pointat == -1)
-    pointat = numstr.length;
-  
-  var outstr = "";
-  for (i = (pointat == 0 ? 0 : ((pointat - 1) % 3) - 2); i < pointat - 3; i += 3) {
-    outstr = outstr + numstr.substring(Math.max(i, 0), i + 3) + ",";
-  }
-  outstr = outstr + numstr.substring(pointat - 3);
+  var GROUP = 3;
 
+  var pointat = numstr.indexOf(".");
+  if (pointat == -1) {
+    pointat = numstr.length;
+  }  
+  if (pointat == 0) {
+    pointat = GROUP; //avoid negative mod ugliness
+  }
+
+  var outstr = "";
+  for (var i = ((pointat - 1) % GROUP) - (GROUP - 1); i < pointat - GROUP; i += GROUP) {
+    outstr += numstr.substring(Math.max(i, 0), i + GROUP) + ",";
+  }
+  outstr += numstr.substring(pointat - GROUP);
   return outstr;
 }
 
-function format(num, prec, format) {
+// round a number to 'prec' digits, using rounding mode 'up', 'down', or 'normal' (default)
+function round(num, prec, mode) {
+  mode = mode || 'normal';
+  var func = {
+    normal: Math.round,
+    up: Math.ceil,
+    down: Math.floor
+  }[mode];
+  var k = Math.pow(0.1, prec);
+  return func(num / k) * k;
+}
+
+function format(num, prec, roundmode, format) {
   format = format || '{{#}}';
-  var snum = commaize(num.toFixed(prec));
+  var snum = commaize(round(num, prec, roundmode).toFixed(prec));
   return format.replace(/{{#}}/, snum);
 }
 
@@ -99,9 +119,10 @@ function run(EPOCH, gender, $e) {
   var years = days / 365.2425;
   var life_exp = years / life_expectancy(years, gender);
 
-  $('#' + $e[0]).text(format(secs, 2));
-  $('#' + $e[1]).text(format(days, 4));
-  $('#' + $e[2]).text(format(years, 5));
-  $('#' + $e[3]).text(format(100. * life_exp, 3, '{{#}}%'));
+  var ROUND = 'down';
+  $('#' + $e[0]).text(format(secs, 2, ROUND));
+  $('#' + $e[1]).text(format(days, 4, ROUND)); //7
+  $('#' + $e[2]).text(format(years, 5, ROUND)); //9
+  $('#' + $e[3]).text(format(100. * life_exp, 3, ROUND, '{{#}}%')); //9
 }
 
