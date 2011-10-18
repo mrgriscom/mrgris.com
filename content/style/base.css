@@ -32,12 +32,15 @@ h2 {
 	line-height: 100px;
 }
 
-#nav a {
+#nav .navitem {
 	font: italic 18px Georgia, serif;
+}
+
+#nav a {
 	text-decoration: none;
 }
 
-#current {
+.active {
 	color: white;
 }
 
@@ -70,4 +73,12 @@ h3 {
 	color: white;
 	font: bold italic 40px/40px Georgia, serif;
 }
+
+#footer {
+	text-align: center;
+	padding: 150px 0 0 0;
+	color: #555;
+	clear: both;
+}
+
 

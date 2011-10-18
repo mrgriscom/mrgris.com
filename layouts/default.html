@@ -10,15 +10,15 @@
 	<div id="window"></div>
 	<h2>Drew Griscom Roos</h2>
 	<div id="nav">
-		<a href="#">About</a> &bull;
-		<a href="#">Projects</a> &bull;
-		<a href="http://picasaweb.google.com/106348389651498067721/">Photos</a> &bull;
-		<a href="#">Travel</a> &bull;
-		<a href="#">Misc</a>
+    <span class="navitem"><%= link_to_unless_current('Projects', @items.find { |i| i.identifier == '/projects/' }) %></span> &bull;
+    <span class="navitem"><a href="http://picasaweb.google.com/106348389651498067721/">Photos</a></span> &bull;
+    <span class="navitem"><%= link_to_unless_current('Misc', @items.find { |i| i.identifier == '/misc/' }) %></span> &bull;
+    <span class="navitem"><%= link_to_unless_current('About', @items.find { |i| i.identifier == '/about/' }) %></span>
 	</div>
   <h1><%= @item[:title] %></h1>
   <div id="main">
     <%= yield %>
   </div>
+  <p id="footer">this is a footer</p>
 </body>
 </html>
