@@ -113,16 +113,68 @@ function format(num, prec, roundmode, format) {
   return format.replace(/{{#}}/, snum);
 }
 
-function run(EPOCH, gender, $e) {
-  var secs = (new Date().getTime() / 1000.) - EPOCH;
+function age_update(EPOCH, gender, elems, clock) {
+  clock = clock || new LocalClock();
+  var timestamp = clock.clock();
+  if (timestamp == null) {
+    return;
+  }
+  
+  var secs = timestamp - EPOCH;
   var days = secs / 86400.;
   var years = days / 365.2425;
   var life_exp = years / life_expectancy(years, gender);
 
+  var PREC = [2, 4, 5, 3];
+  //var PREC = [2, 7, 9, 9]; //creepy ed.
   var ROUND = 'down';
-  $('#' + $e[0]).text(format(secs, 2, ROUND));
-  $('#' + $e[1]).text(format(days, 4, ROUND)); //7
-  $('#' + $e[2]).text(format(years, 5, ROUND)); //9
-  $('#' + $e[3]).text(format(100. * life_exp, 3, ROUND, '{{#}}%')); //9
+  $('#' + elems[0]).text(format(secs, PREC[0], ROUND));
+  $('#' + elems[1]).text(format(days, PREC[1], ROUND));
+  $('#' + elems[2]).text(format(years, PREC[2], ROUND));
+  $('#' + elems[3]).text(format(100. * life_exp, PREC[3], ROUND, '{{#}}%'));
 }
 
+function register_age_ticker(epoch, gender, elements, clock, tick) {
+  tick = tick || 0.01;
+
+  return setInterval(function() {
+      age_update(epoch, gender, elements, clock);
+    }, 1000 * tick);
+}
+
+
+// local system clock in seconds
+function _clock() {
+  return (new Date().getTime() / 1000.);
+}
+
+function ServerClock() {
+  this.CLOCK_URL = '/clock.php';
+
+  this.offset = null; // server - local
+  this.error = null;
+
+  this.synchronize = function() {
+    var request_start = _clock();
+    var server_clock = this;
+    $.post(this.CLOCK_URL, function(resp) {
+        var request_end = _clock();
+        var server_time = resp;
+
+        var est_local_time = (request_end + request_start) / 2.;
+        server_clock.error = (request_end - request_start) / 2.;
+        server_clock.offset = server_time - est_local_time;
+      }, 'json');
+  }
+
+  this.clock = function() {
+    return (this.offset != null ? _clock() + this.offset : null);
+  }
+
+  //clocks should be self-managing
+  this.synchronize();
+}
+
+function LocalClock() {
+  this.clock = _clock;
+}
