@@ -158,6 +158,10 @@ function ServerClock() {
     var request_start = _clock();
     var server_clock = this;
     $.post(this.CLOCK_URL, function(resp) {
+        if (!resp) {
+          return;
+        }
+
         var request_end = _clock();
         var server_time = resp;
 

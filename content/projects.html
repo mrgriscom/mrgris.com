@@ -4,17 +4,12 @@ title: Projects
 
 <% @item.children.each do |proj| %>
 	<div class="project">
-		<h3><%= proj[:title] %></h3>
+		<div class="image"><div>
+      <%= link_to('<div style="background: url(/img/proj_thumb/%s) no-repeat center;"></div>' % proj[:thumb], proj) %> 
+    </div></div>
+		<h3><%= link_to(proj[:title], proj) %></h3>
+    <p><%= proj[:lede] %></p>
+    <p class="li"><%= link_to('Read more&hellip;', proj) %></p>
 	</div>
 <% end %>
 
-
-
-<!--
-	<div class="project">
-		<div class="image"><div><div id="webgl-water"></div></div></div>
-		<h3>template</h3>
-		<p>Marfa synth keffiyeh, cosby sweater skateboard next level trust fund beard. American apparel locavore yr, aesthetic letterpress butcher vegan whatever dreamcatcher craft beer banksy trust fund raw denim keytar single-origin coffee. Fanny pack helvetica retro readymade, before they sold out dreamcatcher wolf echo park organic sartorial, cardigan synth portland artisan twee skateboard retro mustache shoreditch.</p>
-		<p><a href="#">Run app...</a></p>
-	</div>
--->
