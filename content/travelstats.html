@@ -1,0 +1,254 @@
+--- 
+title: Travel Stats
+data:
+- country: United States
+  duration: decades
+  noteworthies:
+  - Hawaii
+  - desc: southernmost point
+    name: Ka Lae
+  - desc: easternmost point
+    name: West Quoddy Head
+  - desc: northernmost point in New England
+    name: Estcourt Station
+  - desc: lowest point
+    name: Badwater Basin
+
+- country: Spain
+  date: Jan 1998
+  duration: months
+  noteworthies:
+  - Canary Islands
+  - Ceuta
+
+- country: Andorra
+  date: Jan 1998
+  duration: weeks
+
+- country: Cayman Islands
+  sovereign: UK
+  date: Mar 1999
+  duration: days
+
+- country: Japan
+  date: Jul 2001
+  duration: days
+
+- country: Canada
+  dates:
+  - date: Oct 2002
+    type: border hop
+  - Jun 2009
+  duration: weeks
+  noteworthies:
+  - Labrador
+  - desc: easternmost point
+    name: Cape Spear
+
+- country: Bahamas
+  date: Mar 2004
+  duration: days
+
+- country: France
+  date: Aug 2005
+  duration: days
+
+- country: Monaco
+  dates:
+  - date: Aug 2005
+    type: in transit
+  - Nov 2007
+  duration: hours; no overnight
+
+- country: Italy
+  date: Aug 2005
+  duration: weeks
+  noteworthies:
+  - Sicily
+
+- country: Mexico
+  dates:
+  - date: Oct 2005
+    type: border hop
+  duration: hours; no overnight
+
+- country: Puerto Rico
+  sovereign: US
+  date: Feb 2006
+  duration: days
+
+- country: Iceland
+  date: Aug 2007
+  duration: weeks
+
+- country: Sweden
+  date: Aug 2007
+  duration: days
+
+- country: Western Sahara
+  status: "disputed: #place[Morocco]/#place[SADR] government-in-exile"
+  date: Sep 2007
+  duration: days
+  comments:
+  - visited Moroccan-controlled territory only
+
+- country: Morocco
+  date: Sep 2007
+  duration: weeks
+
+- country: Gibraltar
+  sovereign: UK
+  date: Sep 2007
+  duration: hours; no overnight
+
+- country: Portugal
+  date: Sep 2007
+  duration: days
+
+- country: Netherlands
+  date: Oct 2007
+  duration: weeks
+  noteworthies:
+  - Baarle-Nassau
+
+- country: Belgium
+  date: Oct 2007
+  duration: days
+  noteworthies:
+  - Baarle-Hertog
+
+- country: United Kingdom
+  date: Oct 2007
+  duration: days
+
+- country: Germany
+  date: Oct 2007
+  duration: weeks
+
+- country: Czech Republic
+  date: Oct 2007
+  duration: days
+
+- country: Denmark
+  date: Nov 2007
+  duration: days
+
+- country: Luxembourg
+  date: Nov 2007
+  duration: hours; no overnight
+
+- country: Switzerland
+  date: Nov 2007
+  duration: days
+
+- country: Liechtenstein
+  date: Nov 2007
+  duration: hours; no overnight
+
+- country: San Marino
+  date: Nov 2007
+  duration: hours; no overnight
+
+- country: Vatican City
+  date: Nov 2007
+  duration: hours; no overnight
+  comments:
+  - circumnavigated on foot
+  - was never both 'inside the city walls' and 'outdoors'
+
+- country: Malta
+  date: Dec 2007
+  duration: days
+
+- country: Austria
+  date: Dec 2007
+  duration: days
+
+- country: Slovakia
+  dates:
+  - date: Dec 2007
+    type: in transit
+  duration: hours; no overnight
+
+- country: Hungary
+  date: Dec 2007
+  duration: weeks
+
+- country: Poland
+  date: Dec 2007
+  duration: days
+
+- country: Tanzania
+  date: May 2008
+  duration: months
+  noteworthies:
+  - Zanzibar
+
+- country: South Africa
+  date: Jun 2008
+  duration: weeks
+
+- country: Lesotho
+  date: Jun 2008
+  duration: days
+
+- country: St. Pierre and Miquelon
+  sovereign: France
+  date: Jun 2009
+  duration: days
+
+- country: Jordan
+  date: Dec 2009
+  duration: days
+
+- country: Lebanon
+  date: Dec 2009
+  duration: days
+
+- country: Kenya
+  date: Dec 2009
+  duration: weeks
+
+- country: Malawi
+  date: Mar 2010
+  duration: days
+
+- country: Zambia
+  date: Mar 2010
+  duration: months
+
+- country: Zimbabwe
+  dates:
+  - date: Apr 2010
+    type: border hop
+  duration: hours; no overnight
+
+- country: Mozambique
+  date: May 2010
+  duration: weeks
+
+- country: Swaziland
+  date: May 2010
+  duration: days
+
+- country: United Arab Emirates
+  date: Apr 2011
+  duration: days
+
+- country: Afghanistan
+  date: Apr 2011
+  duration: weeks
+
+---
+
+<% @item[:data].map {|e| Country.new(e)}.each_with_index do |e, i| %>
+  <p style="color: white; font-size: 16px">
+    #<%= i + 1 %> <%= e._country %>
+    <% if e.sov %>(<%= e.sov %>)<% end %>
+    <% if e._status %>(<%= e._status %>)<% end %><br>
+    duration: <%= e.dur %><br>
+    <% if not e.noteworthy.empty? %>noteworthies: <%= e.noteworthy.join(', ') %><br><% end %>
+  </p>
+<% end %>
+
+<p><a href="#"><%= 245 - @item[:data].count %></a> to go&hellip;</p>
