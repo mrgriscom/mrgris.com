@@ -162,7 +162,7 @@ data:
   overnight: false
   comments:
   - circumnavigated on foot
-  - was never both 'inside the city walls' and 'outdoors'
+  - was never outdoors while inside the city walls
 
 - country: Malta
   date: Dec 2007
@@ -307,6 +307,12 @@ li {
   font-size: 14px;
 }
 
+.datenative {
+  font-size: 16px;
+  font-weight: normal;
+  color: #ccf;
+}
+
 .sov {
   color: #ccc;
   font-size: 70%;
@@ -325,21 +331,38 @@ li {
   color: #faa;
 }
 
+.duration {
+  margin-top: 10px;
+  line-height: 12px;
+}
+
+.dur-hours   { font-size: 12px; font-weight: normal; }
+.dur-days    { font-size: 14px; }
+.dur-weeks   { font-size: 16px; }
+.dur-months  { font-size: 18px; }
+.dur-years   { font-size: 20px; }
+.dur-decades { font-size: 22px; }
+
 </style>
 
 <ol>
 <% @item[:data].map {|e| Country.new(e)}.each_with_index do |e, i| %>
   <li>
     <div class="ordinal"><span class="hash">#</span><%= i + 1 %></div>
+
     <div class="dates">
     <% if e.native? %>
-      <span class="status">native country</span>
+      <span class="datenative">native country<br></span>
     <% else %>
       <% e.dates.each do |date, type| %>
         <% if type %><span class="datequal">(<%= type %>)</span> <% end %><span<% if not e.complete? %> class="incomplete"<% end %>><%= date %></span><br>
       <% end %>
     <% end %>
+      <div class="duration">
+        <span class="dur-<%= e.dur %>"><%= e.dur %><% if not e.overnight %><br><s>overnight</s><% end %></span>
+      </div>
     </div>
+
     <span class="country"><%= e._country %><% if e.sov %><span class="sov"> (<%= e.sov %>)</span><% end %></span>
     <% if e._status %><div class="status">(<%= e._status %>)</div><% end %>
   </li>
