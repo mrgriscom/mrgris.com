@@ -162,7 +162,7 @@ data:
   overnight: false
   comments:
   - circumnavigated on foot
-  - was never outdoors while inside the city walls
+  - never outdoors while inside the city walls
 
 - country: Malta
   date: Dec 2007
@@ -343,6 +343,17 @@ li {
 .dur-years   { font-size: 20px; }
 .dur-decades { font-size: 22px; }
 
+.detail {
+  font-size: 16px;
+  line-height: 20px;
+  max-width: 600px;
+  margin-top: 15px;
+}
+
+.detail a {
+  text-decoration: none;
+}
+
 </style>
 
 <ol>
@@ -365,31 +376,13 @@ li {
 
     <span class="country"><%= e._country %><% if e.sov %><span class="sov"> (<%= e.sov %>)</span><% end %></span>
     <% if e._status %><div class="status">(<%= e._status %>)</div><% end %>
+
+    <div class="detail">
+    <% if not e.noteworthy.empty? %><b>&raquo;</b> <%= e.noteworthy.map {|n| '<nobr>%s</nobr>' % n}.join(', ') %><br><% end %>
+    <% if not e.comments.empty? %><b>&dagger;</b> <%= e.comments.join('; ') %><br><% end %>
+    </div>
   </li>
 <% end %>
 </ol>
-
-
-
-
-<hr>
-
-<% @item[:data].map {|e| Country.new(e)}.each_with_index do |e, i| %>
-  <p style="color: white; font-size: 16px">
-    #<%= i + 1 %> <%= e._country %>
-    <% if e.sov %>(<%= e.sov %>)<% end %>
-    <% if e._status %>(<%= e._status %>)<% end %><br>
-    duration: <%= e.dur %><br>
-    <% if not e.noteworthy.empty? %>noteworthies: <%= e.noteworthy.join(', ') %><br><% end %>
-    <% if not e.comments.empty? %>comments: <%= e.comments.join('; ') %><br><% end %>
-    <% if e.native? %>
-      <i>native country</i><br>
-    <% else %>
-      dates: <%= e.dates.map {|date, type| date + (type ? ' (%s)' % type : '')}.join('; ') %><br>
-    <% end %>
-    <% if not e.overnight %>no overnight<br><% end %>
-    <% if not e.complete? %>INCOMPLETE<br><% end %>
-  </p>
-<% end %>
 
 <p><a href="#"><%= 245 - @item[:data].count %></a> to go&hellip;</p>
