@@ -354,6 +354,25 @@ li {
   text-decoration: none;
 }
 
+.remain {
+  margin-top: 100px;
+  font-family: Georgia;
+  font-style: italic;
+  font-size: 50px;
+  font-weight: bold;
+  color: #aaa;
+}
+
+.remain-count {
+  text-decoration: none;
+  font-weight: normal;
+  font-size: 120px;
+  color: #ccc;
+  letter-spacing: -.06em;
+  vertical-align: middle;
+
+}
+
 </style>
 
 <ol>
@@ -385,4 +404,4 @@ li {
 <% end %>
 </ol>
 
-<p><a href="#"><%= 245 - @item[:data].count %></a> to go&hellip;</p>
+<p class="remain"><a class="remain-count" href="#"><%= 244 - @item[:data].count %></a>&nbsp;&nbsp;to go&hellip;</p>
