@@ -2,6 +2,7 @@
 title: Travel Stats
 data:
 - country: United States
+  date: native
   duration: decades
   noteworthies:
   - Hawaii
@@ -9,7 +10,7 @@ data:
     name: Ka Lae
   - desc: easternmost point
     name: West Quoddy Head
-  - desc: northernmost point in New England
+  - desc: northernmost point in !place{New England}
     name: Estcourt Station
   - desc: lowest point
     name: Badwater Basin
@@ -58,7 +59,8 @@ data:
   - date: Aug 2005
     type: in transit
   - Nov 2007
-  duration: hours; no overnight
+  duration: hours
+  overnight: false
 
 - country: Italy
   date: Aug 2005
@@ -70,7 +72,8 @@ data:
   dates:
   - date: Oct 2005
     type: border hop
-  duration: hours; no overnight
+  duration: hours
+  overnight: false
 
 - country: Puerto Rico
   sovereign: US
@@ -86,7 +89,7 @@ data:
   duration: days
 
 - country: Western Sahara
-  status: "disputed: #place[Morocco]/#place[SADR] government-in-exile"
+  status: "disputed: !place{Morocco}/!place{SADR} government-in-exile"
   date: Sep 2007
   duration: days
   comments:
@@ -99,7 +102,8 @@ data:
 - country: Gibraltar
   sovereign: UK
   date: Sep 2007
-  duration: hours; no overnight
+  duration: hours
+  overnight: false
 
 - country: Portugal
   date: Sep 2007
@@ -135,7 +139,8 @@ data:
 
 - country: Luxembourg
   date: Nov 2007
-  duration: hours; no overnight
+  duration: hours
+  overnight: false
 
 - country: Switzerland
   date: Nov 2007
@@ -143,15 +148,18 @@ data:
 
 - country: Liechtenstein
   date: Nov 2007
-  duration: hours; no overnight
+  duration: hours
+  overnight: false
 
 - country: San Marino
   date: Nov 2007
-  duration: hours; no overnight
+  duration: hours
+  overnight: false
 
 - country: Vatican City
   date: Nov 2007
-  duration: hours; no overnight
+  duration: hours
+  overnight: false
   comments:
   - circumnavigated on foot
   - was never both 'inside the city walls' and 'outdoors'
@@ -168,7 +176,8 @@ data:
   dates:
   - date: Dec 2007
     type: in transit
-  duration: hours; no overnight
+  duration: hours
+  overnight: false
 
 - country: Hungary
   date: Dec 2007
@@ -221,7 +230,8 @@ data:
   dates:
   - date: Apr 2010
     type: border hop
-  duration: hours; no overnight
+  duration: hours
+  overnight: false
 
 - country: Mozambique
   date: May 2010
@@ -248,6 +258,14 @@ data:
     <% if e._status %>(<%= e._status %>)<% end %><br>
     duration: <%= e.dur %><br>
     <% if not e.noteworthy.empty? %>noteworthies: <%= e.noteworthy.join(', ') %><br><% end %>
+    <% if not e.comments.empty? %>comments: <%= e.comments.join('; ') %><br><% end %>
+    <% if e.native? %>
+      <i>native country</i><br>
+    <% else %>
+      dates: <%= e.dates.map {|date, type| date + (type ? ' (%s)' % type : '')}.join('; ') %><br>
+    <% end %>
+    <% if not e.overnight %>no overnight<br><% end %>
+    <% if not e.complete? %>INCOMPLETE<br><% end %>
   </p>
 <% end %>
 

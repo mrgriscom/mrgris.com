@@ -4,51 +4,74 @@ module CountryStatsHelper
     if not description
       description = place_name
     end
+    description = description.split(/<\/?a[^>]*>/).join
     '<a href="http://en.wikipedia.org/wiki/%s">%s</a>' % [place_name, description]
   end
 
-  def parse_place(pltext)
-    pltext =~ /#place\[(.*)\]/
-    content = $1.split('|')
+  PlaceParseRegex = /!place\{(.*)\}/
+  def parse_place(plstr)
+    match = plstr.match(PlaceParseRegex)
+    match.captures[0].split('|')
   end
 
+  PlaceScanRegex = /(!place\{[^}]+\})/
   def wiki_text(text)
-    re = /#place\[[^\]]+\]/
-    fragments = text.split(re)
-    places = text.scan(re)
+    spl = text.split(PlaceScanRegex)
 
     out = ''
-    for i in 0..[fragments.length, places.length].max-1
-      if i < fragments.length
-        out += fragments[i]
+    spl.each_with_index { |frag, i|
+      if i % 2 == 0
+        out += frag
+      else
+        out += wiki_link(*parse_place(frag))
       end
-      if i < places.length
-        out += wiki_link(*parse_place(places[i]))
-      end
-    end
+    }
     out
   end
 
   class Country
     attr_accessor :country, :_country, :sov, :_status,
-        :dur, :noteworthy
+        :dur, :noteworthy, :comments, :dates, :overnight
 
     def initialize(raw)
       @country = raw[:country]
       @_country = wiki_link(raw[:country])
       @sov = raw[:sovereign]
       @_status = raw[:status] ? wiki_text(raw[:status]) : nil
+      if raw[:date] == 'native'
+        @dates = []
+      else
+        @dates = (raw[:date] ? [raw[:date]] : raw[:dates]).map {|d| parse_visit_date(d)}
+      end
       @dur = raw[:duration]
-      @noteworthy = (raw[:noteworthies] or []).map {|n| parse_place(n)}
+      @overnight = raw[:overnight] == nil ? true : raw[:overnight]
+      @noteworthy = (raw[:noteworthies] or []).map {|n| format_place(n)}
+      @comments = (raw[:comments] or []).map {|c| wiki_text(c)}
     end
 
-    def parse_place(p)
-      begin
-        args = [p[:name], p[:desc]]
-      rescue
+    def format_place(p)
+      if p.class == Hash
+        args = [p[:name], wiki_text(p[:desc])]
+      elsif p.class == String
         args = [p]
       end
       wiki_link(*args)
+    end
+
+    def parse_visit_date(d)
+      if d.class == Hash
+        return [d[:date], d[:type]]
+      elsif d.class == String
+        return [d, nil]
+      end
+    end
+
+    def native?
+      @dates.empty?
+    end
+
+    def complete?
+      native? or @dates.last[1] == nil
     end
   end
 
