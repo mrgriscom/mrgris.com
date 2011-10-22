@@ -2,7 +2,7 @@ body {
 	padding: 0 35px;
 	margin: 0 auto;
 	max-width: 900px;
-	font: 13px/18px Arial, sans-serif;
+	font: 13px Arial, sans-serif;
 	background: black url(/img/bg/carbon_fibre.png);
 	color: #888;
 }

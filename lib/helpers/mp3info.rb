@@ -10,15 +10,15 @@ module MP3Info
     data = mp3loadinfo(item[:path])
     data.each { |track|
       if not track['system']
-        track['system'] = system_name(track['game'], item)
+        track['system'] = system_name(track['game'], item[:systems])
       end
     }
     data
   end
 
   def system_name(game, meta)
-    match = meta[:system_override].find {|ov| game.downcase.include? (ov[:tag].downcase) }
-    match ? match[:system] : meta[:system_default]
+    match = meta[:override].find {|ov| game.downcase.include? (ov[:tag].downcase) }
+    match ? match[:system] : meta[:default]
   end
 
   def fmt_length(s)
