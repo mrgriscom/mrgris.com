@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <title><%= @item[:title] %> :: mrgris.com</title>
   <link rel="stylesheet" type="text/css" href="/style/base.css" media="screen">
+<% (@item[:style] ? [@item[:style]] : (@item[:styles] or [])).each do |style| %>
+  <link rel="stylesheet" type="text/css" href="/style/<%= style %>.css">
+<% end %>
   <meta name="generator" content="nanoc 3.2.2">
 </head>
 <body>

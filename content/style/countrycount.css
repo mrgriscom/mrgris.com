@@ -1,0 +1,121 @@
+
+ol {
+  list-style: none;
+}
+
+li {
+  font-family: Georgia;
+  font-style: italic;
+  color: white;
+  clear: both;
+  position: relative;
+  min-height: 80px;
+  margin-bottom: 50px;
+}
+
+.ordinal {
+  color: #333;
+  font-size: 150px;
+  line-height: 75px;
+  letter-spacing: -.08em;
+  position: absolute;
+  left: -65px;
+  top: -10px;
+  z-index: -1;
+}
+
+.ordinal .hash {
+  font-size: 66px;
+  vertical-align: top;
+}
+
+.country {
+  font-size: 50px;
+  line-height: 45px;
+  font-weight: bold;
+}
+
+.country a {
+  text-decoration: none;
+  color: white;
+}
+
+.dates {
+  float: right;
+  text-align: right;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ccc;
+}
+
+.datequal {
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.datenative {
+  font-size: 16px;
+  font-weight: normal;
+  color: #ccf;
+}
+
+.sov {
+  color: #ccc;
+  font-size: 70%;
+  white-space: nowrap;
+}
+
+.status {
+  color: #ccc;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.incomplete {
+  color: #faa;
+}
+
+.duration {
+  margin-top: 10px;
+  line-height: 12px;
+}
+
+.dur-hours   { font-size: 12px; font-weight: normal; }
+.dur-days    { font-size: 14px; }
+.dur-weeks   { font-size: 16px; }
+.dur-months  { font-size: 18px; }
+.dur-years   { font-size: 20px; }
+.dur-decades { font-size: 22px; }
+
+.detail {
+  font-size: 16px;
+  line-height: 20px;
+  max-width: 600px;
+  margin-top: 15px;
+}
+
+.detail a {
+  text-decoration: none;
+}
+
+.remain {
+  margin-top: 100px;
+  font-family: Georgia;
+  font-style: italic;
+  font-size: 50px;
+  font-weight: bold;
+  color: #aaa;
+}
+
+.remain-count {
+  text-decoration: none;
+  font-weight: normal;
+  font-size: 120px;
+  color: #ccc;
+  letter-spacing: -.06em;
+  vertical-align: middle;
+
+}
+
