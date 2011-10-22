@@ -18,18 +18,62 @@ system_override:
   system: Sega Genesis
 ---
 
-<table>
+<style>
+
+.system {
+  color: #ccc;
+  font-size: 70%;
+  white-space: nowrap;
+}
+
+td {
+  font-size: 16px;
+  vertical-align: top;
+}
+
+td a {
+  text-decoration: none;
+}
+
+.tracks {
+/*  margin-left: 20px; */
+}
+
+.title {
+  width: 15em;
+}
+
+.length {
+  width: 5em;
+  text-align: right;
+  font-size: 13px;
+  padding-top: 5px;
+}
+
+.rating {
+  width: 4em;
+  text-align: right;
+  color: white;
+  padding-right: 9px;
+}
+
+</style>
+
+<p>I'm not an archivist; sorry!</p>
+
 <% mp3info(@item).group_by {|t| [t['game'], t['system']]}.sort.each do |key, tracks|
   game = key[0]
   system = key[1]
 %>
-  <tr><td colspan="3"><h3><%= game %> for <%= system %></h3></td></tr>
+  <tr><td colspan="3"><h3><%= game %>&nbsp;<span class="system"> (<%= system %>)</span></h3></td></tr>
+  <table class="tracks">
   <% tracks.sort_by {|t| t['title']}.each do |track| %>
     <tr>
-    <td><a href="<%= File::join(@item[:urlroot], track['filename']) %>"><%= track['title'] %></a></td>
-    <td><%= fmt_length(track['length']) %></td>
-    <td><%= track['rating'] %></td>
+    <% r = track['rating'] %>
+    <td class="rating"><% if not r %><% elsif r == 0 %>&#x2606;<% else %><%= (1..r).map{|i| '&#x2605;'}.join %><% end %></td>
+    <td class="title"><a href="<%= File::join(@item[:urlroot], track['filename']) %>"><%= track['title'] %></a></td>
+    <td class="length"><%= fmt_length(track['length']) %></td>
     </tr>
   <% end %>
+  </table>
 <% end %>
-</table>
