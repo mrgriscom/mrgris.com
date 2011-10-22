@@ -29,6 +29,7 @@ def mp3_metadata(path):
         'game': game,
         'system': system,
         'length': length,
+        'rating': 2,
     }
 
 if __name__ == "__main__":

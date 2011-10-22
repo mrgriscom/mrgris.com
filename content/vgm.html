@@ -19,12 +19,17 @@ system_override:
 ---
 
 <table>
-<% mp3info(@item).sort_by {|t| [t['game'], t['system'], t['title']]}.each do |track| %>
-<tr>
-<td><a href="<%= File::join(@item[:urlroot], track['filename']) %>"><%= track['title'] %></a></td>
-<td><%= track['game'] %></td>
-<td><%= track['system'] %></td>
-<td><%= fmt_length(track['length']) %></td>
-</tr>
+<% mp3info(@item).group_by {|t| [t['game'], t['system']]}.sort.each do |key, tracks|
+  game = key[0]
+  system = key[1]
+%>
+  <tr><td colspan="3"><h3><%= game %> for <%= system %></h3></td></tr>
+  <% tracks.sort_by {|t| t['title']}.each do |track| %>
+    <tr>
+    <td><a href="<%= File::join(@item[:urlroot], track['filename']) %>"><%= track['title'] %></a></td>
+    <td><%= fmt_length(track['length']) %></td>
+    <td><%= track['rating'] %></td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
