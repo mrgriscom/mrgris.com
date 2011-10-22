@@ -2,15 +2,29 @@
 title: VGM
 path: /data/music/vgm
 urlroot: /media_vgm
+system_default: NES
+system_override:
+- tag: ecco
+  system: Sega Genesis
+- tag: sonic
+  system: Sega Genesis
+- tag: batman and robin
+  system: Sega Genesis
+- tag: toejam
+  system: Sega Genesis
+- tag: vector
+  system: Sega Genesis
+- tag: x-men
+  system: Sega Genesis
 ---
 
 <table>
-<% mp3info(@item[:path]).each do |track| %>
+<% mp3info(@item).sort_by {|t| [t['game'], t['system'], t['title']]}.each do |track| %>
 <tr>
 <td><a href="<%= File::join(@item[:urlroot], track['filename']) %>"><%= track['title'] %></a></td>
 <td><%= track['game'] %></td>
 <td><%= track['system'] %></td>
-<td><%= track['length'] %></td>
+<td><%= fmt_length(track['length']) %></td>
 </tr>
 <% end %>
 </table>

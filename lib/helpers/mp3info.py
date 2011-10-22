@@ -3,6 +3,7 @@ import os.path
 import sys
 import json
 from mutagen.mp3 import MP3
+import re
 
 def mp3_metadata(path):
     def _id3(info, key):
@@ -16,11 +17,17 @@ def mp3_metadata(path):
     artist = _id3(info, 'TPE1')
     length = info.info.length
    
+    match = re.match('^(?P<game>.+) \((?P<system>.+)\)$', artist)
+    if match:
+        game, system = match.group('game'), match.group('system')
+    else:
+        game, system = artist, None
+
     return {
         'filename': os.path.split(path)[1],
         'title': title,
-        'game': artist,
-        'system': 'NES',
+        'game': game,
+        'system': system,
         'length': length,
     }
 
