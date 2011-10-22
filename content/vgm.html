@@ -1,0 +1,16 @@
+---
+title: VGM
+path: /data/music/vgm
+urlroot: /media_vgm
+---
+
+<table>
+<% mp3info(@item[:path]).each do |track| %>
+<tr>
+<td><a href="<%= File::join(@item[:urlroot], track['filename']) %>"><%= track['title'] %></a></td>
+<td><%= track['game'] %></td>
+<td><%= track['system'] %></td>
+<td><%= track['length'] %></td>
+</tr>
+<% end %>
+</table>

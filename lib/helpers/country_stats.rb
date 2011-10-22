@@ -47,6 +47,14 @@ module CountryStatsHelper
       @overnight = raw[:overnight] == nil ? true : raw[:overnight]
       @noteworthy = (raw[:noteworthies] or []).map {|n| format_place(n)}
       @comments = (raw[:comments] or []).map {|c| wiki_text(c)}
+
+      alt_link = {
+        'Kenya' => 'http://www.weebls-stuff.com/songs/kenya/',
+        'Poland' => 'http://www.youtube.com/watch?v=mahTGNIk4q4&t=28s',
+      }[@country]
+      if alt_link
+        @_country = '<a href="%s">%s</a>' % [alt_link, @country]
+      end
     end
 
     def format_place(p)
