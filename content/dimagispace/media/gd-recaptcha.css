@@ -1,0 +1,22 @@
+/*
+
+CSS file for Gatt Design reCAPTCHA Form WordPress plugin
+Copyright 2009 Gatt Design  (email : plugins@gattdesign.co.uk)
+
+The CSS provides the styling information for the Gatt Design reCAPTCHA Form WordPress plugin.
+Edit this file only if you are comfortable with editing CSS files!
+
+*/
+
+/* Form Objects */
+input.recaptcha_form_input { width: 200px; }
+fieldset.recaptcha_form_fieldset { border: 0px; margin: 0px; padding: 0px; }
+p.recaptcha_form_p { text-align: left; }
+textarea.recaptcha_form_textarea { width: 350px; }
+
+/* Error/Information Messages */
+p.recaptcha_form_p_error { background-color: white; border: 1px solid black; color: red; font-weight: bold; padding: 10px; }
+p.recaptcha_form_p_info { background-color: white; border: 1px solid black; color: green; font-weight: bold; padding: 10px; }
+
+/* reCAPTCHA Box */
+.recaptcha_form_captcha_box { height: 300px; overflow: hidden; width: 500px; }

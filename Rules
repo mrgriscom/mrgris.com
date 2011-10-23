@@ -19,6 +19,9 @@ end
 compile '/script/*/' do
   # don't filter or layout
 end
+compile '/dimagispace/*' do
+  # don't filter or layout
+end
 
 compile '*' do
   if item.binary?
@@ -33,6 +36,9 @@ route '/style/*/' do
   item.identifier.chop + '.css'
 end
 route '/script/*/' do
+  item.identifier.chop + '.' + item[:extension]
+end
+route '/dimagispace/*/' do
   item.identifier.chop + '.' + item[:extension]
 end
 

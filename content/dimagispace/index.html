@@ -1,0 +1,750 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11">
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Staff Blog «  Dimagi</title>
+
+<link rel="shortcut icon" href="http://www.dimagi.com/favicon3.png" type="image/x-icon">
+<link rel="stylesheet" href="media/style.css" type="text/css" media="screen">
+<link rel="alternate" type="application/rss+xml" title="Dimagi RSS Feed" href="">
+<!-- <link rel="alternate" type="application/atom+xml" title="Dimagi Atom Feed" href="http://www.dimagi.com/feed/atom/" /> -->
+<!-- <link rel="pingback" href="http://www.dimagi.com/wp/xmlrpc.php" /> -->
+
+<!-- jquery.  TODO: can we get this straight from our own server? -->
+<script src="media/jquery_005.js"></script>
+ 
+<!-- Dynamic Menu Script --> 
+<script type="text/javascript"> 
+      jQuery(document).ready(function() { 
+      jQuery("#dropmenu ul").css({display: "none"}); // Opera Fix 
+      jQuery("#dropmenu li").hover(function(){ 
+              jQuery(this).find('ul:first').css({visibility: "visible",display: "none"}).slideDown(100); 
+              },function(){ 
+              jQuery(this).find('ul:first').css({visibility: "hidden"}); 
+              }); 
+      }); 
+</script>
+
+<!-- Begin Infinite Carousel script -->
+<script type="text/javascript">
+$.fn.infiniteCarousel = function () {
+
+    function repeat(str, num) {
+        return new Array( num ).join( str );
+    }
+  
+    return this.each(function () {
+        var $wrapper = $('> div', this).css('overflow', 'hidden'),
+            $slider = $wrapper.find('> ul'),
+            $items = $slider.find('> li'),
+            $single = $items.filter(':first'),
+            
+            singleWidth = $single.outerWidth(), 
+            visible = Math.ceil($wrapper.innerWidth() / singleWidth), // note: doesn't include padding or border
+            advanceCount = 1, // how many items to advance each time
+            currentPage = visible,
+            pages = Math.ceil($items.length / advanceCount );
+
+
+        // 1. Pad so that 'visible' number will always be seen, otherwise create empty items
+        if (($items.length % visible) != 0) {
+            $slider.append(repeat('<li class="empty" />', visible - ($items.length % visible)));
+            $items = $slider.find('> li');
+        }
+
+        // 2. Top and tail the list with 'visible' number of items, top has the last section, and tail has the first
+        $items.filter(':first').before($items.slice(- visible).clone().addClass('cloned'));
+        $items.filter(':last').after($items.slice(0, visible).clone().addClass('cloned'));
+        $items = $slider.find('> li'); // reselect
+        
+        // 3. Set the left position to the first 'real' item
+        $wrapper.scrollLeft(singleWidth * visible);
+        
+        // 4. paging function
+        function gotoPage(page) {
+            var dir = page < currentPage ? -1 : 1,
+                n = Math.abs(currentPage - page),
+                left = singleWidth * dir * advanceCount * n;
+            
+            $wrapper.filter(':not(:animated)').animate({
+                scrollLeft : '+=' + left
+            }, 500, function () {
+                if (page == 0) {
+                    $wrapper.scrollLeft(singleWidth * advanceCount * pages);
+                    page = pages;
+                } else if (page > pages) {
+                    $wrapper.scrollLeft(singleWidth * advanceCount);
+                    // reset back to start position
+                    page = 1;
+                } 
+
+                currentPage = page;
+            });                
+            
+            return false;
+        }
+        
+        $wrapper.after('<a class="arrow back"><span class="button"></span></a><a class="arrow forward"><span class="button"></span></a>');
+        
+        // 5. Bind to the forward and back buttons
+        $('a.back', this).click(function () {
+            return gotoPage(currentPage - 1);                
+        });
+        
+        $('a.forward', this).click(function () {
+            return gotoPage(currentPage + 1);
+        });
+        
+        // create a public interface to move to a specific page
+        $(this).bind('goto', function (event, page) {
+            gotoPage(page);
+        });
+    });  
+};
+
+$(document).ready(function () {
+  $('.infiniteCarousel').infiniteCarousel();
+});
+
+</script>
+
+<!-- End Infinite Carousel script -->
+
+
+<!-- Begin banner switcher script -->
+<script>
+function hide_banner(bannerId){
+document.getElementById(bannerId).style.visibility="hidden";
+document.getElementById("default").style.visibility="visible";
+}
+function show_banner(bannerId){
+document.getElementById(bannerId).style.visibility="visible";
+document.getElementById("default").style.visibility="hidden";
+}
+</script>
+<!-- End banner switcher script -->
+
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Dimagi » Staff Blog Category Feed" href="http://www.dimagi.com/category/blog/feed/">
+<link rel="stylesheet" id="colorbox-theme1-css" href="media/colorbox_002.css" type="text/css" media="screen">
+<link rel="stylesheet" id="contact-form-7-css" href="media/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="lightboxStyle-css" href="media/colorbox.css" type="text/css" media="screen">
+<script type="text/javascript" src="media/jquery.js"></script>
+<script type="text/javascript" src="media/jquery_002.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.dimagi.com/wp/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.dimagi.com/wp/wp-includes/wlwmanifest.xml"> 
+<link rel="index" title="Dimagi" href="http://www.dimagi.com/">
+<meta name="generator" content="WordPress 3.0.5">
+<script type="text/javascript">
+//<![CDATA[
+var _wpcf7 = { cached: 1 };
+//]]>
+</script>
+<link rel="stylesheet" type="text/css" media="screen, print" href="media/gd-recaptcha.css">
+<link rel="stylesheet" type="text/css" href="media/recaptcha.css"><!-- jQuery Lightbox For Native Galleries v3.1.3 | http://www.viper007bond.com/wordpress-plugins/jquery-lightbox-for-native-galleries/ -->
+<script type="text/javascript">
+// <![CDATA[
+	jQuery(document).ready(function($){
+		$(".gallery").each(function(index, obj){
+			var galleryid = Math.floor(Math.random()*10000);
+			$(obj).find("a").colorbox({rel:galleryid, maxWidth:"95%", maxHeight:"95%"});
+		});
+		$("a.lightbox").colorbox({maxWidth:"95%", maxHeight:"95%"});
+	});
+// ]]>
+</script>
+
+<style>
+.avatar {
+  float: left;
+  margin-right: 40px;
+  margin-bottom: 7px;
+}
+</style>
+
+</head><body><div style="display: none;" id="cboxOverlay"></div><div style="padding-bottom: 50px; padding-right: 50px; display: none;" class="" id="colorbox"><div id="cboxWrapper"><div><div style="float: left;" id="cboxTopLeft"></div><div style="float: left;" id="cboxTopCenter"></div><div style="float: left;" id="cboxTopRight"></div></div><div><div style="float: left;" id="cboxMiddleLeft"></div><div style="float: left;" id="cboxContent"><div class="" id="cboxLoadedContent" style="width: 0pt; height: 0pt;"></div><div class="" id="cboxLoadingOverlay"></div><div class="" id="cboxLoadingGraphic"></div><div class="" id="cboxTitle"></div><div class="" id="cboxCurrent"></div><div class="" id="cboxNext"></div><div class="" id="cboxPrevious"></div><div class="" id="cboxSlideshow"></div><div class="" id="cboxClose"></div></div><div style="float: left;" id="cboxMiddleRight"></div></div><div><div style="float: left;" id="cboxBottomLeft"></div><div style="float: left;" id="cboxBottomCenter"></div><div style="float: left;" id="cboxBottomRight"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div><div style="display: none;" id="cboxOverlay"></div><div style="padding-bottom: 50px; padding-right: 50px; display: none;" class="" id="colorbox"><div id="cboxWrapper"><div><div style="float: left;" id="cboxTopLeft"></div><div style="float: left;" id="cboxTopCenter"></div><div style="float: left;" id="cboxTopRight"></div></div><div><div style="float: left;" id="cboxMiddleLeft"></div><div style="float: left;" id="cboxContent"><div class="" id="cboxLoadedContent" style="width: 0pt; height: 0pt;"></div><div class="" id="cboxLoadingOverlay"></div><div class="" id="cboxLoadingGraphic"></div><div class="" id="cboxTitle"></div><div class="" id="cboxCurrent"></div><div class="" id="cboxNext"></div><div class="" id="cboxPrevious"></div><div class="" id="cboxSlideshow"></div><div class="" id="cboxClose"></div></div><div style="float: left;" id="cboxMiddleRight"></div></div><div><div style="float: left;" id="cboxBottomLeft"></div><div style="float: left;" id="cboxBottomCenter"></div><div style="float: left;" id="cboxBottomRight"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div>
+<div id="page">
+<div id="wrapper">
+
+<div id="header">
+	<div id="search-bar"><form method="get" id="searchform" action="http://www.dimagi.com/">
+<!-- <label class="hidden" for="s">Search for:</label> -->
+<input name="s" id="s" type="text">
+<input id="searchsubmit" value="" type="submit">
+</form></div>
+  <div id="logo">
+    <a href="http://www.dimagi.com/"><img src="media/dimagi-logo-150x70.png"></a>
+  </div><!-- logo -->
+  <!--
+  <div id="search">
+      
+  </div>
+  -->
+  
+  
+  <ul id="dropmenu">
+    <li class="left">
+      <a href="http://www.dimagi.com/technologies/">Technologies</a>
+            <ul style="display: none;">
+                <li><a href="http://www.dimagi.com/commcare/">CommCare</a></li>
+                <li><a href="http://www.dimagi.com/javarosa/">JavaRosa</a></li>
+                <li><a href="http://www.dimagi.com/rapidsms/">RapidSMS</a></li>
+                <li><a href="http://www.dimagi.com/rapidandroid/">RapidAndroid</a></li>
+                <li><a href="http://www.dimagi.com/open-data-kit/">Open Data Kit</a></li>
+                <li><a href="http://www.dimagi.com/carehq/">CareHQ</a></li>
+              </ul>
+    </li>
+    <li class="left">
+      <a href="http://www.dimagi.com/services/">Services</a>
+            <ul style="display: none;">
+                <li><a href="http://www.dimagi.com/software-development/">Software Development</a></li>
+                <li><a href="http://www.dimagi.com/technology-strategy/">Technology Strategy</a></li>
+                <li><a href="http://www.dimagi.com/health/">Health</a></li>
+                <li><a href="http://www.dimagi.com/education/">Education</a></li>
+                <li><a href="http://www.dimagi.com/training/">Training</a></li>
+              </ul>
+    </li>
+    <li class="left">
+      <a href="http://www.dimagi.com/sectors/">Sectors</a>
+            <ul style="display: none;">
+                <li><a href="http://www.dimagi.com/mobile-health/">Mobile Health</a></li>
+                <li><a href="http://www.dimagi.com/care-coordination/">Care Coordination</a></li>
+                <li><a href="http://www.dimagi.com/mobile-data-collection/">Mobile Data Collection</a></li>
+                <li><a href="http://www.dimagi.com/sms/">SMS</a></li>
+              </ul>
+    </li>
+    <li class="left">
+      <a href="http://www.dimagi.com/collaborate/contact-us/">Collaborate</a>
+      <ul style="display: none;">
+        <li class="page_item page-item-1014"><a href="http://www.dimagi.com/collaborate/contact-us/" title="Contact Us">Contact Us</a></li>
+<li class="page_item page-item-1010"><a href="http://www.dimagi.com/collaborate/coded-in-country/" title="Coded in Country">Coded in Country</a></li>
+<li class="page_item page-item-1012"><a href="http://www.dimagi.com/collaborate/community-support/" title="Community Support">Community Support</a></li>
+<li class="page_item page-item-1008"><a href="http://www.dimagi.com/collaborate/openrosa/" title="OpenROSA">OpenROSA</a></li>
+      </ul>
+    </li>
+    <li class="left">
+      <a href="http://www.dimagi.com/about/">About Us</a>
+      <ul style="display: none;">
+        <li class="page_item page-item-610"><a href="http://www.dimagi.com/about/careers/" title="Careers">Careers</a></li>
+<li class="page_item page-item-606"><a href="http://www.dimagi.com/about/clients/" title="Clients">Clients</a></li>
+<li class="page_item page-item-612"><a href="http://www.dimagi.com/about/publications/" title="Publications">Publications</a></li>
+<li class="page_item page-item-604"><a href="http://www.dimagi.com/about/team/" title="Team">Team</a></li>
+      </ul>
+    </li>
+  </ul><!-- dropmenu -->
+</div><!-- header -->
+
+	<div id="content" class="narrowcolumn">
+
+				<div id="banner">
+
+<img src="media/ensemble.gif" alt="" title="" class="alignleft size-medium" height="220" width="400">
+				
+								  <h2>Staff Blog</h2>
+				  <p>Our partners, field work, technology, and everything else.</p>
+				
+				</div>
+				
+		
+				
+		<div class="post" id="post-2183">
+				
+		<div class="main">
+		
+			<div class="entry">
+
+				<h2><a href="http://www.dimagi.com/dimagi-fellow-featured-from-india/">Dimagi Fellow featured from India</a></h2>
+
+        <img src="http://whereis.dimagi.com/static/img/avatar/sized/200/jsitter.jpg" class="avatar">
+				<p class="post-meta">by Justin Sitter on January 12, 2011</p>
+
+				<p><img src="media/treatman-india-300x225.jpg" alt="" title="treatman-india" class="alignleft size-medium wp-image-2189" height="225" width="300">Dimagi fellow Derek Treatman was featured in <a href="http://www.dimagi.com/wp/wp-content/uploads/2011/01/PDF-Edition-Page-1-sur-21-Meurthe-et-Moselle-Nord-du-03-01-2011.pdf">a French article</a> (193KB PDF download) about his work and travels in India related to the Dimagi CommCare-ASHA work.<br>
+<br clear="all"></p>
+
+				
+			</div> <!-- entry -->
+		</div> <!-- main -->
+		
+		
+
+	<div id="sidebar">
+
+
+
+
+
+
+
+
+
+
+
+<div class="extra-content-block">
+<h3>Feeds</h3>
+<ul>
+<li><a href="http://www.dimagi.com/category/blog/news/feed">News Feed</a></li>
+<li><a href="http://www.dimagi.com/category/blog/feed">Full Blog Feed</a></li>
+</ul>
+</div>
+
+<div class="extra-content-block">
+<h3>Categories</h3>
+<ul>
+	<li class="cat-item cat-item-40"><a href="http://www.dimagi.com/category/blog/conferences/" title="View all posts filed under Conferences">Conferences</a>
+</li>
+	<li class="cat-item cat-item-41"><a href="http://www.dimagi.com/category/blog/current-events/" title="View all posts filed under Current Events">Current Events</a>
+</li>
+	<li class="cat-item cat-item-42"><a href="http://www.dimagi.com/category/blog/development/" title="View all posts filed under Development">Development</a>
+</li>
+	<li class="cat-item cat-item-43"><a href="http://www.dimagi.com/category/blog/dimagi/" title="View all posts filed under Dimagi">Dimagi</a>
+</li>
+	<li class="cat-item cat-item-44"><a href="http://www.dimagi.com/category/blog/events/" title="View all posts filed under Events">Events</a>
+</li>
+	<li class="cat-item cat-item-45"><a href="http://www.dimagi.com/category/blog/healthcare/" title="View all posts filed under Healthcare">Healthcare</a>
+</li>
+	<li class="cat-item cat-item-46"><a href="http://www.dimagi.com/category/blog/news/" title="View all posts filed under News">News</a>
+</li>
+	<li class="cat-item cat-item-47"><a href="http://www.dimagi.com/category/blog/offtopic/" title="View all posts filed under Offtopic">Offtopic</a>
+</li>
+	<li class="cat-item cat-item-48"><a href="http://www.dimagi.com/category/blog/programming/" title="View all posts filed under Programming">Programming</a>
+</li>
+	<li class="cat-item cat-item-49"><a href="http://www.dimagi.com/category/blog/project-management/" title="View all posts filed under Project Management">Project Management</a>
+</li>
+	<li class="cat-item cat-item-50"><a href="http://www.dimagi.com/category/blog/technology/" title="View all posts filed under Technology">Technology</a>
+</li>
+	<li class="cat-item cat-item-52"><a href="http://www.dimagi.com/category/blog/uncategorized-blog/" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://www.dimagi.com/category/blog/workshop/" title="View all posts filed under Workshop">Workshop</a>
+</li>
+</ul>
+</div>
+
+<div class="extra-content-block" style="display: none;">
+<h3>Archives</h3>
+<ul>
+	<li><a href="http://www.dimagi.com/2011/01/" title="January 2011">January 2011</a></li>
+	<li><a href="http://www.dimagi.com/2010/12/" title="December 2010">December 2010</a></li>
+	<li><a href="http://www.dimagi.com/2010/10/" title="October 2010">October 2010</a></li>
+	<li><a href="http://www.dimagi.com/2010/09/" title="September 2010">September 2010</a></li>
+	<li><a href="http://www.dimagi.com/2010/08/" title="August 2010">August 2010</a></li>
+	<li><a href="http://www.dimagi.com/2010/07/" title="July 2010">July 2010</a></li>
+	<li><a href="http://www.dimagi.com/2010/06/" title="June 2010">June 2010</a></li>
+	<li><a href="http://www.dimagi.com/2010/05/" title="May 2010">May 2010</a></li>
+	<li><a href="http://www.dimagi.com/2010/04/" title="April 2010">April 2010</a></li>
+	<li><a href="http://www.dimagi.com/2010/03/" title="March 2010">March 2010</a></li>
+	<li><a href="http://www.dimagi.com/2010/02/" title="February 2010">February 2010</a></li>
+	<li><a href="http://www.dimagi.com/2010/01/" title="January 2010">January 2010</a></li>
+	<li><a href="http://www.dimagi.com/2009/12/" title="December 2009">December 2009</a></li>
+	<li><a href="http://www.dimagi.com/2009/11/" title="November 2009">November 2009</a></li>
+	<li><a href="http://www.dimagi.com/2009/10/" title="October 2009">October 2009</a></li>
+	<li><a href="http://www.dimagi.com/2009/09/" title="September 2009">September 2009</a></li>
+	<li><a href="http://www.dimagi.com/2009/08/" title="August 2009">August 2009</a></li>
+	<li><a href="http://www.dimagi.com/2009/07/" title="July 2009">July 2009</a></li>
+	<li><a href="http://www.dimagi.com/2009/06/" title="June 2009">June 2009</a></li>
+	<li><a href="http://www.dimagi.com/2009/05/" title="May 2009">May 2009</a></li>
+	<li><a href="http://www.dimagi.com/2009/04/" title="April 2009">April 2009</a></li>
+	<li><a href="http://www.dimagi.com/2009/03/" title="March 2009">March 2009</a></li>
+	<li><a href="http://www.dimagi.com/2009/02/" title="February 2009">February 2009</a></li>
+	<li><a href="http://www.dimagi.com/2008/12/" title="December 2008">December 2008</a></li>
+	<li><a href="http://www.dimagi.com/2008/11/" title="November 2008">November 2008</a></li>
+	<li><a href="http://www.dimagi.com/2008/10/" title="October 2008">October 2008</a></li>
+	<li><a href="http://www.dimagi.com/2008/09/" title="September 2008">September 2008</a></li>
+	<li><a href="http://www.dimagi.com/2008/08/" title="August 2008">August 2008</a></li>
+	<li><a href="http://www.dimagi.com/2008/06/" title="June 2008">June 2008</a></li>
+	<li><a href="http://www.dimagi.com/2007/12/" title="December 2007">December 2007</a></li>
+	<li><a href="http://www.dimagi.com/2007/10/" title="October 2007">October 2007</a></li>
+	<li><a href="http://www.dimagi.com/2007/09/" title="September 2007">September 2007</a></li>
+	<li><a href="http://www.dimagi.com/2007/08/" title="August 2007">August 2007</a></li>
+	<li><a href="http://www.dimagi.com/2007/06/" title="June 2007">June 2007</a></li>
+	<li><a href="http://www.dimagi.com/2007/05/" title="May 2007">May 2007</a></li>
+	<li><a href="http://www.dimagi.com/2006/11/" title="November 2006">November 2006</a></li>
+	<li><a href="http://www.dimagi.com/2006/09/" title="September 2006">September 2006</a></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+	</div><!-- sidebar -->
+
+		
+		</div> <!-- post -->
+		
+				
+		<div class="post" id="post-2168">
+				
+		<div class="main">
+		
+			<div class="entry">
+
+				<h2><a href="http://www.dimagi.com/world-aids-day-in-dodoma/">World AIDS Day in Dodoma</a></h2>
+
+        <img src="media/the_sagness.jpg" class="avatar">
+				<p class="post-meta">by asagoff on December 13, 2010</p>
+
+				<p>As an American company, Dimagi has access to resources and 
+technical expertise that can help effect change.  However, we aren’t the
+ real change-makers; our goal is to empower people to make their own 
+change.  I was lucky enough to see this in action on World AIDS Day in 
+Dodoma.</p>
+<p>Since February, Dimagi and its partners, ITIDO and the University of 
+Washington, have been working with a growing group of Community Health 
+Volunteers (CHVs) in Dodoma, Tanzania.  These women live in the 
+communities they serve, and their only required skill is literacy.  We 
+arm them with Nokia phones, applications developed on Dimagi’s CommCare 
+platform, and some basic training.  Every month they pay a visit to each
+ of the 100 households in their area, using CommCare applications to 
+collect data&nbsp;and dispense education.  In return, we give them 5,000
+ Tanzanian Shillings (or $3.41) per week, which doesn’t go very far even
+ in Tanzania.</p>
+<p>Given this little bit of investment, these women quickly started to 
+realize their potential.  On August 2nd, they formed their own 
+association, Miyuji Ipagala Chamwino (MIC), named for the three regions 
+they serve.  MIC, now a registered Tanzanian association, has a strong 
+organizational structure and highly motivated sub-committees.  Members 
+give 1/5 of their weekly earnings to the MIC treasurer, who puts it in 
+the association’s bank account.  They use this account to give each 
+other small loans; many women have started their&nbsp;own small 
+businesses this way.  The development committee is now looking into 
+starting a MIC business.</p>
+<p>December 1 was World AIDS Day.  None of the CommCare applications in 
+Dodoma are specific to AIDS, though it’s clearly an issue that affects 
+the CHVs and their communities.   MIC took this opportunity to head up 
+its own project.  After some debate, members voted to use MIC funds to 
+buy some small gifts, which they planned to give out during a visit to 
+the Dodoma hospital.</p>
+<p>But they didn’t stop there.  They organized regional government 
+officials, a representative from the Red Cross Chamwino office, and a 
+reporter from the Tanzania Broadcasting Company (TBC) to join the event.
+  The head official from Miyuji, who also happens to be a UNICEF 
+regional coordinator, was so&nbsp;impressed with the CHVs that he 
+pledged transportation to take them to the hospital, as well as 100 
+blankets to give out as gifts.  Everyone wanted to be part of the event.</p>
+<p>At the hospital, the CHVs talked with patients and gave out the 
+gifts.  The TBC reporter interviewed patients, the head of the hospital,
+ and local politicians alongside representatives from MIC.  It was a 
+publicity bonanza, raising awareness for World AIDS Day and increasing 
+the CHVs credibility in the community.  These women proved to their 
+community, to Dimagi, and to&nbsp;themselves that they are 
+change-makers.</p>
+<p>The weekly CHV meeting opens with a prayer.  It’s usually about the 
+same every time, but a couple months ago, the MIC Chair, Salma, did 
+something different.  She got down on her knees and thanked God for her 
+work.  Before,&nbsp;she said, she was a typical Tanzanian woman, a 
+housewife.  She earned no respect from her community or her husband.  
+Now, she has her own phone that she uses to do important work.  People 
+in her community know and respect her, and her husband sees she has 
+value.  She sees she has value.  This was a blessing she never expected.</p>
+
+		<style type="text/css">
+			#gallery-1 {
+				margin: auto;
+			}
+			#gallery-1 .gallery-item {
+				float: left;
+				margin-top: 10px;
+				text-align: center;
+				width: 33%;			}
+			#gallery-1 img {
+				border: 2px solid #cfcfcf;
+			}
+			#gallery-1 .gallery-caption {
+				margin-left: 0;
+			}
+		</style>
+		<!-- see gallery_shortcode() in wp-includes/media.php -->
+		<div id="gallery-1" class="gallery galleryid-2168"><dl class="gallery-item">
+			<dt class="gallery-icon">
+				<a class="cboxElement" href="http://www.dimagi.com/wp/wp-content/uploads/2010/12/dodoma-067.jpg" title="dodoma 067"><img src="media/dodoma-067-100x100.jpg" class="attachment-thumbnail" alt="dodoma 067" title="dodoma 067" height="100" width="100"></a>
+			</dt></dl><dl class="gallery-item">
+			<dt class="gallery-icon">
+				<a class="cboxElement" href="http://www.dimagi.com/wp/wp-content/uploads/2010/12/dodoma-074.jpg" title="dodoma 074"><img src="media/dodoma-074-100x100.jpg" class="attachment-thumbnail" alt="dodoma 074" title="dodoma 074" height="100" width="100"></a>
+			</dt></dl><dl class="gallery-item">
+			<dt class="gallery-icon">
+				<a class="cboxElement" href="http://www.dimagi.com/wp/wp-content/uploads/2010/12/dodoma-093.jpg" title="dodoma 093"><img src="media/dodoma-093-100x100.jpg" class="attachment-thumbnail" alt="dodoma 093" title="dodoma 093" height="100" width="100"></a>
+			</dt></dl><br style="clear: both;"><dl class="gallery-item">
+			<dt class="gallery-icon">
+				<a class="cboxElement" href="http://www.dimagi.com/wp/wp-content/uploads/2010/12/dodoma-096.jpg" title="dodoma 096"><img src="media/dodoma-096-100x100.jpg" class="attachment-thumbnail" alt="dodoma 096" title="dodoma 096" height="100" width="100"></a>
+			</dt></dl>
+			<br style="clear: both;">
+		</div>
+
+
+				
+			</div> <!-- entry -->
+		</div> <!-- main -->
+		
+				
+		</div> <!-- post -->
+		
+				
+		<div class="post" id="post-2107">
+				
+		<div class="main">
+		
+			<div class="entry">
+
+				<h2><a href="http://www.dimagi.com/bhoma-project-featured-on-couchone-com/">BHOMA project featured on couchone.com</a></h2>
+
+        <img src="http://whereis.dimagi.com/static/img/avatar/sized/200/czue.jpg" class="avatar">
+				<p class="post-meta">by Cory Zue on October 26, 2010</p>
+
+				<p>Dimagi’s <a href="http://www.dimagi.com/bhoma/" target="_blank">BHOMA project</a>
+ was featured as a case study on couchone today. &nbsp;In it, we discuss
+ how a technology called CouchDB was used to build the BHOMA system.  
+You can read the full text of the case study below or on couchone’s page
+ at <a href="http://www.couchone.com/case-study-dimagi" target="_self">http://www.couchone.com/case-study-dimagi</a>.</p>
+<p>–</p>
+<p><strong>Dimagi: A Case Study</strong></p>
+<p>BHOMA (Better Health Outcomes through Mentoring and Assessments) is a
+ large research project tasked with improving maternal and child 
+mortality rates in rural Zambia through standardized interventions in 
+clinic care and community health. This requires building a distributed 
+health data capture system, designed and implemented by Dimagi and 
+CIDRZ. This initiative faces many of the same technology challenges 
+encountered in low-resource Africa: limited computer resources, 
+intermittent power, and above all, extremely unreliable internet.</p>
+<p>Dimagi needed to leverage the most common modern communications 
+device in many rural communities – the cell phone. But they faced a 
+major hurdle: How to get important and timely patient information from 
+clinics (with no reliable internet connection), to health workers in 
+small communities so they could follow-up with patients in their area. 
+Further, they had to solve how to get information collected on cell 
+phones back to the clinics to monitor patient outcomes.</p>
+<p><strong>Solution</strong></p>
+<p>Dimagi became interested in CouchDB after learning about its 
+replication technology. They needed a fully off-line system for each of 
+their clinics, because the only network connection any of them had was 
+an unreliable GPRS modem on the local cellular network. Network outages 
+and latency could not be allowed to disrupt clinic operations.</p>
+<p>By standing up a lightweight server at each clinic, backed by a 
+CouchDB datastore, BHOMA was able to ensure constant uptime in the 
+clinics – providing power was up. Each clinic replicates over the 
+modem’s connection to their national CouchDB database. Because of 
+CouchDB’s continuous replication and optimized synchronization, Dimagi 
+didn’t have to worry about writing complicated sync protocols. Filtered 
+replication allowed them to send only the appropriate data to each 
+clinic, drastically reducing the bandwidth required to sync with the 
+central server. The two-way replication also allowed for data collected 
+on CHWs’ cell phones to propagate back to the clinic, for timely patient
+ updates.</p>
+<p><strong>Results</strong></p>
+<p>Dimagi became interested in CouchDB after learning about its 
+replication technology. They needed a fully off-line system for each of 
+their clinics, because the only network connection any of them had was 
+an unreliable GPRS modem on the local cellular network. Network outages 
+and latency could not be allowed to disrupt clinic operations.</p>
+<p>By standing up a lightweight server at each clinic, backed by a 
+CouchDB datastore, BHOMA was able to ensure constant uptime in the 
+clinics – providing power was up. Each clinic replicates over the 
+modem’s connection to their national CouchDB database. Because of 
+CouchDB’s continuous replication and optimized synchronization, Dimagi 
+didn’t have to worry about writing complicated sync protocols. Filtered 
+replication allowed them to send only the appropriate data to each 
+clinic, drastically reducing the bandwidth required to sync with the 
+central server. The two-way replication also allowed for data collected 
+on CHWs’ cell phones to propagate back to the clinic, for timely patient
+ updates.</p>
+
+				
+			</div> <!-- entry -->
+		</div> <!-- main -->
+		
+				
+		</div> <!-- post -->
+		
+				
+		<div class="post" id="post-2088">
+				
+		<div class="main">
+		
+			<div class="entry">
+
+				<h2><a href="http://www.dimagi.com/dimagi-awarded-development-innovation-venture-grant-from-usaid/">Dimagi awarded Development Innovation Venture grant from USAID</a></h2>
+
+        <img src="http://whereis.dimagi.com/static/img/avatar/sized/200/jjackson-baller.jpg" class="avatar">
+				<p class="post-meta">by Jonathan Jackson on October 10, 2010</p>
+
+				<p>Dimagi was awarded one of eight development innovation ventures 
+grants from USAID.  The project will support our continued effort to 
+adapt our <a href="http://www.dimagi.com/commcare">CommCare </a> 
+platform for wide-scale use within the Accredited Social Health Activist
+ (ASHA) program in India.  More information about enrolling on our 
+advisory committee or becoming a beta testing will be released shortly.</p>
+<p><a href="http://www.usaid.gov/press/releases/2010/pr101008.html">Press Release from USAID.</a></p>
+<p><a href="http://www.america.gov/st/develop-english/2010/November/20101109143606kram0.1851618.html">Article on american.gov about Dimagi and the DIV program</a></p>
+
+				
+			</div> <!-- entry -->
+		</div> <!-- main -->
+		
+				
+		</div> <!-- post -->
+		
+				
+		<div class="post" id="post-2205">
+				
+		<div class="main">
+		
+			<div class="entry">
+
+				<h2><a href="http://www.dimagi.com/dirty-guinea-pigs-and-spiders-brains-teaching-computers-in-rural-africa/">Dirty Guinea Pigs and Spider’s Brains: Teaching Computers in Rural Africa</a></h2>
+
+        <img src="media/theism.png" class="avatar">
+				<p class="post-meta">by Matt on September 13, 2010</p>
+
+				<p><a href="http://www.dimagi.com/dirty-guinea-pigs-and-spiders-brains-teaching-computers-in-rural-africa/training_kafue_ts-jpg-scaled-1000/" rel="attachment wp-att-2206"><img src="media/Training_Kafue_TS.jpg" alt="" title="Training_Kafue_TS.jpg.scaled.1000" class="alignleft size-medium wp-image-2206" height="225" width="300"></a></p>
+<p>Ten blank, staring faces answered my question for me, ‘Who has ever used a computer before?’</p>
+<p>It took some thought, a bit of trial and error, some creativity, and 
+lots of patience during my first week of trainings in Zambia.</p>
+<p>We are installing a data entry system using touch screen computers in
+ rural Zambian clinics.  The touch screen is connected to a server that 
+uses the local cell network to communicate with a central server in the 
+capital, relaying messages back and forth between clinics and the cell 
+phones of Community Health Workers (CHWs) – members of the community 
+trained in basic first aid and health care, who walk or bike between 
+villages referring the sick to the clinic and following up with patients
+ sent home from the clinic to find out whether or not they got better.  
+The week encompassed training both the clinic workers on entering paper 
+forms into a touch screen computer, and teaching CHWs how to use their 
+phone to electronically record referrals and follow ups.</p>
+<p>Many of those attending the trainings traveled incredible distances –
+ biking up to 25km one way from home – getting up at 4am to be somewhere
+ by 7:30am – hoping to get a meal or some sort of sustenance at the 
+training session.  Early morning energy and enthusiasm quickly faded mid
+ afternoon as people started thinking about the journey home and their 
+stomachs began to grumble.  This left a short window within which to 
+train.  I discovered that a large chunk of the window on the first day 
+needed to be dedicated to introductions, games, ice breakers, or 
+anything that gets people involved, willing to ask questions, or happy 
+to share their thoughts.  Used to rote learning, I was not going to 
+teach a class of parrots: “Repeat after me…” Breaking this habit, if for
+ only one or two days, was challenging, to say the least.</p>
+<p>I thought it would help speaking the national language – English.  My
+ opaquely thick American accent, however, often drew blank looks until 
+my words were translated from American English to Zambian English – or 
+Nyanja – or Bemba – or Tonga depending on the trainees origins.  I found
+ that I needed to get creative.</p>
+<p>To illustrate the term guinea pig, I created the analogy of an 
+extremely dirty local rodent, and testing a new soap.  If the soap 
+cleaned the rodent, it worked.  If the rodent remained dirty, the soap 
+was a failure. Seeing those ‘aha’ moments makes it completely worth it –
+ and hopefully I didn’t unintentionally give the impression animal 
+testing isn’t overly abundant back home…</p>
+<p>I explained a computer network as a spider’s web, with the spider 
+knowing where each of 10 flies on the web were located and whether they 
+were ready to be eaten or not.  This was our central server 
+communicating via the ‘web’ to each of the clinics.</p>
+<p>I used the age old ice breaker of spelling your name with your hips.</p>
+<p>All in all – I think everyone left the training sessions enriched, 
+myself included.  There is now a growing cadre of tech savvy Zambians, 
+at first afraid to touch a touch screen computer. Hopefully they learned
+ something valuable, both in terms of using technology to make their 
+jobs easier, and how to use it to improve health outcomes in rural 
+Zambia.</p>
+
+				
+			</div> <!-- entry -->
+		</div> <!-- main -->
+		
+				
+		</div> <!-- post -->
+
+	<p class="nav-links"><span class="nav-next"><a href="http://www.dimagi.com/category/blog/page/2/">← Older Posts</a></span><span class="nav-previous"></span></p>
+
+<object style="float: right;" type="application/x-shockwave-flash" width="250" height="15"
+data="media/xspf_player_slim.swf?playlist_url=media/play.xspf&autoplay=1">
+<param name="movie" value="media/xspf_player_slim.swf?playlist_url=media/play.xspf&autoplay=1" />
+</object>
+		
+	</div> <!-- content -->
+	
+
+</div><!-- wrapper -->
+<div id="footer-wrapper">
+<div id="footer">
+
+<ul>
+<li class="heading"><h6><a href="http://www.dimagi.com/technologies/">Technologies</a></h6></li>
+<li><a href="http://www.dimagi.com/commcare/">CommCare</a></li>
+<li><a href="http://www.dimagi.com/javarosa/">JavaRosa</a></li>
+<li><a href="http://www.dimagi.com/rapidsms/">RapidSMS</a></li>
+<li><a href="http://www.dimagi.com/rapidandroid/">RapidAndroid</a></li>
+<li><a href="http://www.dimagi.com/open-data-kit/">Open Data Kit</a></li>
+<li><a href="http://www.dimagi.com/carehq/">CareHQ</a></li>
+</ul>
+
+<ul>
+<li class="heading"><h6><a href="http://www.dimagi.com/services/">Services</a></h6></li>
+<li><a href="http://www.dimagi.com/software-development/">Software Development</a></li>
+<li><a href="http://www.dimagi.com/technology-strategy/">Technology Strategy</a></li>
+<li><a href="http://www.dimagi.com/health/">Health</a></li>
+<li><a href="http://www.dimagi.com/education/">Education</a></li>
+<li><a href="http://www.dimagi.com/training/">Training</a></li>
+</ul>
+
+<ul>
+<li class="heading"><h6><a href="http://www.dimagi.com/sectors/">Sectors</a></h6></li>
+<li><a href="http://www.dimagi.com/mobile-health/">Mobile Health</a></li>
+<li><a href="http://www.dimagi.com/care-coordination/">Care Coordination</a></li>
+<li><a href="http://www.dimagi.com/mobile-data-collection/">Mobile Data Collection</a></li>
+<li><a href="http://www.dimagi.com/sms/">SMS</a></li>
+</ul>
+
+<ul id="projects">
+<li class="heading"><h6><a href="http://www.dimagi.com/case-studies/">Case Studies</a></h6></li>
+<li><a href="http://www.dimagi.com/bhoma/">BHOMA</a></li>
+<li><a href="http://www.dimagi.com/blackberry-dictations/">BlackBerry Dictations</a></li>
+<li><a href="http://www.dimagi.com/commcare-afghanistan/">CommCare Afghanistan</a></li>
+<li><a href="http://www.dimagi.com/cervical-cancer-screening/">Cervical Cancer Screening</a></li>
+<li><a href="http://www.dimagi.com/tostan/">Tostan Senegal</a></li>
+<li><a href="http://www.dimagi.com/ivr-mobile-education/">IVR Mobile Education</a></li>
+<li><a href="http://www.dimagi.com/aremind/">ARemind</a></li>
+<li><a href="http://www.dimagi.com/mobile-e-imci/">Mobile E-IMCI</a></li>
+<li><a href="http://www.dimagi.com/smartcare/">SmartCare</a></li>
+<li><a href="http://www.dimagi.com/carehq/">CareHQ</a></li>
+<li><a href="http://www.dimagi.com/commcare-bangladesh/">CommCare Bangladesh</a></li>
+<li><a href="http://www.dimagi.com/commcare-tanzania/">CommCare Tanzania</a></li>
+<li><a href="http://www.dimagi.com/shared-records/">Shared Records</a></li>
+<li><a href="http://www.dimagi.com/hiv-support/">HIV Mobile Decision Support</a></li>
+</ul>
+
+<div id="contact" style="text-align: right;">
+<p>
+Dimagi, Inc.<br>
+529 Main St, Suite 606<br>
+Charlestown, MA 02129<br>
+t 617.580.3100<br>
+f 617.580.3103
+</p>
+<p>
+© 2011, Dimagi, Inc.
+</p>
+</div>
+
+
+
+</div><!-- footer -->
+</div><!-- footer-wrapper -->
+</div><!-- page -->
+
+		<script type="text/javascript" src="media/jquery_003.js"></script>
+<script type="text/javascript" src="media/jquery_004.js"></script>
+<script type="text/javascript" src="media/scripts.js"></script>
+<!-- Lightbox Plus v2.0.5 - 2010.07.02 - Message: -->
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  $("a[rel*=lightbox]").colorbox({width:false,height:false,innerWidth:false,innerHeight:false,initialWidth:false,initialHeight:false,opacity:0.8});
+});
+</script>
+<!-- Dynamic page generated in 0.699 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2011-02-23 23:54:16 -->
+</body></html>
