@@ -8,7 +8,7 @@ title: Projects
       <%= link_to('<div style="background: url(/img/proj_thumb/%s) no-repeat center;"></div>' % proj[:thumb], proj) %> 
     </div></div>
 		<h3><%= link_to(proj[:title], proj) %></h3>
-    <p><%= proj[:lede] %></p>
+    <%= proj[:content_for_lede] %>
     <p class="li"><%= link_to('Read more&hellip;', proj) %></p>
 	</div>
 <% end %>
