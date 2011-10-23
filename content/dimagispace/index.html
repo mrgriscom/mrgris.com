@@ -18,14 +18,29 @@
  
 <!-- Dynamic Menu Script --> 
 <script type="text/javascript"> 
-      jQuery(document).ready(function() { 
+  jQuery(document).ready(function() { 
       jQuery("#dropmenu ul").css({display: "none"}); // Opera Fix 
       jQuery("#dropmenu li").hover(function(){ 
               jQuery(this).find('ul:first').css({visibility: "visible",display: "none"}).slideDown(100); 
               },function(){ 
               jQuery(this).find('ul:first').css({visibility: "hidden"}); 
               }); 
-      }); 
+
+    if ($.browser.webkit) {
+      var BLINK_FREQ = 1.;
+      var BLINK_RATIO = 1.8;
+
+      var vis_frac = BLINK_RATIO / (BLINK_RATIO + 1.);
+      var blink_vis = BLINK_FREQ * vis_frac;
+      var blink_hidden = BLINK_FREQ * (1. - vis_frac);
+
+      var blink = function(selector, show) {
+        $(selector).css('opacity', show ? 1. : 0.);
+        setTimeout(function() { blink(selector, !show); }, 1000. * (show ? blink_vis : blink_hidden));
+      }
+      blink('h1,h2,h3,h4,h5,h6', true);
+    }
+  });
 </script>
 
 <!-- Begin Infinite Carousel script -->
