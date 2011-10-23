@@ -22,6 +22,16 @@ td a {
   width: 15em;
 }
 
+.titlemod {
+  font-style: italic;
+}
+.titlemod:before {
+  content: '(';
+}
+.titlemod:after {
+  content: ')';
+}
+
 .length {
   width: 5em;
   text-align: right;

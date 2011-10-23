@@ -12,6 +12,10 @@ module MP3Info
       if not track['system']
         track['system'] = system_name(track['game'], item[:systems])
       end
+      #track['game'].gsub!(/\'/, '&#x2019;')
+      #track['title'].gsub!(/\'/, '&#x2019;')
+      track['title'].gsub!(/-/, '&ndash;')
+      track['title'].gsub!(/\[(.+)\]/, '<span class="titlemod">\1</span>')
     }
     data
   end
