@@ -1,20 +1,20 @@
 --- 
 title: About
+scripts:
+- age
 ---
 
-<p>AGE</p>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script src="/script/age.js"></script>
-<script type="text/javascript">
+<% content_for :script do %>
 $(document).ready(function() {
   var DOB = 434285910. //1983-10-06 06:58:30 -0400
   register_age_ticker(DOB, 'm', ['drs', 'drd', 'dry', 'drle'], new ServerClock());
 });
-</script>
+<% end %>
 
+<p>AGE</p>
 
 <style>
+/* todo; finalize and incorporate into main stylesheet */
 
 td {
   line-height: 20px;

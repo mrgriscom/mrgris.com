@@ -33,7 +33,7 @@ route '/style/*/' do
   item.identifier.chop + '.css'
 end
 route '/script/*/' do
-  item.identifier.chop + '.js'
+  item.identifier.chop + '.' + item[:extension]
 end
 
 route '/projects/' do

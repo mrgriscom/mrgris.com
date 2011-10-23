@@ -1,6 +1,8 @@
+
+
 // return life expectancy (expected age of death) for person of given gender and # years old
 function life_expectancy(years, gender) {
-  actuarial_tables = {
+  actuarial_tables = { // 2008 data; source: http://www.census.gov/compendia/statab/2012/tables/12s0104.pdf
     m: { //US, male, white
       0: 75.9,
       1: 75.4,
@@ -149,7 +151,7 @@ function _clock() {
 }
 
 function ServerClock() {
-  this.CLOCK_URL = '/clock.php';
+  this.CLOCK_URL = '/script/clock.php';
 
   this.offset = null; // server - local
   this.error = null;

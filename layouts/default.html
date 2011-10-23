@@ -23,5 +23,17 @@
     <%= yield %>
   </div>
   <p id="footer"><a href="#">acknowledgements</a></p>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<% (@item[:scripts] or []).each do |script| %>
+  <script type="text/javascript" src="/script/<%= script %>.js"></script>
+<% end %>
+<% if @item[:content_for_script] %>
+  <script type="text/javascript">
+
+<%= @item[:content_for_script] %>
+
+  </script>
+<% end %>
 </body>
 </html>
