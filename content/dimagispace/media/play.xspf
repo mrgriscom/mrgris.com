@@ -3,23 +3,23 @@
   <title>playlist</title>
   <trackList>
     <track>
-      <location>dimagiblog_files/Aldous_Snow-African_Child.mp3</location>
+      <location>media/Aldous_Snow-African_Child.mp3</location>
       <title>african child</title>
     </track>
     <track>
-      <location>dimagiblog_files/2Face_Ibidia-African_Queen.mp3</location>
+      <location>media/2Face_Ibidia-African_Queen.mp3</location>
       <title>african queen</title>
     </track>
     <track>
-      <location>dimagiblog_files/DJ_Bobo-Happy_Birthday_to_You.mp3</location>
+      <location>media/DJ_Bobo-Happy_Birthday_to_You.mp3</location>
       <title>happy birthday song</title>
     </track>
     <track>
-      <location>dimagiblog_files/Die_Antwoord-Evil_Boy.mp3</location>
+      <location>media/Die_Antwoord-Evil_Boy.mp3</location>
       <title>evil boy</title>
     </track>
     <track>
-      <location>dimagiblog_files/DJ_Cleo-Wena_Nghamba_Nawe.mp3</location>
+      <location>media/DJ_Cleo-Wena_Nghamba_Nawe.mp3</location>
       <title>wena ng'hamba nawe</title>
     </track>
   </trackList>
