@@ -20,7 +20,7 @@ systems:
     <tr>
     <% r = track['rating'] %>
     <td class="rating"><% if not r %><% elsif r == 0 %>&#x2606;<% else %><%= (1..r).map{|i| '&#x2605;'}.join %><% end %></td>
-    <td class="title"><a href="<%= File::join(@item[:urlroot], track['filename']) %>"><%= track['title'] %></a></td>
+    <td class="title"><%= mk_link(File::join(@item[:urlroot], track['filename']), track['title'], true) %></a></td>
     <td class="length"><%= fmt_length(track['length']) %></td>
     </tr>
   <% end %>

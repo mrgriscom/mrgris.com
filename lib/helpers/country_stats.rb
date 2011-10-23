@@ -1,11 +1,15 @@
 module CountryStatsHelper
 
+  def mk_link(href, content, new=false)
+    content = content.split(/<\/?a[^>]*>/).join
+    '<a href="%s"%s>%s</a>' % [href, new ? ' target="_blank"' : '', content]
+  end
+
   def wiki_link(place_name, description=nil)
     if not description
       description = place_name
     end
-    description = description.split(/<\/?a[^>]*>/).join
-    '<a href="http://en.wikipedia.org/wiki/%s">%s</a>' % [place_name, description]
+    mk_link('http://en.wikipedia.org/wiki/%s' % place_name, description, true)
   end
 
   PlaceParseRegex = /!place\{(.*)\}/
@@ -53,7 +57,7 @@ module CountryStatsHelper
         'Poland' => 'http://www.youtube.com/watch?v=mahTGNIk4q4&t=28s',
       }[@country]
       if alt_link
-        @_country = '<a href="%s">%s</a>' % [alt_link, @country]
+        @_country = mk_link(alt_link, @country, true)
       end
     end
 
