@@ -2,14 +2,13 @@
 title: Projects
 ---
 
-<% @item.children.each do |proj| %>
+<% @item.children.select {|p| not p[:unpublished]}.each do |proj| %>
 	<div class="project">
 		<div class="image"><div>
       <%= link_to('<div style="background: url(/img/proj_thumb/%s) no-repeat center;"></div>' % proj[:thumb], proj) %> 
     </div></div>
 		<h3><%= link_to(proj[:title], proj) %></h3>
     <%= proj[:content_for_lede] %>
-    <p class="li"><%= link_to('Read more&hellip;', proj) %></p>
 	</div>
 <% end %>
 

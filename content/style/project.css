@@ -1,0 +1,40 @@
+
+body {
+  font-size: 14px;
+  line-height: 18px;
+  color: #ccc;
+}
+
+p {
+  max-width: 35em;
+  text-align: justify;
+}
+
+li {
+  max-width: 28em;
+  text-align: justify;
+}
+
+.foot {
+  vertical-align: super;
+  font-size: 70%;
+}
+
+.foot a {
+  text-decoration: none;
+}
+
+.footend {
+  font-style: italic;
+  font-size: 80%;
+  max-width: 43.75em;
+}
+
+.footmark {
+  color: white;
+  font-weight: bold;
+}
+
+.footend em {
+  font-style: normal;
+}

@@ -1,10 +1,97 @@
 --- 
 title: Minesweepr
 thumb: minesweepr.png
+style: project
 ---
 
 <% content_for :lede do %>
 <p>
-Marfa synth keffiyeh, cosby sweater skateboard next level trust fund beard. American apparel locavore yr, aesthetic letterpress butcher vegan whatever dreamcatcher craft beer banksy trust fund raw denim keytar single-origin coffee. Fanny pack helvetica retro readymade, before they sold out dreamcatcher wolf echo park organic sartorial, cardigan synth portland artisan twee skateboard retro mustache shoreditch.
+A minesweeper solver in python. Exhaustively solves any board, of any topology, through the use of advanced combinatorial and probability analysis. Can compute the exact mine probabilities of all 'ambiguous' cells, and can detect inconsistent game states. While highly optimized, ultimately still a <i>O(2<sup>n</sup>)</i> algorithm. Includes a live web demo.
 </p>
+
+<p class="li"><%= link_to('Read more&hellip;', @item) %></p>
 <% end %>
+
+<h3>What is this?</h3>
+
+<p>
+This project is a general minesweeper solver. It can solve any game board, with any <a href="#topology">topology</a>, and compute the exact mine probabilities for all cells. It achieves this through advanced combinatorial and probability analysis.
+</p>
+
+<h3>How does it work?</h3>
+
+<p>
+Essentially, a minesweeper board is a set of logical constraints. Each cell is a toggle with two possible states: mine or clear. Each uncovered cell is a statement about how many of the adjacent cells are mines. Our goal is to find configurations of mines that satisfy the given constraints. If, among all possible configurations, a given cell is always a mine or always clear, we know that mine is safe to mark or sweep, respectively. If the cell can be either state, depending on configuration, we cannot determine its status with certainty; however, we <em>can</em> compute its relative safety by observing how many configurations in which it appears empty, as a proportion of all possible configurations, <em>assuming all configurations are equally likely</em>. If there is no guaranteed-safe cell, we can still determine the safest cell to sweep, and thus play minesweeper with considerable skill.
+</p>
+
+<p>
+Any algorithm that hopes to exhaustively<span class="foot"><a href="#foot1">*</a></span> solve minesweeper must employ this basic concept: determine all possible placements of mines on the board (and the relative likelihoods thereof), and observe how often each cell has a mine in it. This is easier said than done. To naively enumerate all possible mine configurations is hugely expensive&mdash; an exponential-time algorithm<span class="foot"><a href="#foot2">&dagger;</a></span>. This solver employs a <a href="#TODO-algodetails">number of techniques</a> to cut down on the amount of work needed.
+</p>
+
+<a name="foot1">
+<p class="footend">
+<span class="footmark">*</span> meaning it can determine the best move on all possible boards, even when no cell is 100% safe and the best move requires guessing
+</p>
+</a>
+
+<a name="foot2">
+<p class="footend">
+<span class="footmark">&dagger;</span> meaning for any fixed amount you increase the size of the problem by (e.g., 10 more cells on the board), the amount of computational work to solve it doubles; translated: <em>the universe will freeze over before your computer finishes</em>. How big the exponent determines how quickly the work balloons out of control.
+</p>
+</a>
+
+<p>
+The unfortunate truth, however, is that despite all these advanced tricks and analyses, <em>minesweepr</em> still requires exponential time to run &mdash; each additional technique only shaves some amount off that exponent. <a href="http://for.mat.bham.ac.uk/R.W.Kaye/minesw/ordmsw.htm">It is strongly suspected</a> that exponential time is the best we can do. Luckily, in practice, the exponent and board size are together small enough that the board can be solved <a href="#TODO-runtime">quickly</a>.
+</p>
+
+<p>
+The <em>real</em> truth is even worse than that. This algorithm only computes the optimal cell for the very next move. To have the best chance of finishing the game, we must consider not only the next move but all future moves. Is there a difference? Yes!
+</p>
+
+<p>
+Assume we're stuck in a situation where we have to guess: imagine we make the 'best' next move by clicking on the safest cell. This doesn't reveal much new information about the remaining cells, but at least we're still alive. So we click on the (new) safest cell again, and again&hellip; finally we get some information that removes the remaining uncertainty and lets us escape from whatever corner we're trapped in.
+</p>
+
+<p>
+Now suppose there was a riskier<span class="foot"><a href="#foot3">&ddagger;</a></span> cell that, had we clicked on it and lived, would have removed that uncertainty right away. It's possible that we exposed ourselves to more accumulated risk by taking the conservative route and making multiple less-risky moves, rather than making the single, bold move up front. There are known examples of this situation. And while I can't prove it, anecdotally, the safer bets do indeed seem to reveal less information about the remaining cells than do riskier. To create a perfect player that accounts for this &mdash; the outcome not just of this move, but the repurcussions of all possible subsequent moves &mdash; is intractable. Solving minesweeper is generally <em>hard</em>. Looking several moves ahead may be feasible (and pay off) in certain situations, particularly the endgame, but this algorithm doesn't concern itself with that. And the open-ended case, for "perfect" play, simply cannot be done.
+
+<a name="foot3">
+<p class="footend">
+<span class="footmark">&ddagger;</span> note, astute reader, that 'riskier' in this context means the most uncertain &mdash; closest to 50/50 &mdash; <em>not</em> the most likely to kill you
+</p>
+</a>
+
+
+Nevertheless... blah blah even just one move ahead is pretty cool. algo is adept at getting itself out of tight situations.
+
+
+<h3>"any topology"</h3>
+
+The normal minesweeper layout is a basic grid. 
+
+Here we see how the solver can handle any game topology. All it cares about is the set of logical rules about how many mines are to be found amongst each set of cells. It has no concept of which cells are adjacent to others, 
+
+wrapping edges, warps, holes, odd shapes, extra dimensions.
+
+basic concept.
+
+<h3>Where does the algorithm choke?</h3>
+
+failure modes
+interconnectedness - more permutations and less deduction
+long branches
+
+works best when can take advantage of deductive logic
+
+
+<h3>How good is it?</h3>
+
+[insert solving probability]
+
+
+
+<h3>Sidebar</h3>
+
+<p>[link to live demo]</p>
+<p>[link to custom solver]</p>
+<p>[link to algorithm detail]</p>
