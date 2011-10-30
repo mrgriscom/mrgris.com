@@ -6,15 +6,17 @@ style: project
 
 <% content_for :lede do %>
 <p>
-A minesweeper solver in python. Exhaustively solves any board, of any topology, through the use of advanced combinatorial and probability analysis. Can compute the exact mine probabilities of all 'ambiguous' cells, and can detect inconsistent game states. While highly optimized, ultimately still a <i>O(k<sup>n</sup>)</i> algorithm. Includes a live web demo.
+A minesweeper solver in python. Exhaustively solves any board, of any topology, through the use of advanced combinatorial and probability analysis. Can compute the exact mine probabilities of all 'ambiguous' cells, and can detect inconsistent game states. While highly optimized, ultimately still an <i>O(k<sup>n</sup>)</i> algorithm. Includes a live web demo.
 </p>
 
 <p class="li"><%= link_to('Read more&hellip;', @item) %></p>
 <% end %>
 
-<table style="height: 1px;">
+<!-- table needed so sidebar div will extend full vertical length of content -->
+<table id="mnswmain">
 <tr>
-<td style="width: 550px;" rowspan="2">
+
+<td id="mnswcontent">
 
 <h3>What is this?</h3>
 
@@ -29,7 +31,7 @@ Essentially, a minesweeper board is a set of logical constraints. Each cell is a
 </p>
 
 <p>
-Any algorithm that hopes to exhaustively<span class="foot"><a href="#foot1">*</a></span> solve minesweeper must employ this basic concept: determine all possible placements of mines on the board (and the relative likelihoods thereof), and observe how often each cell has a mine in it. This is easier said than done. To naively enumerate all possible mine configurations is hugely expensive&mdash; an exponential-time algorithm<span class="foot"><a href="#foot2">&dagger;</a></span>. This solver employs a <a href="#TODO-algodetails">number of techniques</a> to cut down on the amount of work needed.
+Any algorithm that hopes to exhaustively<%= footinline(1) %> solve minesweeper must employ this basic concept: determine all possible placements of mines on the board (and the relative likelihoods thereof), and observe how often each cell has a mine in it. This is easier said than done. To naively enumerate all possible mine configurations is hugely expensive&mdash; an exponential-time algorithm<%= footinline(2) %>. This solver employs a <a href="#TODO-algodetails">number of techniques</a> to cut down on the amount of work needed.
 </p>
 
 <a name="foot1">
@@ -57,7 +59,7 @@ Assume we're stuck in a situation where we have to guess: imagine we make the 'b
 </p>
 
 <p>
-Now suppose there was a riskier<span class="foot"><a href="#foot3">&#x2021;</a></span> cell that, had we clicked on it and lived, would have removed that uncertainty right away. It's possible that we exposed ourselves to more accumulated risk by taking the conservative route of making multiple less-risky moves, rather than making the single, bold move up front. There are known examples of this situation. And while I can't prove it, anecdotally, the safer bets do indeed seem to reveal less information about the remaining cells than do riskier<span class="foot"><a href="#foot4">&sect;</a></span>.
+Now suppose there was a riskier<%= footinline(3) %> cell that, had we clicked on it and lived, would have removed that uncertainty right away. It's possible that we exposed ourselves to more accumulated risk by taking the conservative route of making multiple less-risky moves, rather than making the single, bold move up front. There are known examples of this situation. And while I can't prove it, anecdotally, the safer bets do indeed seem to reveal less information about the remaining cells than do riskier<%= footinline(4) %>.
 </p>
 
 <a name="foot3">
@@ -99,47 +101,38 @@ undivinable
 
 works best when can take advantage of deductive logic
 
-
 <h3>How good is it?</h3>
 
 [insert solving probability]
 
 </td>
-<td style="width: 350px; height: 1px; vertical-align: top;">
 
+<td>
+<table id="mnswsidebar">
+
+<tr>
+<td class="sidebarbg" style="height: 150px;">
+<table><tr><td>&nbsp;</td></tr></table>
+</td>
+</tr>
+
+<tr>
+<td style="height: 1px;">
 <p>[link to live demo]</p>
 <p>[link to custom solver]</p>
 <p>[link to algorithm detail]</p>
-
 </td>
 </tr>
-<tr>
-<td style="
-	padding: 10px;
-	background: #555;
-	-webkit-border-radius: 20px;
-	-khtml-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
 
-  -moz-box-shadow: 15px 15px 25px #000;        
-  -webkit-box-shadow: 15px 15px 25px #000;
-  box-shadow: 15px 15px 25px #000;
-">
-
-<table style="width: 100%; height: 100%;">
 <tr>
-<td style="background: url(/img/proj_thumb/minesweepr.png);
-	-webkit-border-radius: 14px;
-	-khtml-border-radius: 14px;
-	-moz-border-radius: 14px;
-	border-radius: 14px;
-">
+<td class="sidebarbg">
+<table><tr><td>&nbsp;</td></tr></table>
 </td>
 </tr>
+
 </table>
-
 </td>
+
 </tr>
 </table>
 
