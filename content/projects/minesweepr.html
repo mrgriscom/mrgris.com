@@ -6,7 +6,7 @@ style: project
 
 <% content_for :lede do %>
 <p>
-A minesweeper solver in python. Exhaustively solves any board, of any topology, through the use of advanced combinatorial and probability analysis. Can compute the exact mine probabilities of all 'ambiguous' cells, and can detect inconsistent game states. While highly optimized, ultimately still a <i>O(2<sup>n</sup>)</i> algorithm. Includes a live web demo.
+A minesweeper solver in python. Exhaustively solves any board, of any topology, through the use of advanced combinatorial and probability analysis. Can compute the exact mine probabilities of all 'ambiguous' cells, and can detect inconsistent game states. While highly optimized, ultimately still a <i>O(k<sup>n</sup>)</i> algorithm. Includes a live web demo.
 </p>
 
 <p class="li"><%= link_to('Read more&hellip;', @item) %></p>
@@ -41,7 +41,7 @@ Any algorithm that hopes to exhaustively<span class="foot"><a href="#foot1">*</a
 </a>
 
 <p>
-The unfortunate truth, however, is that despite all these advanced tricks and analyses, <em>minesweepr</em> still requires exponential time to run &mdash; each additional technique only shaves some amount off that exponent. <a href="http://for.mat.bham.ac.uk/R.W.Kaye/minesw/ordmsw.htm">It is strongly suspected</a> that exponential time is the best we can do. Luckily, in practice, the exponent and board size are together small enough that the board can be solved <a href="#TODO-runtime">quickly</a>.
+The unfortunate truth, however, is that despite all these advanced tricks and analyses, <em>minesweepr</em> still requires exponential time to run &mdash; each additional technique only shaves some amount off that exponent. <a href="http://for.mat.bham.ac.uk/R.W.Kaye/minesw/ordmsw.htm">It is strongly suspected</a> that exponential time is the best we can do. Luckily, in practice, the exponent and board size are together small enough that boards can be solved <a href="#TODO-runtime">quickly</a>.
 </p>
 
 <p>
@@ -53,7 +53,8 @@ Assume we're stuck in a situation where we have to guess: imagine we make the 'b
 </p>
 
 <p>
-Now suppose there was a riskier<span class="foot"><a href="#foot3">&ddagger;</a></span> cell that, had we clicked on it and lived, would have removed that uncertainty right away. It's possible that we exposed ourselves to more accumulated risk by taking the conservative route and making multiple less-risky moves, rather than making the single, bold move up front. There are known examples of this situation. And while I can't prove it, anecdotally, the safer bets do indeed seem to reveal less information about the remaining cells than do riskier. To create a perfect player that accounts for this &mdash; the outcome not just of this move, but the repurcussions of all possible subsequent moves &mdash; is intractable. Solving minesweeper is generally <em>hard</em>. Looking several moves ahead may be feasible (and pay off) in certain situations, particularly the endgame, but this algorithm doesn't concern itself with that. And the open-ended case, for "perfect" play, simply cannot be done.
+Now suppose there was a riskier<span class="foot"><a href="#foot3">&ddagger;</a></span> cell that, had we clicked on it and lived, would have removed that uncertainty right away. It's possible that we exposed ourselves to more accumulated risk by taking the conservative route of making multiple less-risky moves, rather than making the single, bold move up front. There are known examples of this situation. And while I can't prove it, anecdotally, the safer bets do indeed seem to reveal less information about the remaining cells than do riskier<span class="foot"><a href="#foot4">&sect;</a></span>.
+</p>
 
 <a name="foot3">
 <p class="footend">
@@ -61,25 +62,36 @@ Now suppose there was a riskier<span class="foot"><a href="#foot3">&ddagger;</a>
 </p>
 </a>
 
+<a name="foot4">
+<p class="footend">
+<span class="footmark">&sect;</span> another example is the popular strategy of clicking in the uncharted regions of the board in the hopes of getting a "cascade", i.e., opening up a new front of play, even though the uncharted region is typically risky. Is this a more viable long-term strategy than carefully extricating yourself in the manner described above? I have no idea. But it's an important question, as it changes the fundamental character of how the board is solved.
+</p>
+</a>
 
-Nevertheless... blah blah even just one move ahead is pretty cool. algo is adept at getting itself out of tight situations.
+<p>
+So the safest move at the moment is not always the best move for long-term success. To create a perfect player that accounts for this &mdash; the outcome not just of this move, but the repurcussions of all possible subsequent moves &mdash; is intractable. Solving minesweeper is generally <em>hard</em>. Looking several moves ahead may be feasible, and pay off enough to be worth it (particularly during the endgame), but this algorithm doesn't concern itself with that. And the open-ended case, for "perfect" play, simply cannot be done.
+</p>
 
+<p>
+Nevertheless, it's fun to watch the algorithm working even one move ahead. It's almost uncannily adept at getting out of tight situations.
+</p>
 
-<h3>"any topology"</h3>
+<a name="topology"><h3>"any topology"</h3></a>
 
-The normal minesweeper layout is a basic grid. 
+<p>
+The normal minesweeper layout is a basic grid. However, this solver can handle many unconventional layouts, such as minesweeper on a non-flat/closed surface, in 3-d, or with non-square cells. And it can do so without any change whatsoever to the basic algorithm.
+</p>
 
-Here we see how the solver can handle any game topology. All it cares about is the set of logical rules about how many mines are to be found amongst each set of cells. It has no concept of which cells are adjacent to others, 
+<p>
+Because the solver deals only in logical predicates of how many mines are to be found among given sets of cells, it actually has no concept of which cells are "next" to each other, or of the topology of the board at all. The game driver is responsible for defining and tracking the adjacency of cells. <em>Minesweeper</em> knows of the board state only as an abstraction; as to whether the board contains wrapping edges, miscellaneous warps or holes, odd shapes or extra dimensions, <em>minesweepr</em> remains ignorant, and solves them all alike.
+</p>
 
-wrapping edges, warps, holes, odd shapes, extra dimensions.
-
-basic concept.
-
-<h3>Where does the algorithm choke?</h3>
+<h3>Failure Modes</h3>
 
 failure modes
 interconnectedness - more permutations and less deduction
 long branches
+undivinable
 
 works best when can take advantage of deductive logic
 
@@ -89,9 +101,9 @@ works best when can take advantage of deductive logic
 [insert solving probability]
 
 
-
 <h3>Sidebar</h3>
 
 <p>[link to live demo]</p>
 <p>[link to custom solver]</p>
 <p>[link to algorithm detail]</p>
+
