@@ -2,7 +2,7 @@
 module Footnote
 
   def symbol(i)
-    ['*', '&dagger;', '&#x2021;', '&sect;'][i - 1]
+    i #['*', '&dagger;', '&#x2021;', '&sect;'][i - 1]
   end
 
   def footinline(i)
