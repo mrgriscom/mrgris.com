@@ -2,7 +2,7 @@
 body {
   font-size: 14px;
   line-height: 18px;
-  color: #ccc;
+  color: #ddd;
 }
 
 p {
@@ -56,6 +56,13 @@ table {
 
 #mnswcontent {
   width: 550px;
+	background: -webkit-linear-gradient(left, rgba(10,10,10,.6), rgba(10,10,10,.6) 89%, rgba(10,10,10,0.0) 93%, rgba(10,10,10,0.0));
+	background: -moz-linear-gradient(left, rgba(10,10,10,.6), rgba(10,10,10,.6) 89%, rgba(10,10,10,0.0) 93%, rgba(10,10,10,0.0));
+  padding: 20px;
+	-webkit-border-radius: 20px;
+	-khtml-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
 }
 
 #mnswsidebar {
@@ -84,4 +91,44 @@ table {
 	-khtml-border-radius: 14px;
 	-moz-border-radius: 14px;
 	border-radius: 14px;
+}
+
+.button {
+  display: block;
+  padding-left: 15px;
+
+  font-size: 16px;
+  width: 200px;
+  line-height: 40px;
+
+	-webkit-border-radius: 20px;
+	-khtml-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+
+  color: #aaa;
+	border: 1px solid rgba(65,65,65,.5);
+  background-color: rgba(40,40,40,.5);
+
+  margin-left: 20px;
+  margin-bottom: 8px;
+}
+
+a.button {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.button:hover {
+  color: white;
+	border: 1px solid rgba(65,65,65,1.0);
+	background: #444;
+	background: -webkit-linear-gradient(top, #555, #333);
+	background: -moz-linear-gradient(top, #555, #333);
+}
+
+.button:active {
+	background: #466;
+	background: -webkit-linear-gradient(top, #577, #344);
+	background: -webkit-linear-gradient(top, #577, #344);
 }
