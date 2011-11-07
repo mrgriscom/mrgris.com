@@ -6,7 +6,7 @@ style: project
 
 <% content_for :lede do %>
 <p>
-A minesweeper solver in python. Exhaustively solves any board, of any topology, through the use of advanced combinatorial and probability analysis. Can compute the exact mine probabilities of all 'ambiguous' cells, and can detect inconsistent game states. While highly optimized, ultimately still an <i>O(k<sup>n</sup>)</i> algorithm. Includes a live web demo.
+A minesweeper solver in python. Exhaustively solves any board, of any topology, through the use of advanced combinatorial and probability analysis. Can compute the exact mine probabilities of all 'ambiguous' cells, and detect inconsistent game states. Highly optimized, but ultimately still an <i>O(k<sup>n</sup>)</i> algorithm. Includes live web demo.
 </p>
 
 <p class="li"><%= link_to('Read more&hellip;', @item) %></p>
@@ -34,20 +34,8 @@ Essentially, a minesweeper board is a set of logical constraints. Each cell is a
 Any algorithm that hopes to exhaustively<%= footinline(1) %> solve minesweeper must employ this basic concept: determine all possible placements of mines on the board (and the relative likelihoods thereof), and observe how often each cell has a mine in it. This is easier said than done. To naively enumerate all possible mine configurations is hugely expensive&mdash; an exponential-time algorithm<%= footinline(2) %>. This solver employs a <a href="#TODO-algodetails">number of techniques</a> to cut down on the amount of work needed.
 </p>
 
-<a name="foot1">
-<p class="footend">
-<span class="footmark">1</span> meaning it can determine the best move on all possible boards, even when no cell is 100% safe and the best move requires guessing
-</p>
-</a>
-
-<a name="foot2">
-<p class="footend">
-<span class="footmark">2</span> meaning for any fixed amount you increase the size of the problem by (e.g., 10 more cells on the board), the amount of computational work to solve it doubles; translated: <em>the universe will freeze over before your computer finishes</em>. How big the exponent determines how quickly the work balloons out of control.
-</p>
-</a>
-
 <p>
-The unfortunate truth, however, is that despite all these advanced tricks and analyses, <em>minesweepr</em> still requires exponential time to run &mdash; each additional technique only shaves some amount off that exponent. <a href="http://for.mat.bham.ac.uk/R.W.Kaye/minesw/ordmsw.htm">It is strongly suspected</a> that exponential time is the best we can do. Luckily, in practice, the exponent and board size are together small enough that boards can be solved <a href="#TODO-runtime">quickly</a>.
+The unfortunate truth, however, is that despite all these advanced tricks and analyses, <em>minesweepr</em> still requires exponential time to run &mdash; each additional technique only shaves some amount off that exponent. It is <a href="http://for.mat.bham.ac.uk/R.W.Kaye/minesw/ordmsw.htm">strongly suspected</a> that exponential time is the best we can do. Luckily, in practice, the exponent and board size are together small enough that boards can be solved <a href="#TODO-runtime">quickly</a>.
 </p>
 
 <p>
@@ -62,6 +50,26 @@ Assume we're stuck in a situation where we have to guess: imagine we make the 'b
 Now suppose there was a riskier<%= footinline(3) %> cell that, had we clicked on it and lived, would have removed that uncertainty right away. It's possible that we exposed ourselves to more accumulated risk by taking the conservative route of making multiple less-risky moves, rather than making the single, bold move up front. There are known examples of this situation. And while I can't prove it, anecdotally, the safer bets do indeed seem to reveal less information about the remaining cells than do riskier<%= footinline(4) %>.
 </p>
 
+<p>
+So the safest move at the moment is not always the best move for long-term success. To create a perfect player that accounts for this &mdash; the outcome not just of this move, but the repurcussions of all possible subsequent moves &mdash; is intractable. Solving minesweeper is generally <em>hard</em>. Looking several moves ahead may be feasible, and pay off enough to be worth it (particularly during the endgame), but this algorithm doesn't concern itself with that. And the open-ended case, for "perfect" play, simply cannot be done.
+</p>
+
+<p>
+Nevertheless, it's fun to watch the algorithm working even one move ahead. It's almost uncannily adept at getting out of tight situations.
+</p>
+
+<a name="foot1">
+<p class="footend">
+<span class="footmark">1</span> meaning it can determine the best move on all possible boards, even when no cell is 100% safe and the best move requires guessing
+</p>
+</a>
+
+<a name="foot2">
+<p class="footend">
+<span class="footmark">2</span> meaning for any fixed amount you increase the size of the problem by (e.g., 10 more cells on the board), the amount of computational work to solve it doubles; translated: <em>the universe will freeze over before your computer finishes</em>. How big the exponent determines how quickly the work balloons out of control.
+</p>
+</a>
+
 <a name="foot3">
 <p class="footend">
 <span class="footmark">3</span> note, astute reader, that 'riskier' in this context means the most uncertain &mdash; closest to 50/50 &mdash; <em>not</em> the most likely to kill you
@@ -73,14 +81,6 @@ Now suppose there was a riskier<%= footinline(3) %> cell that, had we clicked on
 <span class="footmark">4</span> another example is the popular strategy of clicking in the uncharted regions of the board in the hopes of getting a "cascade", i.e., opening up a new front of play, even though the uncharted region is typically risky. Is this a more viable long-term strategy than carefully extricating yourself in the manner described above? I have no idea. But it's an important question, as it changes the fundamental character of how the board is solved.
 </p>
 </a>
-
-<p>
-So the safest move at the moment is not always the best move for long-term success. To create a perfect player that accounts for this &mdash; the outcome not just of this move, but the repurcussions of all possible subsequent moves &mdash; is intractable. Solving minesweeper is generally <em>hard</em>. Looking several moves ahead may be feasible, and pay off enough to be worth it (particularly during the endgame), but this algorithm doesn't concern itself with that. And the open-ended case, for "perfect" play, simply cannot be done.
-</p>
-
-<p>
-Nevertheless, it's fun to watch the algorithm working even one move ahead. It's almost uncannily adept at getting out of tight situations.
-</p>
 
 <a name="topology"><h3>"any topology"</h3></a>
 

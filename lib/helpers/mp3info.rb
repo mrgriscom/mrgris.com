@@ -1,4 +1,5 @@
 require 'yaml'
+require 'set'
 
 module MP3Info
 
@@ -8,6 +9,9 @@ module MP3Info
 
   def mp3info(item)
     data = mp3loadinfo(item[:path])
+
+    ratings = Hash[item[:ratings].map{|rat, name| [name, rat]}]
+
     data.each { |track|
       if not track['system']
         track['system'] = system_name(track['game'], item[:systems])
@@ -16,7 +20,15 @@ module MP3Info
       #track['title'].gsub!(/\'/, '&#x2019;')
       track['title'].gsub!(/-/, '&ndash;')
       track['title'].gsub!(/\[(.+)\]/, '<span class="titlemod">\1</span>')
+
+      track['rating'] = rating(track, ratings)
     }
+
+    rating_wo_file = ratings.keys.to_set - data.map {|track| fileroot(track)}.to_set
+    if rating_wo_file.length > 0
+      print 'Rating entries have no corresponding file: ' + rating_wo_file.to_a.sort.join('; ') + "\n"
+    end
+
     data
   end
 
@@ -28,6 +40,14 @@ module MP3Info
   def fmt_length(s)
     s = s.round
     '%d:%02d' % [s / 60, s % 60]
+  end
+
+  def fileroot(track)
+    track['filename'].sub(/\.[^.]+$/, '')
+  end
+
+  def rating(track, ratings)
+    ratings[fileroot(track)] or track['rating']
   end
 
 end
