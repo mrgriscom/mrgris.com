@@ -22,6 +22,9 @@ module MP3Info
       track['title'].gsub!(/\[(.+)\]/, '<span class="titlemod">\1</span>')
 
       track['rating'] = rating(track, ratings)
+      if not track['rating']
+        print "no rating for %s\n" % [fileroot(track)]
+      end
     }
 
     rating_wo_file = ratings.keys.to_set - data.map {|track| fileroot(track)}.to_set
