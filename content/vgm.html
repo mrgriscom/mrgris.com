@@ -49,6 +49,13 @@ ratings:
 - [0, "Dragon_Warrior-Enemy_Defeated"]
 - [2, "Dragon_Warrior-Loriks_Throne_Room"]
 - [2, "Dragon_Warrior-Overworld"]
+- [1, "Dr._Robotniks_Mean_Bean_Machine-Exercise_Mode"]
+- [0, "Dr._Robotniks_Mean_Bean_Machine-Game_Select"]
+- [0, "Dr._Robotniks_Mean_Bean_Machine-Intro-_Final_Stage"]
+- [2, "Dr._Robotniks_Mean_Bean_Machine-Intro-_Stage_1-4"]
+- [2, "Dr._Robotniks_Mean_Bean_Machine-Intro-_Stage_9-12"]
+- [1, "Dr._Robotniks_Mean_Bean_Machine-Stage_1-4"]
+- [2, "Dr._Robotniks_Mean_Bean_Machine-Vs._Mode"]
 - [1, "Duck_Tales-African_Mines"]
 - [1, "Duck_Tales-Amazon"]
 - [3, "Duck_Tales-Moon"]
@@ -318,7 +325,7 @@ ratings:
 
 <p>I'm not an archivist; sorry!</p>
 
-<p><%= trackinfo.size %> tracks in library</p>
+<p><%= trackinfo.size %> tracks in library (<%= trackinfo.group_by {|track| track['rating']}.sort.map {|k, v| v.size} %>)</p>
 
 <% trackinfo.group_by {|t| [t['game'], t['system']]}.sort.each do |key, tracks|
   game = key[0]
