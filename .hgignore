@@ -3,3 +3,6 @@ syntax: glob
 output/
 tmp/
 *~
+*.pyc
+
+content/projects/minesweepr/demo/ # django static
