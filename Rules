@@ -23,6 +23,11 @@ compile '/dimagispace/*' do
   # don't filter or layout
 end
 
+compile '/*/script/*/' do
+  # don't filter or layout
+end
+
+
 compile '*' do
   if item.binary?
     # don't filter binary items
@@ -41,6 +46,12 @@ end
 route '/dimagispace/*/' do
   item.identifier.chop + '.' + item[:extension]
 end
+
+route '/*/script/*/' do
+  item.identifier.chop + '.' + item[:extension]
+end
+
+
 
 route '/projects/' do
   '/index.html'
