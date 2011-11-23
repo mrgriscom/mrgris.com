@@ -5,4 +5,6 @@ tmp/
 *~
 *.pyc
 
-content/projects/minesweepr/demo/ # django static
+Rules  # we need to generate rules dynamically; static rules now live in _Rules
+content/app-static/
+layouts/app/
