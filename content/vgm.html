@@ -151,6 +151,13 @@ ratings:
 - [0, "Metroid-Norfair"]
 - [2, "Metroid-Special_Room"]
 - [1, "Metroid-Title"]
+- [1, "Ninja_Gaiden_3-Castle_Rock_Outer_Defenses"]
+- [1, "Ninja_Gaiden_3-Death"]
+- [3, "Ninja_Gaiden_3-Desert"]
+- [1, "Ninja_Gaiden_3-Jungle"]
+- [2, "Ninja_Gaiden_3-Laboratory"]
+- [0, "Ninja_Gaiden_3-Volcano_Base"]
+- [2, "Ninja_Gaiden_3-Waterfalls"]
 - [3, "Section-Z_Arcade-Section_A-E"]
 - [0, "Sonic_3_and_Knuckles-1up"]
 - [0, "Sonic_3_and_Knuckles-Act_Clear"]
@@ -325,7 +332,7 @@ ratings:
 
 <p>I'm not an archivist; sorry!</p>
 
-<p><%= trackinfo.size %> tracks in library (<%= trackinfo.group_by {|track| track['rating']}.sort.map {|k, v| v.size} %>)</p>
+<p><%= trackinfo.size %> tracks in library (<%= trackinfo.select {|t| t['rating']}.group_by {|track| track['rating']}.sort.map {|k, v| v.size} %>)</p>
 
 <% trackinfo.group_by {|t| [t['game'], t['system']]}.sort.each do |key, tracks|
   game = key[0]
