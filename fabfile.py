@@ -2,7 +2,7 @@ from fabric.api import *
 from fabric.context_managers import settings
 from fabutil.util import _cd
 from fabutil.djangoutil import DjangoProject, rule_aggregator
-
+from fabric.contrib.project import rsync_project
 
 DJANGO_APPS = [
     DjangoProject(
@@ -36,9 +36,22 @@ def clean():
             local('rm -r output/* tmp/')
 
 def deploy():
+    with _cd():
+        VGM_ROOT = '/home/drew/vgm'
+        VGM_LOCAL_ROOT = '/data/music/vgm/'
+        rsync_project(VGM_ROOT, local_dir=VGM_LOCAL_ROOT, delete=True)
+
+        WWW_ROOT = '/var/www'
+        WWW_EXCL = ['a', 'travel']
+        rsync_project(WWW_ROOT, 'output/', delete=True, exclude=WWW_EXCL)
+
     #rsync static
     #deploy django?
-    pass
 
 def refresh():
     pass
+
+
+def prod():
+    env.user = 'drew'
+    env.hosts = ['mrgris.com']
