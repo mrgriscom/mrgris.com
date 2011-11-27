@@ -37,16 +37,20 @@ def clean():
 
 def deploy():
     with _cd():
-        VGM_ROOT = '/home/drew/vgm'
-        VGM_LOCAL_ROOT = '/data/music/vgm/'
-        rsync_project(VGM_ROOT, local_dir=VGM_LOCAL_ROOT, delete=True)
-
         WWW_ROOT = '/var/www'
         WWW_EXCL = ['a', 'travel']
         rsync_project(WWW_ROOT, 'output/', delete=True, exclude=WWW_EXCL)
 
-    #rsync static
+        VGM_ROOT = '/home/drew/vgm'
+        VGM_LOCAL_ROOT = '/data/music/vgm/'
+        rsync_project(VGM_ROOT, local_dir=VGM_LOCAL_ROOT, delete=True)
+
     #deploy django?
+        #hg pull/update
+        #refresh localsettings
+        #restart gunicorn/nginx
+
+    # think nginx does not need restarting
 
 def refresh():
     pass

@@ -23,3 +23,7 @@ def _cd(dir=None):
     dir = dir or rootdir()
     return nested(chdir(dir), lcd(dir))
 
+def mkdirs(path):
+    dir = os.path.dirname(path)
+    if not os.path.isdir(dir):
+        os.makedirs(dir)

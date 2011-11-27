@@ -125,8 +125,8 @@ works best when can take advantage of deductive logic
 <tr>
 <td style="height: 1px; padding: 35px 0;">
 
-<a class="button" href="#">Live Demo</a>
-<a class="button" href="#">Board Solver</a>
+<%= link_to('Live Demo', @items.find { |i| i.identifier == '/projects/minesweepr/demo/player/' }, {:class => 'button'}) %>
+<%= link_to('Board Solver', @items.find { |i| i.identifier == '/projects/minesweepr/demo/query/' }, {:class => 'button'}) %>
 <a class="button" href="#">The Algorithm</a>
 <a class="button" href="http://bitbucket.org/mrgriscom/minesweepr/" target="_blank">Source</a>
 

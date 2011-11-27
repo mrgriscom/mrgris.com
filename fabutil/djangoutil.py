@@ -136,7 +136,7 @@ def django_dump(url, path):
         c = Client()
         response = c.get(url)
 
-        os.makedirs(os.path.dirname(path))
+        mkdirs(path)
         with open(path, 'w') as f:
             f.write(response.content)
 
