@@ -45,14 +45,15 @@ def deploy():
         VGM_LOCAL_ROOT = '/data/music/vgm/'
         rsync_project(VGM_ROOT, local_dir=VGM_LOCAL_ROOT, delete=True)
 
-    #deploy django?
-        #hg pull/update
-        #refresh localsettings
-        #restart gunicorn/nginx
-
-    # think nginx does not need restarting
+        WEBAPP_USER = 'webapp'
+        for app in DJANGO_APPS:
+            app.deploy(WEBAPP_USER)
+        
+        # nginx does not need restart
 
 def refresh():
+    # refresh local subrepos
+    # pull public key from keyserver
     pass
 
 

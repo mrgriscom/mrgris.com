@@ -9,7 +9,7 @@ import os.path
 from fabric.api import *
 from util import *
 from util import _cd
-
+from fabric.context_managers import cd
 
 def no_leading_slash(url):
     return url[1:] if url.startswith('/') else url
@@ -56,6 +56,10 @@ class DjangoProject(object):
         """dest path of rendered pages"""
         return abspath('layouts/app', self.name)
 
+    def deploydir(self):
+        """path where repo is deployed on server"""
+        return os.path.join('/var/webapp', self.reporoot)
+
     def static_pages(self):
         """search for all pages for which a static version of the django page will be rendered"""
         return [f[:-len('.html')] for f in os.listdir(self.contentpath()) if f.endswith('.html')]
@@ -63,17 +67,48 @@ class DjangoProject(object):
     def project_context(self):
         return _cd(self.repopath())
 
-    def localsettings(self):
-        return [
+    def localsettings(self, deploy):
+        settings = [
             ('BASE_URL', no_leading_slash(self.appurl())),
             ('BASE_STATIC_URL', no_leading_slash(self.contenturl())),
             ('STATIC_ROOT', self.staticpath()),
-            ('STATIC_URL', self.staticurl()),
-            ('TEMPLATE_DIRS', (self.template_override_dir,)),
         ]
+        if deploy:
+            settings.extend([
+                ('LOGGING', self.deployment_logging_config()),
+            ])
+        else:
+            settings.extend([
+                ('STATIC_URL', self.staticurl()),
+                ('TEMPLATE_DIRS', (self.template_override_dir,)),
+            ])
+        return settings
 
-    def write_localsettings(self, f):
-        for name, val in self.localsettings():
+    def deployment_logging_config(self):
+        return {
+            'version': 1,
+            'formatters': {
+                'default': {
+                    'format': '%(asctime)s:%(levelname)s:%(message)s'
+                    },
+                },
+            'handlers': {
+                'file': {
+                    'class': 'logging.handlers.RotatingFileHandler',
+                    'formatter': 'default',
+                    'filename': os.path.join('/var/log/webapp', '%s.log' % self.name),
+                    'maxBytes': 2**24,
+                    'backupCount': 3,
+                    },
+                },
+            'root': {
+                'level': 'INFO',
+                'handlers': ['file'],
+                },
+            }
+
+    def write_localsettings(self, f, deploy=False):
+        for name, val in self.localsettings(deploy):
             f.write('%s = %s\n' % (name, repr(val)))
 
     def render_static(self, rule_buffer):
@@ -116,6 +151,23 @@ compile '%s%s/' do
 end
         """ % (self.contenturl(), pagename, os.path.join(os.path.relpath(self.renderdir(), abspath('layouts')), pagename))
 
+    def pull_latest(self, user):
+        with cd(self.deploydir()):
+            sudo('hg pull', user=user)
+            sudo('hg update', user=user)
+
+    def deploy_localsettings(self, user=None):
+        fd, tmppath = tempfile.mkstemp()
+        with os.fdopen(fd, 'w') as f:
+            self.write_localsettings(f, True)
+        remotepath = os.path.join(self.deploydir(), 'localsettings.py')
+        put(tmppath, remotepath, use_sudo=True)
+        if user:
+            sudo('chown %s:%s %s' % (user, user, remotepath))
+
+    def restart_wsgi(self):
+        sudo('service %s restart' % self.name)
+
     def compile(self, rule_buffer):
         with self.project_context():
             with open('localsettings.py', 'w') as f:
@@ -128,6 +180,10 @@ end
         local('rm %s' % os.path.join(self.repopath(), 'localsettings.py*'))
         local('rm -r %s' % self.renderdir())
         
+    def deploy(self, user):
+        self.pull_latest(user)
+        self.deploy_localsettings(user)
+        self.restart_wsgi()
 
 
 def django_dump(url, path):
