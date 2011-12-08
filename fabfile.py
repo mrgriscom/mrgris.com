@@ -52,10 +52,11 @@ def deploy():
         # nginx does not need restart
 
 def refresh():
-    # refresh local subrepos
-    # pull public key from keyserver
-    pass
+    with _cd():
+        for app in DJANGO_APPS:
+            app.refresh()
 
+    # pull public key from keyserver
 
 def prod():
     env.user = 'drew'

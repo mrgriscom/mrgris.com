@@ -185,6 +185,10 @@ end
         self.deploy_localsettings(user)
         self.restart_wsgi()
 
+    def refresh(self):
+        with self.project_context():
+            local('hg pull')
+            local('hg update')
 
 def django_dump(url, path):
     with django_env():
