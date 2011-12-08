@@ -56,7 +56,7 @@ def refresh():
         for app in DJANGO_APPS:
             app.refresh()
 
-    # pull public key from keyserver
+    local('gpg --refresh-keys')
 
 def prod():
     env.user = 'drew'
