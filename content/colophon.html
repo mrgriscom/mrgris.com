@@ -1,0 +1,72 @@
+--- 
+title: Colophon
+---
+
+<style>
+
+body {
+  color: #ddd;
+  font-size: 14px;
+}
+
+.rev {
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 120%;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+a img {
+  border: none;
+}
+
+#cclic {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 15px;
+}
+
+</style>
+
+<h3>mrgris.com</h3>
+
+<p>
+Revision <a target="_blank" href="http://bitbucket.org/mrgriscom/mrgris.com"><span class="rev"><%= IO.popen('hg id -i').read.strip %></span></a>,
+last modified on <b><%= IO.popen('hg log -r tip --template "{date|isodate}"').read %></b>.
+</p>
+
+<p>
+Powered by <a target="_blank" href="http://nanoc.stoneship.org">nanoc</a>
+</p>
+
+<h3>Acknowledgements</h3>
+
+<ul>
+<li><a taget="_blank" href="http://madebyevan.com">Evan Wallace</a> &mdash; basis for site design, used with permission</li>
+</ul>
+
+<h4>Image Credits</h4>
+
+<ul>
+<li><a target="_blank" href="http://subtlepatterns.com">Subtle Patterns</a></li>
+<li><a target="_blank" href="http://www.eso.org/public/images/eso0932a/">European Southern Observatory</a></li>
+</ul>
+
+<h3>License</h3>
+
+<a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/">
+<img id="cclic" alt="Creative Commons License" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" />
+</a>
+
+<p>
+All content &copy; <%= Time.now.year %> Drew Roos, released under a <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/">Creative Commons <abbr title="Attribution">BY</abbr>-<abbr title="Non-commercial">NC</abbr>-<abbr title="Share-alike">SA</abbr> 3.0/US License</a>, with the exception of:
+</p>
+
+<ul style="clear: both;">
+<li>Content taken from other sources (see above) &mdash; licensed according to their respective copyright holders</li>
+<li>Personal photos &mdash; licensed separately (refer to where photo is hosted)</li>
+<li>Software projects &mdash; licensing specific to each project; see each project's homepage</li>
+</ul>

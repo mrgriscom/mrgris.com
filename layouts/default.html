@@ -35,7 +35,7 @@ _gaq.push(['_trackPageview']);
   <div id="main">
     <%= yield %>
   </div>
-  <div id="footer">mrgris.com (alpha) :: <a href="#">acknowledgements</a></div>
+  <div id="footer"><%= link_to('mrgris.com', @items.find { |i| i.identifier == '/colophon/' }) %></div>
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <% (@item[:scripts] or []).each do |script| %>
