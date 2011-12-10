@@ -1,0 +1,107 @@
+
+td.left, td.right {
+  padding-bottom: 30px;
+}
+
+#hero {
+  margin: auto;
+  z-index: -1;
+}
+
+#herohelper {
+  height: 300px;
+  margin-bottom: 0;
+}
+
+#container {
+  color: #ddd;
+  margin-top: 5px;
+  padding: 30px;
+	background: rgba(10,10,10,.8);
+	-webkit-border-radius: 20px;
+	-khtml-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+
+#bio {
+  padding: 20px;
+  border: 1px orange dotted;
+  color: white;
+  background: black;
+  margin-bottom: 45px;
+}
+
+#bio p {
+  font-size: 14px;
+  margin-bottom: 1.5em;
+  line-height: 135%;
+}
+
+#bio p:last-child {
+  margin-bottom: 0;
+}
+
+#info a {
+  text-decoration: none;
+  color: #ddd;
+}
+
+#info a:hover {
+  color: white;
+}
+
+#info {
+  margin-left: 40px;
+}
+
+.left {
+  vertical-align: top;
+  width: 10em;
+  font-weight: bold;
+  color: #aaa;
+}
+
+.right {
+  width: 25em;
+  line-height: 125%;
+}
+
+.prose {
+  font-size: 90%;
+}
+
+.key {
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 130%;
+}
+
+.rjust {
+  float: left;
+  text-align: right;
+}
+
+#age {
+  border: none;
+  font-size: 16px;
+  line-height: 105%;
+  text-align: right;
+  font-weight: bold;
+  color: #ccc;
+}
+
+#age .unit {
+  font-size: 80%;
+  color: #999;
+  vertical-align: bottom;
+  font-weight: normal;
+  text-align: left;
+}
+
+.loc {
+  font-size: 16px;
+  color: #ccc;
+  font-weight: bold;
+}
+

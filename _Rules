@@ -27,6 +27,10 @@ compile '/*/script/*/' do
   # don't filter or layout
 end
 
+compile '/pubkey/' do
+  filter :erb
+end
+
 
 compile '*' do
   if item.binary?
@@ -51,7 +55,9 @@ route '/*/script/*/' do
   item.identifier.chop + '.' + item[:extension]
 end
 
-
+route '/pubkey/' do
+  item.identifier.chop + '.txt'
+end
 
 route '/projects/' do
   '/index.html'

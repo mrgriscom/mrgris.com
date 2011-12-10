@@ -1,5 +1,6 @@
 --- 
 title: About
+style: about
 scripts:
 - age
 ---
@@ -8,29 +9,144 @@ scripts:
 $(document).ready(function() {
   var DOB = 434285910. //1983-10-06 06:58:30 -0400
   register_age_ticker(DOB, 'm', ['drs', 'drd', 'dry', 'drle'], new ServerClock());
+
+  var pin_banner = (function(pin_threshold, $container, $elem) {
+    var base_offset = $container.offset().top;
+
+    return function() {
+      var scroll_pos = $(window).scrollTop();
+      var elem_pos = base_offset - scroll_pos;
+      var pinned = (elem_pos < pin_threshold);
+      $elem.css('position', pinned ? 'fixed' : 'static');
+      $elem.css('top', pinned ? pin_threshold + 'px' : 0);
+    };
+  })(80, $('#herohelper'), $('#hero'));
+  pin_banner();
+  $(window).scroll(pin_banner);
 });
 <% end %>
 
-<p>AGE</p>
+<div id="herohelper">
+<img id="hero" src="/img/hero.png">
+</div>
 
-<style>
-/* todo; finalize and incorporate into main stylesheet */
+<div id="container">
 
-td {
-  line-height: 20px;
-}
+<div id="bio">
+<p>
+Hello. I'm Drew <a target="_blank" href="http://translate.google.com/translate_tts?q=roos&tl=nl">Roos</a>, and I love to code. I recently realized that most of the things I've messed around with no one has ever seen. Hence, this website: a place to catalog and showcase my work.
+</p>
 
-.r {
-  text-align: right;
-  font-size: 16px;
-  font-weight: bold;
-  color: #ccc;
-}
-</style>
+<p>
+I enjoy programming projects of all stripes, but I have a particular interest in: geospatial, algorithms, math/physics, monte-carlo simulations, and rendering/eye-candy.
+</p>
 
-<table border="0">
-<tr><td class="r" id="drs">&mdash;</td><td>seconds</td></tr>
-<tr><td class="r" id="drd">&mdash;</td><td>days</td></tr>
-<tr><td class="r" id="dry">&mdash;</td><td>years</td></tr>
-<tr><td class="r" id="drle">&mdash;</td><td>life (expected)</td></tr>
+<p>
+I work at <a target="_blank" href="http://dimagi.com">Dimagi</a>. My day job is improving healthcare in the developing world through a multitude of technology projects: mobile apps, SMS, solar-powered kiosks in clinics, etc. Before that, I worked for <a target="_blank" href="http://epic.com">Epic</a>, making EMR software for large hospitals and clinics nationwide, concentrating on OR/anesthesia. I graduated from <a target="_blank" href="http://gatech.edu">Georgia Tech</a> with a BS in Computer Science. I went to <a target="_blank" href="http://www.choate.edu">Choate</a> for high school. I skipped two grades. I grew up in Connecticut.
+</p>
+</div>
+
+<table id="info">
+
+<tr>
+<td class="left">
+AGE
+</td>
+<td class="right">
+
+<table id="age">
+<tr><td id="drs">&mdash;</td><td class="unit">seconds</td></tr>
+<tr><td id="drd">&mdash;</td><td class="unit">days</td></tr>
+<tr><td id="dry">&mdash;</td><td class="unit">years</td></tr>
+<tr><td id="drle">&mdash;</td><td class="unit">life (expected)</td></tr>
 </table>
+
+</td>
+</tr>
+
+<tr>
+<td class="left">
+LOCATION
+</td>
+<td class="right">
+<a class="loc" target="_blank" href="http://maps.google.com/?q=42.4,-71.1&ll=42.4,-71.1&z=11&t=h"><span class="dir">N</span>42.4&deg;&nbsp;&nbsp;<span class="dir">W</span>071.1&deg;</a>
+</td>
+</tr>
+
+<tr>
+<td class="left">
+CONTACT
+</td>
+<td class="right">
+<div class="rjust">
+<a href="mailto:mrgriscom@gmail.com">mrgriscom@gmail.com</a><br>
+<a href="mailto:droos@dimagi.com">droos@dimagi.com</a>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="left">
+INTERNETS
+</td>
+<td class="right">
+<div class="rjust">
+<a target="_blank" href="http://bitbucket.org/mrgriscom">bitbucket</a><br>
+<a target="_blank" href="http://github.com/droos">github</a><br>
+<a target="_blank" href="http://plus.google.com/106348389651498067721">google+</a><br>
+<a target="_blank" href="http://twitter.com/#!/mrgriscom">twitter</a><br>
+<a target="_blank" href="http://picasaweb.google.com/106348389651498067721">picasa</a><br>
+<a target="_blank" href="http://www.youtube.com/user/mrgriscom">youtube</a><br>
+<a target="_blank" href="http://www.reddit.com/r/RedditorsAnonymous/"><s>reddit</s></a>
+</div>
+</td>
+</tr>
+
+
+<tr>
+<td class="left">
+LOVES
+</td>
+<td class="right">
+<div class="prose">
+maps, GIS, geolocation, geo-anything, navigation, borders, significant figures,
+python, mercurial, postgres, yaml, lambdas, french house, daylight savings[sic] time,
+honey bunches of oats, space elevators
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="left">
+HATES
+</td>
+<td class="right">
+<div class="prose">
+xml, git, aliasing, php, perl, shell scripting, mysql,
+<a target="_blank" href="http://thedailywtf.com/Articles/A_Case_of_the_MUMPS.aspx">cach&eacute;/MUMPS</a>,
+peters projection, innumeracy, referring to a city by its airport code,
+<i>"i'm all for [x], but [opinion betraying complete misunderstanding of x]"</i>
+</div>
+</td>
+</tr>
+
+<tr>
+<td class="left">
+PUBLIC KEY
+</td>
+<td class="right">
+<% i_pubkey = @items.find { |i| i.identifier == '/pubkey/' } %>
+<%= link_to(i_pubkey[:key_id].upcase, i_pubkey, {:class => 'key'}) %>
+</td>
+</tr>
+
+<tr>
+<td class="left">
+</td>
+<td class="right">
+</td>
+</tr>
+
+
+</table>
+</div>
