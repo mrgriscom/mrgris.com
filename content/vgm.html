@@ -1,6 +1,8 @@
 ---
 title: VGM
 style: vgm
+scripts:
+- util
 path: /data/music/vgm
 urlroot: /media_vgm
 systems:
@@ -328,11 +330,54 @@ ratings:
 - [2, "Zero_Wing-All_Your_Base_Are_Belong_to_Us"]
 ---
 
-<% trackinfo = mp3info(@item) %>
+<%
 
-<p>I'm not an archivist; sorry!</p>
+trackinfo = mp3info(@item)
 
-<p><%= trackinfo.size %> tracks in library (<%= trackinfo.select {|t| t['rating']}.group_by {|track| track['rating']}.sort.map {|k, v| v.size} %>)</p>
+rating_counts = trackinfo.select {|t| t['rating']}.group_by {|track| track['rating']}.sort.map {|k, v| v.size}
+
+def rating(n)
+  if not n
+    ''
+  elsif n == 0
+    '&#x2606;'
+  else
+    (1..n).map{|i| '&#x2605;'}.join
+  end
+end
+
+legend = {
+  0 => 'nostalgia purposes only',
+  1 => 'good',
+  2 => 'awesome',
+  3 => 'finest specimen',
+}
+
+%>
+
+<% content_for :script do %>
+$(document).ready(function() {
+  set_pin(50, $('#legend-container'), $('#legend'));
+});
+<% end %>
+
+<div id="legend-container">
+<table id="legend" class="tracks">
+  <% (3.downto 0).each do |r| %>
+  <tr>
+    <td class="rating"><%= rating(r) %></td>
+    <td class="title"><%= legend[r] %></td>
+    <td class="ratingcount">(<%= rating_counts[r] %>)</td>
+  </tr>
+  <% end %>
+</table>
+</div>
+
+<p>
+I'm not an archivist; sorry!
+</p>
+
+<p><%= trackinfo.size %> tracks in library</p>
 
 <% trackinfo.group_by {|t| [t['game'], t['system']]}.sort.each do |key, tracks|
   game = key[0]
@@ -343,8 +388,8 @@ ratings:
   <% tracks.sort_by {|t| t['title']}.each do |track| %>
     <tr>
     <% r = track['rating'] %>
-    <td class="rating"><% if not r %><% elsif r == 0 %>&#x2606;<% else %><%= (1..r).map{|i| '&#x2605;'}.join %><% end %></td>
-    <td class="title"><%= mk_link(File::join(@item[:urlroot], track['filename']), track['title'], true) %></a></td>
+    <td class="rating"><%= rating(r) %></td>
+    <td class="title"><%= mk_link(File::join(@item[:urlroot], track['filename']), track['title'], true) %></td>
     <td class="length"><%= fmt_length(track['length']) %></td>
     </tr>
   <% end %>

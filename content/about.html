@@ -3,6 +3,7 @@ title: About
 style: about
 scripts:
 - age
+- util
 ---
 
 <% content_for :script do %>
@@ -10,19 +11,7 @@ $(document).ready(function() {
   var DOB = 434285910. //1983-10-06 06:58:30 -0400
   register_age_ticker(DOB, 'm', ['drs', 'drd', 'dry', 'drle'], new ServerClock());
 
-  var pin_banner = (function(pin_threshold, $container, $elem) {
-    var base_offset = $container.offset().top;
-
-    return function() {
-      var scroll_pos = $(window).scrollTop();
-      var elem_pos = base_offset - scroll_pos;
-      var pinned = (elem_pos < pin_threshold);
-      $elem.css('position', pinned ? 'fixed' : 'static');
-      $elem.css('top', pinned ? pin_threshold + 'px' : 0);
-    };
-  })(80, $('#herohelper'), $('#hero'));
-  pin_banner();
-  $(window).scroll(pin_banner);
+  set_pin(80, $('#herohelper'), $('#hero'));
 });
 <% end %>
 

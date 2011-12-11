@@ -54,3 +54,17 @@ td a {
   padding-right: 9px;
 }
 
+#legend-container {
+  position: absolute;
+  right: 50px;
+  z-index: -1;
+}
+
+#legend .title,.ratingcount {
+  font-size: 90%;
+  color: #ccc;
+}
+
+.ratingcount {
+  text-align: right;
+}
