@@ -69,3 +69,7 @@ p,img,div {
   font-weight: bold;
   opacity: 0.65;
 }
+
+#nav .part {
+  font-weight: bold;
+}

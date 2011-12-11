@@ -63,6 +63,10 @@ route '/pubkey/' do
   item.identifier.chop + '.txt'
 end
 
+route '/travel/blog/labrador/1/' do
+  '/travel/blog/labrador/index.html'
+end
+
 route '/projects/' do
   '/index.html'
 end

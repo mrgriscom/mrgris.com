@@ -1,8 +1,37 @@
 <!DOCTYPE HTML>
 <html lang="en">
+
+<%=
+
+def part_from_item(i)
+  (i.identifier.split '/')[-1].to_i
+end
+
+parts = Hash[@items.select { |i| i.identifier.start_with? '/travel/blog/labrador/' }.map {|i| [part_from_item(i), i]}]
+part = part_from_item(@item)
+
+def _prev_part(part, parts)
+  p = part - 1
+  part >= 0 ? parts[p] : nil
+end
+
+def _next_part(part, parts)
+  p = part + 1
+  part <= parts.size ? parts[p] : nil
+end
+
+prev_part = _prev_part(part, parts)
+next_part = _next_part(part, parts)
+
+def part_name(templ, p)
+  templ % (1..p).map{|i| 'I'}.join
+end
+
+%>
+
 <head>
   <meta charset="utf-8">
-  <title>Great Northern Expedition: Part <%= @item[:title] %> :: mrgris.com</title>
+  <title>Great Northern Expedition: Part <%= part %> :: mrgris.com</title>
   <link rel="stylesheet" type="text/css" href="/style/labrador.css" media="screen">
   <meta name="generator" content="nanoc 3.2.2">
   <meta name="google-site-verification" content="J6GQY2POhqhf83-eTd8aa2Y4k-ZhdwfhQsQSgtaxvo0" />
@@ -31,16 +60,10 @@ of the story
 </div>
 
 <table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
-<td align="left">
-<?
-$linkp1 = ($part == 1 ? "Part I" : "<a href=\"index.php?part=1\">Part I</a>");
-$linkp2 = ($part == 2 ? "Part II" : "<a href=\"index.php?part=2\">Part II</a>");
-$linkp3 = ($part == 3 ? "Part III" : "<a href=\"index.php?part=3\">Part III</a>");
-
-echo "<b>$linkp1</b> | <b>$linkp2</b> | <b>$linkp3</b>";
-?>
+<td id="nav" align="left">
+<%= parts.sort.map {|p, i| '<span class="part">%s</span>' % link_to_unless_current(part_name('Part %s', p), i)}.join ' | ' %>
 </td><td align="right">
-<font size="-1">Last updated: <b>July 4</b> @ <b>11am</b></font>
+<!--<font size="-1">Last updated: <b>July 4</b> @ <b>11am</b></font>-->
 </td>
 </tr></table>
 
@@ -97,13 +120,15 @@ echo "<b>$linkp1</b> | <b>$linkp2</b> | <b>$linkp3</b>";
 
 </div>
 
-<p><a href="index.php?part=1"><i>Back to part I...</i></a></p>
-<p><a href="index.php?part=2"><i>Back to part II...</i></a></p>
+<% if prev_part %>
+<p><i><%= link_to(part_name('Back to part %s...', part - 1), prev_part) %></i></p>
+<% end %>
 
   <%= yield %>
 
-<p><a href="index.php?part=2"><font size="+1"><b><i>Continue on to part II...</i></b></font></a></p>
-<p><a href="index.php?part=3"><font size="+1"><b><i>Continue on to part III...</i></b></font></a></p>
+<% if next_part %>
+<p><font size="+1"><b><i><%= link_to(part_name('Continue on to part %s...', part + 1), next_part) %></i></b></font></p>
+<% end %>
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <% (@item[:scripts] or []).each do |script| %>
