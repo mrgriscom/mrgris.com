@@ -60,6 +60,10 @@ td a {
   z-index: -1;
 }
 
+#legend {
+  right: inherit;
+}
+
 #legend .title,.ratingcount {
   font-size: 90%;
   color: #ccc;

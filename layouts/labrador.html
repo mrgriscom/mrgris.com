@@ -50,15 +50,6 @@ _gaq.push(['_trackPageview']);
 </head>
 <body>
 
-<div id="abbietoggle">
-<div id="inner">
-Abbie's side<br>
-<a href="#"><table id="statusframe"><tr><td id="status"></td></tr></table></a>
-<img id="statusimg" width="150" height="150" src="http://upload.wikimedia.org/wikipedia/commons/8/8c/Transparent.png"><br>
-of the story
-</div>
-</div>
-
 <table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
 <td id="nav" align="left">
 <%= parts.sort.map {|p, i| '<span class="part">%s</span>' % link_to_unless_current(part_name('Part %s', p), i)}.join ' | ' %>
@@ -69,9 +60,20 @@ of the story
 
 <hr>
 
-<div style="float: right; margin-left: 20px;">
+<div id="_abbietoggle">
+<div id="abbietoggle">
+<div id="inner">
+Abbie's side<br>
+<a href="#"><table id="statusframe"><tr><td id="status"></td></tr></table></a>
+<img id="statusimg" width="150" height="150"><br>
+of the story
+</div>
+</div>
+</div>
 
-<table style="border: 1px black solid; margin-bottom: 20px; margin-top: 250px;">
+<div id="sidebar">
+
+<table class="box">
 <tr><td colspan="2" align="center"><b>Trip Totals</b></td></tr>
 <tr><td align="left" valign="top">Days:</td><td align="right">23</td></tr>
 <tr><td align="left" valign="top">Miles:</td><td align="right">5,229</td></tr>
@@ -83,14 +85,17 @@ of the story
 <tr><td align="left" valign="top">Caribou:</td><td align="right">2</td></tr>
 <tr><td align="left" valign="top">Puffins:</td><td align="right">2 (up close)<br>1,000's (from afar)</td></tr>
 <tr><td align="left" valign="top">Whales:</td><td align="right">2</td></tr>
-<tr><td align="left" valign="top">Giant Squid:</td><td align="right">1 (stuffed)</td></tr>
+<tr><td align="left" valign="top">Giant Squid:</td><td align="right">
+1 (<a target="_blank" href="/img/x/labrador/day10/sm2836.jpg">stuffed</a>)<br>
+1 (<a target="_blank" href="/img/x/labrador/day10/sm2847.jpg">stuffed</a>)
+</td></tr>
 <tr><td align="left" valign="top">Mink, Martens, and<br>such-and-such:</td><td align="right" valign="top">6</td></tr>
 <tr><td align="left" valign="top">Icebergs:</td><td align="right">~20</td></tr>
 <tr><td align="left" valign="top">Flat Tires:</td><td align="right">0</td></tr>
 <tr><td align="left" valign="top">Photos Taken:</td><td align="right">1,766</td></tr>
 </table>
 
-<table style="border: 1px black solid; margin-bottom: 20px;">
+<table class="box">
 <tr><td colspan="2" align="center"><b>Extremes</b></td></tr>
 <tr><td align="left">Northernmost:</td><td align="right">~N54.25&#xb0;</td></tr>
 <tr><td align="left">Farthest (from Boston):</td><td align="right">~1,030 mi</td></tr>
@@ -100,20 +105,20 @@ of the story
 <tr><td align="left" valign="top">Awkwardest:</td><td align="right" width="150px">almost eating a Quebec family's cheese</td></tr>
 </table>
 
-<table width="350px" style="margin-bottom: 20px;">
+<table width="1px">
 <tr><td>
-<a href="http://mrgris.com/travel/where.php?start=20090301"><img src="/img/labrador/itinerary.png" border="2" align="left"></a>
+<a href="http://mrgris.com/travel/where.php?start=20090301"><img src="/img/labrador/itinerary.png" border="2"></a>
 </td><tr>
-<tr><td>
+<tr><td align="left">
 <a href="http://mrgris.com/travel/where.php?start=20090301">Follow the itinerary</a></b> to see <b>where we are</b> and <b>have been</b>. Up-to-the-minute (more like up-to-whenever-we-get-internet) updates.
 </td></tr>
 </table>
 
-<table width="350px" style="margin-bottom: 20px;">
+<table width="1px">
 <tr><td>
-<a href="/img/x/labrador/map.png"><img width="300" height="250" src="/img/labrador/map-small.png" border="2" align="left"></a>
+<a href="/img/x/labrador/map.png"><img width="300" height="250" src="/img/labrador/map-small.png" border="2"></a>
 </td></tr>
-<tr><td>
+<tr><td align="left">
 <a href="/img/x/labrador/map.png">Detailed map</a></b> of our route. Scale: 100&nbsp;pixels &#x2248; 25&nbsp;miles. (warning: 7MB image)
 </td></tr>
 </table>
@@ -121,32 +126,18 @@ of the story
 </div>
 
 <% if prev_part %>
-<p><i><%= link_to(part_name('Back to part %s...', part - 1), prev_part) %></i></p>
+<p><%= link_to(part_name('Back to part %s...', part - 1), prev_part, {:class => 'prevpart'}) %></p>
 <% end %>
 
   <%= yield %>
 
 <% if next_part %>
-<p><font size="+1"><b><i><%= link_to(part_name('Continue on to part %s...', part + 1), next_part) %></i></b></font></p>
+<p><%= link_to(part_name('Continue on to part %s...', part + 1), next_part, {:class => 'nextpart'}) %></p>
 <% end %>
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<% (@item[:scripts] or []).each do |script| %>
-  <script type="text/javascript" src="/script/<%= script %>.js"></script>
-<% end %>
+  <script type="text/javascript" src="/script/util.js"></script>
   <script type="text/javascript">
-
-function abbies_side(enabled) {
-  //$('#statusimg').attr('src', (enabled ? '/img/labrador/abbie_speaks' : '/img/x/labrador/abbie_silenced') + '.jpg');
-  $('#status').text(enabled ? 'ON' : 'OFF');
-  $('#status').css('opacity', .8); //enabled ? .4 : .7);
-  $('#inner').unbind('click');
-  $('#inner').click(function() {
-    abbies_side(!enabled);
-    return false;
-  });
-  $('.abbie')[enabled ? 'show' : 'hide']();
-}
 
 function mousetoggle(selector, replacement) {
   var orig_img = selector.attr('src');
@@ -158,15 +149,52 @@ function mousetoggle(selector, replacement) {
   });
 }
 
-function preload_images(paths) {
-  $(paths).each(function(i, val) {
-    $('<img />').attr('src', '/img/labrador/' + val).prependTo('body').hide();
+function abbies_side(enabled, get_context) {
+  var context = get_context();
+  var img = (enabled ? context.on : context.off);
+  if (!img) {
+    img = {src: 'http://upload.wikimedia.org/wikipedia/commons/8/8c/Transparent.png', opacity: .8};
+  }
+  $('#statusimg').attr('src', img.src);
+  $('#status').text(enabled ? 'ON' : 'OFF');
+  $('#status').css('opacity', img.opacity);
+  $('#inner').unbind('click');
+  $('#inner').click(function() {
+    abbies_side(!enabled, get_context);
+    return false;
   });
+  $('.abbie')[enabled ? 'show' : 'hide']();
 }
-preload_images(['abbie_speaks.jpg', 'abbie_silenced.jpg', 'milestogo.jpg', 'slant.jpg']);
+
+function toggle_context(mode) {
+  var imgs = [
+    {src: '/img/labrador/abbie_speaks.jpg', opacity: .4},
+    {src: '/img/labrador/abbie_quiet.jpg', opacity: .5},
+    {src: '/img/x/labrador/abbie_silenced.jpg', opacity: .7},
+  ];
+  var modes = {
+    0: {on: null, off: null},
+    1: {on: imgs[0], off: imgs[1]},
+    2: {on: imgs[0], off: imgs[2]},
+  }
+  return modes[mode];
+}
+
+MODE = 1;
+function get_context() {
+  return toggle_context(MODE);
+}
+
+preload_images(['milestogo.jpg', 'slant.jpg'], '/img/labrador/');
+$.each(get_context(), function(i, e) {
+  if (e) {
+    preload_images([e.src]);
+  }
+});
 
 $(document).ready(function() {
-  abbies_side(true);
+  abbies_side(true, get_context);
+  set_pin(15, $('#_abbietoggle'), $('#abbietoggle'));
 
   mousetoggle($('#bigpicture'), '/img/labrador/milestogo.jpg');
   mousetoggle($('#slanty'), '/img/labrador/slant.jpg');

@@ -19,10 +19,13 @@ p,img,div {
   clear: left;
 }
 
+#_abbietoggle {
+  position: absolute;
+  right: 10px;
+}
+
 #abbietoggle {
-  position: fixed;
-  top: 65px;
-  right: 50px;
+  right: inherit;
   text-align: center;
   -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
@@ -72,4 +75,36 @@ p,img,div {
 
 #nav .part {
   font-weight: bold;
+}
+
+#sidebar {
+  float: right;
+  clear: right;
+  margin-left: 20px;
+  margin-right: 15px;
+}
+
+.box {
+  border: 1px black solid;
+}
+
+#sidebar table {
+  margin-left: auto;
+  margin-right: 0;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+#sidebar table:first-child {
+  margin-top: 225px;
+}
+
+.prevpart {
+  font-style: italic;
+}
+
+.nextpart {
+  font-style: italic;
+  font-weight: bold;
+  font-size: larger;
 }
