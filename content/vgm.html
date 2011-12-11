@@ -333,6 +333,7 @@ ratings:
 <%
 
 trackinfo = mp3info(@item)
+tracksets = trackinfo.group_by {|t| [t['game'], t['system']]}.sort
 
 rating_counts = trackinfo.select {|t| t['rating']}.group_by {|track| track['rating']}.sort.map {|k, v| v.size}
 
@@ -372,7 +373,7 @@ $(document).ready(function() {
   </tr>
   <% end %>
 </table>
-<div class="totalcount"><b><%= trackinfo.size %></b> tracks total</div>
+<div class="totalcount"><b><%= trackinfo.size %></b> total tracks from <b><%= tracksets.size %></b> games</div>
 </div>
 </div>
 
@@ -381,7 +382,7 @@ I'm not an archivist; you won't find complete listings here. Sorry! I've strived
 based on the quality of the music itself, and not whatever gaming experience it accompanied.
 </p>
 
-<% trackinfo.group_by {|t| [t['game'], t['system']]}.sort.each do |key, tracks|
+<% tracksets.each do |key, tracks|
   game = key[0]
   system = key[1]
 %>
