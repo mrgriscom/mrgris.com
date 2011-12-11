@@ -250,6 +250,10 @@ data:
   date: Apr 2011
   duration: weeks
 
+#- country: Brazil
+#  date: Jan 2012
+#  duration: months
+
 ---
 
 <ol>
@@ -281,4 +285,5 @@ data:
 <% end %>
 </ol>
 
-<p class="remain"><a class="remain-count" href="#"><%= 244 - @item[:data].count %></a>&nbsp;&nbsp;to go&hellip;</p>
+<% total_countries = 244 %>
+<p class="remain"><a class="remain-count" href="/travel/countrylist/"><%= total_countries - @item[:data].count %></a>&nbsp;&nbsp;to go&hellip;</p>

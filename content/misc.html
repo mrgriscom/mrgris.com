@@ -2,6 +2,34 @@
 title: Miscellany
 ---
 
-<h3><%= link_to('Video Game Music', @items.find { |i| i.identifier == '/vgm/' }) %></h3>
-<h3><%= link_to('Country-bagging', @items.find { |i| i.identifier == '/travelstats/' }) %></h3>
+<div class="project">
+<h3><%= link_to('VGM', @items.find { |i| i.identifier == '/vgm/' }) %></h3>
+<p>
+It's likely because the hundreds of hours logged playing videogames as a kid have caused these
+melodies to short-circuit the pleasure centers of my brain, but I genuinely enjoy listening
+to this stuff. My personal curation of iconic tunes from classic games.
+</p>
+</div>
+
+<div class="project">
+<h3><%= link_to('Country Count', @items.find { |i| i.identifier == '/travel/cc/' }) %></h3>
+<p>
+Gotta catch 'em all!
+</p>
+</div>
+
+<div class="project">
 <h3><%= link_to('Dimagi Blog, myspace ed.', @items.find { |i| i.identifier == '/dimagispace/' }) %></h3>
+<p>
+This artifact has hazy origins&hellip; a few beers, a series of escalating dares, and a little
+something called <a target="_blank" href="http://blingee.com">blingee</a>. Compare to
+<a target="_blank" href="http://www.dimagi.com/category/blog/">the original</a>.
+</p>
+</div>
+
+<div class="project">
+<h3>Archives: Roadtrip to Labrador</h3>
+<p>
+to do&hellip;
+</p>
+</div>
