@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Great Northern Expedition: Part <%= @item[:title] %> :: mrgris.com</title>
+  <link rel="stylesheet" type="text/css" href="/style/labrador.css" media="screen">
+  <meta name="generator" content="nanoc 3.2.2">
+  <meta name="google-site-verification" content="J6GQY2POhqhf83-eTd8aa2Y4k-ZhdwfhQsQSgtaxvo0" />
+
+  <script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-26507870-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+  </script>
+</head>
+<body>
+
+<div id="abbietoggle">
+<div id="inner">
+Abbie's side<br>
+<a href="#"><table id="statusframe"><tr><td id="status"></td></tr></table></a>
+<img id="statusimg" width="150" height="150" src="http://upload.wikimedia.org/wikipedia/commons/8/8c/Transparent.png"><br>
+of the story
+</div>
+</div>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+<td align="left">
+<?
+$linkp1 = ($part == 1 ? "Part I" : "<a href=\"index.php?part=1\">Part I</a>");
+$linkp2 = ($part == 2 ? "Part II" : "<a href=\"index.php?part=2\">Part II</a>");
+$linkp3 = ($part == 3 ? "Part III" : "<a href=\"index.php?part=3\">Part III</a>");
+
+echo "<b>$linkp1</b> | <b>$linkp2</b> | <b>$linkp3</b>";
+?>
+</td><td align="right">
+<font size="-1">Last updated: <b>July 4</b> @ <b>11am</b></font>
+</td>
+</tr></table>
+
+<hr>
+
+<div style="float: right; margin-left: 20px;">
+
+<table style="border: 1px black solid; margin-bottom: 20px; margin-top: 250px;">
+<tr><td colspan="2" align="center"><b>Trip Totals</b></td></tr>
+<tr><td align="left" valign="top">Days:</td><td align="right">23</td></tr>
+<tr><td align="left" valign="top">Miles:</td><td align="right">5,229</td></tr>
+<tr><td align="left" valign="top">Ferries:</td><td align="right">8</td></tr>
+<tr><td align="left" valign="top">Time Zone Changes:</td><td align="right">8</td></tr>
+<tr><td align="left" valign="top">Moose:</td><td align="right">13</td></tr>
+<tr><td align="left" valign="top">Black Bears:</td><td align="right">4</td></tr>
+<tr><td align="left" valign="top">Foxes:</td><td align="right">3</td></tr>
+<tr><td align="left" valign="top">Caribou:</td><td align="right">2</td></tr>
+<tr><td align="left" valign="top">Puffins:</td><td align="right">2 (up close)<br>1,000's (from afar)</td></tr>
+<tr><td align="left" valign="top">Whales:</td><td align="right">2</td></tr>
+<tr><td align="left" valign="top">Giant Squid:</td><td align="right">1 (stuffed)</td></tr>
+<tr><td align="left" valign="top">Mink, Martens, and<br>such-and-such:</td><td align="right" valign="top">6</td></tr>
+<tr><td align="left" valign="top">Icebergs:</td><td align="right">~20</td></tr>
+<tr><td align="left" valign="top">Flat Tires:</td><td align="right">0</td></tr>
+<tr><td align="left" valign="top">Photos Taken:</td><td align="right">1,766</td></tr>
+</table>
+
+<table style="border: 1px black solid; margin-bottom: 20px;">
+<tr><td colspan="2" align="center"><b>Extremes</b></td></tr>
+<tr><td align="left">Northernmost:</td><td align="right">~N54.25&#xb0;</td></tr>
+<tr><td align="left">Farthest (from Boston):</td><td align="right">~1,030 mi</td></tr>
+<tr><td align="left">Latest Sunset:</td><td align="right">9:49 pm</td></tr>
+<tr><td align="left">Most Expensive Gas:</td><td align="right">US$4.45/gal</td></tr>
+<tr><td align="left">Coldest (measured):</td><td align="right">42 &#xb0;F</td></tr>
+<tr><td align="left" valign="top">Awkwardest:</td><td align="right" width="150px">almost eating a Quebec family's cheese</td></tr>
+</table>
+
+<table width="350px" style="margin-bottom: 20px;">
+<tr><td>
+<a href="http://mrgris.com/travel/where.php?start=20090301"><img src="/img/labrador/itinerary.png" border="2" align="left"></a>
+</td><tr>
+<tr><td>
+<a href="http://mrgris.com/travel/where.php?start=20090301">Follow the itinerary</a></b> to see <b>where we are</b> and <b>have been</b>. Up-to-the-minute (more like up-to-whenever-we-get-internet) updates.
+</td></tr>
+</table>
+
+<table width="350px" style="margin-bottom: 20px;">
+<tr><td>
+<a href="/img/x/labrador/map.png"><img width="300" height="250" src="/img/labrador/map-small.png" border="2" align="left"></a>
+</td></tr>
+<tr><td>
+<a href="/img/x/labrador/map.png">Detailed map</a></b> of our route. Scale: 100&nbsp;pixels &#x2248; 25&nbsp;miles. (warning: 7MB image)
+</td></tr>
+</table>
+
+</div>
+
+<p><a href="index.php?part=1"><i>Back to part I...</i></a></p>
+<p><a href="index.php?part=2"><i>Back to part II...</i></a></p>
+
+  <%= yield %>
+
+<p><a href="index.php?part=2"><font size="+1"><b><i>Continue on to part II...</i></b></font></a></p>
+<p><a href="index.php?part=3"><font size="+1"><b><i>Continue on to part III...</i></b></font></a></p>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<% (@item[:scripts] or []).each do |script| %>
+  <script type="text/javascript" src="/script/<%= script %>.js"></script>
+<% end %>
+  <script type="text/javascript">
+
+function abbies_side(enabled) {
+  //$('#statusimg').attr('src', (enabled ? '/img/labrador/abbie_speaks' : '/img/x/labrador/abbie_silenced') + '.jpg');
+  $('#status').text(enabled ? 'ON' : 'OFF');
+  $('#status').css('opacity', .8); //enabled ? .4 : .7);
+  $('#inner').unbind('click');
+  $('#inner').click(function() {
+    abbies_side(!enabled);
+    return false;
+  });
+  $('.abbie')[enabled ? 'show' : 'hide']();
+}
+
+function mousetoggle(selector, replacement) {
+  var orig_img = selector.attr('src');
+  selector.mouseenter(function() {
+    selector.attr('src', replacement);
+  });
+  selector.mouseleave(function() {
+    selector.attr('src', orig_img);
+  });
+}
+
+function preload_images(paths) {
+  $(paths).each(function(i, val) {
+    $('<img />').attr('src', '/img/labrador/' + val).prependTo('body').hide();
+  });
+}
+preload_images(['abbie_speaks.jpg', 'abbie_silenced.jpg', 'milestogo.jpg', 'slant.jpg']);
+
+$(document).ready(function() {
+  abbies_side(true);
+
+  mousetoggle($('#bigpicture'), '/img/labrador/milestogo.jpg');
+  mousetoggle($('#slanty'), '/img/labrador/slant.jpg');
+});
+
+  </script>
+</body>
+</html>

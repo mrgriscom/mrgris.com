@@ -65,6 +65,10 @@ td a {
   color: #ccc;
 }
 
+#legend .title {
+  width: 10em;
+}
+
 .ratingcount {
   text-align: right;
 }

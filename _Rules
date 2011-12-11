@@ -31,6 +31,10 @@ compile '/pubkey/' do
   filter :erb
 end
 
+compile '/travel/blog/labrador/*/' do
+  filter :erb
+  layout 'labrador'
+end
 
 compile '*' do
   if item.binary?

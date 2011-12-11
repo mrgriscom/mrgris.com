@@ -8,3 +8,4 @@ tmp/
 Rules  # we need to generate rules dynamically; static rules now live in _Rules
 content/app-static/
 layouts/app/
+content/img/x/  # large images that we don't want to store in the repo
