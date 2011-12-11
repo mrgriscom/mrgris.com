@@ -68,3 +68,17 @@ td a {
 .ratingcount {
   text-align: right;
 }
+
+.totalcount {
+  text-align: right;
+  color: #ccc;
+  font-style: italic;
+  font-size: 90%;
+  margin-top: 3px;
+}
+
+#intro {
+  max-width: 500px;
+  font-size: 13px;
+  color: #999;
+}

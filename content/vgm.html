@@ -347,10 +347,10 @@ def rating(n)
 end
 
 legend = {
-  0 => 'nostalgia purposes only',
+  0 => 'strictly nostalgia',
   1 => 'good',
   2 => 'awesome',
-  3 => 'finest specimen',
+  3 => 'pinnacle of the art',
 }
 
 %>
@@ -362,7 +362,8 @@ $(document).ready(function() {
 <% end %>
 
 <div id="legend-container">
-<table id="legend" class="tracks">
+<div id="legend">
+<table class="tracks">
   <% (3.downto 0).each do |r| %>
   <tr>
     <td class="rating"><%= rating(r) %></td>
@@ -371,13 +372,14 @@ $(document).ready(function() {
   </tr>
   <% end %>
 </table>
+<div class="totalcount"><b><%= trackinfo.size %></b> tracks total</div>
+</div>
 </div>
 
-<p>
-I'm not an archivist; sorry!
+<p id="intro">
+I'm not an archivist; you won't find complete listings here. Sorry! I've strived to rate
+based on the quality of the music itself, and not whatever gaming experience it accompanied.
 </p>
-
-<p><%= trackinfo.size %> tracks in library</p>
 
 <% trackinfo.group_by {|t| [t['game'], t['system']]}.sort.each do |key, tracks|
   game = key[0]
