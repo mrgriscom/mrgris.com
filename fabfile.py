@@ -38,7 +38,7 @@ def clean():
 def deploy():
     with _cd():
         WWW_ROOT = '/var/www'
-        WWW_EXCL = ['a', 'travel']
+        WWW_EXCL = ['a']
         rsync_project(WWW_ROOT, 'output/', delete=True, exclude=WWW_EXCL)
 
         VGM_ROOT = '/home/drew/vgm'
