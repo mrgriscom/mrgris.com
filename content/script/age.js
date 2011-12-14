@@ -125,15 +125,47 @@ function age_update(EPOCH, gender, elems, clock) {
   var secs = timestamp - EPOCH;
   var days = secs / 86400.;
   var years = days / 365.2425;
-  var life_exp = years / life_expectancy(years, gender);
+  var total_life_exp = life_expectancy(years, gender);
+  var life_exp = years / total_life_exp;
 
-  var PREC = [2, 4, 5, 3];
-  //var PREC = [2, 7, 9, 9]; //creepy ed.
-  var ROUND = 'down';
-  $('#' + elems[0]).text(format(secs, PREC[0], ROUND));
-  $('#' + elems[1]).text(format(days, PREC[1], ROUND));
-  $('#' + elems[2]).text(format(years, PREC[2], ROUND));
-  $('#' + elems[3]).text(format(100. * life_exp, PREC[3], ROUND, '{{#}}%'));
+  var rem_life_exp = 1. - life_exp;
+  var rem_years = total_life_exp - years;
+  var rem_days = rem_years * 365.2425;
+  var rem_secs = rem_days * 86400.;
+
+  var PREC = {s: 2, d: 4, y: 5, le: 3};
+  //var PREC = {s: 2, d: 7, y: 9, le: 9}; //all units same scale
+
+  var used = {s: secs, d: days, y: years, le: life_exp};
+  var left = {s: rem_secs, d: rem_days, y: rem_years, le: rem_life_exp};
+  
+  var setval = function(field) {
+    var $e = elems[field];
+    if (!$e) {
+      return;
+    }
+
+    if (field[0] == '_') {
+      var data = left;
+      var round = 'up';
+      field = field.substring(1);
+    } else {
+      var data = used;
+      var round = 'down';
+    }
+
+    var val = data[field];
+    var fmt = null;
+    if (field == 'le') {
+      val *= 100.;
+      fmt = '{{#}}%';
+    }
+    var s = format(val, PREC[field], round, fmt);
+    $e.text(s);
+  }
+  $.each(elems, function(i, e) {
+      setval(i);
+    });
 }
 
 function register_age_ticker(epoch, gender, elements, clock, tick) {

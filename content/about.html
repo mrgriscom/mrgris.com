@@ -12,7 +12,14 @@ $(document).ready(function() {
   var clock = new ServerClock();
 
   var DOB = 434285910. //1983-10-06 06:58:30 -0400
-  register_age_ticker(DOB, 'm', ['drs', 'drd', 'dry', 'drle'], clock);
+  var elems = {};
+  var load_elem = function(e, prefix) {
+    var $e = $(e);
+    elems[(prefix || '') + $e.attr('id')] = $e;
+  };
+  $.each($('#age .agecount'), function(i, e) { load_elem(e) });
+  $.each($('#ageleft .agecount'), function(i, e) { load_elem(e, '_') });
+  register_age_ticker(DOB, 'm', elems, clock);
 
   register_pos_watcher($('#curloc'), $('#localtime'), clock);
 
@@ -48,12 +55,22 @@ AGE
 </td>
 <td class="right">
 
-<table id="age">
-<tr><td id="drs">&mdash;</td><td class="unit">seconds</td></tr>
-<tr><td id="drd">&mdash;</td><td class="unit">days</td></tr>
-<tr><td id="dry">&mdash;</td><td class="unit">years</td></tr>
-<tr><td id="drle">&mdash;</td><td class="unit">life (expected)</td></tr>
+<table id="age" class="age">
+<tr><td id="s" class="agecount">&mdash;</td><td class="unit">seconds</td></tr>
+<tr><td id="d" class="agecount">&mdash;</td><td class="unit">days</td></tr>
+<tr><td id="y" class="agecount">&mdash;</td><td class="unit">years</td></tr>
+<tr><td id="le" class="agecount">&mdash;</td><td class="unit">life (expected)</td></tr>
 </table>
+
+<!--
+<table id="ageleft" class="age">
+<tr><td id="s" class="agecount">&mdash;</td><td class="unit">seconds</td></tr>
+<tr><td id="d" class="agecount">&mdash;</td><td class="unit">days</td></tr>
+<tr><td id="y" class="agecount">&mdash;</td><td class="unit">years</td></tr>
+<tr><td id="le" class="agecount">&mdash;</td><td class="unit">life (expected)</td></tr>
+</table>
+note: cell not wide enough to fit both
+-->
 
 </td>
 </tr>
