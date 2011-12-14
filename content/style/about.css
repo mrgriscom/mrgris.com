@@ -104,3 +104,13 @@ td.left, td.right {
   color: #ccc;
   font-weight: bold;
 }
+
+.localtime {
+  font-size: 90%;
+  font-style: italic;
+  padding-left: 15px;
+}
+
+#localtime {
+  font-weight: bold;
+}
