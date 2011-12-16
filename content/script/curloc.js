@@ -63,6 +63,7 @@ function update_pos($e, lat, lon) {
 function update_localtime($e, tz_offset, clock) {
   var sloc = format_localtime(clock.clock(), tz_offset);
   $e.html(sloc ? sloc : '&mdash;');
+  $e.attr('title', format_tzoffset(tz_offset));
 }
 
 function pos_link(lat, lon) {
@@ -70,7 +71,7 @@ function pos_link(lat, lon) {
   return 'http://maps.google.com/?q=' + pos + '&ll=' + pos + '&z=11&t=h';
 }
 
-function format_localtime(secs, offset) {
+function format_localtime(secs, offset, include_secs) {
   if (secs == null || offset == null) {
     return null;
   }
@@ -80,13 +81,38 @@ function format_localtime(secs, offset) {
   var dow = (Math.floor(secs / 86400.) + 4) % 7;
   var h = Math.floor(secs / 3600.) % 24;
   var m = Math.floor(secs / 60.) % 60;
+  var s = Math.floor(secs) % 60;
 
   var sdow = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][dow];
   var sh = ((h + 24 - 1) % 12) + 1;
   var sm = n_pad(m, 2);
+  var ss = n_pad(s, 2);
   var ap = (h < 12 ? 'a' : 'p');
 
-  return sdow + ' ' + sh + ':' + sm + ap;
+  return sdow + ' ' + sh + ':' + sm + (include_secs ? ':' + ss : '') + ap;
+}
+
+function format_tzoffset(offset) {
+  if (offset == null) {
+    return null;
+  }
+
+  var s = 'UTC';
+  if (offset != 0) {
+    s += ' ' + (offset > 0 ? '+' : '\u2212');
+    offset = Math.abs(offset);
+    var h = Math.floor(offset / 60);
+    var m = offset % 60;
+    s += h;
+    if (m != 0) {
+      if (m % 15 == 0) {
+        s += {1: '\xbc', 2: '\xbd', 3: '\xbe'}[m / 15];
+      } else {
+        s += ':' + n_pad(m, 2);
+      }
+    }
+  }
+  return s;
 }
 
 function format_pos(lat, lon) {
