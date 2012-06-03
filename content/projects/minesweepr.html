@@ -9,6 +9,7 @@ style: project
 A minesweeper solver in python. Exhaustively solves any board, of any topology, through the use of advanced combinatorial and probability analysis. It can compute the exact mine probabilities of all cells, as well as detect inconsistent game states. Highly optimized, but ultimately still an <i>O(2<sup>n</sup>)</i> algorithm. Includes a live web demo.
 </p>
 
+<p class="li"><%= link_to('Play', @items.find { |i| i.identifier == '/projects/minesweepr/demo/player/' }) %></p>
 <p class="li"><%= link_to('Read more&hellip;', @item) %></p>
 <% end %>
 
@@ -18,36 +19,42 @@ A minesweeper solver in python. Exhaustively solves any board, of any topology, 
 
 <td id="mnswcontent">
 
-<h3>What is this?</h3>
+<h3 style="margin-top: 0.2em;">What is this?</h3>
 
 <p>
-This project is a minesweeper solver. It can solve any game board, with any <a href="#topology">topology</a>, and compute the exact mine probabilities for all cells. It achieves this through advanced combinatorial and probability analysis.
+It's a minesweeper solver! It can solve any board, with any <a href="#topology">topology</a>, and exactly compute every cell's chance of being a mine. It achieves this through advanced combinatorial and probability analysis.
 </p>
 
 <h3>How does it work?</h3>
 
 <p>
-A minesweeper board is essentially a set of logical constraints. Each cell is a boolean state: mine or clear. Each uncovered cell is a statement about how many of the adjacent cells are mines. Our goal is to find configurations of mines that satisfy the given constraints. If, among all possible configurations, a cell is always a mine or always clear, we know for certain the cell is a mine or safe. For a cell that appears in both states, we cannot determine its status with any certainty; however, we <em>can</em> compute its relative safety by counting how many configurations in which it appears empty, as a proportion of all possible configurations, <em>assuming all configurations are equally likely</em>. Thus, if there is no guaranteed-safe cell, we can still determine the least-likely cells to have mines, and play the game quite skillfully.
+A minesweeper board is essentially a set of logical constraints. Each cell is a boolean state: mine or clear. Each uncovered cell says how many of the adjacent cells are mines. Our goal is to find configurations of mines that satisfy the given constraints. If, among all possible configurations, a cell is always a mine or always clear, we know for certain the cell is a mine or safe. A cell that appears in both states cannot be determined with any certainty; however, we <em>can</em> compute its relative safety by counting how many configurations in which it appears empty, as a proportion of all possible configurations, <em>assuming all configurations are equally likely</em>. Thus, if there is no guaranteed-safe cell, we can still determine the least-likely cells to have mines, and play the game quite skillfully.
 </p>
 
 <p>
-Any algorithm that hopes to exhaustively<%= footinline(1) %> solve minesweeper must employ this basic concept: determine all possible placements of mines on the board (and the relative likelihoods thereof), and observe how often each cell has a mine in it. This is easier said than done, as enumerating all possible mine configurations is hugely computationally expensive<%= footinline(2) %> if done in a naive manner. This solver employs a <%= link_to('number of techniques', @items.find { |i| i.identifier == '/projects/minesweepr/algo/' }) %> to cut down on the amount of work needed.
+Any algorithm that hopes to exhaustively solve minesweeper must employ this basic concept: determine all possible placements of mines on the board (and the relative likelihoods thereof), and observe how often each cell has a mine in it. This is easier said than done; enumerating all possible mine configurations is a huge computational task (<em>"exponential-time algorithm"</em>, i.e., for each fixed amount increase in the problem size, the work needed to solve it doubles, i.e., <em>the universe will probably freeze over before you finish</em>). This solver employs a <%= link_to('number of techniques', @items.find { |i| i.identifier == '/projects/minesweepr/algo/' }) %> to cut down on the amount of work needed.
 </p>
 
 <p>
-The unfortunate truth, however, is that despite all these advanced tricks and analyses, <em>minesweepr</em> still requires exponential time to run &mdash; each additional technique only shaves some amount off that exponent. It is <a href="http://for.mat.bham.ac.uk/R.W.Kaye/minesw/ordmsw.htm">strongly suspected</a> that exponential time is the best we can do. Luckily, in practice, the exponent and board size are together small enough that boards can be solved <a href="#runtime">quickly</a>.
+The unfortunate truth, however, is that despite all these fancy tricks, <em>minesweepr</em> still requires exponential time to run &mdash; each new technique only serves to shave some amount off that exponent. It is <a href="http://for.mat.bham.ac.uk/R.W.Kaye/minesw/ordmsw.htm">strongly suspected</a> that exponential time is the best we can do. Luckily, in practice, the exponent and board size are together small enough that boards can be solved <a href="#runtime">quickly</a>.
+</p>
+
+<p style="text-align: center;">&#x2042;</p>
+
+<p>
+The <em>real</em> truth is even worse than that. This algorithm only computes the safest cell(s) for the very next move. To have the best chance of surviving the game, we must consider not only the next move but all future moves. Is there a difference? Yes!
 </p>
 
 <p>
-The <em>real</em> truth is even worse than that. This algorithm only computes the optimal cell for the very next move. To have the best chance of finishing the game, we must consider not only the next move but all future moves. Is there a difference? Yes!
+That is to say, "is there a riskier move we can make now, that will pay off in multiple safer moves later on?"
 </p>
 
 <p>
-Assume we're stuck in a situation where we must guess: imagine we make the 'best' next move by clicking on the safest cell. This doesn't reveal much new information about the remaining cells, but at least we're still alive. So we click on the new safest cell again, and again&hellip; finally we get some information that removes the remaining uncertainty and lets us escape from corner we've been trapped in.
+Imagine this typical situation: we must guess, so we make the logical 'best' move by clicking on the lowest-risk cell. We're still alive, but it doesn't seem like it revealed much information about the surrounding cells. So we guess again, and again&hellip; until finally we get some new information that removes the remaining uncertainty and lets us escape from the trap.
 </p>
 
 <p>
-Now suppose there were a riskier<%= footinline(3) %> cell that, had we clicked on it and lived, would have removed that uncertainty right away. It's possible that we exposed ourselves to more accumulated risk by taking the conservative route of making multiple less-risky moves, rather than making the single, bold move up front. There are known examples of this being the case. And, anecdotally, the safer bets do indeed seem to reveal less information about the remaining cells than do riskier<%= footinline(4) %>.
+Now suppose there were a riskier<%= footinline(1) %> cell that, had we lived to tell the tale, would have removed that uncertainty right away. Did we expose ourselves to more accumulated risk through several low-risk guesses rather than making the bold move upfront? There <em>are</em> known examples where this is indeed the case. And anecdotally, gameplay often seems to play out this way, where the safer bets reveal less useful information than do the riskier<%= footinline(2) %>. It's hard to prove definitely, though.
 </p>
 
 <p>
@@ -55,51 +62,39 @@ So the safest move at the moment is not always the best move for long-term succe
 </p>
 
 <p>
-Nevertheless, it's impressive to watch the algorithm working even one move ahead. It's almost uncannily adept at getting out of tight situations.
+Despite these shortcomings, it's still impressive to watch the algorithm at work, even just one move ahead. It's almost uncannily adept at getting out of tight situations.
 </p>
 
 <a name="foot1">
 <p class="footend">
-<span class="footmark">1</span> meaning it can determine the best move on all possible boards, even when no cell is 100% safe and the best move requires guessing
+<span class="footmark">1</span> note, astute reader, that 'riskier' in this context doesn't mean the most <em>dangerous</em> &mdash; choosing a 95% likely mine is rarely advised &mdash; but rather the most uncertain &mdash; closest to 50/50, likely to go either way
 </p>
 </a>
 
 <a name="foot2">
 <p class="footend">
-<span class="footmark">2</span> an exponential-time algorithm, meaning for any fixed amount you increase the size of the problem by (e.g., 10 more cells on the board), the amount of computational work to solve it doubles; translated: <em>the universe will freeze over before your computer finishes</em>. How big the exponent determines how quickly the work balloons out of control.
-</p>
-</a>
-
-<a name="foot3">
-<p class="footend">
-<span class="footmark">3</span> note, astute reader, that 'riskier' in this context means the most uncertain &mdash; closest to 50/50 &mdash; <em>not</em> the most likely to kill you
-</p>
-</a>
-
-<a name="foot4">
-<p class="footend">
-<span class="footmark">4</span> another example is the popular strategy of clicking in the uncharted regions of the board in the hopes of getting a "cascade", i.e., opening up a new front of play, even though the uncharted region is typically risky. Is this a more viable long-term strategy than carefully extricating yourself in the manner described above? I have no idea. But if so it would fundamentally change the character of how the board is solved!
+<span class="footmark">2</span> another example is the popular strategy of clicking in the uncharted regions of the board in the hopes of getting a "cascade", i.e., opening up a new front of play, even though the uncharted region is typically risky. Is this a more viable long-term strategy than carefully extricating yourself in the manner described above? I have no idea! But if so it would fundamentally change the character of how the board is solved.
 </p>
 </a>
 
 <a name="topology"><h3>"any topology"</h3></a>
 
 <p>
-The normal minesweeper layout is a basic grid. However, this solver can handle many unconventional layouts, such as minesweeper on a non-flat/closed surface, in 3-d, or with non-square cells. And it can do so without any change whatsoever to the basic algorithm.
+Normal minesweeper is played on a basic grid. But this solver can handle many unconventional layouts, such as minesweeper on a non-flat and/or closed surface, in 3D, or with non-square cells. And it can do so without any change whatsoever to the basic algorithm.
 </p>
 
 <p>
-Because the solver deals only in logical predicates of how many mines are to be found among given sets of cells, it actually has no concept of which cells are "next" to each other, or of the topology of the board at all. The game driver is responsible for defining and tracking the adjacency of cells, and <em>minesweeper</em> knows of the board state only as an abstraction. As to whether the board contains wrapping edges, miscellaneous warps or holes, odd shapes or extra dimensions, the solving algorithm remains completely ignorant.
+Because the solver deals only in logical predicates of how many mines are to be found among given sets of cells, it actually has no concept of which cells are "next" to each other, or of the topology of the board at all. The game driver is responsible for defining and tracking the adjacency of cells, and <em>minesweeper</em> knows of the board state only as an abstraction. As to whether the board contains wrapping edges, miscellaneous warps or holes, odd shapes or extra dimensions, the solving algorithm is completely indifferent.
 </p>
 
 <a name="runtime"><h3>Failure Modes</h3></a>
 
 <p>
-'Failure' in this context means "taking forever to solve". As the core operation of the solver is enumerating exponentially-growing sets of mine configurations, anything that increases the amount of permutation required is the enemy.
+'Failure' in this context means "taking forever to solve" (aka <em>universe-freezing-over</em>). As the core operation of the solver is enumerating exponentially-growing sets of mine configurations, anything that increases the required effort of permutation is the enemy.
 </p>
 
 <p>
-The biggest weapon against this is the chance to declare a cell as mine or clear early on, using deductive logic. This eliminates huge swaths of configurations from needing to be counted, as cells have been definitively fixed to one state. There is also an ancillary benefit of breaking up chains of inter-dependent cells into smaller, independent groups.
+The biggest weapon against this is the chance to declare a cell as mine or clear early on, using deductive logic. Fixing many cells into a given state eliminates huge swaths of configurations from needing to be counted. There is also an ancillary benefit of breaking up chains of inter-dependent cells into smaller, independent groups.
 </p>
 
 <p>
@@ -107,28 +102,30 @@ The second weapon was just alluded to above: by recognizing that groups of cells
 </p>
 
 <p>
-So what completely thwarts these weapons? Dense inter-connectedness among cells. The more neighbors a cell has, the harder it become to pin down mines to a particular place using deductive logic, <em>and</em> the less likely it becomes for cells to break into independent groups (because they are so connected).
+So what completely thwarts these tactics? Dense inter-connectedness among cells. The more neighbors a cell has, the harder it becomes to pin down mines to a particular place using deductive logic, <em>and</em> the less likely it becomes for cells to break into independent groups (because they are so connected).
 </p>
 
 <p>
-In 3-d minesweeper, each cell borders 26 other cells. In (god forbid) 4-d, it would be 80 cells. This kind of board topology undermines many of the assumptions in the algorithm's design, and tends to degenerate into the naive enumerating that was derided above. A different approach, such as taking a random sampling of possible configurations, could be more appropriate, at the expense of only being able to compute mine probabilities to within a certain margin of error<%= footinline(5) %>.
+In 3D minesweeper, each cell borders 26 other cells. In (god forbid) 4D, it would be 80 cells. This super-connected board topology undermines many of the assumptions in the algorithm's design, and tends to degenerate into the naive enumerating that we derided in the introduction. Perhaps a different approach is warranted here, such as taking a random sampling of possible configurations<%= footinline(3) %>, at the expense of only being able to calculate mine likelihoods to within a certain margin of error.
 </p>
 
 <p>
-A related, but not as severe, scenario are unbroken mine fronts that grow very long in length. The amount of permutation required increases exponentially with the length of the front, but much, much more slowly than when cells are all just a rat's nest of interconnections.
+A related (though not nearly as severe) scenario is unbroken mine fronts that grow very long in length. The amount of permutation required increases exponentially with the length of the front, but much, much more slowly than when cells are all just a rat's nest of interconnectedness.
 </p>
 
-<a name="foot5">
+<a name="foot3">
 <p class="footend">
-<span class="footmark">5</span> with the added complication of ensuring the configurations you include are a truly representative sample
+<span class="footmark">3</span> with the added complication of ensuring the configurations you include are a truly representative sample
 </p>
 </a>
 
+<!--
 <h3>How good is it?</h3>
 
 <p>
 At some point I will collect stats on the actual win rate of the solver.
 </p>
+-->
 
 </td>
 
@@ -145,8 +142,10 @@ At some point I will collect stats on the actual win rate of the solver.
 <td style="height: 1px; padding: 35px 0;">
 
 <%= link_to('Live Demo', @items.find { |i| i.identifier == '/projects/minesweepr/demo/player/' }, {:class => 'button'}) %>
+<!--
 <%= link_to('Board Solver', @items.find { |i| i.identifier == '/projects/minesweepr/demo/query/' }, {:class => 'button'}) %>
 <%= link_to('The Algorithm', @items.find { |i| i.identifier == '/projects/minesweepr/algo/' }, {:class => 'button'}) %>
+-->
 <a class="button" href="http://bitbucket.org/mrgriscom/minesweepr/" target="_blank">Source</a>
 
 </td>

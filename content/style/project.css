@@ -1,18 +1,18 @@
 
 body {
   font-size: 14px;
-  line-height: 18px;
-  color: #ddd;
+  line-height: 21px;
+  color: #fff;
 }
 
 p {
   max-width: 480px;
-  text-align: justify;
+  /*text-align: justify;*/
 }
 
 li {
   max-width: 28em;
-  text-align: justify;
+  /*text-align: justify;*/
 }
 
 .foot {
