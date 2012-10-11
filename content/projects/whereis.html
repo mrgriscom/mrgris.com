@@ -1,0 +1,67 @@
+--- 
+title: whereis.dimagi.com
+thumb: whereis.jpg
+style: project
+---
+
+<% content_for :lede do %>
+<p>
+Dimagi travels a lot. It gets hard to keep tabs on everyone. Here's a site that shows how we're all currently scattered across the globe. It makes it super easy for team members to keep their whereabouts up to date: integration with location services like google latitude and foursquare; polling browser location; update gateways via email and skype (and it even sends out nag emails ;-). Built using django / jquery / knockout.
+</p>
+
+<p class="li"><a href="http://whereis.dimagi.com">Visit</a></p>
+<p class="li"><%= link_to('Read more&hellip;', @item) %></p>
+<% end %>
+
+<iframe style="border-style: none;" src="http://whereis.dimagi.com/mapwidget/" width="900" height="300"></iframe>
+
+<div style="text-align: center;">
+  <span style="display: inline-block; text-align: left;">
+    <a style="display: inline-block;" class="button" href="http://whereis.dimagi.com/" target="_blank">Main Site</a>
+    <a style="display: inline-block;" class="button" href="http://bitbucket.org/dimagi/whereis/" target="_blank">Source</a>
+  </span>
+</div>
+
+<div class="blob" style="margin-top: 15px;">
+
+<div style="float: right; margin-left: 3em; max-width: 25em;">
+<h3 style="margin-top: 0.2em;">Features</h3>
+
+<ul>
+<li>Many ways to update your whereabouts
+<ul>
+<li>google latitude</li>
+<li>foursquare</li>
+<li>tripit <i>(provisional)</i></li>
+<li>browser geolocation</li>
+<li>email gateway (e.g, <em>subject: manila</em>)</li>
+<li>skype gateway (via dimagi's <i>skypebot</i>)</li>
+<li>plain old web interface</li>
+</ul>
+&hellip;<i>and</i> the logic to reconcile so many disparate sources</li>
+<li>Sign-in via team members' google apps account</li>
+<li>Auto-provisioning of new users based on google apps profile info</li>
+<li>Displays local time of all users, time zone difference (if signed in), and who's bathed in sunshine or in darkness</li>
+<li>Real-time updates: <i>whereis</i> can act as a dashboard or ambient display</li>
+<li>Avatar framework (powers other sites in the dimagiverse). Supports multiple avatars per person, with slow, randomized rotation</li>
+<li>Personal history and stats</li>
+<li>Nag emails for inactive users (or people who don't travel enough)</li>
+<li>Intelligent mapping of lat/lon to 'best' location (i.e., prefers metro centers to suburbs)</li>
+</ul>
+</div>
+
+<p>
+<i>whereis.dimagi.com</i> is our global team tracker. We constantly have people in the field, and felt we should
+document our slow march towards world domination.
+</p>
+
+<p>
+<i>whereis</i> strives to track people's locations with city-level accuracy. To this end, it snaps people to a known database of 'curated' locations. These locations are added by users, but the system makes best attempts to auto-create them when necessary. It also employs smarts to facilitate this course level of tracking (for example, if polling google latitude, it waits till you've stopped moving before commiting your latest position).
+</p>
+
+<p>
+
+</p>
+
+<div style="clear: both;">
+</div>

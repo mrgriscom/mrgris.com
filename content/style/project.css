@@ -115,6 +115,15 @@ table {
   margin-top: 8px;
 }
 
+.blob {
+  background: rgba(10, 10, 10, .6);
+  padding: 20px;
+  -webkit-border-radius: 20px;
+  -khtml-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
 a.button {
   text-decoration: none;
   font-weight: bold;
