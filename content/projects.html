@@ -1,8 +1,14 @@
 --- 
 title: Projects
+ordering: ['whereis.dimagi.com', 'minesweepr', 'quizzi']
 ---
 
-<% @item.children.select {|p| not p[:unpublished]}.each do |proj| %>
+<%
+projects = @item.children.select {|p| not p[:unpublished]}
+projects = projects.sort_by {|p| @item[:ordering].index(p[:title].downcase) or 999}
+%>
+
+<% projects.each do |proj| %>
 	<div class="project">
 		<div class="image"><div>
       <%= link_to('<div style="background: url(/img/proj_thumb/%s) no-repeat center;"></div>' % proj[:thumb], proj) %> 
