@@ -1,0 +1,11 @@
+output/
+tmp/
+*~
+*.pyc
+
+# we need to generate rules dynamically; static rules now live in _Rules
+Rules
+content/app-static/
+layouts/app/
+# large images that we don't want to store in the repo
+content/img/x/

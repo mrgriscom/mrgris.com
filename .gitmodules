@@ -1,0 +1,3 @@
+[submodule "lib/app/minesweepr"]
+	path = lib/app/minesweepr
+	url = git@github.com:mrgriscom/minesweepr.git
