@@ -9,6 +9,7 @@ DJANGO_APPS = [
         'minesweepr',
         'minesweepr/web_demo',
         'projects/minesweepr/demo',
+        'git',
     ),
 ]
 

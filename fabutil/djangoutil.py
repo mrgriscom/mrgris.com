@@ -9,6 +9,7 @@ import os.path
 from fabric.api import *
 from util import *
 from util import _cd
+from repo import *
 from fabric.context_managers import cd
 
 def no_leading_slash(url):
@@ -16,7 +17,7 @@ def no_leading_slash(url):
 
 
 class DjangoProject(object):
-    def __init__(self, name, reporoot, contentroot):
+    def __init__(self, name, reporoot, contentroot, dvcs=None):
         self.name = name
 
         # path of the django project repo, relative to nanoc root
@@ -26,6 +27,11 @@ class DjangoProject(object):
         self.contentroot = contentroot
 
         self.template_override_dir = tempfile.mkdtemp()
+
+        for dirname, handler in (('hg', HgRepo), ('git', GitRepo)):
+            if dirname == dvcs or os.path.exists(os.path.join(self.repopath(), '.%s' % dirname)):
+                self.dvcs = handler()
+                break
 
     def repopath(self):
         """path of repository, relative to nanoc root"""
@@ -153,8 +159,7 @@ end
 
     def pull_latest(self, user):
         with cd(self.deploydir()):
-            sudo('hg pull', user=user)
-            sudo('hg update', user=user)
+            self.dvcs.update_to_latest(lambda cmd: sudo(cmd, user=user))
 
     def deploy_localsettings(self, user=None):
         fd, tmppath = tempfile.mkstemp()
@@ -187,8 +192,7 @@ end
 
     def refresh(self):
         with self.project_context():
-            local('hg pull')
-            local('hg update')
+            self.dvcs.update_to_latest(lambda cmd: local(cmd))
 
 def django_dump(url, path):
     with django_env():

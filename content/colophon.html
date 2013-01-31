@@ -33,9 +33,25 @@ a img {
 
 <h3>mrgris.com</h3>
 
+<%
+
+def git_current_rev()
+  IO.popen('git log --format=%H -1').read.strip[0..12]
+end
+
+def git_is_dirty()
+  !IO.popen('git status --porcelain').read.strip.empty?
+end
+
+def git_last_modified()
+  IO.popen('git log --format=%ci -1').read.strip
+end
+
+%>
+
 <p>
-Revision <a target="_blank" href="http://bitbucket.org/mrgriscom/mrgris.com"><span class="rev"><%= IO.popen('hg id -i').read.strip %></span></a>,
-last modified on <b><%= IO.popen('hg log -r tip --template "{date|isodate}"').read %></b>.
+Revision <a target="_blank" href="http://bitbucket.org/mrgriscom/mrgris.com"><span class="rev"><%= git_current_rev() + (git_is_dirty() ? ' (dirty)' : '') %></span></a>,
+last modified on <b><%= git_last_modified() %></b>.
 </p>
 
 <p>
