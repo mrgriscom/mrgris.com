@@ -289,5 +289,5 @@ data:
 <% end %>
 </ol>
 
-<% total_countries = 244 %>
+<% total_countries = @items.find { |i| i.identifier == '/travel/countrylist/' }[:data].size %>
 <p class="remain"><a class="remain-count" href="/travel/countrylist/"><%= total_countries - @item[:data].count %></a>&nbsp;&nbsp;to go&hellip;</p>
