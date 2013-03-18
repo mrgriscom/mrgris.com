@@ -150,6 +150,11 @@ h3 a {
   text-decoration: none;
 }
 
+ol {
+  margin-top: -1.5em;
+  margin-bottom: 2.5em;
+}
+
 #post {
   font-family: "EB Garamond", Georgia, serif;
   font-size: 14pt;
