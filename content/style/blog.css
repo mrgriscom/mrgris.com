@@ -155,15 +155,18 @@ h3 a {
   font-size: 14pt;
 }
 
-.raw {
+pre {
   color: white;
   background-color: #222;
-  font-size: 10pt;
   white-space: pre-wrap;
   margin: 3em 30px;
   padding: 15px;
   border-radius: 10px;
   border: 2px #667 solid;
+}
+
+code {
+  font-size: 10pt;
 }
 
 .aside {
