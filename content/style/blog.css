@@ -61,22 +61,15 @@ p {
 	margin: 0 0 2.4em 0;
 }
 
-a {
-	color: #555;
-}
-
-a:hover {
-	color: #777;
-}
-
 a:focus {
 	outline: none;
 }
 
-.posts {
+.content {
   background: white;
   padding: 20px 80px 90px 80px;
   box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .3);
+  position: relative;
 }
 
 .year-header {
@@ -90,20 +83,61 @@ a:focus {
   padding-right: 25px;
   color: #888;
   font-size: 80%;
+  line-height: 16pt;
   font-family: 'Open Sans', Helvetica, sans-serif;
+}
+
+.postdate {
+  position: absolute;
+  right: -40px;
+  top: -90px;
+  display: table;
+}
+
+.postdate-container {
+  width: 180px;
+  height: 180px;
+  background: rgba(245, 245, 245, .7);
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.d {
+  font-size: 48pt;
+  line-height: 0.85em;
+}
+.m {
+  font-size: 24pt;
+  line-height: 0.85em;
+}
+.y {
+  font-size: 18pt;
+  line-height: 0.85em;
+  color: #333;
 }
 
 .title {
   padding-bottom: 4px;
   font-family: 'Open Sans', Helvetica, sans-serif;
+  font-size: 12pt;
 }
 
-.title a {
+a {
   color: #048;
 }
 
-.title a:hover {
+a:hover {
   color: #39e;
+}
+
+.title-header {
+  font-family: 'Open Sans', Helvetica, sans-serif;
+  font-style: normal;
+  font-size: 27pt;
+  color: black;
 }
 
 h3 {
@@ -114,6 +148,29 @@ h3 {
 h3 a {
   color: white;
   text-decoration: none;
+}
+
+#post {
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 14pt;
+}
+
+.raw {
+  color: white;
+  background-color: #222;
+  font-size: 10pt;
+  white-space: pre-wrap;
+  margin: 3em 30px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px #667 solid;
+}
+
+.aside {
+  color: grey;
+  font-family: sans-serif;
+  font-style: italic;
+  font-size: 10pt;
 }
 
 #footer {

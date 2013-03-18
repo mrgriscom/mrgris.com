@@ -1,0 +1,85 @@
+---
+date: 2010-04-30
+title: "Software in the Field: Redundancy, Resiliency, and Failsafes"
+---
+
+Originally posted on the [Project Mwana](http://projectmwana.posterous.com) blog
+{: .aside}
+
+We've just been in Ndola for the past week building a bridge from the lab computer system to our RapidSMS server back in Lusaka.
+Our goal is to get fresh DBS results as they're entered onto the (non-internet connected) lab computer, and funnel them to RapidSMS, where we can then distribute them to clinics.
+It's a critical piece of the puzzle; without results, we have nothing to send.
+And yet, for all its importance, we have no on-site staff to leave in Ndola, the machine cannot be remotely accessed, and even if we had staff to spare, Ndola is a half-day's ride from Lusaka and a full-day from Mansa.
+Whatever software we leave there will largely have to administer and maintain itself.
+
+To that end, I cannot overstate the importance of such software giving you detailed feedback about itself.
+Having the software maintain thorough logs about its health and operation *and* having it make a heroic effort to get those logs to you is the key to remotely diagnosing and fixing any problem that may arise.
+
+We deployed our solution on the lab computer Friday afternoon -- about forty minutes left in our departure window to get back to Lusaka that night -- and actually managed to squeeze in a live test or two.
+Upon seeing real results trickle into the Lusaka server, we combination cheered/sighed in relief, packed up, and left.
+The true test, however, would come on Monday.
+We would see if the system still worked without the magical effect of us standing right there in front of it.
+
+The first sync is scheduled daily at 9:30am.
+I sat nervous at my laptop, trying to limit myself in how often I clicked 'Refresh'.
+9:30 came and went, then 9:35.
+*The lab connection was slow; these things could take time...* 9:40... 9:45...
+*Perhaps the computer hadn't been turned on...*
+By 10:00, hope had faded, and I drafted an email to the lab manager asking him to assist us in troubleshooting.
+As I was about to click 'Send', a new submission from Ndola popped into the queue.
+
+We had successfully sent results end-to-end! The team was thrilled.
+But something was odd.
+On closer inspection, there were no results.
+Instead, just this:
+
+~~~
+...
+Apr-26 09:30:01: records deleted from ZPCT database! (12-00000)
+Apr-26 09:30:01: querying records of interest from ZPCT: 280 total; 4 new; 257 resolved; 1 in limbo; 18 untested
+Apr-26 09:30:01: error accessing ZPCT database (read-only); staging database not touched
+Traceback (most recent call last):
+  File "C:\unicef-mwana\script\extract.py", line 323, in pull_records
+    records = query_prod_records()
+  File "C:\unicef-mwana\script\extract.py", line 315, in query_prod_records
+    records.append((source, read_sample_record(id, conn)))
+  File "C:\unicef-mwana\script\extract.py", line 181, in read_sample_record
+    sample_row = query_sample(sample_id, conn)
+  File "C:\unicef-mwana\script\extract.py", line 175, in query_sample
+    raise ValueError('sample [%s] not found' % sample_id)
+ValueError: sample [12-00000] not found
+Apr-26 09:30:01: db sync attempt 1 of 6 failed; trying again in 2 minutes
+...
+Apr-26 10:06:04: all db sync attempts failed
+~~~
+{: .raw}
+
+We hadn't sent results end-to-end after all.
+But in a way, it was even better; we had sent an exact explanation of why we couldn't send results end-to-end.
+All our work of making the software keep us in the loop had paid off on the *very first day*.
+
+It turns out we had a bug.
+During our testing on Friday, we had created a new sample result for testing, then deleted it.
+Our software duly noted the deleted record, but then still tried to check it for updates.
+As it no longer existed in the main database, the software crashed.
+Despite this, it still tried again another five times, with increasingly lengthy waiting periods between each attempt.
+This was by design -- database queries can fail for any number of ephemeral reasons, so this was yet another layer of built-in resiliency.
+Finally, almost forty minutes later, it phoned home about its failure.
+
+Without the reporting infrastructure we had put in place, debugging our lack of results from the lab would have been a nightmare.
+With many, many hours of debugging, severely depleted goodwill of the lab manager, and perhaps an emergency visit to Ndola, we would have figured it out.
+It also may have even been days before we realized there was actually a problem! But instead, we knew the precise cause of the failure immediately, as if we had been sitting right at the computer at the exact moment the failure happened.
+A fix was ready in two hours, and would be deployed hopefully within the day.
+
+The takeaway is that **if you're deploying a critical piece of software in an environment you don't have control over and don't have ongoing access to, build in layer upon layer of redundancy, resiliency, and fail-safes**.
+In particular, we employed the following tactics:
+
+* software keeps detailed logs about its normal operation
+* software traps any unexpected errors -- no matter where they occur -- and adds debugging information to the logs
+* logs are sent along with our actual data of interest (in fact, logs are sent first and treated with higher priority)
+* software phones home at regular intervals even if there is no new data to send
+* software requires positive acknowledgment from the other end that the data it sends have been received safely; without this acknowledgment, it will re-send the data on each scheduled run
+* the software attempts unreliable operations (querying a database, sending data over the internet) several times before giving up
+
+It is no question that these strategies are valuable.
+We just had no idea they would pay off so quickly.

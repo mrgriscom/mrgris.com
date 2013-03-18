@@ -46,6 +46,11 @@ compile '/blog/' do
   layout 'blog'
 end
 
+compile '/blog/*/' do
+  filter :kramdown
+  layout 'blog'
+end
+
 compile '*' do
   if item.binary?
     # don't filter binary items
@@ -75,6 +80,11 @@ end
 
 route '/travel/blog/labrador/1/' do
   '/travel/blog/labrador/index.html'
+end
+
+require 'stringex'
+route '/blog/*/' do
+  '/blog/%s-%s/index.html' % [item[:date].strftime('%Y-%m-%d'), item[:title].to_url]
 end
 
 route '/projects/' do

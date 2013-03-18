@@ -2,12 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title><%= @item[:title] %> :: mrgris.com</title>
+<% if @item[:title] %>
+  <title><%= @item[:title] %> :: mrgris.com blog</title>
+<% else %>
+  <title>Blog :: mrgris.com</title>
+<% end %>
   <link rel="stylesheet" type="text/css" href="/style/blog.css" media="screen">
 <% (@item[:style] ? [@item[:style]] : (@item[:styles] or [])).each do |style| %>
   <link rel="stylesheet" type="text/css" href="/style/<%= style %>.css">
 <% end %>
-  <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=EB+Garamond">
   <meta name="generator" content="nanoc 3.2.2">
   <meta name="google-site-verification" content="J6GQY2POhqhf83-eTd8aa2Y4k-ZhdwfhQsQSgtaxvo0" />
 
@@ -23,9 +29,17 @@
     <span class="navitem"><%= link_to_unless_current('Misc', @items.find { |i| i.identifier == '/misc/' }) %></span> &bull;
     <span class="navitem"><%= link_to_unless_current('About', @items.find { |i| i.identifier == '/about/' }) %></span>
 	</div>
-  <h1><%= @item[:title] %></h1>
+  <h1>Blog</h1>
   <div id="main">
-    <%= yield %>
+    <div class="content">
+      <% if @item[:title] %>
+        <% render 'blogpost' do %>
+          <%= yield %>
+        <% end %>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </div>
   </div>
   <div id="footer"><%= link_to('mrgris.com', @items.find { |i| i.identifier == '/colophon/' }) %></div>
 
