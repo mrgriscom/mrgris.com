@@ -3,16 +3,17 @@
 <head>
   <meta charset="utf-8">
   <title><%= @item[:title] %> :: mrgris.com</title>
-  <link rel="stylesheet" type="text/css" href="/style/base.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/style/blog.css" media="screen">
 <% (@item[:style] ? [@item[:style]] : (@item[:styles] or [])).each do |style| %>
   <link rel="stylesheet" type="text/css" href="/style/<%= style %>.css">
 <% end %>
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
   <meta name="generator" content="nanoc 3.2.2">
   <meta name="google-site-verification" content="J6GQY2POhqhf83-eTd8aa2Y4k-ZhdwfhQsQSgtaxvo0" />
 
   <%= render 'google-analytics' %>
 </head>
-<body>
+<body class="blog">
 	<div id="window"></div>
 	<h2>Drew Griscom Roos</h2>
 	<div id="nav">

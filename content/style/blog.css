@@ -1,0 +1,130 @@
+body {
+	padding: 0 35px;
+	margin: 0 auto;
+	max-width: 900px;
+    font-family: Arial, sans-serif;
+	background: black url(/img/bg/carbon_fibre_white.png);
+    color: black;
+}
+
+#window {
+	position: absolute;
+	top: 100px;
+	left: 0;
+	right: 0;
+	height: 120px;
+	z-index: -1;
+	border-top: 2px solid #ccc;
+	border-bottom: 3px solid #ccc;
+	background: black url(/img/bg/milky_way.jpg) fixed;
+}
+
+h2 {
+	margin: 0;
+    color: #444;
+	float: left;
+	font: bold italic 30px/100px Georgia, serif;
+}
+
+#nav {
+	float: right;
+	font-size: 18px;
+	line-height: 100px;
+    color: #888;
+}
+
+#nav .navitem {
+	font: italic 18px Georgia, serif;
+}
+
+#nav a {
+    color: #444;
+	text-decoration: none;
+}
+
+#nav a:hover {
+    color: #477;
+}
+
+.active {
+	color: #599;
+}
+
+h1 {
+	clear: both;
+    color: white;
+	margin: 0 0 50px 0;
+	font: bold italic 50px/120px Georgia, serif;
+}
+
+p {
+	margin: 0 0 2.4em 0;
+}
+
+a {
+	color: #555;
+}
+
+a:hover {
+	color: #777;
+}
+
+a:focus {
+	outline: none;
+}
+
+.posts {
+  background: white;
+  padding: 20px 80px 90px 80px;
+  box-shadow: inset 0px 0px 5px rgba(0, 0, 0, .3);
+}
+
+.year-header {
+  padding-left: 75px;
+}
+
+.date {
+  width: 100px;
+  text-align: right;
+  vertical-align: top;
+  padding-right: 25px;
+  color: #888;
+  font-size: 80%;
+  font-family: 'Open Sans', Helvetica, sans-serif;
+}
+
+.title {
+  padding-bottom: 4px;
+  font-family: 'Open Sans', Helvetica, sans-serif;
+}
+
+.title a {
+  color: #048;
+}
+
+.title a:hover {
+  color: #39e;
+}
+
+h3 {
+	color: #555;
+	font: bold italic 24px Georgia, serif;
+}
+
+h3 a {
+  color: white;
+  text-decoration: none;
+}
+
+#footer {
+	text-align: center;
+	padding: 50px 0 40px 0;
+	color: #666;
+	clear: both;
+  font-size: 13px;
+}
+
+.li {
+  margin: 0 0 1em 0;
+}
+

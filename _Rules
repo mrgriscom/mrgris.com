@@ -41,6 +41,11 @@ compile '/travel/countrylist/' do
   # no layout
 end
 
+compile '/blog/' do
+  filter :erb
+  layout 'blog'
+end
+
 compile '*' do
   if item.binary?
     # don't filter binary items

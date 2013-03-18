@@ -1,4 +1,39 @@
 ---
+title: Blog
+posts:
+- date: 2011-05-17
+  title: Software in the field
+- date: 2013-10-03
+  title: Now is the winter of our discontent
+- date: 2013-03-22
+  title: How to win friends and influence people and this is a really long title that should eventually wrap around and I want to see what happens
+- date: 2011-02-01
+  title: Open marriage for fun and profit
+- date: 2013-05-17
+  title: Software in the field
+- date: 2013-02-01
+  title: Open marriage for fun and profit
 ---
 
-nothing to see here yet
+<div class="posts">
+
+
+<% content = @item[:posts].sort_by {|e| e[:date]}.reverse.group_by {|e| e[:date].year}.sort_by {|k, v| -k} %>
+
+<% content.each do |year, posts| %>
+
+<h3 class="year-header"><%= year %></h3>
+
+<table>
+<% posts.each do |p| %>
+<tr>
+<td class="date"><%= p[:date].strftime('%B %-d').upcase %></td>
+<td class="title"><a href="/blog/<%= p[:date] %>"><%= p[:title] %></a></td>
+</tr>
+<% end %>
+</table>
+
+<% end %>
+
+
+</div>
