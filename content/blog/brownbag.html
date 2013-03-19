@@ -270,7 +270,7 @@ Copy text using mark and set points.
 To paste:
 
 - `C-a ]` -- paste into current window
-- `C-a &gt;` -- dump copy buffer to file
+- `C-a >` -- dump copy buffer to file
 
 or:
 
@@ -303,7 +303,7 @@ or:
 
 You can actually set up multi-user screen sharing, but it's kind of a bitch, and not that useful, for all of:
 
-- the screen exe must be setuid root, along with other permissions changes
+- the `screen` executable must be setuid root, along with other permissions changes
 - no one can sudo; they must be running as their logged-in user
 - there's a shitload of setup commands you have to run
 - you can't really guarantee everyone is seeing the same thing; split-screens, window changes, etc., are all local to each connection
