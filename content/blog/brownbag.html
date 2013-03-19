@@ -171,6 +171,7 @@ This is **very** useful when running `ssh` from scripts:
 - `ssh -o ServerAliveInterval=60` -- 'ping' the server every 60 seconds and terminate the session if some consecutive number of pings go unanswered (usually 3)
 
 The combination of these three options can ensure robust `ssh` tunneling from non-interactive scripts.
+In fact we have [written just such a script](https://raw.github.com/dimagi/dimagi-utils/master/dimagi/utils/reversessh.py).
 
 ## Quickly set up key-based auth
 
