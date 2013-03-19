@@ -1,0 +1,320 @@
+---
+date: 2012-04-20
+title: "Brownbag Talk: SSH ninja sauce"
+---
+
+<style>
+.example {
+  margin-top: -40px;
+  margin-left: 50px;
+  margin-right: 80px;
+  font-style: italic;
+}
+</style>
+
+Notes from a brownbag talk I gave at Dimagi
+{: .aside}
+
+This talk delves into power-usage of `ssh` and `screen`.
+
+# SSH
+
+## Local port forwarding
+
+    ssh user@remoteserver -L localport:targetserver:targetport
+
+Any network traffic hitting `localport` on the local machine (the machine you're ssh'ing _from_) will be forwarded over the encrypted ssh channel to `remoteserver` (the machine you're ssh'ing _to_), *and then onward* to `targetport` on `targetserver`.
+
+The traffic coming into the local machine, and going from `remoteserver` to `targetserver` is **unencrypted**.
+Only the segment between the local machine and `remoteserver` is encrypted.
+Usually the tunneled traffic originates from your local machine and `targetserver` is the same as `remoteserver`, so in practice the entire communication would be secure.
+
+`targetserver` is resolved relative to `remoteserver`.
+That means `targetserver` could be an internal IP on `remoteserver`'s LAN that you could not access directly from the local machine.
+This is also what lets you specify "`localhost`" as `targetserver`, since it's "`localhost`" as resolved with respect to `remoteserver`.
+
+Local forwards are useful for the following scenarios:
+
+- access a service on a remote machine that is only available locally (either because only local connections are allowed, or the port is blocked via firewall)
+
+      ssh remoteserver -L 4000:localhost:5984
+
+  > access couchdb running on a remote server; we can now access it using the address `localhost:4000`
+  {: .example}
+
+- access a firewalled/NAT'ted machine that you cannot access directly
+
+      ssh remoteserver -L 8080:192.168.1.15:80
+
+  > `192.168.1.15` is only visible on `remoteserver`'s LAN.
+    We access its webserver via `localhost:8080`; traffic is forwarded through `remoteserver`
+  {: .example}
+
+- encrypting a channel that would otherwise be unencrypted
+
+      ssh remoteserver -L 5900:localhost:5900
+
+  > `vnc` is an insecure protocol; passwords are sent in the clear and desktop contents are visible to anyone snooping the traffic.
+    Instead of vnc'ing to `remoteserver`, we securely `vnc` to `localhost`
+  {: .example}
+
+- masking the origin of traffic
+
+      ssh stoogeserver -L 8080:dupedserver:80
+
+  > Forwarding a connection in this manner is not always transparent.
+    For example, HTTP includes a `Host` parameter that specifies the hostname the browser wants to connect to.
+    In this case that will be `stoogeserver:8080` and `dupedserver` will see that.
+  {: .example}
+
+By default, only local traffic can connect to `localport`.
+To enable external hosts to use the port forward through your machine, invoke as `ssh remoteserver -L `**`*:`**`localport:targetserver:targetport` (note asterisk).
+
+## Remote port forwarding
+
+    ssh user@remoteserver -R remoteport:targetserver:targetport
+
+Any network traffic hitting `remoteport` on `remoteserver` will go to your local machine (via encrypted channel), and then onward to `targetport` on `targetserver` from the local machine.
+`targetserver` is now resolved relative to the local machine, but in the remote forwarding scenario `targetserver` is nearly always "`localhost`".
+
+Useful for:
+
+- making a public server (visible to the internet at large) that forwards to your local machine
+
+      ssh publicserver -R 8053:localhost:8053
+
+  > You're testing an android app over GPRS against your dev server.
+    The app can only hit public IPs.
+    Now it can access your dev server via `publicserver:8053`
+  {: .example}
+
+There is a catch with remote forwards.
+For the above scenario (which is really the only useful scenario) to work, external traffic must be allowed to connect to `remoteport`.
+This is only allowed if the `GatewayPorts` setting in `/etc/ssh/sshd_config` is `yes`.
+This is not the case by default on most installs.
+Therefore, you **must have root** on `remoteserver` to enable this.
+The setting is in the config of the ssh *server*, so no client settings you do can override it.
+
+As for the "`*:`" to enable external connections, it seems usually implicit for remote forwards.
+But... sometimes not; I don't understand the circumstances when it is necessary vs. not -- when in doubt, add it; it can't hurt anything.
+It **will not** override `GatewayPorts`.
+
+If you can't change `sshd_congig`, there is a workaround.
+We can daisy-chain a local forward to the remote forward, so all traffic hitting `remoteport` originates from `remoteserver` itself:
+
+1. `ssh remoteserver -R dummyport:localhost:targetport`
+1. then, on `remoteserver`, `ssh localhost -L *:remoteport:localhost:dummyport` (note the '*')
+
+Needless to say, this is ridiculous.
+
+## Running a command remotely (in lieu of a shell)
+
+    ssh user@server command
+
+> e.g., `ssh user@server ls -l ~`
+{: .example}
+
+## Escape character
+
+`~` typed after a newline is the ssh escape character.
+It allows you to perform out-of-band actions with the ssh session.
+Some highlights:
+
+- `~?` -- print list of available commands
+- `~.` -- terminate the session (useful if network dropped or session is hung)
+- `~[ctrl-z]` -- suspend session (instead of suspending the currently running program *inside* the session)
+- `~C` -- enter command line to add additional port forwards on-the-fly (type `help`)
+- `~~` -- type a literal `~`
+
+## Connection multiplexing
+{: style="margin-top: 40px;"}
+
+Additional `ssh` sessions can piggyback on an originating session's connection.
+No authentication is needed for the piggybacking sessions (and as a side-benefit the connection will establish very quickly).
+
+To start the first session (the "master session"):
+
+    ssh -M -S /tmp/sshsocket user@server
+
+For piggybacking sessions:
+
+    ssh -S /tmp/sshsocket user@server
+
+This is particularly useful when the piggybacking sessions run a command on the remote server instead of a shell.
+
+`/tmp/sshsocket` can be any file, unique to the master session.
+*Any user/process with access to this file can piggyback on the session*.
+You can also use shorthand like `/tmp/ssh-%r@%h:%p`, which ssh will auto-expand to help maintain uniqueness among master sessions.
+
+## X forwarding
+
+Run GUI programs on a remote server!
+
+    ssh -X user@server callofduty
+
+## Obscure options
+
+Any configuration option available in `ssh_config` can be invoked on a per-session basis.
+This is **very** useful when running ssh from scripts:
+
+- `ssh -o BatchMode=yes` -- fail immediately if any interactive prompt is displayed (e.g., password prompt), since these would hang your script forever
+- `ssh -o ExitOnForwardFailure=yes` -- abort if the desired port forwards could not be set up
+- `ssh -o ServerAliveInterval=60` -- 'ping' the server every 60 seconds and terminate the session if some consecutive number of pings go unanswered (usually 3)
+
+The combination of these three options can ensure robust `ssh` tunneling from non-interactive scripts.
+
+## Quickly set up key-based auth
+
+    ssh-copy-id user@server
+
+> copies your public keys to the remote server
+{: .example}
+
+## File transfers
+
+Everyone knows `scp`.
+Quick and dirty, but not robust.
+There are better options.
+
+- **sftp**
+
+  Usually the easiest bet for quick and dirty, with the added benefit of a GUI.
+  Your file manager probably has support built-in.
+
+- **Remote filesystem**
+
+      sshfs user@server:path localpath
+
+  > mount `path` on the remote server as a filesystem under `localpath`.
+    You have to create `localpath` yourself, sadly.
+    Useful for command-line browsing, and for a GUI *without* file manager support.
+    **Not robust** against dropped connections. Unmount with `fusermount -u localpath`
+  {: .example}
+
+- **rsync**
+
+  `rsync` is fantastic tool, and can use `ssh` as a transport layer.
+
+      rsync -ravz -e ssh user@server:path localpath
+
+  > (note that `user@server:path` is interpreted according to `rsync` semantics, not `ssh`!)
+  {: .example}
+
+  To robustly transfer a 10GB database file from Africa while you sleep:
+
+      while [ true ] ; do rsync -ravz --progress --partial -e ssh user@server:path localpath ; sleep 5 ; done
+
+  - the loop will resume after dropped connections
+  - `--partial` allows resuming the transfer
+  - `--progress` displays a progress bar
+  - `sleep 5` avoids flooding the server.
+
+  Make sure you're set up to log into `user@server` using password-less authentication, otherwise resume attempts will hang with a password prompt!
+
+  You may want to use a one-off keypair for the transfer. 
+  Specify an arbitrary private key to use (don't forget to set up the corresponding public key on the remote server) by replacing `-e ssh` with `-e "ssh -i /path/to/privatekey.key"`.
+
+## There's a long delay when logging in...
+
+This is usually either:
+
+- the ssh server is trying to reverse DNS lookup the server IP, and it has to wait for the lookup to time out
+
+  Fix with `UseDNS no` in `sshd_config`
+
+- the ssh server is trying to integrate with an authentication library that is not configured properly, and timing out
+
+  Fix by disabling the guilty library in `sshd_config`, i.e., `GSSAPIAuthentication no` or `UsePAM no`
+
+# SCREEN
+
+## Basics
+
+I'm sure you all know these:
+
+- `C-a c` -- new window
+- `C-a [#]`, `C-a p`, `C-a n` -- change windows
+- `C-a k` -- kill window
+- `C-a d` -- detach from session
+- `screen -ls` -- display sessions
+- `screen -r` -- resume session
+
+## How the f#$% do I scroll
+{: style="margin-top: 40px;"}
+
+Enter 'copy' mode: `C-a [`.
+In copy mode, you can navigate around the history using arrows and page up/down.
+
+The size of the buffer is pretty limited by default.
+To make it bigger, do any of:
+
+- `screen -h ####` (affects all windows in this session)
+- `C-a :scrollback ####` (affects current window only)
+- set a bigger default in your `.screenrc`
+
+In 'copy' mode, you can also search with `C-a s` (forward) or `C-r` (backward).
+
+Copy text using mark and set points.
+`space` to start/end at the current char; `y` to start/end at the current line.
+
+To paste:
+
+- `C-a ]` -- paste into current window
+- `C-a &gt;` -- dump copy buffer to file
+
+or:
+
+- `C-a h` -- write current window (visible portion only) to file
+- `C-a :hardcopy -h /must/specify/a/file` -- write the entire scrollback history to `file`
+- `C-a H` -- start/stop logging of current terminal to file
+
+## Monitoring a window for activity
+{: style="margin-top: 40px;"}
+
+- `C-a M` -- alert if this window has activity
+- `C-a _` -- alert if this window has no activity for a while
+
+## Split-screen
+{: style="margin-top: 40px;"}
+
+- `C-a S` -- split current region horizontally
+- `C-a |` -- split current region vertically
+- `C-a [tab]` -- move to next region
+- `C-a X` -- close this region
+- `C-a Q` -- close all regions except this one
+
+## Screen-sharing
+{: style="margin-top: 40px;"}
+
+    screen -x [session name]
+
+  > allows multiple terminals to connect to the same session (must be same user)
+  {: .example}
+
+You can actually set up multi-user screen sharing, but it's kind of a bitch, and not that useful, for all of:
+
+- the screen exe must be setuid root, along with other permissions changes
+- no one can sudo; they must be running as their logged-in user
+- there's a shitload of setup commands you have to run
+- you can't really guarantee everyone is seeing the same thing; split-screens, window changes, etc., are all local to each connection
+- a user closing a window or the session closes it for everybody
+
+Oh well...
+
+# NETCAT
+
+Communicate with network sockets using stdin/stdout:
+
+    nc host port
+
+> connect to a server
+{: .example}
+
+    nc -l port
+
+> listen and accept a single connection from a client (does not create a server; only good for one connection)
+{: .example}
+
+Once the connection is open, communicate with it by typing/piping.
+
+

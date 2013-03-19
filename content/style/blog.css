@@ -72,6 +72,8 @@ a:focus {
   position: relative;
 }
 
+
+
 .year-header {
   padding-left: 75px;
 }
@@ -123,6 +125,26 @@ a:focus {
   padding-bottom: 4px;
   font-family: 'Open Sans', Helvetica, sans-serif;
   font-size: 12pt;
+}
+
+#post > h1, #post > h2, #post > h3 {
+  font-family: 'Open Sans', Helvetica, sans-serif;
+  color: black;
+  font-style: normal;
+  float: none;
+  clear: both;
+  margin: 0.5em 0;
+}
+
+#post > h1 {
+  font-size: 25pt;
+  line-height: 25pt;
+}
+#post > h2 {
+  font-size: 18pt;
+  line-height: 18pt;
+  border-left: 5px #ccc solid;
+  padding-left: 0.5em;
 }
 
 a {
