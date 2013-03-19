@@ -10,6 +10,9 @@ title: "Brownbag Talk: SSH ninja sauce"
   margin-right: 80px;
   font-style: italic;
 }
+.example em {
+  font-style: normal;
+}
 </style>
 
 Notes from a brownbag talk I gave at Dimagi
@@ -23,7 +26,7 @@ This talk delves into power-usage of `ssh` and `screen`.
 
     ssh user@remoteserver -L localport:targetserver:targetport
 
-Any network traffic hitting `localport` on the local machine (the machine you're ssh'ing _from_) will be forwarded over the encrypted ssh channel to `remoteserver` (the machine you're ssh'ing _to_), *and then onward* to `targetport` on `targetserver`.
+Any network traffic hitting `localport` on the local machine (the machine you're ssh'ing _from_) will be forwarded over the encrypted `ssh` channel to `remoteserver` (the machine you're ssh'ing _to_), *and then onward* to `targetport` on `targetserver`.
 
 The traffic coming into the local machine, and going from `remoteserver` to `targetserver` is **unencrypted**.
 Only the segment between the local machine and `remoteserver` is encrypted.
@@ -93,7 +96,7 @@ For the above scenario (which is really the only useful scenario) to work, exter
 This is only allowed if the `GatewayPorts` setting in `/etc/ssh/sshd_config` is `yes`.
 This is not the case by default on most installs.
 Therefore, you **must have root** on `remoteserver` to enable this.
-The setting is in the config of the ssh *server*, so no client settings you do can override it.
+The setting is in the config of the `ssh` *server*, so no client settings you do can override it.
 
 As for the "`*:`" to enable external connections, it seems usually implicit for remote forwards.
 But... sometimes not; I don't understand the circumstances when it is necessary vs. not -- when in doubt, add it; it can't hurt anything.
@@ -116,8 +119,8 @@ Needless to say, this is ridiculous.
 
 ## Escape character
 
-`~` typed after a newline is the ssh escape character.
-It allows you to perform out-of-band actions with the ssh session.
+`~` typed after a newline is the `ssh` escape character.
+It allows you to perform out-of-band actions with the `ssh` session.
 Some highlights:
 
 - `~?` -- print list of available commands
@@ -142,9 +145,15 @@ For piggybacking sessions:
 
 This is particularly useful when the piggybacking sessions run a command on the remote server instead of a shell.
 
+I use connection multiplexing to control my media server.
+I'll open the media player on the server and have the UI running locally (see next section).
+This is the master connection.
+Then I set keybindings to run control commands (volume up/down, prev/next track, etc.) as piggybacking sessions.
+Each keypress/command runs in a new, short-lived piggybacking session -- now you can see why quick connection time is so important.
+
 `/tmp/sshsocket` can be any file, unique to the master session.
 *Any user/process with access to this file can piggyback on the session*.
-You can also use shorthand like `/tmp/ssh-%r@%h:%p`, which ssh will auto-expand to help maintain uniqueness among master sessions.
+You can also use shorthand like `/tmp/ssh-%r@%h:%p`, which `ssh` will auto-expand to help maintain uniqueness among master sessions.
 
 ## X forwarding
 
@@ -155,7 +164,7 @@ Run GUI programs on a remote server!
 ## Obscure options
 
 Any configuration option available in `ssh_config` can be invoked on a per-session basis.
-This is **very** useful when running ssh from scripts:
+This is **very** useful when running `ssh` from scripts:
 
 - `ssh -o BatchMode=yes` -- fail immediately if any interactive prompt is displayed (e.g., password prompt), since these would hang your script forever
 - `ssh -o ExitOnForwardFailure=yes` -- abort if the desired port forwards could not be set up
@@ -179,7 +188,7 @@ There are better options.
 - **sftp**
 
   Usually the easiest bet for quick and dirty, with the added benefit of a GUI.
-  Your file manager probably has support built-in.
+  Your file manager probably has support built-in, otherwise, you need a dedicated client.
 
 - **Remote filesystem**
 
@@ -187,7 +196,7 @@ There are better options.
 
   > mount `path` on the remote server as a filesystem under `localpath`.
     You have to create `localpath` yourself, sadly.
-    Useful for command-line browsing, and for a GUI *without* file manager support.
+    Useful for both command-line and GUI browsing, *without* need for any special client support.
     **Not robust** against dropped connections. Unmount with `fusermount -u localpath`
   {: .example}
 
@@ -218,11 +227,11 @@ There are better options.
 
 This is usually either:
 
-- the ssh server is trying to reverse DNS lookup the server IP, and it has to wait for the lookup to time out
+- the `ssh` server is trying to reverse DNS lookup the server IP, and it has to wait for the lookup to time out
 
   Fix with `UseDNS no` in `sshd_config`
 
-- the ssh server is trying to integrate with an authentication library that is not configured properly, and timing out
+- the `ssh` server is trying to integrate with an authentication library that is not configured properly, and timing out
 
   Fix by disabling the guilty library in `sshd_config`, i.e., `GSSAPIAuthentication no` or `UsePAM no`
 
