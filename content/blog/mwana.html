@@ -79,6 +79,7 @@ In particular, we employed the following tactics:
 * logs are sent along with our actual data of interest (in fact, logs are sent first and treated with higher priority)
 * software phones home at regular intervals even if there is no new data to send
 * software requires positive acknowledgment from the other end that the data it sends have been received safely; without this acknowledgment, it will re-send the data on each scheduled run
+* software transmits data in small increments, so forward progress can be made even in the face of frequent interruptions
 * the software attempts unreliable operations (querying a database, sending data over the internet) several times before giving up
 
 It is no question that these strategies are valuable.
