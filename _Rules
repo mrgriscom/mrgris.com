@@ -47,6 +47,7 @@ compile '/blog/' do
 end
 
 compile '/blog/*/' do
+  filter :erb
   filter :kramdown
   layout 'blog'
 end
