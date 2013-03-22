@@ -155,6 +155,15 @@ a:hover {
   color: #39e;
 }
 
+h1 a, h1 .active {
+  color: white;
+  text-decoration: none;
+}
+
+h1 a:hover {
+  color: #ddf;
+}
+
 .title-header {
   font-family: 'Open Sans', Helvetica, sans-serif;
   font-style: normal;

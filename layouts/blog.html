@@ -29,7 +29,7 @@
     <span class="navitem"><%= link_to_unless_current('Misc', @items.find { |i| i.identifier == '/misc/' }) %></span> &bull;
     <span class="navitem"><%= link_to_unless_current('About', @items.find { |i| i.identifier == '/about/' }) %></span>
 	</div>
-  <h1>Blog</h1>
+  <h1><%= link_to_unless_current('Blog', @items.find { |i| i.identifier == '/blog/' }) %></h1>
   <div id="main">
     <div class="content">
       <% if @item[:title] %>
@@ -43,10 +43,23 @@
   </div>
   <div id="footer"><%= link_to('mrgris.com', @items.find { |i| i.identifier == '/colophon/' }) %></div>
 
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <% (@item[:scripts] or []).each do |script| %>
   <script type="text/javascript" src="/script/<%= script %>.js"></script>
 <% end %>
+<script type="text/javascript">
+
+$(function() {
+    $(window).scroll(function() {
+        var parallax = -0.5;
+        var p0 = -90;
+
+        var scroll = $(this).scrollTop();
+        $('.postdate').css('top', (p0 + parallax * scroll) + 'px');
+    });
+});
+
+</script>
 <% if @item[:content_for_script] %>
   <script type="text/javascript">
 
