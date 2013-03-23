@@ -72,7 +72,11 @@ a:focus {
   position: relative;
 }
 
-
+#feedicon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
 
 .year-header {
   padding-left: 75px;

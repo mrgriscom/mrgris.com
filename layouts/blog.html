@@ -37,6 +37,7 @@
           <%= yield %>
         <% end %>
       <% else %>
+        <%= link_to('<img id="feedicon" src="/img/icon/feed.png" />', @items.find { |i| i.identifier == '/blog/feed/' }) %>
         <%= yield %>
       <% end %>
     </div>
