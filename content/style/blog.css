@@ -227,6 +227,16 @@ code {
   font-size: 10pt;
 }
 
+.footnote {
+  font-size: 80%;
+  font-style: italic;
+  margin-top: -25px;
+}
+
+.footnote em {
+  font-style: normal;
+}
+
 #footer {
 	text-align: center;
 	padding: 50px 0 40px 0;
