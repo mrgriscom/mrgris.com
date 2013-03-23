@@ -1,9 +1,9 @@
 
 <div class="postdate">
 <div class="postdate-container">
-  <div class="y"><%= item[:date].strftime('%Y') %></div>
-  <div class="m"><%= item[:date].strftime('%b').upcase %></div>
-  <div class="d"><%= item[:date].strftime '%-d' %></div>
+  <div class="y"><%= item[:created_at].strftime('%Y') %></div>
+  <div class="m"><%= item[:created_at].strftime('%b').upcase %></div>
+  <div class="d"><%= item[:created_at].strftime '%-d' %></div>
 </div>
 </div>
 

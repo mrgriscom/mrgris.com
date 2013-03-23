@@ -2,8 +2,7 @@
 ---
 
 <%
-posts = @item.children.select {|p| not p[:draft]}
-content = posts.sort_by {|e| e[:date]}.reverse.group_by {|e| e[:date].year}.sort_by {|k, v| -k}
+content = sorted_articles.group_by {|e| e[:created_at].year}.sort_by {|k, v| -k}
 content.each do |year, posts|
 %>
 
@@ -12,7 +11,7 @@ content.each do |year, posts|
 <table>
 <% posts.each do |p| %>
 <tr>
-<td class="date"><%= p[:date].strftime('%B %-d').upcase %></td>
+<td class="date"><%= p[:created_at].strftime('%B %-d').upcase %></td>
 <td class="title"><%= link_to(p[:title], p) %></td>
 </tr>
 <% end %>
