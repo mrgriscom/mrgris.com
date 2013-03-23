@@ -1,0 +1,6 @@
+---
+title: "Drew Roos: blog"
+author_name: Drew Roos
+author_uri: "http://mrgris.com"
+---
+<%= atom_feed :limit => 30 %>

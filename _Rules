@@ -46,6 +46,10 @@ compile '/blog/' do
   layout 'blog'
 end
 
+compile '/blog/feed/' do
+  filter :erb
+end
+
 compile '/blog/*/' do
   filter :erb
   filter :kramdown
@@ -81,6 +85,10 @@ end
 
 route '/travel/blog/labrador/1/' do
   '/travel/blog/labrador/index.html'
+end
+
+route '/blog/feed/' do
+  '/blog/feed.atom'
 end
 
 require 'stringex'
