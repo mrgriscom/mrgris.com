@@ -13,6 +13,7 @@ content.each do |year, posts|
 <tr>
 <td class="date"><%= p[:created_at].strftime('%B %-d').upcase %></td>
 <td class="title"><%= link_to(p[:title], p) %></td>
+<!-- tags: <%= (p[:tags] or []).join(', ') %> -->
 </tr>
 <% end %>
 </table>
