@@ -1,0 +1,141 @@
+---
+kind: article
+created_at: 2013-03-24
+title: Survivorship in the Digital Age
+tags:
+- tech
+---
+
+We store so much of our lives online these days.
+What would happen to it all if something were to happen to you?
+
+It used to be that when you passed on, your friends and family could go through your personal effects.
+They'd find photo albums, old correspondence, account statements, address books (and probably a few things you didn't want them to find, but who cares; you're dead).
+Even ten years ago, with the PC revolution well underway, they'd still find hard drives and CD backups.
+But nowadays, what would they find?
+Your data is in the cloud, or on a laptop that probably got destroyed in the accident you were in.
+And if it didnt, that laptop had full-disk encryption turned on anyway.
+
+It's a genuine concern that sizable chunk of your data (dare I say _you_) might simply disappear forever.
+Who would have access to your accounts?
+Who would even _know_ about all your accounts?
+
+It's definitely a concern of mine.
+I follow strong security practices, and I know for a fact that if I died or became incapacitated, no one close to me would be able to access my accounts or data, end of story.
+Hell, I could just suffer from straight-up [amensia](https://blog.whitehatsec.com/cracking-aes-256-dmgs-and-epic-self-pwnage/), in which case even I would lose access to my data.
+
+Clearly we need a failsafe plan -- a means of granting access that isn't solely dependent on the continued well-functioning of my brain.
+But what?
+I could give my credentials to a trusted friend; or I could seal them in an envelope in a safe deposit box; or I could set up an elaborate treasure hunt like from _The Goonies_.
+
+But these are all quite risky. The friend and I could have a falling out; they could be victim of a theft; the contents of my safe deposit box could pique the interest of a nosy government; my subterranean booby traps will break down due to lack of maintenance and water damage.
+
+Instead, what if we had a way to distribute the credentials among multiple trusted parties, where each individual piece alone is useless, but enough of them put together could effect recovery. Enter *[Shamir's Secret Sharing Scheme](http://point-at-infinity.org/ssss/)* or _`ssss`_.
+
+
+
+
+bourne identity
+
+
+intro
+
+ssss
+
+barcode
+
+deadmansswitch
+
+ssss->symmetric key->detail
+
+detailed recovery plan
+
+distribution
+roles
+
+
+
+
+need a way to recover
+
+storing master key in one place is too risky. could be easily compromised.
+
+enter SSSS.
+
+executors vs custodians
+
+executors are the people you want to gain access if something happens to you. they have access to the encrypted payload, and the list of custodians. they would initiate the process and collect/combine the tokens from the custodians. they don't need to be technical, but should have access to a technical person in the event that the process needs to be 'executed'.
+
+custodians simply hold the shares of the key. they don't have the payload that the key would unlock, nor even know who the other custodians are.
+
+executors are likely also custodians.
+
+
+picking custodians
+
+not technical
+trustworthy
+will take the process seriously; not flippant
+basic level of security in their own practices
+stable; won't disappear
+
+consider the possibility that you and a custodian could be taken out at the same time.
+
+
+
+you can give some custodians more weight by allocating them more shares (and scaling the unlocking threshold accordingly).
+best to pick groups of custodians from different areas of your life
+you can minimize conspiracy amongst custodians that know each other by giving them duplicate/redundant shares. ie 3 college buddies all get share A. any one of them is good for 1 share, but all 3 of them conspiring is not better. or give shares ABC ABD ABE. if all 3 conspire it's only the weight of two shares.
+
+
+parents
+spouse
+extended family
+old friends
+
+
+you can keep extra shares in your possession to facilitiate recovery. keep them in a way that they would easily be made available if need be. e.g., safe deposit box, or a service like deadmansswitch.
+
+
+
+notes for custodians:
+
+keep the token as secret as possible
+hand it over when called upon
+independently verify that handover is warranted
+
+
+
+
+uneasy moment when i realized my keepass was backed up to my crashplan, and my crashplan password was stored in my keepass.
+
+2-factor auth
+
+what to tell custodians
+
+hardest part is handling to tokens during generation and distrubtion and not leaving traces. send from different email providers?
+
+~~~
+$ ssss-split -n9 -t4
+Generating shares using a (4,9) scheme with dynamic security level.
+Enter the secret, at most 128 ASCII characters: Using a 184 bit security level.
+1-6f55bc5bf173feea970cba965c29e9b25fb0338e8e5341
+2-966dacee66cb473dfd19373f8cad74e343a14322dd860a
+3-22308fa7600216b0b8cd8bdf5239103859a4cada44ba92
+4-f296355aa3eb21edb2fe098a099a6240a87476bb72369a
+5-1869ee11f17bc0932b810983903a955810a07b731134d6
+6-5c140ea0ce7018a3f8c3fdf8ced72f8e491203beb69c35
+7-c4d04686ed48a9fb25847464967d3360a7ed39102b97be
+8-d0a34538bde9eca08a3fa42a23a16a5ddae3bad8d00af1
+9-6c4e15159bee2ec4f97d62fa20edaa7e1d8b14855fc77f
+~~~
+
+~~~
+$ ssss-combine -t4
+Enter 4 shares separated by newlines:
+Share [1/4]: 2-966dacee66cb473dfd19373f8cad74e343a14322dd860a
+Share [2/4]: 5-1869ee11f17bc0932b810983903a955810a07b731134d6
+Share [3/4]: 6-5c140ea0ce7018a3f8c3fdf8ced72f8e491203beb69c35
+Share [4/4]: 9-6c4e15159bee2ec4f97d62fa20edaa7e1d8b14855fc77f
+Resulting secret: the keys to the kingdom
+~~~
