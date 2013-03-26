@@ -108,7 +108,7 @@ You probably have a backup service*.
 Include the password to that too.
 What about any 2-factor auth?
 They'll need the one-time-use codes for that as well (or at least a means of retrieving them).
-You're starting to get the hint... _creating the universe from nothing_, avoid chicken-and-egg, yadda yadda.
+You're starting to get the hint... _creating the universe from nothing_, avoiding chicken-and-egg, yadda yadda.
 
 \* I'm reminded of the uneasy moment when I realized my keepass was backed up to my crashplan, and the password to my crashplan was in... my keepass.
 {: .footnote}
@@ -124,16 +124,16 @@ Identify points of failure and add mitigating steps (for example, including a sn
 
 One property of `ssss` is that the shares must be at least as long as the secret.
 Your full 'digital will' is by this point probably becoming quite long.
-You don't want to dump this full content in `ssss`; the shares would be unwieldy, and take very long to generate.
+You don't want to dump this full content into `ssss`; the shares would be unwieldy, and take very long to generate.
 
 The secret must be short. You have two options:
 
 - Distribute the 'will' in plaintext.
-Replace each sensitive piece of info with a fill-in-the-blank, and construct the secret as a list of the sensitive info.
+Replace each sensitive piece of info with a fill-in-the-blank, and construct the secret as a list of the sensitive info to fill in.
 
   > Pro: shareholders can review the overall instructions _a priori_ and request clarifications
 
-  > Con: will not work if your content has many passwords (such as if including a snapshot of your password vault); this method somehow strikes me as *inelegant*
+  > Con: will not work if your content has many passwords (such as if including a snapshot of your password vault); method strikes me as somehow *inelegant*
 
 - Encrypt the 'will' with a symmetric key and use that key as the secret.
 Distribute the encrypted payload to some (see _Roles_ below) along with their shares
@@ -152,75 +152,72 @@ Distribute the encrypted payload to some (see _Roles_ below) along with their sh
 
 ## The People
 
-who to distribute it to
-distribution
-roles
+The hardest part of the entire process is deciding just who to distribute the shares of your secret among, and what the threshold should be.
 
-executors are the people you want to gain access if something happens to you. they have access to the encrypted payload, and the list of custodians. they would initiate the process and collect/combine the tokens from the custodians. they don't need to be technical, but should have access to a technical person in the event that the process needs to be 'executed'.
+The overarching advice I can give is: **keep it simple!**
+You can go crazy with fancy arrangements, but it's best to pick a small, manageable set of shares and people.
+We're not trying to maintain return-strike capability in a nuclear attack here.
+By keeping things simple, you can really think through the reconstruction scenarios and ensure both the security and resiliency of the system.
 
-custodians simply hold the shares of the key. they don't have the payload that the key would unlock, nor even know who the other custodians are.
+The people involved fall into two roles: _Executors_ and _Shareholders_.
 
-executors are likely also custodians.
+**Executors** are the people you want to gain access if something happens to you.
+They have access to the payload, and the list of all shareholders.
+They would be responsible for collecting and combining the various shares, and following the instructions for recovery.
+They need not be technical, but should know where to find someone (or how to find someone who could find someone) capable of running `ssss` and doing decryption.
+Executors are likely also shareholders.
+
+**Shareholders** simply hold the individual shares of the secret.
+They don't have access to the payload it would unlock, nor do they necessarily even know who the other shareholders are.
+Traits of a good shareholder:
+
+* trustworthy
+* stable -- have been in your life for a long time, and likely to remain in your life for a long time
+* will take the endeavor seriously
+* basic digital security competency
+
+### Choosing
 
 
-picking custodians
 
-not technical
-trustworthy
-will take the process seriously; not flippant
-basic level of security in their own practices
-stable; won't disappear
+consider the possibility that _you and a custodian could be taken out at the same time_.
 
-consider the possibility that you and a custodian could be taken out at the same time.
-
+but pick a small set, so you can really go through the scenarios in your head. in particularly focus on the minimum viable set(s) of people that can reconstruct your secret, and decide if you're comfortable with it.
 
 
 you can give some custodians more weight by allocating them more shares (and scaling the unlocking threshold accordingly).
 best to pick groups of custodians from different areas of your life
-you can minimize conspiracy amongst custodians that know each other by giving them duplicate/redundant shares. ie 3 college buddies all get share A. any one of them is good for 1 share, but all 3 of them conspiring is not better. or give shares ABC ABD ABE. if all 3 conspire it's only the weight of two shares.
-
+you can minimize conspiracy amongst custodians that know each other by giving them duplicate/redundant shares. ie 3 college buddies all get share A. any one of them is good for 1 share, but all 3 of them conspiring is not better. or give shares AB AC and BC. if all 3 conspire it's only the weight of two shares.
 
 parents
 spouse
 extended family
 old friends
 
-
 you can keep extra shares in your possession to facilitiate recovery. keep them in a way that they would easily be made available if need be. e.g., safe deposit box, or a service like deadmansswitch.
-
-
 
 notes for custodians:
 
+don't lose it
 keep the token as secret as possible
 hand it over when called upon
 independently verify that handover is warranted
 
+expect jokes the next few times you talk to these people. "Is this channel secure?"
 
+deadmansswitch
+
+## The Threshold
+
+recommend a relatively high threshold, assuming you choose dependable custodians. you can mitigate by having extra shares in reserve that will become available if something happens.
 
 
 
 bourne identity
 
-
+## Distribution
 
 barcode
-
-deadmansswitch
-
-
-
-
-
-
-
-
-storing master key in one place is too risky. could be easily compromised.
-
-
-executors vs custodians
-
-
 
 hardest part is handling to tokens during generation and distrubtion and not leaving traces. send from different email providers?
 
