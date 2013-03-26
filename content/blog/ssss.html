@@ -1,6 +1,6 @@
 ---
 kind: article
-created_at: 2013-03-24
+created_at: 2013-03-25
 title: Survivorship in the Digital Age
 tags:
 - tech
@@ -26,43 +26,135 @@ Hell, I could just suffer from straight-up [amensia](https://blog.whitehatsec.co
 
 Clearly we need a failsafe plan -- a means of granting access that isn't solely dependent on the continued well-functioning of my brain.
 But what?
-I could give my credentials to a trusted friend; or I could seal them in an envelope in a safe deposit box; or I could set up an elaborate treasure hunt like from _The Goonies_.
 
-But these are all quite risky. The friend and I could have a falling out; they could be victim of a theft; the contents of my safe deposit box could pique the interest of a nosy government; my subterranean booby traps will break down due to lack of maintenance and water damage.
+* Give my passwords to a trusted friend?
+* Seal them in an envelope in a safe deposit box?
+* Use [a service](http://legacylocker.com) dedicated to the task?
+* Set up an elaborate treasure hunt like in _The Goonies_?
 
-Instead, what if we had a way to distribute the credentials among multiple trusted parties, where each individual piece alone is useless, but enough of them put together could effect recovery. Enter *[Shamir's Secret Sharing Scheme](http://point-at-infinity.org/ssss/)* or _`ssss`_.
+But the risk is clear: these are all single points of failure.
+The friend and I could have a falling out; they could be victim of a theft; the contents of my safe deposit box could pique the interest of a nosy government; the service could get hacked or go out of business; <span style="font-size: 80%;">and my subterranean booby traps will fail due to lack of maintenance and water damage</span>.
+We can't have all our eggs in one basket.
 
+Instead, what if we had a way to distribute the credentials among multiple trusted parties, where each individual piece alone is useless, but enough of them put together could effect recovery.
+Enter *[Shamir's Secret Sharing Scheme](http://point-at-infinity.org/ssss/)* or _`ssss`_.
 
+`ssss` allows splitting up a secret into many pieces (or _shares_), where any subset of them above a certain size (the _threshold_) is enough to reconstruct the secret.
+If a set of shares is even one short of the threshold, it offers no more clue to the secret than random gibberish.
 
+As an example let's produce nine shares:
 
-bourne identity
+~~~
+$ ssss-split -n9 -t4
+Generating shares using a (4,9) scheme with dynamic security level.
+Enter the secret, at most 128 ASCII characters: Using a 184 bit security level.
+1-6f55bc5bf173feea970cba965c29e9b25fb0338e8e5341
+2-966dacee66cb473dfd19373f8cad74e343a14322dd860a
+3-22308fa7600216b0b8cd8bdf5239103859a4cada44ba92
+4-f296355aa3eb21edb2fe098a099a6240a87476bb72369a
+5-1869ee11f17bc0932b810983903a955810a07b731134d6
+6-5c140ea0ce7018a3f8c3fdf8ced72f8e491203beb69c35
+7-c4d04686ed48a9fb25847464967d3360a7ed39102b97be
+8-d0a34538bde9eca08a3fa42a23a16a5ddae3bad8d00af1
+9-6c4e15159bee2ec4f97d62fa20edaa7e1d8b14855fc77f
+~~~
+{: style="margin-top: -20px;"}
 
+Any four of them is enough to retrieve the secret:
 
-intro
+~~~
+$ ssss-combine -t4
+Enter 4 shares separated by newlines:
+Share [1/4]: 2-966dacee66cb473dfd19373f8cad74e343a14322dd860a
+Share [2/4]: 5-1869ee11f17bc0932b810983903a955810a07b731134d6
+Share [3/4]: 6-5c140ea0ce7018a3f8c3fdf8ced72f8e491203beb69c35
+Share [4/4]: 9-6c4e15159bee2ec4f97d62fa20edaa7e1d8b14855fc77f
+Resulting secret: the keys to the kingdom
+~~~
+{: style="margin-top: -20px;"}
 
-ssss
+~~~
+$ ssss-combine -t4
+Enter 4 shares separated by newlines:
+Share [1/4]: 1-6f55bc5bf173feea970cba965c29e9b25fb0338e8e5341
+Share [2/4]: 6-5c140ea0ce7018a3f8c3fdf8ced72f8e491203beb69c35
+Share [3/4]: 8-d0a34538bde9eca08a3fa42a23a16a5ddae3bad8d00af1
+Share [4/4]: 3-22308fa7600216b0b8cd8bdf5239103859a4cada44ba92
+Resulting secret: the keys to the kingdom
+~~~
+{: style="margin-top: -35px;"}
 
-barcode
+So now we have the tool. How exactly do we use it? There are two main issues to consider:
 
-deadmansswitch
+1. what the secret payload should be
+2. how to divide it up and distribute it among trusted people
 
-ssss->symmetric key->detail
+## The Payload
 
-detailed recovery plan
+The goal of the secret payload is that with it, someone could unlock your entire digital life.
+They should be able to do this entirely without your help, and have a reasonable chance of success even at some indefinite point in the future.
 
+At a minimum this means: knowledge of all accounts, usernames, passwords, security questions, encryption keys and passphrases, etc. 
+But in addition to that, they'd also need a clear set of instructions on how to recover everything essentially from scratch.
+
+For example, you're not going to include every single password for every account you have.
+It would be completely unmaintainable.
+What about new accounts you create after you distribute the shares?
+Or changed passwords?
+No, you probably need everything in a password vault.
+So include the master password to that.
+But how would they get the password vault?
+You probably have a backup service*.
+Include the password to that too.
+What about any 2-factor auth?
+They'll need the one-time-use codes for that as well (or at least a means of retrieving them).
+You're starting to get the hint... _creating the universe from nothing_, avoid chicken-and-egg, yadda yadda.
+
+\* I'm reminded of the uneasy moment when I realized my keepass was backed up to my crashplan, and the password to my crashplan was in... my keepass.
+{: .footnote}
+
+The instructions for your recovery plan need to literally work from _beyond the grave_.
+What you put in place should be able to work, _with no intervention from yourself_, potentially 5--10 years down the road.
+So think through it very carefully.
+Do a dry run.
+Don't depend on undependable things (Google will probably be around in 10 years; that dude's _Hacker News_ weekend project will not).
+Identify points of failure and add mitigating steps (for example, including a snapshot backup of your password vault in the payload is probably a good idea).
+
+## The Secret
+
+One property of `ssss` is that the shares must be at least as long as the secret.
+Your full 'digital will' is by this point probably becoming quite long.
+You don't want to dump this full content in `ssss`; the shares would be unwieldy, and take very long to generate.
+
+The secret must be short. You have two options:
+
+- Distribute the 'will' in plaintext.
+Replace each sensitive piece of info with a fill-in-the-blank, and construct the secret as a list of the sensitive info.
+
+  > Pro: shareholders can review the overall instructions _a priori_ and request clarifications
+
+  > Con: will not work if your content has many passwords (such as if including a snapshot of your password vault); this method somehow strikes me as *inelegant*
+
+- Encrypt the 'will' with a symmetric key and use that key as the secret.
+Distribute the encrypted payload to some (see _Roles_ below) along with their shares
+
+      $ passgen.py -b128
+      vfkn66dtxv2nopheneod0jb64 (length: 25; 129.2b entropy)
+      $ gpg -c --armor < my_directives
+      Enter passphrase:
+      -----BEGIN PGP MESSAGE-----
+      Version: GnuPG v1.4.10 (GNU/Linux)
+
+      jA0EAwMCU/FDY3Gf3RtgyRyfXSlLrTlYuZWvSeLNi7mdv/E2XrE6Q3Fsbls7
+      ...
+
+  > Pro: you can include traditional 'will-like' content meant to only be viewed upon the event of your death (or does this only happen in movies?)
+
+## The People
+
+who to distribute it to
 distribution
 roles
-
-
-
-
-need a way to recover
-
-storing master key in one place is too risky. could be easily compromised.
-
-enter SSSS.
-
-executors vs custodians
 
 executors are the people you want to gain access if something happens to you. they have access to the encrypted payload, and the list of custodians. they would initiate the process and collect/combine the tokens from the custodians. they don't need to be technical, but should have access to a technical person in the event that the process needs to be 'executed'.
 
@@ -107,35 +199,28 @@ independently verify that handover is warranted
 
 
 
-uneasy moment when i realized my keepass was backed up to my crashplan, and my crashplan password was stored in my keepass.
 
-2-factor auth
+bourne identity
 
-what to tell custodians
+
+
+barcode
+
+deadmansswitch
+
+
+
+
+
+
+
+
+storing master key in one place is too risky. could be easily compromised.
+
+
+executors vs custodians
+
+
 
 hardest part is handling to tokens during generation and distrubtion and not leaving traces. send from different email providers?
 
-~~~
-$ ssss-split -n9 -t4
-Generating shares using a (4,9) scheme with dynamic security level.
-Enter the secret, at most 128 ASCII characters: Using a 184 bit security level.
-1-6f55bc5bf173feea970cba965c29e9b25fb0338e8e5341
-2-966dacee66cb473dfd19373f8cad74e343a14322dd860a
-3-22308fa7600216b0b8cd8bdf5239103859a4cada44ba92
-4-f296355aa3eb21edb2fe098a099a6240a87476bb72369a
-5-1869ee11f17bc0932b810983903a955810a07b731134d6
-6-5c140ea0ce7018a3f8c3fdf8ced72f8e491203beb69c35
-7-c4d04686ed48a9fb25847464967d3360a7ed39102b97be
-8-d0a34538bde9eca08a3fa42a23a16a5ddae3bad8d00af1
-9-6c4e15159bee2ec4f97d62fa20edaa7e1d8b14855fc77f
-~~~
-
-~~~
-$ ssss-combine -t4
-Enter 4 shares separated by newlines:
-Share [1/4]: 2-966dacee66cb473dfd19373f8cad74e343a14322dd860a
-Share [2/4]: 5-1869ee11f17bc0932b810983903a955810a07b731134d6
-Share [3/4]: 6-5c140ea0ce7018a3f8c3fdf8ced72f8e491203beb69c35
-Share [4/4]: 9-6c4e15159bee2ec4f97d62fa20edaa7e1d8b14855fc77f
-Resulting secret: the keys to the kingdom
-~~~
