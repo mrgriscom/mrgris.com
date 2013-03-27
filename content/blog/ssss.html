@@ -183,7 +183,7 @@ Traits of a good shareholder:
 
 As a starting point for choosing your shareholders, identify different areas of your life and pick one to a few ideal candidates from each.
 Examples of these different areas include: your spouse, immediate family, extended family, old friends, professional relationships, etc.
-_Using a diverse set of interpersonal relationships for your shareholders is essential to your security._
+_Using a diverse set of personal relationships for your shareholders is essential to your security._
 
 Although `ssss` does not allow for creating 'partial' or 'weighted' shares, you can simulate it by giving different numbers of shares to different shareholders.
 The most trusted shareholder may get three unique shares, whereas a peripheral shareholder will only get one.
@@ -216,9 +216,74 @@ Of course this all depends on your chosen threshold.
 It's really up to you, but I would favor a threshold on the relatively high end.
 Account for the possibility of one or two shares being unavailable on the day-that-may-never-come, but hopefully any redundant shares you distributed and your own reserve shares should provide enough safety buffer.
 
-## The Process
+## The Grunt Work
+
+Whew.
+Now onto the process of actually generating and distributing your shares.
+
+Before we get started, let me stress that having all your shares in one place is **dangerous!**
+Any time a critical threshold of shares is in the same place, it is enough to compromise *all* your accounts, so handle with care!
+In particular:
+
+- keep the shares on secure storage as you work with them (encrypted drive/partition)
+- use secure file deletion to remove all traces of the shares once they have been distributed
+- never put a share in a place where it can't be deleted (i.e., be very wary of the cloud)
+- be mindful of the many places on your computer where the share contents may be cached (especially if converting to a barcode image):
+  - command-line history (just don't)
+  - browser history
+  - thumbnails in file manager
+  - history in any barcode scanning apps that you use for 'test' scans
+  - printer queues
+
+Given the minefield of ways to slip up, **using a dedicted VM, stored on an encrypted partition, seems very prudent**.
+
+Once you've generated the raw shares, you can take the optional step of encoding them as barcodes.
+I prefer to do this as it makes them slightly less 'scary' to your non-technical shareholders, and easier to work with for distribution, reassembly, and potential hard-copy storage.
+
+<style>
+.example {
+  margin-top: -40px;
+  margin-left: 50px;
+  margin-right: 80px;
+  font-style: italic;
+}
+.example em {
+  font-style: normal;
+}
+</style>
+
+To do so:
+
+    $ cat | qrencode -i -s8 -o /mnt/encrypted/ssss/shareC.png
+    3-22308fa7600216b0b8cd8bdf5239103859a4cada44ba92
+
+Run once per share, or per shareholder (with all the shares assigned to that person in a single barcode). Do not enter the share contents on the command line!
+{: .example}
+
+and we get:
+
+<table>
+<tr>
+<td>
+<img src="/img/blog/ssss1.png">
+<img src="/img/blog/ssss2.png">
+<img src="/img/blog/ssss3.png">
+</td>
+<td style="vertical-align: middle; font-size: 150%; padding-left: 1em;">&hellip;</td>
+</tr>
+</table>
+
+notifying shareholders
+
+distributing
+
+
+
+distribute from different email accounts?
+store all shares in a safe place (NOT like your 'personal shares') for auditing/replacement (in your password vault)
 
 barcode
+
 
 hardest part is handling to tokens during generation and distrubtion and not leaving traces. send from different email providers?
 
@@ -232,6 +297,10 @@ hand it over when called upon
 independently verify that handover is warranted
 
 expect jokes the next few times you talk to these people. "Is this channel secure?"
+
+
+
+conclusion
 
 cumbersome process because by definition you cannot rely on a single 3rd party
 
