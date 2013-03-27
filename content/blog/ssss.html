@@ -1,6 +1,6 @@
 ---
 kind: article
-created_at: 2013-03-26
+created_at: 2013-03-27
 title: Survivorship in the Digital Age
 tags:
 - tech
@@ -14,7 +14,7 @@ They'd find photo albums, old correspondence, account statements, address books 
 Even ten years ago, with the PC revolution well underway, they'd still find hard drives and CD backups.
 But nowadays, what would they find?
 Your data is in the cloud, or on a laptop that probably got destroyed in the accident you were in.
-And if it didnt, that laptop had full-disk encryption turned on anyway.
+And if it didn't, that laptop had full-disk encryption turned on anyway.
 
 It's a genuine concern that sizable chunk of your data (dare I say _you_) might simply disappear forever.
 Who would have access to your accounts?
@@ -150,7 +150,7 @@ Distribute the encrypted payload to some (see _Roles_ below) along with their sh
       jA0EAwMCU/FDY3Gf3RtgyRyfXSlLrTlYuZWvSeLNi7mdv/E2XrE6Q3Fsbls7
       ...
 
-  > Pro: you can include traditional 'will-like' content meant to only be viewed upon the event of your death (or does this only happen in movies?)
+  > Pro: you can include traditional 'will'-like content meant to only be viewed upon the event of your death (or does this only happen in movies?)
 
 ## The People
 
@@ -178,6 +178,7 @@ Traits of a good shareholder:
 * will take the endeavor seriously; won't treat their share in a cavalier manner
 * organized -- not likely to lose the share
 * basic digital security competency
+* flattered/excited to participate in a scheme that feels like something out of _The Bourne Identity_.
 
 ## Choosing Your Shareholders
 
@@ -197,14 +198,15 @@ The simplest case of this is to give each buddy the same share.
 In effect each buddy becomes a backup shareholder for the other.
 Only one person's response is needed in order for the share to 'count'.
 Additional responses provide nothing extra.
+You get extra resiliency with little trade-off of security.
 
 Use these two strategies judiciously. Remember, keep it simple!
 
 Lastly, don't discount yourself as a shareholder.
 You can hold shares yourself -- securely -- but in a manner where they will be available to the executors should the need ever arise, and this will greatly assist with recovery.
-You could keep them in a safe deposit box (though ensure the contents will not be made unavailable), or use a ['heartbeat' service](http://www.deadmansswitch.net/) that will automatically disseminate your shares should you fail to check in after a certain amount of time.
+You could keep them in a safe deposit box (though ensure the contents will be made available to the executors of your will), or use a ['heartbeat' service](http://www.deadmansswitch.net/) that will automatically disseminate your shares should you fail to check in after a certain amount of time (be mindful of this timeout delay, which will probably be at least several weeks, in your recovery plans).
 You will obviously be the *most* trusted shareholder, but don't make your shares so strong as to undermine the need for your other shareholders' participation.
-And definitely don't store an above-threshold amount of shares in this manner (single point of failure).
+And definitely don't store an above-threshold amount of shares in this manner (single point of compromise).
 The goal is just to provide some tipping-point leverage.
 
 Once you have mapped out your likely shareholders and the share distribution, trace out the possible recovery scenarios.
@@ -235,7 +237,7 @@ In particular:
   - history in any barcode scanning apps that you use for 'test' scans
   - printer queues
 
-Given the minefield of ways to slip up, **using a dedicted security-hardened VM seems very prudent**.
+Given the minefield of ways to slip up, **using a dedicated security-hardened VM seems very prudent**.
 
 Once you've generated the raw shares, you can take the optional step of encoding them as barcodes.
 I prefer to do this as it makes them slightly less 'scary' to your non-technical shareholders, and easier to work with for distribution, reassembly, and potential hard-copy storage.
@@ -306,7 +308,7 @@ Expect to get some jokes the first few times you talk to these people after send
 {: style="padding-left: 4em;"}
 
 Actually distributing the shares is another tricky issue.
-All the shares living in your outbox fails the 'multiple shares in plain view' criterion.
+All shares living in your outbox fails the 'multiple shares in plain view' criterion.
 Do it if you're confident you can truly 'delete forever' from your email after you send.
 Or send different shares from different email providers.
 Or distribute shares via hard-copy.
@@ -322,6 +324,9 @@ But it must be this way; we are creating a diffusion of responsibility, and by d
 
 In the end I hope you will find it worth the peace of mind... to know that if you were to disappear _tomorrow_, that your friends and family -- in addition to the turmoil of losing _you_ -- would not also find themselves suddenly locked out of everything you ever wrote, photographed, archived, and produced.
 
+&#x2042;
+{: style="text-align: center;"}
+
 > There are three deaths.  
 The first is when the body ceases to function.  
 The second is when the body is consigned to the grave.  
@@ -329,4 +334,3 @@ The third is that moment, sometime in the future, when your name is spoken for t
 
 Ensure the longevity of your data!
 
-<!-- bourne identity -->
