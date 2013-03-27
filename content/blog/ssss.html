@@ -235,7 +235,7 @@ In particular:
   - history in any barcode scanning apps that you use for 'test' scans
   - printer queues
 
-Given the minefield of ways to slip up, **using a dedicted VM, stored on an encrypted partition, seems very prudent**.
+Given the minefield of ways to slip up, **using a dedicted security-hardened VM seems very prudent**.
 
 Once you've generated the raw shares, you can take the optional step of encoding them as barcodes.
 I prefer to do this as it makes them slightly less 'scary' to your non-technical shareholders, and easier to work with for distribution, reassembly, and potential hard-copy storage.
@@ -273,35 +273,62 @@ and we get:
 </tr>
 </table>
 
-notifying shareholders
+Next you must notify your chosen shareholders of their new responsibilities and give them their share.
+The key takeaways they should understand are:
 
-distributing
+* treat the share with the same secrecy and care as they would their own passwords
+* hand it over to an executor when called upon
+* try to independently verify that something has happened to you to warrant hand-over before doing so
+* don't lose the share!
+
+Here is a sample email you can send:
+
+> Hey, we keep so much of our lives online these days, I realize that if something were to happen to me, nobody would know my passwords and a lot of that stuff might disappear forever.
+It's morbid to think about, but best to be prepared.
+>
+> To that end, I've enacted a recovery scheme.
+Attached to this email is a barcode.
+It contains encoded info that, when combined with a sufficient number of other barcodes that I'm distributing to other trusted parties, will make my passwords recoverable.
+>
+> **All you have to do right now is keep this email safe**.
+If you're reading this from a gmail account, **just archive the email** and it should remain in your account forever.
+Keep the barcode private until such a time when it may be needed.
+If you're ever asked for the barcode, please try to independently verify that something has happened to me before giving it up.
+>
+>Thanks for being my digital custodian.
+{: style="font-family: 'Open Sans', Helvetica, sans-serif; font-size: 12pt;"}
+
+Expect to get some jokes the first few times you talk to these people after sending this email.
+
+> "Hi, Dad"
+
+> *"Is this channel secure??"*
+{: style="padding-left: 4em;"}
+
+Actually distributing the shares is another tricky issue.
+All the shares living in your outbox fails the 'multiple shares in plain view' criterion.
+Do it if you're confident you can truly 'delete forever' from your email after you send.
+Or send different shares from different email providers.
+Or distribute shares via hard-copy.
+
+Once they're all distributed, breathe a sigh of relief, then clean up after yourself.
+Leave no traces of your shares hanging around in the cloud, on disk, or on a mobile device.
+_Do_ make a backup of the shares you generated, if for no other reason than to replace lost shares, but store them securely, such as in your password vault.
 
 
 
-distribute from different email accounts?
-store all shares in a safe place (NOT like your 'personal shares') for auditing/replacement (in your password vault)
-
-barcode
-
-
-hardest part is handling to tokens during generation and distrubtion and not leaving traces. send from different email providers?
 
 bourne identity
-
-notes for custodians:
-
-don't lose it
-keep the token as secret as possible
-hand it over when called upon
-independently verify that handover is warranted
-
-expect jokes the next few times you talk to these people. "Is this channel secure?"
-
-
 
 conclusion
 
 cumbersome process because by definition you cannot rely on a single 3rd party
 
 peace of mind
+
+> There are three deaths.  
+The first is when the body ceases to function.  
+The second is when the body is consigned to the grave.  
+The third is that moment, sometime in the future, when your name is spoken for the last time.
+
+Ensure the longevity of your data!
