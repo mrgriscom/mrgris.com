@@ -25,7 +25,7 @@ Add to your `.bashrc`:
     export PROMPT_COMMAND="history -a"
 
 This forces saving the history every time a command is run, instead of waiting until the terminal is closed.
-If you open a new terminal, it will have access to the other (open) terminal's history.
+If you open a new terminal, it will have access to the other (still open) terminal's history.
 
 However, there is still an annoyance. Once terminal #2 is open, its history effectively 'forks', and will not get updates for any subsequent commands from terminal #1!
 This is because terminals only load history once when they're first invoked.
