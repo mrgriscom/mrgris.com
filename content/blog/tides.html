@@ -1,0 +1,94 @@
+---
+kind: article
+created_at: 2013-12-25
+title: "Fucking Tides, How Do They Work?"
+tags:
+- nowyouknow
+---
+
+I've always wondered what causes the tides, and I've always found the traditional explanations unsatisfying.
+
+<img style="float: right;" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Tide_overview.svg/400px-Tide_overview.svg.png">
+
+This is the explanation most commonly provided.
+The point on earth closest to the moon feels the moon's gravity more strongly, so the moon creates a bulge as it pulls the ocean towards itself at this point (and, uhh... on the opposite side of the planet too for some reason...).
+These bulges are high tide, and supposedly the continental land-masses plow through this bulge as the earth rotates.
+
+But this explanation raises more questions than it answers.
+
+* If that force is strong enough to pull the ocean up several meters, why can't I feel it manifested any other way?
+
+* Where does all that water _come_ from?
+  It seems that there's a several-meter-thick layer of water that's switching between opposite sides of the planet twice a day.
+  If anything, shouldn't that create massive currents in the straits connecting the various oceans?
+
+* Polar regions would never experience a high tide (as the angle to the sun/moon is always low against the horizon), even though they in fact have some of the highest tides.
+
+<!-- later
+"atmospheric" tides causing a storm-surge like effect?
+-->
+
+Quantifying the tidal force
+===========================
+
+What kind of forces are we actually talking about here?
+
+The tidal force is computed as $$2r\frac{GM}{R^3}$$ (i.e., the first-order approximation of Newton's law of gravitation $$a=\frac{GM}{R^2}$$), where:
+
+* r: radius of object subject to tidal forces
+* R: distance between center of subject of tidal forces and object causing the tidal forces
+* M: mass of object causing tidal forces
+* G: universal gravitational constant
+
+The moon (r=<span class="num">6,371 km</span>, R=<span class="num">363,300 km</span> at perigee, M=<span class="num">7.348&times;10<sup>22</sup> kg</span>) yields a tidal force of <span class="num">1.30&times;10<sup>-6</sup> m/s<sup>2</sup></span>.
+
+The sun (r=<span class="num">6,371 km</span>, R=<span class="num">147,100,000 km</span> at perigee, M=<span class="num">1.989&times;10<sup>30</sup> kg</span>) yields a tidal force of <span class="num">5.31&times;10<sup>-7</sup> m/s<sup>2</sup></span>.
+(Fun fact: nearly a full third of the tidal forces on earth are solely due to the effect of the sun, not the moon)
+
+So we can see that the tidal force is actually ridiculously small -- less than one-millionth the normal force of gravity (<span class="num">9.81 m/s<sup>2</sup></span>).
+
+For kicks, lets calculate for a person standing on the surface of the earth (r=<span class="num">88 cm</span> (half of average human height), R=<span class="num">6,371 km</span>, M=<span class="num">5.972&times;10<sup>24</sup> kg</span>). The tidal force is <span class="num">2.71&times;10<sup>-6</sup> m/s<sup>2</sup></span> -- greater than the combined force of the sun and moon on the earth!
+Let me repeat -- **your own body feels more tidal force from the earth than the *entire earth* does from the sun and moon**.
+Clearly, something doesn't add up with the bulge theory.
+
+Quantifying the bulge
+=====================
+
+you can also compute the size this bulge would have. if the sun and moon were aligned, the gravitional force at the surface directly underneath would be reduced by 1.87e-7 gee. you'd achieve the same decrease in gravitational strength simply by moving up (increasing the distance between you and the center of the earth) by 59cm. were the earth tidally locked with the moon (let's ignore the sun), we wouldn't really perceive this as 'tide' at all but rather this slightly distorted shape would be the new sea level, differing slightly from a perfect sphere (though hte earth isn't a perfect sphere... details, details). but i digress. the point is 59cm is much smaller than the tides we observe in practice.
+
+so what is actually going on?
+
+so the 'tidal bulge' theory is wrong:
+wrong: http://en.wikipedia.org/wiki/File:Tide_overview.svg
+
+it's actually an oversimplification of the visualization of tidal *forces*
+more accurate: http://en.wikipedia.org/wiki/File:Field_tidal.png
+
+now we can resolve the first confusion, of why the 'bulge' occurs on both the near and far ends of the planet. this is because the planet itself is also subject to the pull of the tidal body, and thus cancels out. tidal force is all about the deviance from the norm. more than the normal pull (close side) manifests as a slight pull away from the surface of the body. less than normal pull (far side) manifests the same way. you're slightly 'lagging behind' but you perceive it was being pulled away from the surface still (which is now the opposite direction).
+
+here is the image that really made it click for me:
+mind blown: http://en.wikipedia.org/wiki/File:M2_tidal_constituent.jpg
+
+each single white line shows an area that experiences high tide simultaneously. the 'high tide' line progresses from one white line to the next, at a rate of one line per hour. the points where the lines meet experience no tidal variation at all. (this is again an oversimplification -- tides are composed of many harmonics; this image visualization the one most dominant harmonic. a no-tide point on the map may still experience tidal variation from the other smaller harmonics -- that is, each harmonic has its own no-tide points).
+
+here is what's really going on. every point on earth is subject to a constant gravitation force from the earth itself. every point is then also subject to a much much smaller tidal force from the moon and sun. and due to the rotation of the moon, sun, and earth, the magnitude and direction of this tidal force varies constantly and in a cyclical (though very complex) fashion. imagine you have a basin of water. the water, at rest, is subject to earth's gravity. the varying tidal force is analgous to a very slight tipping or pushing of the basin. each push in isolation will create a miniscule ripple but nothing more. however, if you continue to tip/push in a cycle, eventually you will get... resonance. waves will start to build up and these waves will have complex but predictable patterns. the magnitude of the waves will be seemingly much larger than the forces we put in, according to the natural resonant frequencies of the basin. the basin shape, mimicking coastlines and ocean depths, will further affect the resultant wave pattern. tides are the water sloshing around ocean basins due to the gradual nudges of the varying tidal force!
+
+in the bathtub as a kid i could make huge waves that spilled out of the tub, just with a gentle motion, but only if i timed it right.
+
+standing wave phenomenon can cause 'zero movement' points (nodes)
+
+fallout of this epiphany:
+
+* the tides we observe are only most casually related to the tidal force itself. if the sun and moon disappearred tomorrow, the tides would continue on for quite some time (days, years, thousands of years?) until gradually dissapted by friction and turbulence. much like if you stop shaking the basin, the ripple pattern inside will persist. this also explains the complex patterns of tides observed and their seeming random offset from the actual position of the moon.
+
+* this solves the 'where does the water come from' problem. water is not moving from one side of the earth to the other. the tides themselves are mostly localized to ocean basins. each point experiencing high tide generally has a corresponding low tide on some other part of that basin's coastline.
+
+* observed tides may be higher (much higher) that the theoretical amount of force due to building up of wave resonances
+
+other thoughts:
+
+pushing our basin directly up and down is unlikely to cause any significant wave formation. it's the side-to-side forces that are important. for the same reason the point of the tidal force diagram where the force acts parallel to the horizon is most important for actually causing tides
+
+althought the 'bulge' visualization is inaccurate for actual tides, it does describe the surface that's currently "flat" for gravitational purposes. as this surface is continually changing, surfaces that were once level become slightly sloped. this is an alternate way of visualization the 'push' (basin tipping) of the tidal force.
+
+average bulge

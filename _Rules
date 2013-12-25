@@ -52,6 +52,7 @@ end
 
 compile '/blog/*/' do
   filter :erb
+  filter :mathtex
   filter :kramdown
   layout 'blog'
 end
