@@ -10,9 +10,9 @@ I've always wondered what causes the tides, and I've always found the traditiona
 
 <img style="float: right;" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Tide_overview.svg/400px-Tide_overview.svg.png">
 
-This is the explanation most commonly provided.
-The point on earth closest to the moon feels the moon's gravity more strongly, so the moon creates a bulge as it pulls the ocean towards itself at this point (and, uhh... on the opposite side of the planet too for some reason...).
-These bulges are high tide, and supposedly the continental land-masses plow through this bulge as the earth rotates.
+This is the explanation most commonly provided:
+the point on earth closest to the moon feels the moon's gravity more strongly, so the moon creates a bulge as it pulls the ocean towards itself at this point (and, uhh... on the opposite side of the planet too for some reason...).
+These bulges are high tide.
 
 But this explanation raises more questions than it answers.
 
@@ -24,50 +24,53 @@ But this explanation raises more questions than it answers.
 
 * Polar regions would never experience a high tide (as the angle to the sun/moon is always low against the horizon), even though they in fact have some of the highest tides.
 
-<!-- later
-"atmospheric" tides causing a storm-surge like effect?
--->
+* Why do the actual times of high tide not line up with when the moon is directly overhead? Is the delay due to the continental landmasses plowing through the bulge as the earth rotates?
 
 Quantifying the tidal force
 ===========================
 
 What kind of forces are we actually talking about here?
 
-The tidal force is computed as $$2r\frac{GM}{R^3}$$ (i.e., the first-order approximation of Newton's law of gravitation $$a=\frac{GM}{R^2}$$), where:
+The tidal force is computed as $$2r\frac{GM}{R^3}$$ (which is the first-order approximation of Newton's law of gravitation $$a=\frac{GM}{R^2}$$), where:
 
 * r: radius of object subject to tidal forces
-* R: distance between center of subject of tidal forces and object causing the tidal forces
 * M: mass of object causing tidal forces
+* R: distance between center of two objects
 * G: universal gravitational constant
 
-The moon (r=<span class="num">6,371 km</span>, R=<span class="num">363,300 km</span> at perigee, M=<span class="num">7.348&times;10<sup>22</sup> kg</span>) yields a tidal force of <span class="num">1.30&times;10<sup>-6</sup> m/s<sup>2</sup></span>.
+The moon (r=##6371 km##, R=##363300 km## at its closest, M=##7.348e22 kg##) yields a maximum tidal force of ##1.30e-6 m/s^2##.
 
-The sun (r=<span class="num">6,371 km</span>, R=<span class="num">147,100,000 km</span> at perigee, M=<span class="num">1.989&times;10<sup>30</sup> kg</span>) yields a tidal force of <span class="num">5.31&times;10<sup>-7</sup> m/s<sup>2</sup></span>.
-(Fun fact: nearly a full third of the tidal forces on earth are solely due to the effect of the sun, not the moon)
+The sun (r=##6371 km##, R=##147100000 km## at its closest, M=##1.989e30 kg##) yields a maximum tidal force of ##5.31e-7 m/s^2##.
+(Observe that nearly a full third of the tidal forces on earth are solely due to the effect of the sun, not the moon)
 
-So we can see that the tidal force is actually ridiculously small -- less than one-millionth the normal force of gravity (<span class="num">9.81 m/s<sup>2</sup></span>).
+So we can see that the tidal force is actually ridiculously small -- less than one-millionth the normal force of gravity (##9.81 m/s^2##).
 
-For kicks, lets calculate for a person standing on the surface of the earth (r=<span class="num">88 cm</span> (half of average human height), R=<span class="num">6,371 km</span>, M=<span class="num">5.972&times;10<sup>24</sup> kg</span>). The tidal force is <span class="num">2.71&times;10<sup>-6</sup> m/s<sup>2</sup></span> -- greater than the combined force of the sun and moon on the earth!
+For kicks, lets calculate the tidal force for a person standing on the surface of the earth (r=##88 cm## -- half of average human height, R=##6371 km##, M=##5.972e24 kg##). The tidal force is ##2.71e-6 m/s^2## -- greater than the combined force of the sun and moon on the earth!
 Let me repeat -- **your own body feels more tidal force from the earth than the *entire earth* does from the sun and moon**.
-Clearly, something doesn't add up with the bulge theory.
 
-Quantifying the bulge
-=====================
+The strength of gravity weakens with altitude, and the full tidal force on the earth at its maximum strength is gravitationally equivalent to rising up a mere ##59 cm##.
+Even assuming the weak tidal force could raise the seas up to this height in the face of a rapidly rotating earth (not to mention the constantly changing positions of the moon and sun), observed tides are often much higher.
 
-you can also compute the size this bulge would have. if the sun and moon were aligned, the gravitional force at the surface directly underneath would be reduced by 1.87e-7 gee. you'd achieve the same decrease in gravitational strength simply by moving up (increasing the distance between you and the center of the earth) by 59cm. were the earth tidally locked with the moon (let's ignore the sun), we wouldn't really perceive this as 'tide' at all but rather this slightly distorted shape would be the new sea level, differing slightly from a perfect sphere (though hte earth isn't a perfect sphere... details, details). but i digress. the point is 59cm is much smaller than the tides we observe in practice.
+Clearly, something doesn't add up with the literal bulge explanation.
 
-so what is actually going on?
+What's Really Going On
+======================
 
-so the 'tidal bulge' theory is wrong:
-wrong: http://en.wikipedia.org/wiki/File:Tide_overview.svg
+The 'tidal bulge' theory is wrong, but it is actually an oversimplification of the correct depiction of tidal _forces_.
 
-it's actually an oversimplification of the visualization of tidal *forces*
-more accurate: http://en.wikipedia.org/wiki/File:Field_tidal.png
+<img style="float: left;" src="http://upload.wikimedia.org/wikipedia/commons/d/d8/Field_tidal.png">
 
-now we can resolve the first confusion, of why the 'bulge' occurs on both the near and far ends of the planet. this is because the planet itself is also subject to the pull of the tidal body, and thus cancels out. tidal force is all about the deviance from the norm. more than the normal pull (close side) manifests as a slight pull away from the surface of the body. less than normal pull (far side) manifests the same way. you're slightly 'lagging behind' but you perceive it was being pulled away from the surface still (which is now the opposite direction).
+Before going any further, lets resolve the first confusion of why there's a second bulge (in tidal _force_, not actual tide itself) on the far side of the planet.
+Although intuitively the moon pulls stronger on the ocean nearest to it, it is also exerting a pull on the rigid body of the earth itself, and this pull is stronger than the pull of the moon on the ocean on the far side of the planet.
+The stronger pull on the close side follows our intuition -- a slight pull away from the earth towards the moon. The _weaker_ pull on the far side of the body means anything here is essentially being 'left behind' as the earth itself is being pulled more strongly towards the moon.
+This manifests -- again -- as a slight pull away from the earth, now in the opposite direction.
+Mystery solved.
 
-here is the image that really made it click for me:
-mind blown: http://en.wikipedia.org/wiki/File:M2_tidal_constituent.jpg
+To _really_ understand what's happening with the tides you see, you need to understand this image:
+
+<img style="float: right;" src="http://upload.wikimedia.org/wikipedia/commons/5/5e/M2_tidal_constituent.jpg" title="mind: blown">
+
+Ignore the colors; the important part is the white lines.
 
 each single white line shows an area that experiences high tide simultaneously. the 'high tide' line progresses from one white line to the next, at a rate of one line per hour. the points where the lines meet experience no tidal variation at all. (this is again an oversimplification -- tides are composed of many harmonics; this image visualization the one most dominant harmonic. a no-tide point on the map may still experience tidal variation from the other smaller harmonics -- that is, each harmonic has its own no-tide points).
 
@@ -92,3 +95,17 @@ pushing our basin directly up and down is unlikely to cause any significant wave
 althought the 'bulge' visualization is inaccurate for actual tides, it does describe the surface that's currently "flat" for gravitational purposes. as this surface is continually changing, surfaces that were once level become slightly sloped. this is an alternate way of visualization the 'push' (basin tipping) of the tidal force.
 
 average bulge
+
+<!--
+
+tidal locking is the manifestation of all the energy of the tides. the moon is already tidally locked to the earth (its rotation about its axis matches its rotation about the earth, thus the same side always faces the earth). the earth is very gradually tidally locking to the moon. tides cause the earth's rotation to gradually slow down, increasing the length of the day by 2 milliseconds per century. this is the reason we have leap seconds. since that extra energy has to go somewhere, the moon is moving farther from the earth at a rate of several centimeters per year.
+
+Were everything to stay in this configuration forever (a scenario called [tidal locking](http://en.wikipedia.org/wiki/Tidal_locking)), the earth would gradually deform into this bulge (the fact that it does not fully do so in practice is also very important to the phenomenon of tidal locking, but that's beyond the scope of this post).
+
+We wouldn't even perceive the deformation as 'tide' at all, for the most obvious reason of (a) it never changes, but more subtly (b) this deformend shape would be perceived as the new 'flat', being a surface of constant gravitational potential of the combined earth-moon-sun system, as opposed to the perfect sphere of just the earth in isolation (although the earth already is not a perfect sphere... [details, details](http://en.wikipedia.org/wiki/Geoid)).
+
+the bulge is small
+the bulge cannot be realized
+if it were realized, we would not perceive it as anything other than normal
+
+-->

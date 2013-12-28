@@ -13,6 +13,11 @@ module Nanoc3::Filters
         digest = `#{command}`.split(/\n/)[0][1..-1]
         "<span class='equation'><img src='/img/math/" + digest + "." + ext + "' /></span>"
       }
+      content = content.gsub(/##(.+?)##/) { |m|
+        quant = m[2..-3]
+
+        "<span class='quantity'>" + quant + "</span>"
+      }
       content
     end
   end
