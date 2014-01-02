@@ -94,9 +94,7 @@ end
 
 require 'stringex'
 route '/blog/*/' do
-  if item[:created_at]
-    '/blog/%s-%s/index.html' % [item[:created_at].strftime('%Y-%m-%d'), item[:title].to_url]
-  end
+  '/blog/%s-%s/index.html' % [item[:created_at].strftime('%Y-%m-%d'), item[:title].to_url]
 end
 
 route '/projects/' do
