@@ -43,7 +43,7 @@ def deploy():
         rsync_project(WWW_ROOT, 'output/', delete=True, exclude=WWW_EXCL)
 
         VGM_ROOT = '/home/drew/vgm'
-        VGM_LOCAL_ROOT = '/data/music/vgm/'
+        VGM_LOCAL_ROOT = '/home/drew/music/vgm/'
         rsync_project(VGM_ROOT, local_dir=VGM_LOCAL_ROOT, delete=True)
 
         WEBAPP_USER = 'webapp'

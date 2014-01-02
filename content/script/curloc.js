@@ -68,7 +68,7 @@ function update_localtime($e, tz_offset, clock) {
 
 function pos_link(lat, lon) {
   var pos = lat + ',' + lon;
-  return 'http://maps.google.com/?q=' + pos + '&ll=' + pos + '&z=11&t=h';
+  return 'http://maps.google.com/?q=loc:' + pos + '&ll=' + pos + '&z=11&t=h';
 }
 
 function format_localtime(secs, offset, include_secs) {

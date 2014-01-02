@@ -1,0 +1,76 @@
+---
+kind: article
+created_at: 2013-08-08
+title: Installing Picasa Photo Viewer on Ubuntu 12.04
+tags:
+- tech
+---
+
+The image viewer bundled with [Picasa](http://picasa.google.com) is unparalleled in quality.
+It's fast and fluid.
+It uses a full-screen lightbox for display.
+It can handle absolutely huge images.
+The stock image viewers in Ubuntu don't even compare.
+
+But luckily, the Picasa image viewer runs well under [WINE](http://www.winehq.org) and can be set up on Ubuntu rather easily!
+
+Step 1: [download Picasa](http://picasa.google.com)
+---
+
+You'll be informed Picasa is "not available for your operating system", but `View Source` on that page and you'll find the download link for the Windows version.
+
+Step 2: install Picasa via WINE
+---
+
+    wine ~/Downloads/picasa39-setup.exe
+
+Step 3: create a launcher script
+---
+
+    #!/bin/bash
+    wine "C:\\Program Files (x86)\\Google\\Picasa3\\PicasaPhotoViewer.exe" "$1" 2> /dev/null
+
+Save this script as `/usr/local/bin/picasa-view`. (remember to make it executable)
+
+You can now use the Picasa image viewer via command line as `picasa-view`.
+
+Step 4: create a desktop launcher
+---
+
+    [Desktop Entry]
+    Type=Application
+    Name=Picasa Image Viewer
+    MimeType=image/png; image/jpeg; image/tiff
+    Exec=picasa-view %f
+    Terminal=false
+    Icon=388A_PicasaPhotoViewer.0
+
+Place in `~/.local/share/applications/picasa-viewer.desktop`
+
+Step 5: set as the default handler for images
+---
+
+You can do this by going to the `Properties` dialog on one file of each relevant image type and then mucking with the `Open with` tab.
+But this is cumbersome, _and_ there's a bug in Ubuntu 12.04 which makes this dialog crash entirely on TIF files.
+
+Here's an easier method: edit `~/.local/share/applications/mimeapps.list` to add:
+
+    image/jpeg=picasa-viewer.desktop
+    image/png=picasa-viewer.desktop
+    image/tiff=picasa-viewer.desktop
+
+under the `[Default Applications]` header.
+
+You're done! The Picasa viewer should now be your desktop environment's default image viewer (for the above image types).
+
+Parting thoughts
+---
+
+- Note that Picasa viewer doesn't support animated GIFs, so stick with a different viewer for those.
+
+- Picasa viewer can browse through directories of images, but it can get confused on ordering. Run:
+
+      touch *
+
+  inside the image directory to fix it.
+

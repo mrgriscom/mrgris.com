@@ -1,0 +1,54 @@
+---
+kind: article
+created_at: 2013-06-16
+title: Command Line History Done Right
+tags:
+- tech
+---
+
+Here's a pet peeve of mine: programs that only save their settings/history when you close them.
+If the program session is long-lived, proper closures become very rare; a crash or a sudden reboot becomes much more likely.
+History and settings are lost!
+
+`bash` suffers from this affliction.
+Terminals stay open for long periods, yet history is only saved on close.
+In addition to the risk of losing said history, it also means that history from one session cannot be accessed in other concurrent sessions.
+In fact, concurrent sessions may _overwrite_ the history saved by other sessions!
+
+My bash history is sacrosanct; the mental friction of not being able to recall a command you just ran is super-frustrating, and the prospect that it might be lost forever is simply unacceptable. Follow the steps below to make your bash history behave sanely.
+
+Step 1: save history after every command
+----
+
+Add to your `.bashrc`:
+
+    export PROMPT_COMMAND="history -a"
+
+This forces saving the history every time a command is run, instead of waiting until the terminal is closed.
+If you open a new terminal, it will have access to the other (still open) terminal's history.
+
+However, there is still an annoyance. Once terminal #2 is open, its history effectively 'forks', and will not get updates for any subsequent commands from terminal #1!
+This is because terminals only load history once when they're first invoked.
+
+Step 2: forcibly refresh history
+---
+
+Create a bash alias:
+
+    alias refresh='history -c; history -r'
+
+Calling `refresh` will reload the latest history from disk into your session, giving you access to recent commands from other sessions.
+However, if you use advanced history features like referencing commands by their position in the history (`!!`, `!3`, etc.), reloading the history can interfere with that, as it reorders the entries in the history.
+Also, some people like keeping their history siloed per session when mulitple sessions are devoted to different tasks.
+For these reasons, history refresh is made available to run on demand, rather than doing it automatically.
+
+Step 3: protect your history
+---
+
+None of the above steps are much good if we don't ensure that our history sticks around. Add the following to `.bashrc`:
+
+    shopt -s histappend
+    HISTSIZE=1000000
+    HISTFILESIZE=1000000
+
+This protects against history loss both from shells clobbering the history file, and from exceeding the limit of saved history entries (which is laughably low by default).
