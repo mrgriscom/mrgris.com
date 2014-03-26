@@ -168,7 +168,7 @@ end
         remotepath = os.path.join(self.deploydir(), 'localsettings.py')
         put(tmppath, remotepath, use_sudo=True)
         if user:
-            sudo('chown %s:%s %s' % (user, user, remotepath))
+            sudo('chown %s %s' % (user, remotepath))
 
     def restart_wsgi(self):
         sudo('service %s restart' % self.name)
