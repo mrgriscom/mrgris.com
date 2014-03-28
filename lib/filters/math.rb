@@ -11,7 +11,7 @@ module Nanoc3::Filters
       # process latex
       content = content.gsub(/\$\$(.+?)\$\$/) { |m|
         command = "texvc /tmp " + image_dir + " '" + m[2..-3] + "' utf8"
-        digest = `#{command}`.split(/\n/)[0][1..-1]
+        digest = `#{command}`[1..32]
         "<span class='equation'><img src='/img/math/" + digest + "." + ext + "' /></span>"
       }
       # process numerical quantities

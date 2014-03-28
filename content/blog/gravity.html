@@ -1,31 +1,124 @@
 ---
-kind: article-draft
-created_at: 2013-11-16
+kind: article
+created_at: 2014-01-18
 title: "Dear People Trying to Store Energy via Gravity: Please Stop"
 tags:
+- rant
 ---
 
-$$E=mgh$$
+Alternative energy.
+So hot right now.
 
-##100 lb## raised ##6 ft## at earth's gravity of ##9.81 m/s^2## gives a stored energy of ##813 J##.
-Top-of-the-line LEDs can now produce about ##95 lm/W##, yielding a total lighting energy of ~##77000 lm*s##.
-This could deliver the brightness of a single 60W incandescent bulb (~##850 lm##) for a whopping ##91## seconds.
-If we dialed the brightness down to more like a small flashlight (~##70 lm##), our stored energy would stretch to ##18## minutes (assuming ##100%## efficiency).
-Not quite a Hanukkah miracle.
+So hot, in fact, that a common meme lately has been the idea of getting energy via gravity -- that is, harnessing the power of slowly falling suspended weights.
+After all, it works for hydropower, and that's about as green as energy can get.
+Sadly, while these armchair inventors' motives are admirable, their effort could have been better spent learning some basic physics.
+Gravity simply doesn't store very much energy.
 
-The specs actually say a weight of only ##20 lb## and that it shines for a full half-hour.
-This forces a brightness of only ##9## lumens -- about one candle's worth.
+Basic Physics
+=============
 
+The amount of energy you can store with gravity is dictated by $$E=mgh$$, where:
 
-I'm really sick of hearing about this idea.
-At least this one doesn't make the same mistake of suggesting it should be human powered, but the energy density of gravity is ridiculously low compared to practically any other technology we have.
+<style>
+dt {
+  float: left;
+  clear: both;
+  width: 4em;
+  text-align: right;
+  padding-right: 0.2em;
+  border-right: 2px solid #ccf;
+}
+dd {
+  float: left;
+  margin-left: 0.6em;
+}
+</style>
+
+<p>
+<dl>
+<dt>m</dt><dd>mass suspended</dd>
+<dt>g</dt><dd>strength of gravity</dd>
+<dt>h</dt><dd>height of the drop</dd>
+</dl>
+<div style="clear: both;"></div>
+</p>
+
+Pretty basic, right?
+As you will notice, none of these numbers is particularly large.
+
+Lighting
+--------
+
+For lighting, the second consideration is how efficiently you can convert energy into visible light.
+This conversion factor (called _luminous efficacy_) is expressed as lumens per watt.
+State-of-the-art LEDs have luminous efficacies between ##100## (readily available on the market) to ##200## (exotic laboratory prototypes) ##lm/W##.
+The _maximum possible_ luminous efficacy is ##683 lm/W##, at which point you have pure green light (why? because human eyes are most sensitive to green, so concentrating all energy there gives most bang for the buck).
+The theoretical maximum for light that could be perceived as 'white' is ~##370 lm/W##.
+
+How bright is a lumen?
+A 60-watt incandescent bulb shines about 800 lumens.
+A "standard candle" is 12 lumens.
+
+Stored energy combined with a luminous efficacy yields a total "light energy" measured in lumen-seconds, wherein you can trade off a brighter light (more lumens) for a shorter time (fewer seconds) vs. a dimmer light for a longer time.
+
+Also, for the sake of simplicity and benefit of the doubt, all calculations assume ##100%## mechanical efficiency.
+Real-world yields would be lower.
+
+The Hall of Shame
+=================
+
+Gravia Lamp
+-----------
+
+Ah, where it all began, the [Gravia lamp](http://www.gizmag.com/the-gravity-powered-floor-lamp/8854/).
+Now it may seem unfair to pick on a 6-year old, already thoroughly debunked project, but for the sake of completeness (and the sheer egregiousness of its claims) I will include it here. 
+
+A fifty-pound weight.
+Raised 58 inches.
+Advertised as lighting your living room for four hours.
+
+##50 lb## &times; ##58 in## &times; ##9.8 m/s^2## &divide; ##4 hr## = ##22.7 mW##.
+Even assuming _theoretically maximum efficacy_ using some exotic alien technology, you get 16 lumens, or about one candle's worth of harsh, green light.
+
+The amount of press this got was frankly embarrassing.
+
+GravityLight
+------------
+
+Up next, [GravityLight](http://www.indiegogo.com/projects/gravitylight-lighting-for-developing-countries).
+A similar concept: lift up a weight and generate light as it falls... with added cachet of helping the poor in Africa.
+
+Assuming twenty pounds of rocks and a two-meter drop we get ##20 lb## &times; ##2 m## &times; ##9.8 m/s^2## = ##178 J## of stored energy.
+Add a ##95 lm/W## high-efficiency LED and we get ##16900 lm*s## of light.
+This could deliver the brightness of a 60-watt incandescent for a whopping 21 seconds.
+Dial it down to their advertised running time of thirty minutes, and you get 9 lumens.
+Again, about one candle.
+
+Now I admit I've come around a bit on these guys.
+The light is certainly not as bright as many expected, and the hype writes checks that the product can't quite cash.
+But my keychain flashlight has a low-power mode of ten lumens, and I have to say it is sufficient for reading or other household tasks performed in a smallish room, especially once your eyes adjust.
+And for its intended market of the third world, that is certainly better than darkness.
+
+But not exactly the Hanukkah miracle.
+
+Gravity Batteries
+-----------------
+
+At last, [Gravity Batteries](http://gravitybattery.info/).
+This was the one that made me snap and write this post.
+Unlike the others, it's not for lighting but rather general energy storage.
+As such, at least it doesn't make the same mistake of suggesting it should be human powered.
+
+But as should be clear by now, the energy density of gravity is just ridiculously low compared to practically any other technology we have.
 It works for hydroelectric plants because they have _huge_ reservoirs to supply them.
 
-Assume one of these gravity batteries uses a ##100 m## deep shaft with a counterweight the mass of a Cadillac Escalade. The energy stored is ##100 m## &times; ##2700 kg## &times; ##9.8 m/s^2## = ##2.6 MJ## (##0.7 kWh##).
-The first deep-cycle battery I found through ten seconds of googling (retail price $260) has a capacity of ##90 Ah##. ##90 Ah## &times; ##12 V## and assume an ##80%## discharge cycle = ##3.1 MJ##.
+No hard numbers are provided on the size of these gravity batteries, but let's assume one uses a ##100 m## deep shaft with a counterweight the mass of a Cadillac Escalade.
+The energy stored is ##100 m## &times; ##2700 kg## &times; ##9.8 m/s^2## = ##2.6 MJ## (##0.7 kWh##).
+The first deep-cycle battery I found through ten seconds of googling (retail price $260) has a capacity of ##90 Ah##. ##90 Ah## &times; ##12 V## &times; (##80%## discharge cycle) = ##3.1 MJ##.
 It just doesn't add up!
 
-Now I can't personally speak to the logistics of building a shaft taller than most elevators, hoisting a weight heavier than most elevators, oh and btdubs did I mention this shaft is going _into the ground_ where you have to deal with water seepage, corrosion, temperature gradients..., but I'm sure it costs a hell of a lot more than $260.
+Now I can't personally speak to the logistics of building a shaft taller than most elevators, hoisting a weight in it heavier than most elevators, oh and btdubs did I mention this shaft is going _into the ground_ where you have to deal with water seepage, corrosion, extreme temperature gradients..., but I'm sure it costs a hell of a lot more than $260.
+
 Gravity energy storage only makes sense when your reaction mass is on the order of cubic _miles_.
 
 Here's another way to think about it: if gravity had a comparable energy density to chemical energy, you'd metabolize half your body mass simply climbing up a hill.
