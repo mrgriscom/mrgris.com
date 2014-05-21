@@ -1,0 +1,97 @@
+---
+kind: article-draft
+created_at: 2014-03-24
+title: Unlocking my front door via SMS
+tags:
+---
+
+as soon as i saw my new condo had a front door buzzer, i knew i wanted to be able to operate it beyond just physically pressing the button.
+
+this is called an 'electronic strike'.
+
+talking the apartment panel off didn't reveal much besides satisfying some curiosity. but yes, shorting two ends of the 'door' button together would indeed unlock the front door (AC electric strike).
+
+but how to trigger it. hooking up there specifically would be difficult as it was just the panel and the wall. aesthetics are important. more important is safety. a relay would require some low-voltage DC power, and putting that kind of wiring inside a wall especially with the necessary transformer is not something i was comfortable with.
+
+but... those wires go somewhere. to a central control console in the basement, where access is much easier. for a while i debated how exactly to 'tap in' to my wire (and determine which one corresponded to my unit!) before i realized i could just access the terminals on the console itself. all the door buttons end up at two adjacent terminals. when shorted across those terminals, door opens. so instead just wire up a second set to those terminals to use for my purposes.
+
+first step: radio-activated relay (like for a garage door opener)
+
+http://www.lightobject.com/Multi-function-1CH-RF-with-waterproof-remote-control-P702.aspx
+
+surprisingly, your choice of relay ends up more determined by the remote. (size + aesthetics).
+
+
+step two: open it via the internet... (obviously)
+
+use cases:
+
+* i've locked myself out
+* melissa and i are away and we have a friend crashing at our house. avoid complicated keys handoff
+* having a party and don't want to man the door buzzer for 3 hours
+
+same issue: need access to the wires. raspberry pi in basement?
+
+OR, have something that triggers one of your wireless remotes, that triggers the relay you already have hooked up. (credit melissa for bright idea)
+
+security model. two kinds of access: resident and guest. resident access is perpetual. guest access is short-lived.
+
+
+i didn't want to have to deal with whitelisting emails or phone numbers. that would get too cumbersome. i'd rather have a code and anyone with that code can use it. handles last-minute invitees to the party or someone's phone being dead. the short lifespan of the individual codes mitigates the risk. long-term/perpetual access is tied to identity. you have to be verified by your login each time.
+
+webapp gets signal (validates it), runs a command that triggers a relay to send the radio signal. that triggers the relay to open the door.
+
+usb relay -- product literally does not exist in the us. so instead using an arduino. which feels ridiculous. but it is nice because it ensured once the relay goes on it will always turn off too.
+
+code not up, but i should probably put money where my mouth is
+
+server lives in cloud, because self-signed certs are bad. twilio won't accept them. server sends command to house server via ssh. piggybacked session.
+
+
+
+
+
+
+when you put it all together, it looks a bit ridiculous:
+
+twilio gateway <-- open via sms
+
+cloud server <-- open via url
+
+physical server
+
+arduino controller
+
+relay board
+
+sacrified remote
+
+radio relay <-- open via remote
+
+door control panel
+
+
+
+
+
+Security
+========
+
+as this thing grants physical access to your premises, security is important.
+
+security:
+
+radio: 1527 "learning code" buzzers. 20-bit, randomly generated code.
+
+not a "rolling code" buzzer. as i understand this would not work well for mutliple buzzers that are used with greatly differing frequency.
+
+website:
+
+ssl access (hides codes, tokens, and cookies)
+url door open via signed id cookie or uuid token
+uuid tokens and sms codes are short-lived
+twilio access is via ssl, and requests are authenticated for origin (brute-forcing the sms codes would be relatively easy otherwise)
+
+physical:
+
+command is executed via ssh
