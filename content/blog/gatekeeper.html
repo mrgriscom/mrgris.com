@@ -52,7 +52,7 @@ server lives in cloud, because self-signed certs are bad. twilio won't accept th
 
 
 
-when you put it all together, it looks a bit ridiculous:
+when you put it all together, it looks a bit ridiculous, rube-goldbergian:
 
 twilio gateway <-- open via sms
 
@@ -91,6 +91,7 @@ ssl access (hides codes, tokens, and cookies)
 url door open via signed id cookie or uuid token
 uuid tokens and sms codes are short-lived
 twilio access is via ssl, and requests are authenticated for origin (brute-forcing the sms codes would be relatively easy otherwise)
+google authentication for admin panel
 
 physical:
 
