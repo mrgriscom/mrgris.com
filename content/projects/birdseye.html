@@ -44,7 +44,7 @@ And, perhaps most controversially, only pulling from free-and-open map sources t
 </p>
 
 <p>
-Very soon my sole driving criterion became: <blockquote>"does not look like complete ass"</blockquote>
+I knew I would have to roll my own, and my sole design criterion boiled down to: <blockquote>"does not look like complete ass"</blockquote>
 I got to work and thereafter <em>birdseye</em> was born.
 </p>
 
@@ -70,7 +70,7 @@ The downloader is multi-threaded and uses optimized HTTP, so can actually work b
 <img src="http://mrgris.com/a/region.png">
 
 <p>
-The caching tool de-duplicates tile storage, thus avoiding millions of identical 'ocean' tiles, etc.
+The caching tool de-duplicates tile storage, thus avoiding millions of identical 'ocean' tiles, in a manner very similar to Mapbox's <a href="https://www.mapbox.com/foundations/an-open-platform/#mbtiles">mbtiles</a> format.
 It also omits overlapping regions that have already been cached.
 One interesting consequence of that is the app sometimes has a very 'retro' feel.
 Google's map style has changed markedly over the years and you don't realize quite how much until you stray into an area that you cached many years ago.
@@ -85,8 +85,8 @@ My personal configuration has specs for map, satellite, and terrain view; topogr
 <p>
 Bulk caching in this manner may very likely violate the map provider's ToS.
 As long as I do it only for personal use, and choose my coverage area judiciously, it's hard to feel too guilty.
-However in distributing this software, I've only included the URL specs for open data sources.
-If you want to use proprietary providers, you must reverse engineer the URLs yourself.
+However in distributing this software, I've only included the URL specs for providers whose license explicitly condones it.
+If you want to enter the grey area, you must reverse engineer the URLs yourself.
 </p>
 
 <p>
@@ -95,14 +95,14 @@ My caching methodology is to save a series of progressively localized and detail
 For example, my 'default' basemaps are:
 <ul>
 <li>whole world to zoom level 8
-<li>contiguous us to zoom level 11
-<li>my broader "region" (roughly a New England-Chicago-Atlanta triangle) to zoom level 13
-<li>southern new england and new york metro to zoom level 16
+<li>contiguous US to z11
+<li>my broader "region" (roughly a Maine-Chicago-Atlanta triangle) to z13
+<li>southern New England and New York City to z16
 </ul>
 
 <p>
 Then I would follow a similar basemap + inlay pattern for places I plan to visit.
-The broader region to zoom level 11, specific cities to zoom level 16, and anticipated routes to zoom level 13 or 14.
+The broader region to z11, specific cities to z16, and anticipated routes to z13 or 14.
 </p>
 
 <p>
@@ -176,7 +176,7 @@ We're at the dawn of an age of ubiquitous mapping, and I wanted it &mdash; all o
 
 <p>
 <img width="768" height="450" src="http://mrgris.com/a/screenshot_chokwe.jpg">
-Birdseye more than proved its worth on this roadtrip through Mozambique. Without the map we surely would have missed this unmarked turn. This is a place I can only assume a retail GPS would never touch.
+Birdseye more than proved its worth on this roadtrip through Mozambique. Without the map we surely would have missed this unmarked turn. I can only assume this is a place an off-the-shelf GPS would never touch.
 </p>
 
 <p>
@@ -207,7 +207,7 @@ Indulge my inner (outer) geek and display speed in meters per second or as a por
 </p>
 
 <p>
-&hellip;and why limit yourself to just a car?
+&hellip;and why limit yourself to just the car?
 </p>
 <p>
 <video width="768" height="450" src="http://mrgris.com/a/boat.mp4" autoplay loop></video>
@@ -248,11 +248,11 @@ I had many more grand ideas for features, including:
 <li>alternate orientations, like "track up" vs. default "north up", or multiple panes showing different zoom levels simultaneously
 <li>administrative areas, to indicate your current country/state/county/township/national park/exclusive economic zone/whatever
 <li>an event-based rendering pipeline to prevent 'jitter' and other blocking of the UI thread
-<li>display the track you've travelled
+<li>display your path travelled / breadcrumb trail
 <li>upload your expected route via kml; display distance along route / distance off-course
 <li>ETA calculation based on average speed
 <li>position of sun; time of sunrise/sunset (considering it changes as you move)
-<li>automatic timezone selection from position
+<li>automatic timezone switching
 </ul>
 </p>
 
