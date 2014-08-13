@@ -1,0 +1,261 @@
+--- 
+title: Birdseye
+thumb: birdseye.jpg
+style: project
+---
+
+<% content_for :lede do %>
+<p>
+A home-brew navigation app for netbooks.
+Tracks your location via a USB/Bluetooth GPS and presents a full-screen moving map view / heads-up display, made super-smooth via OpenGL.
+Using the bundled tool, you pre-cache regions of interest from <em>any</em> web mapping provider, allowing you to navigate completely offline.
+The project that motivated me to learn python.
+</p>
+
+<p class="li"><%= link_to('Explore', @item) %></p>
+<% end %>
+
+<!--
+
+pics:
+action shot
+road code
+
+todo:
+link to source
+sanitize repo
+-->
+
+<video width="768" height="450" src="http://mrgris.com/a/overview.mp4" autoplay loop></video>
+
+<h3>Genesis</h3>
+
+<p>
+Near the end of 2008, way back in the dark ages before tablets, Asus released one of the first netbooks: the <a href="http://en.wikipedia.org/wiki/Asus_Eee_PC">eeePC 901</a>.
+I had always been entralled by the idea of a "carputer", and in particular an omnipresent map of my surroundings.
+It seemed at least some part of my crazy dream could finally see the light of day.
+
+<p>
+The timing was opportune; the concept of easily-repurposed digital maps was only four years old, with the release of Google Maps and their innovation of the tiled "slippy map".
+Satellite imagery was also a key element of my vision, and it was nearly impossible to get your hands on before Google Maps added satellite view a year later.
+It was a revolutionary time.
+</p>
+
+<p>
+With my new <a href="http://www.amazon.com/gp/product/B000PKX2KA/ref=as_li_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B000PKX2KA&linkCode=as2&tag=mrgriscom-20">USB puck GPS</a> still shipping from Amazon, I set out to survey the state of Linux navigation apps.
+I quickly realized I had my work cut out for me.
+Hideous interfaces that didn't cooperate with full screen; garish icons; position that only updated in discrete jumps; maps that didn't scroll smoothly.
+And, perhaps most controversially, only pulling from free-and-open map sources that at the time were sparse and looked, frankly, terrible.
+</p>
+
+<p>
+Very soon my sole driving criterion became: <blockquote>"does not look like complete ass"</blockquote>
+I got to work and thereafter <em>birdseye</em> was born.
+</p>
+
+<h3>Overview</h3>
+
+<p>
+The birdseye "suite" is actually several components.
+</p>
+
+<h4>Caching</h4>
+
+<p>
+Before you can do anything, you need to get maps onto the netbook.
+For this you use the caching tool.
+</p>
+
+<p>
+While you are still online, you open the caching tool and outline a region of interest.
+Specify the max zoom level, then the caching tool will retrieve all necessary tiles for your desired map layers and save them to local storage.
+The downloader is multi-threaded and uses optimized HTTP, so can actually work blazing fast; typically the bottleneck is in writing to the eee's sub-par SSD.
+</p>
+
+<img src="http://mrgris.com/a/region.png">
+
+<p>
+The caching tool de-duplicates tile storage, thus avoiding millions of identical 'ocean' tiles, etc.
+It also omits overlapping regions that have already been cached.
+One interesting consequence of that is the app sometimes has a very 'retro' feel.
+Google's map style has changed markedly over the years and you don't realize quite how much until you stray into an area that you cached many years ago.
+</p>
+
+<p>
+Available map layers are defined in the app configuration, and basically any map tile service with a public URL is fair game.
+If you can view it in a browser, you can cache it.
+My personal configuration has specs for map, satellite, and terrain view; topographic maps; and even nautical and aeronautical charts.
+</p>
+
+<p>
+Bulk caching in this manner may very likely violate the map provider's ToS.
+As long as I do it only for personal use, and choose my coverage area judiciously, it's hard to feel too guilty.
+However in distributing this software, I've only included the URL specs for open data sources.
+If you want to use proprietary providers, you must reverse engineer the URLs yourself.
+</p>
+
+<p>
+My caching methodology is to save a series of progressively localized and detailed basemaps, followed by detailed caching of specific routes/cities on an as-needed basis.
+
+For example, my 'default' basemaps are:
+<ul>
+<li>whole world to zoom level 8
+<li>contiguous us to zoom level 11
+<li>my broader "region" (roughly a New England-Chicago-Atlanta triangle) to zoom level 13
+<li>southern new england and new york metro to zoom level 16
+</ul>
+
+<p>
+Then I would follow a similar basemap + inlay pattern for places I plan to visit.
+The broader region to zoom level 11, specific cities to zoom level 16, and anticipated routes to zoom level 13 or 14.
+</p>
+
+<p>
+<img src="http://mrgris.com/a/coverage.png">
+Cached areas for a roadtrip I took to Newfoundland and Labrador
+</p>
+
+<p>
+<img width="768" height="450" src="http://mrgris.com/a/screenshot_monsters.jpg">
+Cache well, otherwise&hellip;
+</p>
+
+<h4>Navigation</h4>
+
+<p>
+The actual navigation UI is comparatively simple.
+</p>
+
+<p>
+You get a moving map always centered on your current position.
+You also get a single 'destination' waypoint with straight-line distance and bearing.
+That's... pretty much it.
+</p>
+
+<p>
+Part of the simplicity simply stems from the logistics of an app meant to be used while driving; you don't want to be doing much.
+Navigation mode actually only supports four controls:
+<ul>
+<li>z - zoom in
+<li>x - zoom out
+<li>v - change map layer
+<li>m - mark current position
+</ul>
+</p>
+
+<p>
+All rendering is done with OpenGL for optimum crispness and smoothness.
+</p>
+
+<h4>Backend</h4>
+
+<p>
+A few backend services keep everything running.
+</p>
+
+<p>
+First, there is a GPS broadcaster service (which wraps <a href="http://www.catb.org/gpsd/">gpsd</a>).
+This service cleans up the idiosyncracies of the GPS itself and interpolates between position fixes (typically one second apart) to provide a smooth location track.
+</p>
+
+<p>
+In tandem with the broadcaster, there is a logging service that keeps a persistent tracklog wherever the app is used.
+</p>
+
+<p>
+Lastly, there is a "conductor" of sorts that keeps all the different components running smoothly.
+It monitors all components (and the hardware device itself), gives alerts, and restarts things if they crash.
+You certainly can't drop down to command line to debug things on the road.
+</p>
+
+<h3>Why not get a TomTom?</h3>
+
+<p>
+Aside from the obvious DIY appeal, several reasons&hellip;
+</p>
+
+<p>
+Foremost, I did not want to be beholden to a proprietary company's whims of what maps are fit to run on my device.
+We're at the dawn of an age of ubiquitous mapping, and I wanted it &mdash; all of it &mdash; at my fingertips no matter where I was.
+</p>
+
+<p>
+<img width="768" height="450" src="http://mrgris.com/a/screenshot_chokwe.jpg">
+Birdseye more than proved its worth on this roadtrip through Mozambique. Without the map we surely would have missed this unmarked turn. This is a place I can only assume a retail GPS would never touch.
+</p>
+
+<p>
+<img width="768" height="450" src="http://mrgris.com/a/screenshot_saline.jpg">
+We used birdseye in the remote California desert, where our rugged route was best viewed on the USGS topographic map series. If, like us, you wonder what those triangle symbols mean, it turns out they are mines (of the digging kind, not the exploding kind). This also marks the spot where we were strafed by a fighter jet. The restricted airspace of this area is used for training missions.
+</p>
+
+<p>
+<img width="768" height="450" src="http://mrgris.com/a/screenshot_everglades.jpg">
+A stretch of the Everglades. What would have otherwise been a monotonous expanse of green springs to life when switched to satellite view. This is a false-color satellite layer I tiled myself using the <em>GeoCover 2000</em> dataset.
+</p>
+
+<p>
+Another reason is that a stock car GPS would give me more help than I want.
+I <em>like</em> doing the navigating and determining the optimal route.
+My personal opinion is that turn-by-turn directions make you soft.
+I want to be at the helm of the command center, so to speak.
+The map just another (very high density) information stream.
+</p>
+
+<p>
+Final reason: UI bling.
+Keeping with the 'command center' analogy, I want my app to look like some elite hacker app that <em>the Lone Gunmen</em> would use.
+Spinning dials are good.
+Distance to the thousandth of a mile.
+Clock time to the hundred of a second.
+Indulge my inner (outer) geek and display speed in meters per second or as a percentage of the speed of light&hellip;
+</p>
+
+<p>
+&hellip;and why limit yourself to just a car?
+</p>
+<p>
+<video width="768" height="450" src="http://mrgris.com/a/boat.mp4" autoplay loop></video>
+I'm on a boat!
+</p>
+<p>
+<video width="768" height="450" src="http://mrgris.com/a/plane.mp4" autoplay loop></video>
+I'm on a plane!
+</p>
+
+
+<h3>Action Shots!</h3>
+
+<p>
+<img src="http://mrgris.com/a/action_code.jpg">
+Some last-minute <em>road code</em> to support metric units in honor of Melissa's first visit to the US
+</p>
+
+<p>
+many have questioned the reason for tongs in my glovebox.
+</p>
+
+<h3>Alas</h3>
+
+<p>
+Sadly, I never got as far with this as I would have liked to.
+I had many more grand ideas for features, including:
+
+<ul>
+<li>alternate orientations, like "track up" vs. default "north up", or multiple panes showing different zoom levels simultaneously
+<li>administrative areas, to indicate your current country/state/county/township/national park/exclusive economic zone/whatever
+<li>an event-based rendering pipeline to prevent 'jitter' and other blocking of the UI thread
+<li>display the track you've travelled
+<li>upload your expected route via kml; display distance along route / distance off-course
+<li>ETA calculation based on average speed
+<li>position of sun; time of sunrise/sunset (considering it changes as you move)
+<li>automatic timezone selection from position
+</ul>
+</p>
+
+<p>
+But with the smartphone revolution, and compelling features like real-time traffic, I started devoting less and less time to birdseye.
+You can only invest so much effort for a userbase of 1.
+</p>
+
+
