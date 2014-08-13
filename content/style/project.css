@@ -5,7 +5,7 @@ body {
   color: #fff;
 }
 
-p {
+#mnswcontent p {
   max-width: 480px;
   /*text-align: justify;*/
 }

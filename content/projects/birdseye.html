@@ -21,9 +21,11 @@ link to source
 sanitize repo
 -->
 
-<video width="768" height="450" src="http://mrgris.com/a/overview.mp4" autoplay loop></video>
+<video width="900" height="527" style="margin-top: -25px; margin-bottom: 15px;" src="http://mrgris.com/a/overview.mp4" autoplay loop></video>
 
-<h3>Genesis</h3>
+<div class="blob">
+
+<h3 style="margin-top: 0.2em;">Genesis</h3>
 
 <p>
 Near the end of 2008, way back in the dark ages before tablets, Asus released one of the first netbooks: the <a href="http://en.wikipedia.org/wiki/Asus_Eee_PC">eeePC 901</a>.
@@ -44,7 +46,7 @@ And, perhaps most controversially, only pulling from free-and-open map sources t
 </p>
 
 <p>
-I knew I would have to roll my own, and my sole design criterion boiled down to: <blockquote>"does not look like complete ass"</blockquote>
+I knew I would have to roll my own, and my sole design criterion boiled down to: <blockquote style="text-align: center; margin-bottom: 40px; font-family: serif; font-style: italic; font-size: 150%;">"does not look like complete ass"</blockquote>
 I got to work and thereafter <em>birdseye</em> was born.
 </p>
 
@@ -56,6 +58,8 @@ The birdseye "suite" is actually several components.
 
 <h4>Caching</h4>
 
+<img style="float: right; margin-left: 15px; margin-bottom: 15px;" src="http://mrgris.com/a/region.jpg">
+
 <p>
 Before you can do anything, you need to get maps onto the netbook.
 For this you use the caching tool.
@@ -66,8 +70,6 @@ While you are still online, you open the caching tool and outline a region of in
 Specify the max zoom level, then the caching tool will retrieve all necessary tiles for your desired map layers and save them to local storage.
 The downloader is multi-threaded and uses optimized HTTP, so can actually work blazing fast; typically the bottleneck is in writing to the eee's sub-par SSD.
 </p>
-
-<img src="http://mrgris.com/a/region.png">
 
 <p>
 The caching tool de-duplicates tile storage, thus avoiding millions of identical 'ocean' tiles, in a manner very similar to Mapbox's <a href="https://www.mapbox.com/foundations/an-open-platform/#mbtiles">mbtiles</a> format.
@@ -89,6 +91,11 @@ However in distributing this software, I've only included the URL specs for prov
 If you want to enter the grey area, you must reverse engineer the URLs yourself.
 </p>
 
+<div style="float: right; clear: both; margin-left: 15px; margin-bottom: 15px;">
+<img src="http://mrgris.com/a/coverage.png">
+<div style="text-align: right; font-style: italic; font-size: 90%;">Cached areas for a roadtrip I took to Newfoundland and Labrador</div>
+</div>
+
 <p>
 My caching methodology is to save a series of progressively localized and detailed basemaps, followed by detailed caching of specific routes/cities on an as-needed basis.
 
@@ -105,15 +112,13 @@ Then I would follow a similar basemap + inlay pattern for places I plan to visit
 The broader region to z11, specific cities to z16, and anticipated routes to z13 or 14.
 </p>
 
-<p>
-<img src="http://mrgris.com/a/coverage.png">
-Cached areas for a roadtrip I took to Newfoundland and Labrador
+<p style="clear: both;">
+Cache well, or else&hellip;
 </p>
 
-<p>
+<div style="text-align: center;">
 <img width="768" height="450" src="http://mrgris.com/a/screenshot_monsters.jpg">
-Cache well, otherwise&hellip;
-</p>
+</div>
 
 <h4>Navigation</h4>
 
@@ -127,15 +132,29 @@ You also get a single 'destination' waypoint with straight-line distance and bea
 That's... pretty much it.
 </p>
 
+<style>
+dt {
+  float: left;
+  width: 3em;
+  clear: left;
+  text-align: right;
+  margin-right: 1em;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+</style>
+
 <p>
 Part of the simplicity simply stems from the logistics of an app meant to be used while driving; you don't want to be doing much.
 Navigation mode actually only supports four controls:
-<ul>
-<li>z - zoom in
-<li>x - zoom out
-<li>v - change map layer
-<li>m - mark current position
-</ul>
+
+<dl>
+<dt>z</dt><dd>zoom in</dd>
+<dt>x</dt><dd>zoom out</dd>
+<dt>v</dt><dd>change map layer</dd>
+<dt>m</dt><dd>mark current position</dd>
+</dl>
 </p>
 
 <p>
@@ -175,18 +194,24 @@ We're at the dawn of an age of ubiquitous mapping, and I wanted it &mdash; all o
 </p>
 
 <p>
-<img width="768" height="450" src="http://mrgris.com/a/screenshot_chokwe.jpg">
+<div style="width: 768px; font-style: italic; font-size: 90%;">
 Birdseye more than proved its worth on this roadtrip through Mozambique. Without the map we surely would have missed this unmarked turn. I can only assume this is a place an off-the-shelf GPS would never touch.
+</div>
+<img width="768" height="450" src="http://mrgris.com/a/screenshot_chokwe.jpg">
 </p>
 
 <p>
-<img width="768" height="450" src="http://mrgris.com/a/screenshot_saline.jpg">
+<div style="width: 768px; font-style: italic; font-size: 90%;">
 We used birdseye in the remote California desert, where our rugged route was best viewed on the USGS topographic map series. If, like us, you wonder what those triangle symbols mean, it turns out they are mines (of the digging kind, not the exploding kind). This also marks the spot where we were strafed by a fighter jet. The restricted airspace of this area is used for training missions.
+</div>
+<img width="768" height="450" src="http://mrgris.com/a/screenshot_saline.jpg">
 </p>
 
 <p>
-<img width="768" height="450" src="http://mrgris.com/a/screenshot_everglades.jpg">
+<div style="width: 768px; font-style: italic; font-size: 90%;">
 A stretch of the Everglades. What would have otherwise been a monotonous expanse of green springs to life when switched to satellite view. This is a false-color satellite layer I tiled myself using the <em>GeoCover 2000</em> dataset.
+</div>
+<img width="768" height="450" src="http://mrgris.com/a/screenshot_everglades.jpg">
 </p>
 
 <p>
@@ -210,32 +235,41 @@ Indulge my inner (outer) geek and display speed in meters per second or as a por
 &hellip;and why limit yourself to just the car?
 </p>
 <p>
+<div style="text-align: right;">
 <video width="768" height="450" src="http://mrgris.com/a/boat.mp4" autoplay loop></video>
-I'm on a boat!
+<div style="font-style: italic; font-size: 90%;">I'm on a boat!</div>
+</div>
 </p>
 <p>
+<div>
 <video width="768" height="450" src="http://mrgris.com/a/plane.mp4" autoplay loop></video>
-I'm on a plane!
+<div style="font-style: italic; font-size: 90%;">I'm on a plane!</div>
+</div>
 </p>
 
 
 <h3>Action Shots!</h3>
 
 <p>
-{{ normal road shot here }}
+<!-- replace me -->
+<img src="http://mrgris.com/a/action.jpg">
 </p>
 
-<p>
+<div style="float: right; margin-left: 15px; margin-bottom: 15px;">
 <img src="http://mrgris.com/a/console.jpg">
+</div>
+<p>
 The "platform" of tongs wedged into a center console compartment; laptop secured with a rubber band.
 Surprisingly sturdy.
 Power on longer trips supplied via shown inverter.
 Many have questioned the presence of tongs in my glovebox.
 </p>
 
-<p>
+<p style="clear: both;">
+<div>
 <img src="http://mrgris.com/a/action_code.jpg">
-Some last-minute <em>road code</em> to support metric units in honor of Melissa's first visit to the US
+<div style="font-style: italic; font-size: 90%;">Some last-minute <em>road coding</em> to support metric units in honor of Melissa's first visit to the US</div>
+</div>
 </p>
 
 <h3>Alas</h3>
@@ -261,4 +295,4 @@ But with the smartphone revolution, and compelling features like real-time traff
 You can only invest so much effort for a userbase of 1.
 </p>
 
-
+</div>
