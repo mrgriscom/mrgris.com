@@ -103,7 +103,7 @@ Funnily enough, [your choice of relay](http://www.lightobject.com/Multi-function
 </div>
 
 
-Phase II: Internet Control!
+Phase II: Internet Control
 ===========================
 
 (obviously)
@@ -117,6 +117,10 @@ More interesting things:
 * I've locked myself out (if I don't have my keys, I definitely don't have the remote either).
 * Melissa and I need to let someone in to check on something while we're away. Or, we have guests staying and wanted to avoid complicated keys hand-off.
 * We're throwing a party and I don't want to man the door buzzer for three hours.
+{: style="margin-bottom: 2.4em;"}
+
+Hardware
+--------
 
 The control device presented the same issue as before: it needed access to the physical circuit.
 Install a Raspberry Pi in tandem with the RF relay?
@@ -129,20 +133,85 @@ I was not thrilled with the prospect of sysadmining a glorified switch-flipper i
 
 ...***or***, wire up something that would trigger one of the wireless remotes, that in turn triggers the relay you've already wired up in the basement (credit Melissa for this brilliant idea).
 
+To trigger the remote, I needed another relay, ideally controlled by USB.
+Apparently such a product literally does not exist in the United States.
+So instead I used an Arduino to control the relay while taking commands over USB, which feels utterly ridiculous.
+
+<div style="clear: both;"></div>
+<div class="left">
+<a href="https://picasaweb.google.com/lh/photo/2WYsKxmPks5Gr-MN9hIuT9MTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh4.googleusercontent.com/-vTZoYKdJxR4/U-19S7dvz-I/AAAAAAAAFeE/IC2oC50ZGnI/s400/sIMG_3040.JPG" /></a>
+<div class="aside">completed in-apartment setup</div>
+</div>
+
+There was one nice side-effect, though.
+My one main fear was that somehow the system would glitch and keep buzzing the door open perpetually.
+The buzzer does not actually work like an on/off light switch.
+Rather, you need a momentary press: on, then off, to send a signal to the control console.
+If the 'on' signal were sent but the 'off' never was, there would be a big problem.
+
+By having all the relay logic on the Arduino, I could be nearly certain that an 'on' would always be followed by an 'off', excepting loss of power, which would de-activate the relay anyway.
+
+Software
+--------
+
+With the hardware taken care of, I had to figure out how to grant and manage access.
+There are really two kinds of access: *resident* and *guest*.
+
+Resident access is persistent.
+Guest access is short-lived.
+Guests are granted 'leases' for a particular entry purpose (visit, party, cat-sitting, etc.) and period of validity with a defined start and end time.
+Each lease has a unique URL and numeric SMS code that when visited or messaged, opens the door.
+
+I did not want to have to deal with whitelisting email addresses or phone numbers for guest access.
+It would be too cumbersome and adversely affect the usability of my desired use cases.
+For example, an out-of-town guest's phone might be dead.
+Or the party invitation gets passed around to some last-minute invitees not originally on the list.
+It is nice if people can still gain access from other than their usual device.
+
+This means the lease URL and SMS code are **bearer tokens**.
+Anyone in possession of them can gain access.
+The short lifespan of each individual lease mitigates such a risk.
+
+Residential access is handled differently.
+The security risks are greater and usability is less of a concern.
+The only residential use case is locking yourself out; day-to-day access would be via remote instead.
+Therefore, residential access requires positive authentication every time.
+In practice, this is outsourced to Google's sign-in API.
+Residents authenticate with their Google account, and if it corresponds to a registered resident, access is granted.
+
+Architecture
+------------
+
+The main app lives in the cloud (hosted on this very server).
+It receives access requests directly via URL, or from Twilio upon the receipt of an incoming SMS.
+The app validates the request, and if valid, the command is sent to open the door.
+
+The cloud server cannot command the Arduino directly, as they must be connected by USB.
+So instead, the command is sent through our apartment media server, which is physically connected to the Arduino.
+
+<div class="right">
+<a href="https://picasaweb.google.com/lh/photo/JaO6ly6QVHld4dzt2ZlJuNMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh4.googleusercontent.com/-_nFxoYPTH7I/U-19TrDorOI/AAAAAAAAFeE/u9zPglHtp_s/s400/sIMG_3041.JPG" /></a>
+<div class="aside">all tucked in</div>
+</div>
+
+I actually would have preferred that the entire system be hosted on that one server, but there was a complication.
+In order for the communications from Twilio to have maximum security, Twilio must verify the SSL certificate of my web app before speaking to it.
+My home server does not have an SSL certificate, and you can't verify a self-signed cert.
+Rather than acquire one solely for my home server to host this one thing (which might require, like, _paying actual money_), I'd rather just use my public server, which already has one.
+
+Thus, the divison of responsibilites: my public server receives and validates the requests, and my home server executes them.
+
+The bridge the gap, the public server executes a command remotely on the physical server via ssh tunnel.
+In order to shave off precious seconds and make the system as responsive as possible, an ssh session is actually kept open between the two computers at all times.
+The ephemeral session to execute the command uses the "connection sharing" feature of ssh, which allows it piggyback over the already-open session, and avoid all handshaking/authentication overhead.
+
+But then it turns out the Arduino has a two-second delays before it will accept serial commands.
+Balls.
 
 
-security model. two kinds of access: resident and guest. resident access is perpetual. guest access is short-lived.
-
-
-i didn't want to have to deal with whitelisting emails or phone numbers. that would get too cumbersome. i'd rather have a code and anyone with that code can use it. handles last-minute invitees to the party or someone's phone being dead. the short lifespan of the individual codes mitigates the risk. long-term/perpetual access is tied to identity. you have to be verified by your login each time.
-
-webapp gets signal (validates it), runs a command that triggers a relay to send the radio signal. that triggers the relay to open the door.
-
-usb relay -- product literally does not exist in the us. so instead using an arduino. which feels ridiculous. but it is nice because it ensured once the relay goes on it will always turn off too.
-
-<div><a href="https://picasaweb.google.com/lh/photo/2WYsKxmPks5Gr-MN9hIuT9MTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh4.googleusercontent.com/-vTZoYKdJxR4/U-19S7dvz-I/AAAAAAAAFeE/IC2oC50ZGnI/s400/sIMG_3040.JPG" /></a></div>
-
-server lives in cloud, because self-signed certs are bad. twilio won't accept them. server sends command to house server via ssh. piggybacked session.
+The Big Picture
+================
+{: style="margin-bottom: 1.2em;"}
 
 <style>
 
@@ -306,13 +375,10 @@ server lives in cloud, because self-signed certs are bad. twilio won't accept th
   <div style="clear: both;"></div>
 </div>
 
-when you put it all together, it looks a bit ridiculous, rube-goldbergian:
+When you put it all together, it all starts to look like a bit of rube-goldbergian ridiculousness.
+But actually the very clear separation of parts contributes to the overall reliability of the system.
 
-a bit crazy to think of the thousands of miles and numerous systems my 'open' signal travels/passes through when i'm standing right in front of the door.
-
-<div style="clear: both;"></div>
-
-<div><a href="https://picasaweb.google.com/lh/photo/JaO6ly6QVHld4dzt2ZlJuNMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh4.googleusercontent.com/-_nFxoYPTH7I/U-19TrDorOI/AAAAAAAAFeE/u9zPglHtp_s/s400/sIMG_3041.JPG" /></a></div>
+Nevertheless, it's crazy to think of the many thousands of miles travelled and numerous systems passed through when I tap a screen while standing right in front of the door.
 
 Security
 ========
