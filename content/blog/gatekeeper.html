@@ -383,28 +383,51 @@ Nevertheless, it's crazy to think of the many thousands of miles travelled and n
 Security
 ========
 
-as this thing grants physical access to your premises, security is important.
+As this thing grants physical access to your premises, security considerations are paramount.
 
-rf security
---------------
+RF Security
+-----------
 
-radio: 1527 "learning code" buzzers. 20-bit, randomly generated code.
+Garage door remotes have gone through several evolutions in technology.
+The first generation were "fixed code" remotes -- an 8--12-bit code that you set manually.
+This yielded ~250--4,000 possible codes; it was easy to try them all.
+These were not very secure.
 
-not a "rolling code" buzzer. as i understand this would not work well for mutliple buzzers that are used with greatly differing frequency.
+The next generation, which this system uses, are called "learning code", with randomly generated codes around 20 bits long (one million combinations).
+Remotes can 'learn' the code from the base station, thus making the longer codes feasible.
+Learning code remotes are less vulnerable to brute-forcing (guessing all combinations), but are still vulnerable to snooping, since the code never changes.
 
-website
--------
+Beyond learning code is "rolling code", in which the transmitted code changes every time.
+While more secure than learning code, they are also more complex to manage since the remote and base station can get out of sync regarding what code they're expecting next.
+This problem becomes exacerbated in deployments with large numbers of remotes and/or remotes that are used with greatly differing frequency.
+(One problem is that these considerations, while surmountable, are usually just not well documented.)
 
-ssl access (hides codes, tokens, and cookies)
-url door open via signed id cookie or uuid token
-uuid tokens and sms codes are short-lived
-twilio access is via ssl, and requests are authenticated for origin (brute-forcing the sms codes would be relatively easy otherwise)
-google authentication for admin panel
+The risk of snooping the learning code remotes is the one part of this system that relies on security by obscurity.
+People simply aren't expecting garage door openers to open things that aren't garage doors.
+I also live in a neighborhood with few garages, and the few that exist are detached and small; they are not entry points to houses nor likely to store valuables.
+The odds of roving bands of RF-scanning malcontents are very small.
 
-physical
---------
+Digital Security
+----------------
 
-command is executed via ssh
+All communications are encrypted and authenticated.
 
-code not up, but i should probably put money where my mouth is
+All access to the website is forced to use HTTPS.
+This protects the sensitive bearer tokens from snooping.
 
+Furthermore, incoming SMSes are authenticated to make sure they actually come from Twilio.
+Otherwise an attacker could pretend to be Twilio and guess all possible SMS codes (only 5--6 digits) easily.
+
+In the event that a bearer token is compromised, they are typically short-lived, and must have an expiration date.
+
+Residential and admin access (to create new guest leases) requires positive authentication, and relies on Google security infrastructure to do so.
+Once logged in, the session token is stored in a signed and secure cookie, invulnerable to sniffing and spoofing.
+
+The remote command between the cloud and physical server is secured via ssh; it cannot be run unauthorized.
+
+So secure.
+
+Obscurity
+---------
+
+I haven't made the code public, though I suppose I should put my money where my mouth is...
