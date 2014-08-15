@@ -1,38 +1,80 @@
 ---
-kind: article-draft
-created_at: 2014-03-24
-title: Unlocking my front door via SMS
+kind: article
+created_at: 2014-08-14
+title: "Global Entry, or: How I Opened My Front Door via SMS"
 tags:
 ---
 
-as soon as i saw my new condo had a front door buzzer, i knew i wanted to be able to operate it beyond just physically pressing the button.
+i entered the condo after closing and though 'this my space mine'.
+i could customize it as i wish.
+what to do? home automation?
+the first gear starting spinning when i saw i could buzz people in to the building.
+i knew i would want to control this from more than just physically pressing the button.
 
-this is called an 'electronic strike'.
+<div><a href="https://picasaweb.google.com/lh/photo/U2CckbwmZV-V-vB7vSQBzdMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh5.googleusercontent.com/-a7iMyVkGw1A/U-19Qcpy-mI/AAAAAAAAFeE/A3RCfTiYk5c/s400/sIMG_3018.JPG" /></a></div>
 
-talking the apartment panel off didn't reveal much besides satisfying some curiosity. but yes, shorting two ends of the 'door' button together would indeed unlock the front door (AC electric strike).
+(for the curious, this kind of remotely controlled door lock is called an "electric strike")
 
-but how to trigger it. hooking up there specifically would be difficult as it was just the panel and the wall. aesthetics are important. more important is safety. a relay would require some low-voltage DC power, and putting that kind of wiring inside a wall especially with the necessary transformer is not something i was comfortable with.
+the first step to doing anything was gaining access to the 'door' circuit and get useful leads that could be wired into whatever would remotely trigger it.
 
-but... those wires go somewhere. to a central control console in the basement, where access is much easier. for a while i debated how exactly to 'tap in' to my wire (and determine which one corresponded to my unit!) before i realized i could just access the terminals on the console itself. all the door buttons end up at two adjacent terminals. when shorted across those terminals, door opens. so instead just wire up a second set to those terminals to use for my purposes.
+talking the apartment panel off didn't reveal much besides satisfying some curiosity.
+but yes, shorting two ends of the 'door' button together would indeed unlock the front door.
 
-first step: radio-activated relay (like for a garage door opener)
+<div><a href="https://picasaweb.google.com/lh/photo/2-dNoiVuupXVudRiJ8B_R9MTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh5.googleusercontent.com/-L_GdzDOPc6Y/U-19QEgHcyI/AAAAAAAAFeE/-vkxnR9drdM/s400/sIMG_3019.JPG" /></a></div>
 
-http://www.lightobject.com/Multi-function-1CH-RF-with-waterproof-remote-control-P702.aspx
+but how to trigger it?
+hooking up there specifically would be difficult as it was just the panel and the wall.
+it would be difficult to hide the wires cleanly, and a messy setup would not fly, especially as the first thing you'd see entering the unit.
+more important than aesthetics is safety.
+a relay would require some low-voltage DC power, and putting that kind of wiring inside a wall especially with the necessary transformer (and waste heat) is not something i was comfortable with.
 
-surprisingly, your choice of relay ends up more determined by the remote. (size + aesthetics).
+but then i realized: those wires go somewhere.
+to a central control console in the basement, where access is much easier.
+for a while i debated how exactly to 'tap in' to my wire (and determine which one corresponded to my unit!)
 
+<div><a href="https://picasaweb.google.com/lh/photo/4nfmQGQTyaujAD27sCIqLdMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh6.googleusercontent.com/-vCj1GsZkJxQ/U-19RQbngSI/AAAAAAAAFeE/vvxY2Hg1EOw/s400/sIMG_3026.JPG" /></a></div>
 
-step two: open it via the internet... (obviously)
+before i realized i could just access the terminals on the console itself.
+
+<div><a href="https://picasaweb.google.com/lh/photo/_pquxZPhPbofDR3X_vEHl9MTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh3.googleusercontent.com/-McbBXUydxdk/U-19QVYUD1I/AAAAAAAAFeE/sL1X3T4XRkY/s400/sIMG_3024.JPG" /></a></div>
+
+all the door buttons end up at two adjacent terminals.
+when shorted across those terminals, door opens.
+so instead just wire up a second set to those terminals to use for my purposes.
+
+<div><a href="https://picasaweb.google.com/lh/photo/OUDsRZkVSII3c0MZ-d0vbNMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh3.googleusercontent.com/-gJl1S6kmZLc/U-19RZfIJYI/AAAAAAAAFeE/EQP4WGRRT34/s400/sIMG_3025.JPG" /></a></div>
+
+Step 1: Remote Control
+======================
+
+use a radio-activated relay (like for a garage door opener)
+
+[the relay](http://www.lightobject.com/Multi-function-1CH-RF-with-waterproof-remote-control-P702.aspx)
+
+funnily, your choice of relay ends up more determined by the remote. (size + aesthetics).
+
+<div><a href="https://picasaweb.google.com/lh/photo/qM-hDUntB-IJOm3wjy6p69MTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh5.googleusercontent.com/-xydzvGZZouQ/U-19UHg_PlI/AAAAAAAAFeE/UMQ40c413v4/s400/sremote.jpg" /></a></div>
+
+<div><a href="https://picasaweb.google.com/lh/photo/7tlwJQszgHkqiPKKnp0lONMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh5.googleusercontent.com/-AMvSzCCvPHI/U-19Ri6Nv5I/AAAAAAAAFeE/nSXZdGxPCSo/s400/sIMG_3030.JPG" /></a></div>
+
+Step 2: Internet Control! (obviously)
+
+i was already immensely pleased with radio control, but it was mostly a novelty.
+i didn't have to fish my key (though still for the deadbolt door to my apt.
+(arduino lockitron tbd).
+i could do more interesting things when i didn't have to be within 100ft.
 
 use cases:
 
-* i've locked myself out
+* i've locked myself out (if i don't have my keys, i probably don't have the remote either)
 * melissa and i are away and we have a friend crashing at our house. avoid complicated keys handoff
 * having a party and don't want to man the door buzzer for 3 hours
 
 same issue: need access to the wires. raspberry pi in basement?
 
 OR, have something that triggers one of your wireless remotes, that triggers the relay you already have hooked up. (credit melissa for bright idea)
+
+<div><a href="https://picasaweb.google.com/lh/photo/qC891AdTJyt2mTaU1eca6NMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh3.googleusercontent.com/-h6H4ZTJhP6w/U-19STeUBnI/AAAAAAAAFeE/k4T_Lk2taYQ/s400/sIMG_3038.JPG" /></a></div>
 
 security model. two kinds of access: resident and guest. resident access is perpetual. guest access is short-lived.
 
@@ -43,49 +85,181 @@ webapp gets signal (validates it), runs a command that triggers a relay to send 
 
 usb relay -- product literally does not exist in the us. so instead using an arduino. which feels ridiculous. but it is nice because it ensured once the relay goes on it will always turn off too.
 
+<div><a href="https://picasaweb.google.com/lh/photo/2WYsKxmPks5Gr-MN9hIuT9MTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh4.googleusercontent.com/-vTZoYKdJxR4/U-19S7dvz-I/AAAAAAAAFeE/IC2oC50ZGnI/s400/sIMG_3040.JPG" /></a></div>
+
 code not up, but i should probably put money where my mouth is
 
 server lives in cloud, because self-signed certs are bad. twilio won't accept them. server sends command to house server via ssh. piggybacked session.
 
-
-
-
-
-
 when you put it all together, it looks a bit ridiculous, rube-goldbergian:
 
-twilio gateway <-- open via sms
+<style>
 
-cloud server <-- open via url
+#flowchart {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 75%;
+  width: 40em;
+}
 
-physical server
+.state {
+  float: right;
+  clear: both;
+  border: 1px solid black;
+  padding: .4em;
+  border-radius: .3em;
+  width: 10em;
+  margin-bottom: 1em;
+}
 
-arduino controller
+.input {
+  float: right;
+  border: 1px solid #aaa;
+  padding: .4em;
+  border-radius: .3em;
+  width: 10em;
+}
 
-relay board
+.link {
+  float: right;
+  font-style: italic;
+  font-size: 80%;
+  width: 10em;
+  padding: .4em;
+  color: #888;
+  background-color: #eef;
+  border-radius: 50%;
+}
 
-sacrified remote
+.state {
+	position: relative;
+	background: #ffffff;
+}
+.state:after, .state:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
 
-radio relay <-- open via remote
+.state:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-top-color: #ffffff;
+	border-width: 7px;
+	margin-left: -7px;
+}
+.state:before {
+	border-color: rgba(0, 0, 0, 0);
+	border-top-color: #000000;
+	border-width: 8px;
+	margin-left: -8px;
+}
 
-door control panel
+.input {
+	position: relative;
+	background: #ffffff;
+}
+.input:after, .input:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
 
+.input:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-left-color: #ffffff;
+	border-width: 8px;
+	margin-top: -8px;
+}
+.input:before {
+	border-color: rgba(0, 0, 0, 0);
+	border-left-color: #aaa;
+	border-width: 9px;
+	margin-top: -9px;
+}
 
+.vert {
+  clear: both;
+}
 
+.terminal {
+  background-color: #fcc;
+}
 
+</style>
+
+<div id="flowchart">
+  <div>
+    <div class="state">twilio gateway</div>
+    <div class="link">SMS</div>
+    <div class="input">send SMS</div>
+    <div class="link vert">SMS payload via HTTPS</div>
+  </div>
+  <div>
+    <div class="state">public server (mrgris.com)</div>
+    <div class="link">HTTPS POST</div>
+    <div class="input">visit URL</div>
+    <div class="link vert">open command via ssh</div>
+  </div>
+  <div>
+    <div class="state">on-premises server</div>
+    <div class="link vert">relay trigger command via serial USB</div>
+  </div>
+  <div>
+    <div class="state">arduino controller</div>
+    <div class="link vert">5V on/off signal</div>
+  </div>
+  <div>
+    <div class="state">relay board</div>
+    <div class="link vert">close/open switch</div>
+  </div>
+  <div>
+    <div class="state">sacrificed remote</div>
+    <div class="link vert">RF signal</div>
+  </div>
+  <div>
+    <div class="state">RF relay</div>
+    <div class="link">RF signal</div>
+    <div class="input">click remote</div>
+    <div class="link vert">close/open switch</div>
+  </div>
+  <div>
+    <div class="state">door console</div>
+    <div class="link vert">lock signal</div>
+  </div>
+  <div>
+    <div class="state terminal">front door</div>
+  </div>
+  <div style="clear: both;"></div>
+</div>
+
+a bit crazy to think of the thousands of miles and numerous systems my 'open' signal travels/passes through when i'm standing right in front of the door.
+
+<div><a href="https://picasaweb.google.com/lh/photo/JaO6ly6QVHld4dzt2ZlJuNMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh4.googleusercontent.com/-_nFxoYPTH7I/U-19TrDorOI/AAAAAAAAFeE/u9zPglHtp_s/s400/sIMG_3041.JPG" /></a></div>
 
 Security
 ========
 
 as this thing grants physical access to your premises, security is important.
 
-security:
+rf security
+--------------
 
 radio: 1527 "learning code" buzzers. 20-bit, randomly generated code.
 
 not a "rolling code" buzzer. as i understand this would not work well for mutliple buzzers that are used with greatly differing frequency.
 
-website:
+website
+-------
 
 ssl access (hides codes, tokens, and cookies)
 url door open via signed id cookie or uuid token
@@ -93,6 +267,8 @@ uuid tokens and sms codes are short-lived
 twilio access is via ssl, and requests are authenticated for origin (brute-forcing the sms codes would be relatively easy otherwise)
 google authentication for admin panel
 
-physical:
+physical
+--------
 
 command is executed via ssh
+
