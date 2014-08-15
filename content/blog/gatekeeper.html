@@ -1,11 +1,12 @@
 ---
 kind: article
-created_at: 2014-08-14
+created_at: 2013-10-22
 title: "Global Entry, or: How I Opened My Front Door via SMS"
 tags:
 ---
 
-i entered the condo after closing and though 'this my space mine'.
+fresh from the closing,
+i entered the condo after closing and thought 'this my space mine'.
 i could customize it as i wish.
 what to do? home automation?
 the first gear starting spinning when i saw i could buzz people in to the building.
@@ -13,7 +14,7 @@ i knew i would want to control this from more than just physically pressing the 
 
 <div><a href="https://picasaweb.google.com/lh/photo/U2CckbwmZV-V-vB7vSQBzdMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh5.googleusercontent.com/-a7iMyVkGw1A/U-19Qcpy-mI/AAAAAAAAFeE/A3RCfTiYk5c/s400/sIMG_3018.JPG" /></a></div>
 
-(for the curious, this kind of remotely controlled door lock is called an "electric strike")
+(FYI, this kind of remotely controlled door lock is called an ["electric strike"](http://en.wikipedia.org/wiki/Electric_strike))
 
 the first step to doing anything was gaining access to the 'door' circuit and get useful leads that could be wired into whatever would remotely trigger it.
 
@@ -57,7 +58,10 @@ funnily, your choice of relay ends up more determined by the remote. (size + aes
 
 <div><a href="https://picasaweb.google.com/lh/photo/7tlwJQszgHkqiPKKnp0lONMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh5.googleusercontent.com/-AMvSzCCvPHI/U-19Ri6Nv5I/AAAAAAAAFeE/nSXZdGxPCSo/s400/sIMG_3030.JPG" /></a></div>
 
-Step 2: Internet Control! (obviously)
+Step 2: Internet Control!
+=====================================
+
+Obviously.
 
 i was already immensely pleased with radio control, but it was mostly a novelty.
 i didn't have to fish my key (though still for the deadbolt door to my apt.
@@ -87,11 +91,7 @@ usb relay -- product literally does not exist in the us. so instead using an ard
 
 <div><a href="https://picasaweb.google.com/lh/photo/2WYsKxmPks5Gr-MN9hIuT9MTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh4.googleusercontent.com/-vTZoYKdJxR4/U-19S7dvz-I/AAAAAAAAFeE/IC2oC50ZGnI/s400/sIMG_3040.JPG" /></a></div>
 
-code not up, but i should probably put money where my mouth is
-
 server lives in cloud, because self-signed certs are bad. twilio won't accept them. server sends command to house server via ssh. piggybacked session.
-
-when you put it all together, it looks a bit ridiculous, rube-goldbergian:
 
 <style>
 
@@ -99,43 +99,67 @@ when you put it all together, it looks a bit ridiculous, rube-goldbergian:
   text-align: center;
   font-family: sans-serif;
   font-size: 75%;
-  width: 40em;
+  float: left;
+  margin-right: 2em;
+}
+
+.box {
+  float: right;
+  width: 10em;
+  padding: .4em;
+  border-radius: .3em;
+  margin-bottom: 1em;
+  white-space: nowrap;
 }
 
 .state {
-  float: right;
   clear: both;
   border: 1px solid black;
-  padding: .4em;
-  border-radius: .3em;
-  width: 10em;
-  margin-bottom: 1em;
 }
 
 .input {
-  float: right;
   border: 1px solid #aaa;
-  padding: .4em;
-  border-radius: .3em;
-  width: 10em;
+  position: relative;
+  width: 7em;
 }
 
 .link {
   float: right;
+  padding: .4em;
+  display: table-cell;
+}
+
+.link span {
   font-style: italic;
   font-size: 80%;
-  width: 10em;
-  padding: .4em;
   color: #888;
   background-color: #eef;
   border-radius: 50%;
+  display: inline-block;
 }
 
-.state {
-	position: relative;
-	background: #ffffff;
+.hlink {
+  margin-left: .3em;
+  margin-right: 0;
 }
-.state:after, .state:before {
+
+.vlink {
+  clear: both;
+  width: 10em;
+  margin-top: -1em;
+}
+
+.vlink span {
+  width: 8em;
+}
+
+.terminal {
+  background-color: #fcc;
+}
+.nonterm {
+	position: relative;
+}
+.nonterm:after, .nonterm:before {
 	top: 100%;
 	left: 50%;
 	border: solid transparent;
@@ -146,23 +170,19 @@ when you put it all together, it looks a bit ridiculous, rube-goldbergian:
 	pointer-events: none;
 }
 
-.state:after {
+.nonterm:after {
 	border-color: rgba(255, 255, 255, 0);
 	border-top-color: #ffffff;
 	border-width: 7px;
 	margin-left: -7px;
 }
-.state:before {
+.nonterm:before {
 	border-color: rgba(0, 0, 0, 0);
 	border-top-color: #000000;
 	border-width: 8px;
 	margin-left: -8px;
 }
 
-.input {
-	position: relative;
-	background: #ffffff;
-}
 .input:after, .input:before {
 	left: 100%;
 	top: 50%;
@@ -173,76 +193,73 @@ when you put it all together, it looks a bit ridiculous, rube-goldbergian:
 	position: absolute;
 	pointer-events: none;
 }
-
 .input:after {
 	border-color: rgba(255, 255, 255, 0);
 	border-left-color: #ffffff;
-	border-width: 8px;
-	margin-top: -8px;
+	border-width: 6px;
+	margin-top: -6px;
 }
 .input:before {
 	border-color: rgba(0, 0, 0, 0);
 	border-left-color: #aaa;
-	border-width: 9px;
-	margin-top: -9px;
-}
-
-.vert {
-  clear: both;
-}
-
-.terminal {
-  background-color: #fcc;
+	border-width: 7px;
+	margin-top: -7px;
 }
 
 </style>
 
 <div id="flowchart">
   <div>
-    <div class="state">twilio gateway</div>
-    <div class="link">SMS</div>
-    <div class="input">send SMS</div>
-    <div class="link vert">SMS payload via HTTPS</div>
+    <div class="box state nonterm">twilio gateway</div>
+    <div class="link hlink"><span>SMS</span></div>
+    <div class="box input">send SMS</div>
+    <div class="link vlink"><span>SMS payload via HTTPS</span></div>
   </div>
   <div>
-    <div class="state">public server (mrgris.com)</div>
-    <div class="link">HTTPS POST</div>
-    <div class="input">visit URL</div>
-    <div class="link vert">open command via ssh</div>
+    <div class="box state nonterm">public server</div>
+    <div class="link hlink"><span>HTTPS POST</span></div>
+    <div class="box input">visit URL</div>
+    <div class="link vlink"><span>open command via ssh</span></div>
   </div>
   <div>
-    <div class="state">on-premises server</div>
-    <div class="link vert">relay trigger command via serial USB</div>
+    <div class="box state nonterm">on-premises server</div>
+    <div class="link vlink"><span>relay trigger command via serial USB</span></div>
   </div>
   <div>
-    <div class="state">arduino controller</div>
-    <div class="link vert">5V on/off signal</div>
+    <div class="box state nonterm">arduino controller</div>
+    <div class="link vlink"><span>5V on/off signal</span></div>
   </div>
   <div>
-    <div class="state">relay board</div>
-    <div class="link vert">close/open switch</div>
+    <div class="box state nonterm">relay board</div>
+    <div class="link vlink"><span>momentary switch</span></div>
   </div>
   <div>
-    <div class="state">sacrificed remote</div>
-    <div class="link vert">RF signal</div>
+    <div class="box state nonterm">sacrificed remote</div>
+    <div class="link vlink"><span>RF signal</span></div>
   </div>
   <div>
-    <div class="state">RF relay</div>
-    <div class="link">RF signal</div>
-    <div class="input">click remote</div>
-    <div class="link vert">close/open switch</div>
+    <div class="box state nonterm">RF relay</div>
+    <div class="link hlink"><span>RF signal</span></div>
+    <div class="box input">click remote</div>
+    <div class="link vlink"><span>momentary switch</span></div>
   </div>
   <div>
-    <div class="state">door console</div>
-    <div class="link vert">lock signal</div>
+    <div class="box state nonterm">door console</div>
+    <div class="link hlink"><span>momentary switch</span></div>
+    <div class="box input">door buzzer</div>
+    <div class="link vlink"><span>lock signal</span></div>
   </div>
   <div>
-    <div class="state terminal">front door</div>
+    <div class="box state terminal">front door!</div>
   </div>
   <div style="clear: both;"></div>
 </div>
 
+when you put it all together, it looks a bit ridiculous, rube-goldbergian:
+
 a bit crazy to think of the thousands of miles and numerous systems my 'open' signal travels/passes through when i'm standing right in front of the door.
+
+<div style="clear: both;"></div>
 
 <div><a href="https://picasaweb.google.com/lh/photo/JaO6ly6QVHld4dzt2ZlJuNMTjNZETYmyPJy0liipFm0?feat=embedwebsite"><img src="https://lh4.googleusercontent.com/-_nFxoYPTH7I/U-19TrDorOI/AAAAAAAAFeE/u9zPglHtp_s/s400/sIMG_3041.JPG" /></a></div>
 
@@ -271,4 +288,6 @@ physical
 --------
 
 command is executed via ssh
+
+code not up, but i should probably put money where my mouth is
 
