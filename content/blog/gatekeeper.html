@@ -205,7 +205,7 @@ The bridge the gap, the public server executes a command remotely on the physica
 In order to shave off precious seconds and make the system as responsive as possible, an ssh session is actually kept open between the two computers at all times.
 The ephemeral session to execute the command uses the "connection sharing" feature of ssh, which allows it piggyback over the already-open session, and avoid all handshaking/authentication overhead.
 
-But then it turns out the Arduino has a two-second delays before it will accept serial commands.
+But then it turns out the Arduino has a two-second delay before it will accept serial commands.
 Balls.
 
 

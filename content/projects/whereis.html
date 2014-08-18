@@ -13,6 +13,14 @@ Dimagi travels a lot. It gets hard to keep tabs on everyone. Here's a site that 
 <p class="li"><%= link_to('Read more&hellip;', @item) %></p>
 <% end %>
 
+<script>
+// perform ssl stripping or else the demo iframe won't load
+if (window.location.protocol == 'https:') {
+  var sslstripped = window.location.href.replace(/^https:/, 'http:');
+  window.location.replace(sslstripped);
+}
+</script>
+
 <iframe style="border-style: none;" src="http://whereis.dimagi.com/mapwidget/" width="900" height="300"></iframe>
 
 <div style="text-align: center;">
