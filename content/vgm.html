@@ -85,15 +85,18 @@ ratings:
 - [0, "Karnov-Death"]
 - [0, "Karnov-Main_Theme"]
 - [0, "Karnov-Stage_Clear"]
+- [1, "Lazy_Jones-Medley"]
+- [0, "Lazy_Jones-Star_Dust"]
 - [1, "Legend_of_Zelda-Dungeon"]
 - [2, "Legend_of_Zelda-Item_Acquired"]
 - [2, "Legend_of_Zelda-Overworld"]
 - [3, "Legend_of_Zelda-Secret_Fanfare"]
 - [3, "Legend_of_Zelda-Title"]
 - [1, "Legend_of_Zelda-Triforce"]
+- [3, "Magician-Title"]
 - [1, "Mario_Kart_64-Bowsers_Castle"]
 - [3, "Mario_Kart_64-Frappe_Snowland"]
-- [0, "Mario_Kart_64-Game_Select"]
+- [1, "Mario_Kart_64-Game_Select"]
 - [1, "Mario_Kart_64-Koopa_Troopa_Beach"]
 - [3, "Mario_Kart_64-Moo_Moo_Farm"]
 - [1, "Mario_Kart_64-Results-_vs."]
@@ -172,6 +175,10 @@ ratings:
 - [2, "Ninja_Gaiden_3-Laboratory"]
 - [0, "Ninja_Gaiden_3-Volcano_Base"]
 - [2, "Ninja_Gaiden_3-Waterfalls"]
+- [0, "PaRappa_the_Rapper-Cheap_Cheap_the_Cooking_Chicken"]
+- [3, "PaRappa_the_Rapper-Chop_Chop_Master_Onion"]
+- [1, "PaRappa_the_Rapper-Instructor_Mooselini"]
+- [2, "PaRappa_the_Rapper-Prince_Fleaswallow"]
 - [3, "Section-Z_Arcade-Section_A-E"]
 - [0, "Sonic_3_and_Knuckles-1up"]
 - [0, "Sonic_3_and_Knuckles-Act_Clear"]
@@ -183,9 +190,9 @@ ratings:
 - [0, "Sonic_3_and_Knuckles-Chaos_Emerald__Continue"]
 - [1, "Sonic_3_and_Knuckles-Competition-_Azure_Lake"]
 - [1, "Sonic_3_and_Knuckles-Competition-_Balloon_Park"]
-- [3, "Sonic_3_and_Knuckles-Competition-_Chrome_Gadget"]
+- [2, "Sonic_3_and_Knuckles-Competition-_Chrome_Gadget"]
 - [1, "Sonic_3_and_Knuckles-Competition-_Desert_Palace"]
-- [2, "Sonic_3_and_Knuckles-Competition-_Endless_Mine"]
+- [3, "Sonic_3_and_Knuckles-Competition-_Endless_Mine"]
 - [2, "Sonic_3_and_Knuckles-Competition"]
 - [0, "Sonic_3_and_Knuckles-Credits"]
 - [1, "Sonic_3_and_Knuckles-Death_Egg_Zone_1"]
@@ -395,7 +402,7 @@ $(document).ready(function() {
 });
 <% end %>
 
-<div id="legend-container">
+<div id="legend-container" style="z-index: 1000;">
 <div id="legend">
 <table class="tracks">
   <% (3.downto 0).each do |r| %>
