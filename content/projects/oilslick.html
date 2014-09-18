@@ -127,7 +127,7 @@ Introducing: <em>oilslick</em>, a color elevation map layer designed to highligh
 </p>
 
 <p>
-Typical color elevation (aka "hypsometric") maps suffer from several flaws that this map layer attempts to remediate.
+Typical color elevation (aka "hypsometric") maps suffer from several flaws that this map layer attempts to remediate:
 
 <ul>
 <li>
@@ -161,7 +161,7 @@ Each elevation value has a unique and distinctive color.
 </p>
 
 <li>
-Lastly, nearly all hypsometric maps use the same damn color palette: green &#x2192; tan &#x2192; red &#x2192; white &mdash; a palette that encourages unfounded assumptions about land-cover.
+Lastly, nearly every hypsometric map uses the same damn color palette: green &#x2192; tan &#x2192; red &#x2192; white &mdash; a palette that encourages unfounded assumptions about land-cover.
 A viewer sees green and thinks "forest", when in fact a low-lying area may be desert. 
 The tan of higher elevations suggests arid plains, but could easily be forest.
 
@@ -174,31 +174,74 @@ The tan of higher elevations suggests arid plains, but could easily be forest.
 <h3>Design</h3>
 
 <p>
-The first insight is that the palette of available colors is much larger than those typically chosen to represent elevation. Oilslick uses a much wider color gamut.
+Human vision sees colors in three dimensions:
+
+<ul>
+<li><em>hue</em> (i.e., rainbow color)
+<li><em>saturation</em> (i.e., grey vs. colored)
+<li><em>lightness</em> (i.e., black vs. white)
+</ul>
 </p>
 
 <p>
-Human vision sees colors in three dimensions: hue (rainbow color), saturation (greyness vs coloredness), and lightness (white vs. black). By far, the eye is most sensitive to changes in lightness. So the oilslick palette ensures maximum change in lightness per difference in elevation, at all elevations. The problem is there is only so many levels of lightness to go through ("dynamic range"), so once we reach the maximum, we immediate reverse direction, until we hit the minimum, then reverse again. This creates zig-zagging 'cycles' of lightness. To differentiate these cycles, hue creeps forward by a set amount each cycle. To distinguish the ascending and descending lightness portions of each cycle, we vary the saturation. The ascending portion is more saturated, while the descending is less. Thus we assign a unique, and distinguishable color to every possible elevation value. The only difficult to discriminate parts are at the sharp corners of the zig-zag.
+By far, the eye is most sensitive to lightness.
+Therefore, oilslick maximizes change in lightness per change in elevation.
+Small elevation differences lead to rapid changes in lightness.
 </p>
 
 <p>
-Lightness makes a complete cycle every 500 meters. Hue makes one complete cycle over the full elevation range of 9500 meters.
+But there are only so many levels of lightness ("dynamic range") to go through.
+So once we max out, we immediately reverse direction, <em>decreasing</em> lightness at the same rate per increase in elevation, until we hit the bottom of the range, and so on&hellip;
+This creates a zig-zagging pattern of the lightness level.
+Each cycle, or zig+zag from black &#x2192; white &#x2192; black again, covers 500m of elevation.
 </p>
 
 <p>
-There appears to be a slight cheat in which coastal is orange and sea-level is blue, suggesting 'land' and 'water', but despite that nice aesthetic, it is mostly coincidental. I origally started things at hue of pure red, but everything looked a bit disturbingly biological... gruesome raw meat. There is a discontinuty in hue to highlight above/below sea level, which moved sea-level and below into the blue range.
+To differentiate among the lightness cycles, hue creeps forward more slowly with elevation.
+Hue makes one complete cycle &mdash; proceeding through every rainbow color &mdash; over the full range of land elevation on Earth (9,275m, rounded up to 9,500, or 19 lightness cycles).
+Thus every cycle is a slightly different color from the one preceding.
 </p>
 
-APPEARANCE
+<p>
+To distinguish the ascending and descending phases of the cycle (zig from zag), we vary saturation.
+The ascending phase uses saturated colors, and the descending phase desaturated.
+So when colors are getting darker, if the colors are saturated it means going <b>down</b>, whereas desaturated means going <b>up</b>.
+</p>
 
-The result is trippy and beautiful. Lush primary colors via the munsell color system. Thus all changes in brightness are equal regardless of hue. HSV has pretty poor uniformity of the various color dimensions. Lab is supposed to be better but... Lab is not uniform in hue! Instead you must go all the way to the munsell color system, derived from human vision trials, and has no easy formula -- in fact you must interpolate between color samples of known reference points collected in the 30's using lighting conditions that are now obsolete. But... it works. Even now the hue does not look entirely uniform to me -- transitions from purple to red to green look much more abrupt when from green to blue to purple, but, whatever.
+<p>
+Thus the oilslick palette assigns each elevation value a unique and fairly distinctive color, and employs a color range much larger than a typical elevation map.
+</p>
+
+<p>
+There is a discontinuity in hue at sea level to make coastlines apparent.
+After already condemning overly-suggestive color choices, I feel slightly cheating that the two hues at sea level are orange and blue &mdash; evocative of land and water.
+But it is actually somewhat of an accident.
+My first draft used red as the base hue to completely divorce color and biome, but, given the organic appearance of landforms, everything looked a bit too much like <a href="/img/oilslick/meat1.jpg" target="_blank">raw meat</a> or otherwise disturbingly <a href="/img/oilslick/meat2.jpg" target="_blank">biological</a>.
+</p>
+
+<h3>blah</h3>
+
+perceptual uniformity.
+round 1: hsv -- horrible variations in lightness depending on hue
+round 2: Lab -- pitched as the gold standard, BUT, not perceptually uniform in hue!
+final: munsell color system. Instead you must go all the way to the munsell color system, derived from human vision trials, and has no easy formula -- in fact you must interpolate between color samples of known reference points collected in the 30's using lighting conditions that are now obsolete. But... it works.
+
+even now still have reservations about hue uniformity -- teals/blues >> purple through green
+
+trippy and beautiful. lush colors.
+
+not all superior:
+
+you lose the big picture
+you lose perception on slopes that you'd get with hillshading; oilslick heavily favors the flat
 
 You do lose the immediate popping effect of shaded terrain, and in particular it is more difficult to discern steepness. In a way, the lightness cycles almost create a contour map combined with a color elevation map. But there are side effects. At large scales, where shaded relief becomes jumbled, oilslick can differentiate rough and smooth. Notice how easily glaciers pop out in the high himalayas.
 
 There is a learning curve for reading the map properly. Two scales at play -- small differences from lightness; large differences from hue.
 
-you do lose the bigger picture
+hard to tell near the reversal point
 
+too blue
 
 srtm phase angle comparison
 
