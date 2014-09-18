@@ -41,6 +41,11 @@ compile '/travel/countrylist/' do
   # no layout
 end
 
+compile '/projects/oilslick/' do
+  filter :erb
+  layout 'barebones'
+end
+
 compile '/blog/' do
   filter :erb
   layout 'blog'

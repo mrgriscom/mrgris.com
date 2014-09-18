@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title><%= @item[:title] %> :: mrgris.com</title>
+<% (@item[:style] ? [@item[:style]] : (@item[:styles] or [])).each do |style| %>
+  <link rel="stylesheet" type="text/css" href="/style/<%= style %>.css">
+<% end %>
+  <meta name="generator" content="nanoc 3.2.2">
+  <meta name="google-site-verification" content="J6GQY2POhqhf83-eTd8aa2Y4k-ZhdwfhQsQSgtaxvo0" />
+
+  <%= render 'google-analytics' %>
+</head>
+<body>
+    <%= yield %>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<% (@item[:scripts] or []).each do |script| %>
+  <script type="text/javascript" src="/script/<%= script %>.js"></script>
+<% end %>
+<% if @item[:content_for_script] %>
+  <script type="text/javascript">
+
+<%= @item[:content_for_script] %>
+
+  </script>
+<% end %>
+</body>
+</html>
