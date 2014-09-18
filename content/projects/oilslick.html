@@ -16,7 +16,7 @@ Provides global coverage to 3&#x2033; / 90m resolution.
 
 <% content_for :script do %>
 
-    var map = L.map('map', {zoomControl: false}).setView([30, -60], 2);
+    var map = L.map('map', {zoomControl: false});
     map.attributionControl.setPrefix('');
 
     var layers = {
@@ -38,6 +38,21 @@ Provides global coverage to 3&#x2033; / 90m resolution.
     L.control.zoom({position: 'topright'}).addTo(map);
     L.control.scale({position: 'bottomright'}).addTo(map);
 
+    var setCenter = function(lat, lon, z) {
+       var offset = $('#sidebar').width() / 2;
+       lon -= offset * 360. / 256. / Math.pow(2, z);
+       map.setView(L.latLng(lat, lon), z);
+    }
+    setCenter(30, 0, 2)
+
+    $('.loc').click(function(evt) {
+        var $e = $(evt.target);
+        var lat = +$e.attr('lat');
+        var lon = +$e.attr('lon');
+        var z = +$e.attr('z') || 10;
+        setCenter(lat, lon, z);
+    });
+
 <% end %>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.js"></script>
@@ -51,13 +66,13 @@ html {
 }
 
 a {
-  color: #058;
+  color: #08d;
 }
 a:visited {
-  color: #058;
+  color: #08d;
 }
 a:hover {
-  color: #07a;
+  color: #09f;
 }
 
 body {
@@ -87,7 +102,7 @@ body {
 
 #titlebar {
   background: #222;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #333;
   height: 30px;
   padding-left: 0.2em;
 }
@@ -163,7 +178,7 @@ Each elevation value has a unique and distinctive color.
 <li>
 Lastly, nearly every hypsometric map uses the same damn color palette: green &#x2192; tan &#x2192; red &#x2192; white &mdash; a palette that encourages unfounded assumptions about land-cover.
 A viewer sees green and thinks "forest", when in fact a low-lying area may be desert. 
-The tan of higher elevations suggests arid plains, but could easily be forest.
+The tan of higher elevations suggests arid plains, but could just as easily be forest.
 
 <p>
 <em>Oilslick intentionally breaks this convention</em>
@@ -198,7 +213,7 @@ Each cycle, or zig+zag from black &#x2192; white &#x2192; black again, covers 50
 
 <p>
 To differentiate among the lightness cycles, hue creeps forward more slowly with elevation.
-Hue makes one complete cycle &mdash; proceeding through every rainbow color &mdash; over the full range of land elevation on Earth (9,275m, rounded up to 9,500, or 19 lightness cycles).
+Hue makes one complete cycle &mdash; proceeding through every rainbow color &mdash; over the full range of land elevation on Earth (9,275m between the <a href="#" class="loc" lat="31.55" lon="35.47">Dead Sea</a> and <a href="#" class="loc" lat="27.99" lon="86.93">Mt. Everest</a>, rounded up to 9,500, or 19 lightness cycles).
 Thus every cycle is a slightly different color from the one preceding.
 </p>
 
@@ -219,39 +234,94 @@ But it is actually somewhat of an accident.
 My first draft used red as the base hue to completely divorce color and biome, but, given the organic appearance of landforms, everything looked a bit too much like <a href="/img/oilslick/meat1.jpg" target="_blank">raw meat</a> or otherwise disturbingly <a href="/img/oilslick/meat2.jpg" target="_blank">biological</a>.
 </p>
 
-<h3>blah</h3>
+<p>
+The key to making this all work out is <em>perceptual uniformity</em>, i.e., how well your color scheme can isolate and map to those three axes of color perception &mdash; something most color schemes are renowned for being terrible at.
+Version 1 used the <a href="http://en.wikipedia.org/wiki/HSL_and_HSV">HSL</a> colorspace, which has awful variation in lightness depending on hue, but it was enough to validate the concept.
+Version 2 used the gold standard <a href="http://en.wikipedia.org/wiki/Lab_color_space">Lab</a> colorspace, and everything seemed fine until&hellip; the rude surprise that <a href="http://www.brucelindbloom.com/index.html?MunsellCalcHelp.html#UPAttributes"><b>Lab is not perceptually uniform in hue!</b></a>
+</p>
 
-perceptual uniformity.
-round 1: hsv -- horrible variations in lightness depending on hue
-round 2: Lab -- pitched as the gold standard, BUT, not perceptually uniform in hue!
-final: munsell color system. Instead you must go all the way to the munsell color system, derived from human vision trials, and has no easy formula -- in fact you must interpolate between color samples of known reference points collected in the 30's using lighting conditions that are now obsolete. But... it works.
+<p>
+If you want <em>true</em> uniformity in all dimensions, you need to go all the way to the <a href="http://en.wikipedia.org/wiki/Munsell_color_system">Munsell</a> color system.
+Munsell is derived from extensive tests of actual human vision.
+As such, there is no easy formula; you must interpolate between samples of known reference colors.
+Oh, and did I mention the only public dataset of these samples was collected in the 1930's using illumination standards that are now obsolete?
+But&hellip; it works.
+</p>
 
-even now still have reservations about hue uniformity -- teals/blues >> purple through green
+<p>
+But even now, the hue of Munsell still does not appear entirely perceptually uniform to me.
+It seems to draw out in the teals and blues, while the transition from purple through green feels much more abrupt.
+But who am I to argue with hard data.
+</p>
 
-trippy and beautiful. lush colors.
+<h3>Appearance</h3>
 
-not all superior:
+<p>
+I am very pleased with the initial result.
+The map is lush, beautiful, and a bit trippy.
+It is not just incidental to some other map presentation, but stands as an artifact in its own right.
+</p>
 
-you lose the big picture
-you lose perception on slopes that you'd get with hillshading; oilslick heavily favors the flat
+<p>
+I'm reminded of old fractal renders I used to make when I was 15.
+</p>
 
-You do lose the immediate popping effect of shaded terrain, and in particular it is more difficult to discern steepness. In a way, the lightness cycles almost create a contour map combined with a color elevation map. But there are side effects. At large scales, where shaded relief becomes jumbled, oilslick can differentiate rough and smooth. Notice how easily glaciers pop out in the high himalayas.
+<p>
+The cycling and purity of colors looks a lot like a thin-film interference pattern, hence the name: oilslick.
+This could be a point of confusion for my more GIS-educated viewers: the pattern is easily mistaken for the <a href="http://www.esa.int/var/esa/storage/images/esa_multimedia/images/2014/09/sentinel-1_maps_earthquake/14770850-1-eng-GB/Sentinel-1_maps_earthquake.jpg">raw result of radar interferometry elevation mapping</a> (which was the method used to produce most of the data in this dataset).
+But this is <strong>not</strong> the case; what you see here is final, post-processed elevation data.
+</p>
 
-There is a learning curve for reading the map properly. Two scales at play -- small differences from lightness; large differences from hue.
+<p>
+There is certainly a learning curve to truly understanding the map.
+You see small-scale changes in terms of lightness.
+You see large-scale changes in terms of hue.
+And it turns out the map is quite good at conveying <a href="#" class="loc" lat="35.15" lon="78.03" z="7">texture</a>.
+Note the starkly different appearance of rugged mountains, glaciers, high plateu, and dunes.
+</p>
 
-hard to tell near the reversal point
+<h3>Caveats</h3>
 
-too blue
+<p>
+This is not to say an oilslick-style elevation map is strictly superior.
+</p>
 
-srtm phase angle comparison
+<p>
+It is easy to lose the big picture.
+Without shaded relief, larger landforms don't instantly "pop" into view.
+Subtle changes in slope that shaded relief would highlight are swamped here by rapidly changing color.
+Oilslick definitely favors the flat.
+</p>
 
-fractal appearance
+<p>
+In fact, for tall features, the color-banding starts to resemble a traditional topographic contour map &mdash; a type of map that people literally have to be trained to use.
+</p>
 
-SOURCE DATA, COVERAGE, LICENSING
+<p>
+But, while not a silver bullet, my hope is that oilslick illuminates terrain in a way that other maps have yet failed to do.
+</p>
 
-3&#x2033;/90m, z11
+<h3>Coverage, Sources, and Licensing</h3>
 
-de ferranti
+<p>
+Coverage is global.
+All of Earth's landforms (excepting the immediate vicinity of the South Pole) are represented.
+</p>
+
+<p>
+Data resolution is 3&#x2033; / 90m, or down to zoom level 11 (less at high latitudes).
+<em>Actual</em> data resolution for some areas may be lower, sometimes much lower, notably the Greenland and Antarctic icecaps.
+</p>
+
+<p>
+Source data is the <em>amazing</em> work of <a href="http://www.viewfinderpanoramas.org/dem3.html">Jonathan de Ferranti</a>, who assembled a complete global digital elevation model, filling in the extensive gaps in <a href="http://en.wikipedia.org/wiki/Shuttle_Radar_Topography_Mission">SRTM</a> data.
+Supplementary data in his dataset is pulled from myriad sources, including hand-digitizing of old Russian topographic maps!
+</p>
+
+<p>
+This map layer is hosted as a public service, and map tiles are free to use under a <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons 4.0 Attribution-NonCommercial-ShareAlike</a> license.
+</p>
+
 </div>
 </div>
 
