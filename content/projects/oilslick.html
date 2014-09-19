@@ -79,11 +79,50 @@ body {
   margin: 0;
   height: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+#legend {
+  border-left: 1px solid #555;
+  background-image: url(/img/oilslick/legend.jpg);
+  background-size: 100% 100%;
+  transition: margin 0.25s;
+  position: relative;
+
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 85%;
+  width: 6em;
+  margin-right: -5.2em;
+}
+#legend:hover {
+  margin-right: 0;
+}
+
+.ticklabel {
+  width: 6em;
+  position: absolute;
+  white-space: nowrap;
+  line-height: 1em;
+}
+
+.ticklabel-inner {
+  margin-top: -0.5em;
+  text-align: center;
+}
+
+.ticktop {
+  margin-top: 0.1em;
+}
+
+.tickbottom {
+  margin-top: -1.1em;
 }
 
 #map {
-  width: 100%;
-  height: 100%;
+  flex: 1;
   background: black;
 }
 
@@ -138,7 +177,7 @@ body {
 <div id="text">
 
 <p>
-Introducing: <em>oilslick</em>, a color elevation map layer designed to highlight the fine detail in terrain, and do so equally well throughout the entire range of Earth's elevation.
+Introducing: <em>oilslick</em>, a color elevation map layer designed to highlight the fine detail in terrain, and perform equally well throughout the entire range of Earth's elevation.
 </p>
 
 <p>
@@ -250,7 +289,7 @@ But&hellip; it works.
 
 <p>
 But even now, the hue of Munsell still does not appear entirely perceptually uniform to me.
-It seems to draw out in the teals and blues, while the transition from purple through green feels much more abrupt.
+It seems to dwell in the teals and blues, while the transition from purple through green feels much more abrupt.
 But who am I to argue with hard data.
 </p>
 
@@ -326,3 +365,30 @@ This map layer is hosted as a public service, and map tiles are free to use unde
 </div>
 
 <div id="map"></div>
+<div id="legend">
+<div class="tickmarks-inner">
+  <div class="ticklabel" style="top: 0%;">
+	<div class="ticklabel-inner ticktop">9000m</div>
+  </div>
+  <div class="ticklabel" style="top: 15.79%;">
+	<div class="ticklabel-inner">7500m</div>
+  </div>
+  <div class="ticklabel" style="top: 31.58%;">
+	<div class="ticklabel-inner">6000m</div>
+  </div>
+  <div class="ticklabel" style="top: 47.37%;">
+	<div class="ticklabel-inner">4500m</div>
+  </div>
+  <div class="ticklabel" style="top: 63.16%;">
+	<div class="ticklabel-inner">3000m</div>
+  </div>
+  <div class="ticklabel" style="top: 78.95%;">
+	<div class="ticklabel-inner">1500m</div>
+  </div>
+  <div class="ticklabel" style="top: 94.74%;">
+	<div class="ticklabel-inner">SEA LEVEL</div>
+  </div>
+  <div class="ticklabel" style="top: 100%;">
+	<div class="ticklabel-inner tickbottom">&minus;500m</div>
+  </div>
+</div>
