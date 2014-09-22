@@ -31,6 +31,9 @@ Provides global coverage to 3&#x2033; / 90m resolution.
         'Terrain': L.tileLayer('https://{s}.tiles.mapbox.com/v3/mrgriscom.i8gjfm3i/{z}/{x}/{y}.png', {
             attribution: '<a href="http://www.mapbox.com/about/maps/">MapBox</a>',
         }),
+        'Satellite': L.tileLayer('https://{s}.tiles.mapbox.com/v3/mrgriscom.jinbb0c4/{z}/{x}/{y}.png', {
+            attribution: '<a href="http://www.mapbox.com/about/maps/">MapBox</a>',
+        }),
     }
     L.control.layers(layers).addTo(map);
     map.addLayer(layers['Oilslick']);
