@@ -122,6 +122,52 @@ A related (though not nearly as severe) scenario is unbroken mine fronts that gr
 
 <h3>How good is it?</h3>
 
+<style>
+
+.stats-container {
+  padding: .5em;
+  border-radius: .4em;
+  background: rgba(255, 255, 255, .1);
+  margin-bottom: 2em;
+  display: inline-block;
+}
+
+.stats {
+}
+
+.stats td {
+  padding: 0 .3em;
+  text-align: center;
+  font-size: 95%;
+}
+.stats th {
+  padding: 0 .5em;
+  text-align: center;
+  font-size: 90%;
+  vertical-align: bottom;
+}
+.stats td:first-child {
+  text-align: left;
+  font-size: 95%;
+  font-weight: bold;
+  color: #ccc;
+  padding-right: .6em;
+}
+.stats td:last-child {
+  font-weight: bold;
+}
+
+ol {
+  margin-top: -1em;
+  margin-bottom: 1em;
+}
+
+ol li {
+  padding-bottom: 1em;
+}
+
+</style>
+
 <p>
 Pretty good.
 </p>
@@ -130,10 +176,11 @@ Pretty good.
 Using standard rules (mines distributed randomly; first click is always safe), <em>minesweepr</em> achieved the following record after 100,000 rounds of play <span style="font-size: 85%;">(margin of error &#x2248;0.15%)</span>.
 </p>
 
-<table>
+<div class="stats-container">
+<table class="stats">
 <thead>
 <tr>
-  <th>Mode</th>
+  <th></th>
   <th>Size</th>
   <th># Mines</th>
   <th>Mine Density</th>
@@ -171,8 +218,7 @@ Using standard rules (mines distributed randomly; first click is always safe), <
 </tr>
 </tbody>
 </table>
-
-<div style="margin-top: 2em;"></div>
+</div>
 
 <p>
 This is from always playing the safest cell available, and, when multiple such cells, picking one of them at random.
@@ -209,18 +255,15 @@ Nevertheless, with a framework for automated solving, we can at least test the c
 I tweaked the auto-player so that when it must choose among equally-risky cells, it will prefer the perimeter of the board.
 </p>
 
-<table>
+<div class="stats-container">
+<table class="stats">
 <thead>
 <tr>
-  <th></th>
-  <th colspan="4">Preference&hellip;</th>
-</tr>
-<tr>
-  <th>Mode</th>
+  <th style="text-align: right;">Prefer&hellip;</th>
   <th>None</th>
   <th>Perimeter</th>
   <th>Corners</th>
-  <th>Corners, then Edges</th>
+  <th>Corners,<br>then Edges</th>
 </tr>
 </thead>
 <tbody>
@@ -254,11 +297,12 @@ I tweaked the auto-player so that when it must choose among equally-risky cells,
 </tr>
 </tbody>
 </table>
+</div>
 
 <p>
 We see that favoring the perimeter gives a solid bump.
 Restricting to just corners improves performance further still.
-If we follow the logical next step of preferring corners first, then the remaining edge cells, we eek out yet another slight advantage.
+If we follow the logical next step of preferring corners first, then the remaining edge cells, we eke out yet another slight advantage.
 </p>
 
 <p>
@@ -269,7 +313,7 @@ I believe these are some of the best, if not <em>the</em> best board completion 
 <p>
 I'm a bit disturbed that such a simple tweak yields such a pronounced increase in performance.
 It makes me wonder just how much room for improvement there still is, especially low-hanging fruit.
-Even now the solver still always plays the least risky cells; it only favors the edges when the choice is otherwise a wash.
+Even now the solver still always plays the least risky cells; this modified behavior only favors the edges when the choice is otherwise a wash.
 But as discussed prior, there are definitely instances where the better move is <em>not</em> the guaranteed safest&mdash; a gamble which will pay dividends later in the game.
 </p>
 
