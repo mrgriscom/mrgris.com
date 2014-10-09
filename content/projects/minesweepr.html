@@ -42,11 +42,12 @@ The unfortunate truth, however, is that despite all these fancy tricks, <em>mine
 <p style="text-align: center;">&#x2042;</p>
 
 <p>
-The <em>real</em> truth is even worse than that. This algorithm only computes the safest cell(s) for the very next move. To have the best chance of surviving the game, we must consider not only the next move but all future moves. Is there a difference? Yes!
+The <em>real</em> truth is even worse than that. This algorithm only computes the safest cell(s) for the very next move. To have the best chance of surviving the game, we must consider not only the next move, but the repurcussions on all potential future moves. Is there a difference? Yes!
 </p>
 
 <p>
 That is to say, "is there a riskier move we can make now, that will pay off in multiple safer moves later on?"
+(Or even choosing among equivalently-risky cells.)
 </p>
 
 <p>
@@ -119,13 +120,167 @@ A related (though not nearly as severe) scenario is unbroken mine fronts that gr
 </p>
 </a>
 
-<!--
 <h3>How good is it?</h3>
 
 <p>
-At some point I will collect stats on the actual win rate of the solver.
+Pretty good.
 </p>
--->
+
+<p>
+Using standard rules (mines distributed randomly; first click is always safe), <em>minesweepr</em> achieved the following record after 100,000 rounds of play <span style="font-size: 85%;">(margin of error &#x2248;0.15%)</span>.
+</p>
+
+<table>
+<thead>
+<tr>
+  <th>Mode</th>
+  <th>Size</th>
+  <th># Mines</th>
+  <th>Mine Density</th>
+  <th>Win Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Beginner</td>
+  <td>9&times;9</td>
+  <td>10</td>
+  <td>12.3%</td>
+  <td>84.8%</td>
+</tr>
+<tr>
+  <td>Beginner "classic"</td>
+  <td>8&times;8</td>
+  <td>10</td>
+  <td>15.6%</td>
+  <td>74.1%</td>
+</tr>
+<tr>
+  <td>Intermediate</td>
+  <td>16&times;16</td>
+  <td>40</td>
+  <td>15.6%</td>
+  <td>69.2%</td>
+</tr>
+<tr>
+  <td>Expert</td>
+  <td>16&times;30</td>
+  <td>99</td>
+  <td>20.6%</td>
+  <td>33.1%</td>
+</tr>
+</tbody>
+</table>
+
+<div style="margin-top: 2em;"></div>
+
+<p>
+This is from always playing the safest cell available, and, when multiple such cells, picking one of them at random.
+</p>
+
+<p>
+Folk wisdom says it's better to play on the edges of the board rather than the center, in the hope of opening up a "cascade" &mdash; a large expanse of empty cells whose perimeter of clue cells gives you something to work with.
+The logic checks out as the fewer neighbors a cell has, the more likely it is not to be adjacent to a mine, thus triggering a cascade.
+</p>
+
+<p>
+But I'm loathe to include such 'tricks' in the solver.
+Because:
+
+<ol type="a">
+<li>
+folk wisdom is more often wrong than right.
+It focuses on highly visible, easily-reasoned-about phenomena, at the expense of situations and effects that are far more 'diffuse'.
+Optimal play results from taking into consideration all possibilities, whose cumulative effects are sometimes quite subtle.
+For example, who is to say the rarer cascades you'd get in the center wouldn't be larger and more useful in the long run than more frequent yet smaller cascades on the edges?
+
+<li>
+arbitrary hunches and heuristics compromise the mathematical purity of this exercise.
+The whole point was to delegate choice to the computer.
+Each special case added back in is a choice that burdens the human: <em>"is this truly a net win?"</em>, <em>"how does this interact/conflict with other heuristics?"</em>, <em>"is this applicable to all board sizes/mine densities/topologies?"</em>, etc&hellip;
+
+</ol>
+
+Nevertheless, with a framework for automated solving, we can at least test the claim.
+</p>
+
+<p>
+&hellip;and it turns out, there is quite an effect.
+I tweaked the auto-player so that when it must choose among equally-risky cells, it will prefer the perimeter of the board.
+</p>
+
+<table>
+<thead>
+<tr>
+  <th></th>
+  <th colspan="4">Preference&hellip;</th>
+</tr>
+<tr>
+  <th>Mode</th>
+  <th>None</th>
+  <th>Perimeter</th>
+  <th>Corners</th>
+  <th>Corners, then Edges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Beginner</td>
+  <td>84.8%</td>
+  <td>88.3%</td>
+  <td>91.4%</td>
+  <td>91.5%</td>
+</tr>
+<tr>
+  <td>Beginner "classic"</td>
+  <td>74.1%</td>
+  <td>76.6%</td>
+  <td>81.0%</td>
+  <td>81.1%</td>
+</tr>
+<tr>
+  <td>Intermediate</td>
+  <td>69.2%</td>
+  <td>72.6%</td>
+  <td>77.4%</td>
+  <td>77.6%</td>
+</tr>
+<tr>
+  <td>Expert</td>
+  <td>33.1%</td>
+  <td>35.2%</td>
+  <td>37.8%</td>
+  <td>37.8%</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+We see that favoring the perimeter gives a solid bump.
+Restricting to just corners improves performance further still.
+If we follow the logical next step of preferring corners first, then the remaining edge cells, we eek out yet another slight advantage.
+</p>
+
+<p>
+This is the current apex for <em>minesweepr</em>.
+I believe these are some of the best, if not <em>the</em> best board completion stats of any published solver.
+</p>
+
+<p>
+I'm a bit disturbed that such a simple tweak yields such a pronounced increase in performance.
+It makes me wonder just how much room for improvement there still is, especially low-hanging fruit.
+Even now the solver still always plays the least risky cells; it only favors the edges when the choice is otherwise a wash.
+But as discussed prior, there are definitely instances where the better move is <em>not</em> the guaranteed safest&mdash; a gamble which will pay dividends later in the game.
+</p>
+
+<p>
+But precisely how and when to exploit this are questions for another time.
+</p>
+
+<p style="font-size: 85%;">
+At least until someone shows me a better solver.
+</p>
+
 
 </td>
 
