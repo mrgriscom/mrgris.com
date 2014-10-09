@@ -6,7 +6,11 @@ style: project
 
 <% content_for :lede do %>
 <p>
-A minesweeper solver in python. Exhaustively solves any board, of any topology, through the use of advanced combinatorial and probability analysis. It can compute the exact mine probabilities of all cells, as well as detect inconsistent game states. Highly optimized, but ultimately still an <i>O(2<sup>n</sup>)</i> algorithm. Includes a live web demo.
+A minesweeper solver in python.
+Exhaustively solves any board, of any topology, through the use of advanced combinatorial and probability analysis.
+It can compute the exact mine probabilities of all cells, as well as detect inconsistent game states.
+Highly optimized, but ultimately still an <i>O(2<sup>n</sup>)</i> algorithm.
+Includes a live web demo.
 </p>
 
 <p class="li"><%= link_to('Play', @items.find { |i| i.identifier == '/projects/minesweepr/demo/player/' }) %></p>
@@ -22,27 +26,43 @@ A minesweeper solver in python. Exhaustively solves any board, of any topology, 
 <h3 style="margin-top: 0.2em;">What is this?</h3>
 
 <p>
-It's a minesweeper solver! It can solve any board, with any <a href="#topology">topology</a>, and exactly compute every cell's chance of being a mine. It achieves this through advanced combinatorial and probability analysis.
+It's a minesweeper solver!
+It can solve any board, with any <a href="#topology">topology</a>, and exactly compute every cell's chance of being a mine.
+It achieves this through advanced combinatorial and probability analysis.
 </p>
 
 <h3>How does it work?</h3>
 
 <p>
-A minesweeper board is essentially a set of logical constraints. Each cell is a boolean state: mine or clear. Each uncovered cell says how many of the adjacent cells are mines. Our goal is to find configurations of mines that satisfy the given constraints. If, among all possible configurations, a cell is always a mine or always clear, we know for certain the cell is a mine or safe. A cell that appears in both states cannot be determined with any certainty; however, we <em>can</em> compute its relative safety by counting how many configurations in which it appears empty, as a proportion of all possible configurations, <em>assuming all configurations are equally likely</em>. Thus, if there is no guaranteed-safe cell, we can still determine the least-likely cells to have mines, and play the game quite skillfully.
+A minesweeper board is essentially a set of logical constraints.
+Each cell is a boolean state: mine or clear.
+Each uncovered cell says how many of the adjacent cells are mines.
+Our goal is to find configurations of mines that satisfy the given constraints.
+If, among all possible configurations, a cell is always a mine or always clear, we know for certain the cell is a mine or safe.
+A cell that appears in both states cannot be determined with any certainty; however, we <em>can</em> compute its relative safety by counting how many configurations in which it appears empty, as a proportion of all possible configurations, <em>assuming all configurations are equally likely</em>.
+Thus, if there is no guaranteed-safe cell, we can still determine the least-likely cells to have mines, and play the game quite skillfully.
 </p>
 
 <p>
-Any algorithm that hopes to exhaustively solve minesweeper must employ this basic concept: determine all possible placements of mines on the board (and the relative likelihoods thereof), and observe how often each cell has a mine in it. This is easier said than done; enumerating all possible mine configurations is a huge computational task (<em>"exponential-time algorithm"</em>, i.e., for each fixed amount increase in the problem size, the work needed to solve it doubles, i.e., <em>the universe will probably freeze over before you finish</em>). This solver employs a <%= link_to('number of techniques', @items.find { |i| i.identifier == '/projects/minesweepr/algo/' }) %> to cut down on the amount of work needed.
+Any algorithm that hopes to exhaustively solve minesweeper must employ this basic concept: determine all possible placements of mines on the board (and the relative likelihoods thereof), and observe how often each cell has a mine in it.
+This is easier said than done; enumerating all possible mine configurations is a huge computational task (<em>"exponential-time algorithm"</em>, i.e., for each fixed amount increase in the problem size, the work needed to solve it doubles, i.e., <em>the universe will probably freeze over before you finish</em>).
+This solver employs a <%= link_to('number of techniques', @items.find { |i| i.identifier == '/projects/minesweepr/algo/' }) %> to cut down on the amount of work needed.
 </p>
 
 <p>
-The unfortunate truth, however, is that despite all these fancy tricks, <em>minesweepr</em> still requires exponential time to run &mdash; each new technique only serves to shave some amount off that exponent. It is <a href="http://for.mat.bham.ac.uk/R.W.Kaye/minesw/ordmsw.htm">strongly suspected</a> that exponential time is the best we can do. Luckily, in practice, the exponent and board size are together small enough that boards can be solved <a href="#runtime">quickly</a>.
+The unfortunate truth, however, is that despite all these fancy tricks, <em>minesweepr</em> still requires exponential time to run &mdash; each new technique only serves to shave some amount off that exponent.
+It is <a href="http://for.mat.bham.ac.uk/R.W.Kaye/minesw/ordmsw.htm">strongly suspected</a> that exponential time is the best we can do.
+Luckily, in practice, the exponent and board size are together small enough that boards can be solved <a href="#runtime">quickly</a>.
 </p>
 
 <p style="text-align: center;">&#x2042;</p>
 
 <p>
-The <em>real</em> truth is even worse than that. This algorithm only computes the safest cell(s) for the very next move. To have the best chance of surviving the game, we must consider not only the next move, but the repurcussions on all potential future moves. Is there a difference? Yes!
+The <em>real</em> truth is even worse than that.
+This algorithm only computes the safest cell(s) for the very next move.
+To have the best chance of surviving the game, we must consider not only the next move, but the repurcussions on all potential future moves.
+Is there a difference?
+Yes!
 </p>
 
 <p>
@@ -51,19 +71,30 @@ That is to say, "is there a riskier move we can make now, that will pay off in m
 </p>
 
 <p>
-Imagine this typical situation: we must guess, so we make the logical 'best' move by clicking on the lowest-risk cell. We're still alive, but it doesn't seem like it revealed much information about the surrounding cells. So we guess again, and again&hellip; until finally we get some new information that removes the remaining uncertainty and lets us escape from the trap.
+Imagine this typical situation: we must guess, so we make the logical 'best' move by clicking on the lowest-risk cell.
+We're still alive, but it doesn't seem like it revealed much information about the surrounding cells.
+So we guess again, and again&hellip; until finally we get some new information that removes the remaining uncertainty and lets us escape from the trap.
 </p>
 
 <p>
-Now suppose there were a riskier<%= footinline(1) %> cell that, had we lived to tell the tale, would have removed that uncertainty right away. Did we expose ourselves to more accumulated risk through several low-risk guesses rather than making the bold move upfront? There <em>are</em> known examples where this is indeed the case. And anecdotally, gameplay often seems to play out this way, where the safer bets reveal less useful information than do the riskier<%= footinline(2) %>. It's hard to prove definitely, though.
+Now suppose there were a riskier<%= footinline(1) %> cell that, had we lived to tell the tale, would have removed that uncertainty right away.
+Did we expose ourselves to more accumulated risk through several low-risk guesses rather than making the bold move upfront?
+There <em>are</em> known examples where this is indeed the case.
+And anecdotally, gameplay often seems to play out this way, where the safer bets reveal less useful information than do the riskier<%= footinline(2) %>.
+It's hard to prove definitely, though.
 </p>
 
 <p>
-So the safest move at the moment is not always the best move for long-term success. Creating a perfect player that accounts for this &mdash; the outcome not just of this move, but the repurcussions of all possible subsequent moves &mdash; is intractable. Solving minesweeper is generally <em>hard</em>. Looking several moves ahead may both pay off and be feasible in certain situations (such as the endgame), but this algorithm doesn't concern itself with that. And the open-ended case, for "perfect" play, simply cannot be done.
+So the safest move at the moment is not always the best move for long-term success.
+Creating a perfect player that accounts for this &mdash; the outcome not just of this move, but the repurcussions of all possible subsequent moves &mdash; is intractable.
+Solving minesweeper is generally <em>hard</em>.
+Looking several moves ahead may both pay off and be feasible in certain situations (such as the endgame), but this algorithm doesn't concern itself with that.
+And the open-ended case, for "perfect" play, simply cannot be done.
 </p>
 
 <p>
-Despite these shortcomings, it's still impressive to watch the algorithm at work, even just one move ahead. It's almost uncannily adept at getting out of tight situations.
+Despite these shortcomings, it's still impressive to watch the algorithm at work, even just one move ahead.
+It's almost uncannily adept at getting out of tight situations.
 </p>
 
 <a name="foot1">
@@ -74,44 +105,61 @@ Despite these shortcomings, it's still impressive to watch the algorithm at work
 
 <a name="foot2">
 <p class="footend">
-<span class="footmark">2</span> another example is the popular strategy of clicking in the uncharted regions of the board in the hopes of getting a "cascade", i.e., opening up a new front of play, even though the uncharted region is typically risky. Is this a more viable long-term strategy than carefully extricating yourself in the manner described above? I have no idea! But if so it would fundamentally change the character of how the board is solved.
+<span class="footmark">2</span> another example is the popular strategy of clicking in the uncharted regions of the board in the hopes of getting a "cascade", i.e., opening up a new front of play, even though the uncharted region is typically risky.
+Is this a more viable long-term strategy than carefully extricating yourself in the manner described above?
+I have no idea!
+But if so it would fundamentally change the character of how the board is solved.
 </p>
 </a>
 
 <a name="topology"><h3>"any topology"</h3></a>
 
 <p>
-Normal minesweeper is played on a basic grid. But this solver can handle many unconventional layouts, such as minesweeper on a non-flat and/or closed surface, in 3D, or with non-square cells. And it can do so without any change whatsoever to the basic algorithm.
+Normal minesweeper is played on a basic grid.
+But this solver can handle many unconventional layouts, such as minesweeper on a non-flat and/or closed surface, in 3D, or with non-square cells.
+And it can do so without any change whatsoever to the basic algorithm.
 </p>
 
 <p>
-Because the solver deals only in logical predicates of how many mines are to be found among given sets of cells, it actually has no concept of which cells are "next" to each other, or of the topology of the board at all. The game driver is responsible for defining and tracking the adjacency of cells, and <em>minesweeper</em> knows of the board state only as an abstraction. As to whether the board contains wrapping edges, miscellaneous warps or holes, odd shapes or extra dimensions, the solving algorithm is completely indifferent.
+Because the solver deals only in logical predicates of how many mines are to be found among given sets of cells, it actually has no concept of which cells are "next" to each other, or of the topology of the board at all.
+The game driver is responsible for defining and tracking the adjacency of cells, and <em>minesweeper</em> knows of the board state only as an abstraction.
+As to whether the board contains wrapping edges, miscellaneous warps or holes, odd shapes or extra dimensions, the solving algorithm is completely indifferent.
 </p>
 
 <a name="runtime"><h3>Failure Modes</h3></a>
 
 <p>
-'Failure' in this context means "taking forever to solve" (aka <em>universe-freezing-over</em>). As the core operation of the solver is enumerating exponentially-growing sets of mine configurations, anything that increases the required effort of permutation is the enemy.
+'Failure' in this context means "taking forever to solve" (aka <em>universe-freezing-over</em>).
+As the core operation of the solver is enumerating exponentially-growing sets of mine configurations, anything that increases the required effort of permutation is the enemy.
 </p>
 
 <p>
-The biggest weapon against this is the chance to declare a cell as mine or clear early on, using deductive logic. Fixing many cells into a given state eliminates huge swaths of configurations from needing to be counted. There is also an ancillary benefit of breaking up chains of inter-dependent cells into smaller, independent groups.
+The biggest weapon against this is the chance to declare a cell as mine or clear early on, using deductive logic.
+Fixing many cells into a given state eliminates huge swaths of configurations from needing to be counted.
+There is also an ancillary benefit of breaking up chains of inter-dependent cells into smaller, independent groups.
 </p>
 
 <p>
-The second weapon was just alluded to above: by recognizing that groups of cells are independent of each other (i.e., a configuration of one group has no bearing on the possible configurations of the other) we can 'divide and conquer' the board and avoid huge amounts of redundant computation. We permute each group independently and combine the distilled results at the end; what would have taken <em>a&times;b&times;c</em> amount of work takes <em>a+b+c</em> instead.
+The second weapon was just alluded to above: by recognizing that groups of cells are independent of each other (i.e., a configuration of one group has no bearing on the possible configurations of the other) we can 'divide and conquer' the board and avoid huge amounts of redundant computation.
+We permute each group independently and combine the distilled results at the end; what would have taken <em>a&times;b&times;c</em> amount of work takes <em>a+b+c</em> instead.
 </p>
 
 <p>
-So what completely thwarts these tactics? Dense inter-connectedness among cells. The more neighbors a cell has, the harder it becomes to pin down mines to a particular place using deductive logic, <em>and</em> the less likely it becomes for cells to break into independent groups (because they are so connected).
+So what completely thwarts these tactics?
+Dense inter-connectedness among cells.
+The more neighbors a cell has, the harder it becomes to pin down mines to a particular place using deductive logic, <em>and</em> the less likely it becomes for cells to break into independent groups (because they are so connected).
 </p>
 
 <p>
-In 3D minesweeper, each cell borders 26 other cells. In (god forbid) 4D, it would be 80 cells. This super-connected board topology undermines many of the assumptions in the algorithm's design, and tends to degenerate into the naive enumerating that we derided in the introduction. Perhaps a different approach is warranted here, such as taking a random sampling of possible configurations<%= footinline(3) %>, at the expense of only being able to calculate mine likelihoods to within a certain margin of error.
+In 3D minesweeper, each cell borders 26 other cells.
+In (god forbid) 4D, it would be 80 cells.
+This super-connected board topology undermines many of the assumptions in the algorithm's design, and tends to degenerate into the naive enumerating that we derided in the introduction.
+Perhaps a different approach is warranted here, such as taking a random sampling of possible configurations<%= footinline(3) %>, at the expense of only being able to calculate mine likelihoods to within a certain margin of error.
 </p>
 
 <p>
-A related (though not nearly as severe) scenario is unbroken mine fronts that grow very long in length. The amount of permutation required increases exponentially with the length of the front, but much, much more slowly than when cells are all just a rat's nest of interconnectedness.
+A related (though not nearly as severe) scenario is unbroken mine fronts that grow very long in length.
+The amount of permutation required increases exponentially with the length of the front, but much, much more slowly than when cells are all a rat's nest of connections.
 </p>
 
 <a name="foot3">
@@ -145,6 +193,7 @@ A related (though not nearly as severe) scenario is unbroken mine fronts that gr
   text-align: center;
   font-size: 90%;
   vertical-align: bottom;
+  line-height: 120%;
 }
 .stats td:first-child {
   text-align: left;
@@ -314,7 +363,7 @@ I believe these are some of the best, if not <em>the</em> best board completion 
 I'm a bit disturbed that such a simple tweak yields such a pronounced increase in performance.
 It makes me wonder just how much room for improvement there still is, especially low-hanging fruit.
 Even now the solver still always plays the least risky cells; this modified behavior only favors the edges when the choice is otherwise a wash.
-But as discussed prior, there are definitely instances where the better move is <em>not</em> the guaranteed safest&mdash; a gamble which will pay dividends later in the game.
+But as discussed prior, there are certainly instances where the better move is <em>not</em> the guaranteed safest&mdash; a gamble which will pay dividends later in the game.
 </p>
 
 <p>
