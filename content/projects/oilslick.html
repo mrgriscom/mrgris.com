@@ -35,6 +35,21 @@ Provides global coverage to 3&#x2033; / 90m resolution.
             attribution: '<a href="http://www.mapbox.com/about/maps/">MapBox</a>',
         }),
     }
+
+    var SearchControl = L.Control.extend({
+        options: {
+            position: 'topright'
+        },
+
+        onAdd: function (map) {
+            var $div = $('#search-ctrl');
+            $div.show();
+            L.DomEvent.disableClickPropagation($div[0]);
+            return $div[0];
+        },
+    });
+    new SearchControl().addTo(map);
+
     L.control.layers(layers).addTo(map);
     map.addLayer(layers['Oilslick']);
 
@@ -56,9 +71,62 @@ Provides global coverage to 3&#x2033; / 90m resolution.
         setCenter(lat, lon, z);
     });
 
+    var GoogleGeocoder = function() {
+        var that = this;
+        google.maps.event.addDomListener(window, 'load', function() {
+            that.geocoder = new google.maps.Geocoder();
+        });
+        this.geocode = function(query, callbacks) {
+            // caution: geocoder is loaded async
+            that.geocoder.geocode({address: query}, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var pos = results[0].geometry.location;
+                    callbacks.onresult(pos.lat(), pos.lng());
+                } else {
+                    callbacks.onnoresult();
+                }
+            });
+        }
+    };
+    var geocoder = new GoogleGeocoder();
+    $('#search').submit(function() {
+        var callbacks = {
+            onresult: function(lat, lon) {
+                setCenter(lat, lon, 10);
+            },
+            onnoresult: function() {
+                alert('no results found');
+            },
+        };
+
+        var match_ll = function(q) {
+            var FLOAT_PATTERN = '[+-]?(?:\\d*\\.\\d+|\\d+\\.?)';
+            var LL_PATTERN = '^(' + FLOAT_PATTERN + ')(?: |,|, )(' + FLOAT_PATTERN + ')$';
+            var matches = q.match(new RegExp(LL_PATTERN));
+            if (matches) {
+                var lat = +matches[1];
+                var lon = +matches[2];
+                if (lat <= 90 && lat >= -90 && lon <= 360 && lon >= -180) {
+                    return [lat, lon];
+                }
+            }
+            return null;
+        }
+
+        var query = $('#locsearch').val().trim();
+        var literal_ll = match_ll(query);
+        if (literal_ll) {
+            callbacks.onresult(literal_ll[0], literal_ll[1]);        
+        } else {
+            geocoder.geocode(query, callbacks);
+        }
+        return false;
+    });
+
 <% end %>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.css" />
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Open+Sans:400|600" />
 
@@ -169,6 +237,13 @@ body {
 }
 
 </style>
+
+<div id="search-ctrl" style="display: none;">
+  <form id="search" style="vertical-align: middle;">
+    <input id="locsearch" placeholder="search for feature&hellip;" style="width: 20em;"></input>
+    <!--<input type="submit" value="Go"></input>-->
+  </form>
+</div>
 
 <div id="sidebar">
 
