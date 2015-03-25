@@ -290,9 +290,10 @@ Optimal play results from taking into consideration all possibilities, whose cum
 For example, who is to say the rarer cascades you'd get in the center wouldn't be larger and more useful in the long run than more frequent yet smaller cascades on the edges?
 
 <li>
-arbitrary hunches and heuristics compromise the mathematical purity of this exercise.
-The whole point was to delegate choice to the computer.
-Each special case added back in is a choice that burdens the human: <em>"is this truly a net win?"</em>, <em>"how does this interact/conflict with other heuristics?"</em>, <em>"is this applicable to all board sizes/mine densities/topologies?"</em>, etc&hellip;
+heuristics are fragile.
+Unless you can reason mathematically about why something works, you have no idea how narrow the scope of its improvement is.
+Every deviation from standard could switch the heuristic from a net winner to a net loser, and you'd have no idea if and how badly:
+<em>"does this have adverse interactions with other heuristics?"</em>, <em>"does it still work if I change the board size/mine density/topology...?"</em>, etc&hellip;
 
 </ol>
 
