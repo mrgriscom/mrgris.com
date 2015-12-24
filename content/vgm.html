@@ -413,7 +413,12 @@ $(document).ready(function() {
   </tr>
   <% end %>
 </table>
-<div class="totalcount"><b><%= trackinfo.size %></b> total tracks from <b><%= tracksets.size %></b> games</div>
+
+<div class="totalcount">
+<%= mk_link(relative_path_to(@items.find { |i| i.identifier == '/vgm_playlist/' }),
+    '<b>%d</b> total tracks from <b>%d</b> games' % [trackinfo.size, tracksets.size], false) %>
+</div>
+
 </div>
 </div>
 
