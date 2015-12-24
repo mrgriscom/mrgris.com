@@ -7,7 +7,7 @@ module MP3Info
     YAML::load(IO::popen('python lib/helpers/mp3info.py "%s"' % path))
   end
 
-  def mp3info(item)
+  def mp3info(item, fmt)
     data = mp3loadinfo(item[:path])
 
     ratings = Hash[item[:ratings].map{|rat, name| [name, rat]}]
@@ -16,10 +16,12 @@ module MP3Info
       if not track['system']
         track['system'] = system_name(track['game'], item[:systems])
       end
-      #track['game'].gsub!(/\'/, '&#x2019;')
-      #track['title'].gsub!(/\'/, '&#x2019;')
-      track['title'].gsub!(/-/, '&ndash;')
-      track['title'].gsub!(/\[(.+)\]/, '<span class="titlemod">\1</span>')
+      if fmt == 'html'
+        #track['game'].gsub!(/\'/, '&#x2019;')
+        #track['title'].gsub!(/\'/, '&#x2019;')
+        track['title'].gsub!(/\[(.+)\]/, '<span class="titlemod">\1</span>')
+        track['title'].gsub!(/-/, '&ndash;')
+      end
 
       track['rating'] = rating(track, ratings)
       if not track['rating']

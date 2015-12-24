@@ -41,6 +41,11 @@ compile '/travel/countrylist/' do
   # no layout
 end
 
+compile '/vgm_playlist/' do
+  filter :erb
+  # no layout
+end
+
 compile '/projects/oilslick/' do
   filter :erb
   layout 'barebones'
@@ -95,6 +100,10 @@ end
 
 route '/blog/feed/' do
   '/blog/feed.atom'
+end
+
+route '/vgm_playlist/' do
+  '/vgm.m3u'
 end
 
 require 'stringex'

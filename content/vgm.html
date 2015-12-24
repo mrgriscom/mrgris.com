@@ -372,12 +372,12 @@ ratings:
 
 <%
 
-trackinfo = mp3info(@item)
+trackinfo = mp3info(@item, 'html')
 tracksets = trackinfo.group_by {|t| [t['game'], t['system']]}.sort
 
 rating_counts = trackinfo.select {|t| t['rating']}.group_by {|track| track['rating']}.sort.map {|k, v| v.size}
 
-def rating(n)
+def fmt_rating(n)
   if not n
     ''
   elsif n == 0
@@ -407,7 +407,7 @@ $(document).ready(function() {
 <table class="tracks">
   <% (3.downto 0).each do |r| %>
   <tr>
-    <td class="rating"><%= rating(r) %></td>
+    <td class="rating"><%= fmt_rating(r) %></td>
     <td class="title"><%= legend[r] %></td>
     <td class="ratingcount">(<%= rating_counts[r] %>)</td>
   </tr>
@@ -431,7 +431,7 @@ based on the quality of the music itself, and not the associated gaming experien
   <% tracks.sort_by {|t| t['title']}.each do |track| %>
     <tr>
     <% r = track['rating'] %>
-    <td class="rating"><%= rating(r) %></td>
+    <td class="rating"><%= fmt_rating(r) %></td>
     <td class="title"><%= mk_link(File::join(@item[:urlroot], track['filename']), track['title'], true) %></td>
     <td class="length"><%= fmt_length(track['length']) %></td>
     </tr>
