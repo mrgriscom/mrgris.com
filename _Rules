@@ -42,7 +42,7 @@ compile '/travel/countrylist/' do
 end
 
 compile '/vgm_playlist/' do
-  filter :erb
+  filter :erb, :trim_mode => '-'
   # no layout
 end
 

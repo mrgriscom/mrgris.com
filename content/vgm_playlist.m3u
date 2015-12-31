@@ -1,7 +1,6 @@
 ---
 ---
 #EXTM3U
-
 <%
 
 ivgm = @items.find { |i| i.identifier == '/vgm/' }
@@ -12,8 +11,8 @@ tracksets.each do |key, tracks|
   game = key[0]
   system = key[1]
 
-  tracks.sort_by {|t| t['title']}.each do |track| %>
+  tracks.sort_by {|t| t['title']}.each do |track| -%>
 #EXTINF:<%= track['length'].round %>,<%= game %> (<%= system %>) - <%= track['title'] %>
 <%= File::join(@config[:base_url], ivgm[:urlroot], track['filename']) %>
-  <% end %>
+  <%- end -%>
 <% end %>
