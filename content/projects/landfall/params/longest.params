@@ -1,3 +1,5 @@
+origin: 25.3585,66.54939999999999
+mindist: 100
 lonleft: 163
 lonspan: 117
 url: http://localhost:8000/render/20160524-215609.json?mindist=50000&width=1500&left=163&right=280&forcecolor=TZ:3,HM:2,MU:5,PK:1,RU:4,US-AK:1,SC:0,KM:2,FR:4,AQ:3,TF:1,BV:5,MZ:5,ZA:4,CL:1,IO:0&diffcolor=MG:MZ:KM:FR,MG:AQ,MG:SC

@@ -1,3 +1,5 @@
+origin: -34.360332,18.473235999999986
+mindist: 20000
 lonleft: 10
 lonspan: 325
 url: http://localhost:8000/render/20160226-235447.json?diffcolor=ZA:AU:AQ:AR:BR&right=335&left=10&forcecolor=ZA:4,AQ:3,AU:1
