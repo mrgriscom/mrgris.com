@@ -1,0 +1,4 @@
+lonleft: 10
+lonspan: 325
+url: http://localhost:8000/render/20160226-235447.json?diffcolor=ZA:AU:AQ:AR:BR&right=335&left=10&forcecolor=ZA:4,AQ:3,AU:1
+random_seed: 4490807076282710000

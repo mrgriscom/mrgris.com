@@ -1,0 +1,4 @@
+lonleft: 229
+lonspan: 174
+url: http://localhost:8000/render/20160519-224435.json?left=229&right=43&mindist=15000&maxdist=6000000&colorfardist=12000000&colorneardist=60000&width=1800&height=800&forcecolor=SY:0,CY:4,GB-XAD:0,XNC:2,EG:0,LB:3,IL:1,TR:5,PS:5,GR:3,IT:1,MT:2&diffcolor=LY:MT:GR&randseed=-2893388696162971026
+random_seed: -2893388696162971000

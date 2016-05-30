@@ -1,0 +1,73 @@
+--- 
+title: Landfall
+thumb: landfall.jpg
+style: project
+---
+
+<% content_for :lede do %>
+<p>
+If you've ever stood on a beach staring out at the ocean, wondering what's across the other side, this project is for you.
+Computes the first landfall in all directions from a given point.
+Results are presented in a panorama-esque 'first person' view, as well as more traditional sightlines viewable in Google Earth.
+Due to the curvature of the Earth, the results may surprise you!
+Powered by data from OpenStreetMap.
+</p>
+
+<p class="li"><%= link_to('Read more&hellip;', @item) %></p>
+<% end %>
+
+<p>
+<a href="https://github.com/mrgriscom/landfall">Source code</a>
+</p>
+
+<%
+panos = [
+  {
+    name: 'capemay',
+    title: 'Cape May Inlet, New Jersey',
+  },
+  {
+    name: 'capetown',
+    title: 'Cape of Good Hope, South Africa',
+  },
+  {
+    name: 'northpole',
+    title: 'North Pole',
+    content: 'People complain that this image is "backwards", but remember it\'s from the perspective of if you were actually standing at the North Pole (i.e., turning to your right moves your gaze west).',
+  },
+  {
+    name: 'ptreyes',
+    title: 'Point Reyes, California',
+    content: 'A great vantage point for looking across the Pacific and the morass of islands therein. This one took forever to label.',
+  },
+  {
+    name: 'gaza',
+    title: 'Gaza Strip',
+    content: 'This position was actually chosen because it allows for the longest line of sight across the Mediterranean. But the context of the Israeli blockade provides some added food for thought.',
+  },
+  {
+    name: 'northpole',
+    title: 'Longest Straight-line Sail',
+    content: 'This panorama displays the longest straight line over water &mdash; a journey over 80% of the way around the world without ever hitting land. This exercise is a bit disingenuous as we presume a spherical Earth, and the tolerances involved &mdash; threading the needle between the Seychelles and the Aleutian Islands &mdash; could easily be exceeded by accounting for the Earth\'s true shape. We could also render from the other terminus in Russia, but that view didn\'t look nearly as interesting.',
+  },
+]
+
+panos.each do |p|
+%>
+
+<p>
+<div style="float: right;">
+<a href="<%= p[:name] %>.kml">Google Earth</a>
+</div>
+<div>
+<%= p[:title] %>
+</div>
+<div style="font-style: italic; font-size: 90%;">
+<%= p[:content] %>
+</div>
+<a target="_blank" href="/img/landfall/<%= p[:name] %>.png">
+<img src="/img/landfall/thumb-<%= p[:name] %>.jpg">
+</a>
+</p>
+
+<% end %>

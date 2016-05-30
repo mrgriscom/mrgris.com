@@ -1,0 +1,4 @@
+lonleft: 98
+lonspan: 283
+url: http://localhost:8000/render/20160227-182455.json?mindist=20000&height=1200&left=98&right=21&diffcolor=US-CA:US-HI,ID:PG:SB,PF:CK:KI,KI:MH,NZ:AQ,PH:PW,NZ:WS:FJ:AU,NC:SB:VU&forcecolor=NU:1,NZ:4,WF:2,TK:5,TO:2,WS:3,AS:1,NC:3,VU:2,FJ:4,AU:5,FM:2,KI:0,MH:3,SB:1,PG:0,GU:1,PW:4,ID:5,MP:0,MY:4,US-CA:0,AQ:3,CL:1,PF:5,RU:2,US-HI:4,US-AK:3,JP:0,PH:1&randseed=0
+random_seed: 0
