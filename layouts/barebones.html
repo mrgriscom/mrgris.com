@@ -18,10 +18,10 @@
 <% (@item[:scripts] or []).each do |script| %>
   <script type="text/javascript" src="/script/<%= script %>.js"></script>
 <% end %>
-<% if @item[:content_for_script] %>
+<% if content_for(@item, :script) %>
   <script type="text/javascript">
 
-<%= @item[:content_for_script] %>
+<%= content_for(@item, :script) %>
 
   </script>
 <% end %>

@@ -14,7 +14,7 @@ projects = projects.sort_by {|p| @item[:ordering].index(p[:title].downcase) or 9
       <%= link_to('<div style="background: url(/img/proj_thumb/%s) no-repeat center;"></div>' % proj[:thumb], proj) %> 
     </div></div>
 		<h3><%= link_to(proj[:title], proj) %></h3>
-    <%= proj[:content_for_lede] %>
+    <%= content_for(proj, :lede) %>
 	</div>
 <% end %>
 

@@ -1,5 +1,5 @@
-module Nanoc3::Filters
-  class MathTex < Nanoc3::Filter
+module Nanoc::Filters
+  class MathTex < Nanoc::Filter
     identifiers :mathtex
     
     def run(content, params={})

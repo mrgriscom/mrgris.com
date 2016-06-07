@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html lang="en">
 
-<%=
+<%
 
 def part_from_item(i)
-  (i.identifier.split '/')[-1].to_i
+  (i.identifier.chop.split '/')[-1].to_i
 end
 
-parts = Hash[@items.select { |i| i.identifier.start_with? '/travel/blog/labrador/' }.map {|i| [part_from_item(i), i]}]
+parts = Hash[@items.select { |i| i.identifier.chop.start_with? '/travel/blog/labrador/' }.map {|i| [part_from_item(i), i]}]
 part = part_from_item(@item)
 
 def _prev_part(part, parts)

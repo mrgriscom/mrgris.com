@@ -139,11 +139,10 @@ class DjangoProject(object):
                 if blockname == 'main':
                     inner = 'yield'
                 else:
-                    content = blockname.startswith('content_')
-                    inner = '@item[:%s%s]' % (
-                        'content_for_' if content else '',
-                        blockname[len('content_') if content else 0:]
-                    )
+                    if blockname.startswith('content_'):
+                        inner = 'content_for(@item, :%s)' % blockname[len('content_'):]
+                    else:
+                        inner = '@item[:%s]' % blockname
 
                 f.write('{%% block %s %%}\n' % blockname)
                 f.write('<%%= %s %%>\n' % inner)
