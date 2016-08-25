@@ -36,7 +36,7 @@ a img {
 <%
 
 def git_current_rev()
-  IO.popen('git log --format=%H -1').read.strip[0..12]
+  IO.popen('git log --format=%H -1').read.strip[0..11]
 end
 
 def git_is_dirty()
