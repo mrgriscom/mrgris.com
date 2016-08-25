@@ -54,58 +54,63 @@ Thus I created <em>Landfall</em>.
 <h3>Computing landfall</h3>
 
 <p>
-  Step 1 is to compute the landfall from a given point in all directions.
-  This is achieved through an algorithm that determines the distance to land at many evenly spaced bearings.
-  With enough samples (default settings compute about 50 samples per degree) you can get a smooth coastline curve of the land across the ocean from you.
-  The algorithm is designed such that small rocks or islets are never 'missed', even if they are narrower than the spacing of samples.
+Step 1 is to compute the landfall from a given point in all directions.
+This is achieved through an algorithm that determines the distance to land at many evenly spaced bearings.
+With enough samples (default settings compute about 50 samples per degree) you can get a smooth coastline curve of the land across the ocean from you.
+The algorithm is designed such that small rocks or islets are never 'missed', even if they are narrower than the spacing of samples.
 </p>
   
 <p>
-  The determination of distance to land along a given bearing factors in the curvature of the (assumed spherical) Earth, as well as oddities like crossing beyond the antipode (more than halfway around the world) before hitting land.
-  In addition to distance, the country/state of the land hit is also noted.
+In finding the distance to land along a given bearing, we factor in the curvature of the (assumed spherical) Earth, as well as oddities like crossing beyond the antipode (more than halfway around the world) before hitting land.
+In addition to distance, the country/state of the land hit is also noted.
 </p>
 
 <p>
-  Through the use of spatial indexing, a single landfall 'viewshed' can be computed in under 30 seconds.
+Through the use of spatial indexing, a single landfall 'viewshed' can be computed in under 30 seconds.
 </p>
 
 <h3>Source data</h3>
 
 <p>
-  The source data for both coastline and political boundaries is extracted from OpenStreetMap.
-  The coastline extract can basically be used as-is (with a few corrections that get automatically applied).
-  The political data was much messier (failing to include outlying islands, not exactly lining up with adjacent countries, etc.), so has been curated into a cleaned dataset that lives with the project.
+The source data for both coastline and political boundaries is extracted from OpenStreetMap.
+The coastline extract can basically be used as-is (with a few corrections that get automatically applied).
+The political data was much messier (failing to include outlying islands, not exactly lining up with adjacent countries, etc.), so has been curated into a cleaned dataset that lives with the project.
 </p>
 
 <p>
-  One interesting side-effect of this project was exposing many phantom islands in OpenStreetMap that don't actually exist.
-  Much of OSM's coastline data comes from automated extraction from satellite imagery, which obviously will make some mistakes.
-  On the normal map such scraps of land are nearly imperceptible, but in a landfall perspective they jump out like night and day.
-  (I have since made edits to remove these false islands.)
+One interesting side-effect of this project was exposing many phantom islands in OpenStreetMap that didn't actually exist.
+Much of OSM's coastline data comes from automated extraction from satellite imagery, which obviously will make some mistakes.
+On the normal map such scraps of land are nearly imperceptible, but in a landfall perspective they jump out like night and day.
+(I have since made edits to remove these false islands.)
 </p>
 
-<h3>Presentation</h3>
+<h3>Visualization</h3>
 
 <p>
-  Now that we have the raw data, how to visualize it?
-  Raw export to a map is illuminating, but makes it hard to appreciate direction from source point (due to curvature), as well as mixing of the very near and very far.
+Now that we've computed the raw data, how best to visualize it?
+The standard answer is to view it superimposed on a map, which is indeed eye-opening, but still feels wanting.
+Straight lines become oscillating curves on a conventional map projection, which obscures the original direction of travel from the source point.
+It's also hard to appreciate both the very near and the very far in the same view.
 </p>
 
-presentation:
-data can be exported to kml to see the sightlines on a normal map (conventional view)
+<p>
+Nevertheless, an export to Google Earth is provided in order to appreciate the result with conventional geography.
+</p>
 
-first-person view
-join the very near and very far
+<p>
+But to truly capture that 'looking out upon the ocean' feeling, I wanted a first-person view.
+So I created a "panorama"-style rendering that imagines you could look beyond the horizon.
+Direction of view changes linearly as you scan left and right.
+Nearby land appears as tall massifs and farther land recedes into the distance.
+Sudden changes in distance to land are marked by 'creases' to add texture.
+</p>
 
-<p style="font-size: 80%;">
-canyon-like presentation
-simulates the view of actually standing at a point and looking out upon a vista
-farther land becomes smaller and recedes into the distance
-try to view it not like a bar chart but rather a scene in '3d'
-try to perceive the depth
-both near and far
-creases
-(labeling is manual)
+<p>
+Try to perceive it as a 3D perspective scene.
+</p>
+
+<p>
+Coloring of admin areas is automatic, although the labeling is manual work at this time.
 </p>
 
 </td>
@@ -123,7 +128,48 @@ creases
 
 <tr>
 <td class="sidebarbg">
-<table style="background-image: none;"><tr><td>&nbsp;</td></tr></table>
+
+<style>
+
+@keyframes portal {
+    0% { transform: translateX(0px); }
+   50% { transform: translateX(-1px); /* offset set in js */ }
+  100% { transform: translateX(0px); }
+}
+
+.portal-pan {
+  animation-name: portal;
+  animation-duration: 200s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.portal-bg {
+  background-image: url(/img/bg/landfall_sidebar.jpg);
+  background-size: cover;
+  background-position: 0% 50%;
+
+  position: absolute;
+  height: 100%;
+  /* width set in js */
+  top: 0;
+  left: 0;
+}
+
+#sidebar-inner {
+  background: none;
+  overflow: hidden;
+
+  /* voodoo to get the animation to not render on top of the rounded corners of the container */
+  -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
+}
+
+</style>
+
+<table id="sidebar-inner"><tr><td style="position: relative;">
+<div class="portal-bg portal-pan" />
+</td></tr></table>
+
 </td>
 </tr>
 
@@ -196,5 +242,37 @@ panos.each do |p|
 <img src="/img/landfall/thumb/thumb-<%= p[:name] %>.jpg">
 </a>
 </p>
+
+<% end %>
+
+<% content_for :script do %>
+
+$(function() {
+  var $bg = $('.portal-bg');
+
+  var bg = new Image();
+  bg.onload = function() {
+    $bg.width($bg.height() * bg.width / bg.height);
+
+    var keyframeRule = null;
+    $.each(document.styleSheets, function(i, sheet) {
+      $.each(sheet.cssRules, function(i, rule) {
+        if (rule.name == "portal") {
+          keyframeRule = rule;
+        }
+      });
+    });
+
+    var maxPanSubrule = null;
+    $.each(keyframeRule.cssRules, function(i, subrule) {
+      if (subrule.keyText == "50%") {
+        maxPanSubrule = subrule;
+      }
+    });
+    var offset = $bg.width() - $('#sidebar-inner').width();
+    maxPanSubrule.style.transform = "translateX(" + (-offset) + "px)";
+  };
+  bg.src = $bg.css('background-image').match(/^url\("?(.*?)"?\)$/)[1];
+});
 
 <% end %>
