@@ -25,11 +25,10 @@ Powered by data from OpenStreetMap.
 <p>
 Whenever I've stood on a beach, staring at the expanse of ocean in front of me, my mind inevitably wanders to what's across the other side.
 After a journey of thousands of miles across featureless water, where would you end up?
-What foreign shore would you make landfall?
 </p>
 
 <p>
-I've seen a few treatments of this concept, but to date none have been fully unsatisfying.
+I've seen a few treatments of this concept, but to date none have been fully satisfying.
 By far, the biggest mistake is taking 'across' to mean a <a target="_blank" href="http://i.imgur.com/OMHsSEb.png">straight bearing east or west</a>, completely ignorant of the curvature of the Earth.
 Most people, when looking out from the US East Coast, think they're "looking at" Europe, when in fact the direction of Europe is much farther northeast, and mostly blocked by Canada; you're actually looking at Africa.
 That is to say: starting due east from America, a straight line along the curved surface of the Earth will hit Africa.
@@ -44,17 +43,17 @@ And having a sense of relative distance would be nice, too.
 </p>
 
 <p>
-At lastly, to my knowledge, every previous attempt has been created manually by hand.
+And lastly, to my knowledge, every previous attempt has been created manually by hand.
 </p>
 
 <p>
-Thus I created <em>Landfall</em>.  
+So I created <em>Landfall</em>.  
 </p>
 
 <h3>Computing landfall</h3>
 
 <p>
-Step 1 is to compute the landfall from a given point in all directions.
+Step one is to compute the landfall from a given point in all directions.
 This is achieved through an algorithm that determines the distance to land at many evenly spaced bearings.
 With enough samples (default settings compute about 50 samples per degree) you can get a smooth coastline curve of the land across the ocean from you.
 The algorithm is designed such that small rocks or islets are never 'missed', even if they are narrower than the spacing of samples.
@@ -66,7 +65,7 @@ In addition to distance, the country/state of the land hit is also noted.
 </p>
 
 <p>
-Through the use of spatial indexing, a single landfall 'viewshed' can be computed in under 30 seconds.
+With efficient spatial indexing, a single landfall 'viewshed' can be computed in under 30 seconds.
 </p>
 
 <h3>Source data</h3>
@@ -88,18 +87,15 @@ On the normal map such scraps of land are nearly imperceptible, but in a landfal
 
 <p>
 Now that we've computed the raw data, how best to visualize it?
-The standard answer is to view it superimposed on a map, which is indeed eye-opening, but still feels wanting.
+The standard answer is: superimposed on a map.
+Such a view is indeed eye-opening (and exports to Google Earth are provided for this reason), but it still feels wanting.
 Straight lines become oscillating curves on a conventional map projection, which obscures the original direction of travel from the source point.
 It's also hard to appreciate both the very near and the very far in the same view.
 </p>
 
 <p>
-Nevertheless, an export to Google Earth is provided in order to appreciate the result with conventional geography.
-</p>
-
-<p>
-But to truly capture that 'looking out upon the ocean' feeling, I wanted a first-person view.
-So I created a "panorama"-style rendering that imagines you could look beyond the horizon.
+To truly capture that 'looking out upon the ocean' feeling, I wanted a first-person view.
+So I created a panorama-style rendering that imagines you could look beyond the horizon.
 Direction of view changes linearly as you scan left and right.
 Nearby land appears as tall massifs and farther land recedes into the distance.
 Sudden changes in distance to land are marked by 'creases' to add texture.
@@ -110,7 +106,9 @@ Try to perceive it as a 3D perspective scene.
 </p>
 
 <p>
-Coloring of admin areas is automatic, although the labeling is manual work at this time.
+Color-coding is also a key element of making sense of what you're looking at.
+Admin areas are colored automatically.
+Labeling, however, is manual work at this time.
 </p>
 
 </td>
@@ -122,6 +120,7 @@ Coloring of admin areas is automatic, although the labeling is manual work at th
 <td style="height: 1px; padding-bottom: 35px;">
 
 <a class="button" href="http://github.com/mrgriscom/landfall/" target="_blank">Source</a>
+<a class="button" href="#panoramas">Panoramas</a>
 
 </td>
 </tr>
@@ -179,7 +178,9 @@ Coloring of admin areas is automatic, although the labeling is manual work at th
 </tr>
 </table>
 
+<a name="panoramas">
 <h3 style="margin-bottom: .3em;">Featured Panoramas</h3>
+</a>
 
 <div style="font-size: 90%;">
 Again, imagine you're standing at a point looking out.
