@@ -13,23 +13,15 @@ It makes it super easy for team members to keep their whereabouts up to date: in
 Built using django / jquery / knockout.
 </p>
 
-<p class="li"><a href="http://whereis-demo.mrgris.com">Visit</a></p>
+<p class="li"><a href="https://mrgris.com/projects/whereis/demo/">Visit</a></p>
 <p class="li"><%= link_to('Read more&hellip;', @item) %></p>
 <% end %>
 
-<script>
-// perform ssl stripping or else the demo iframe won't load
-if (window.location.protocol == 'https:') {
-  var sslstripped = window.location.href.replace(/^https:/, 'http:');
-  window.location.replace(sslstripped);
-}
-</script>
-
-<iframe style="border-style: none;" src="http://whereis-demo.mrgris.com/mapwidget/" width="900" height="300"></iframe>
+<iframe style="border-style: none;" src="https://mrgris.com/projects/whereis/demo/mapwidget/" width="900" height="300"></iframe>
 
 <div style="text-align: center;">
   <span style="display: inline-block; text-align: left;">
-    <a style="display: inline-block;" class="button" href="http://whereis-demo.mrgris.com/" target="_blank">Main Site</a>
+    <a style="display: inline-block;" class="button" href="https://mrgris.com/projects/whereis/demo/" target="_blank">Demo</a>
     <a style="display: inline-block;" class="button" href="http://bitbucket.org/mrgriscom/whereis/" target="_blank">Source</a>
   </span>
 </div>
