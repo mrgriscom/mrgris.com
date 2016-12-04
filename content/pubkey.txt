@@ -1,4 +1,4 @@
 ---
-key_id: daee12f6
+key_id: daaa70a9daee12f6
 ---
 <%= exportkey(@item[:key_id]) %>
