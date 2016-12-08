@@ -569,7 +569,6 @@ Small states would still get their originally intended bump by having more elect
 
 Let's see how it plays out:
 
-
 <style>
 
 .ev-tally td:nth-child(1) {
@@ -1031,6 +1030,14 @@ Let's see how it plays out:
 </tr>
 </table>
 
+Now, fractional votes are liable to make most people's head explode.
+Electors are supposed to be actual people, too, which would present some logistical challenges.
+(Can an elector now be just 30% faithless?)
+So, we must round each state's votes to whole numbers.
+
+Properly rounding a set larger than two can be a bit tricky, but there are various fair schemes.
+One such scheme results in:
+
 <style>
 
 .rounded th.datahdr {
@@ -1466,6 +1473,20 @@ Let's see how it plays out:
 </tr>
 </table>
 
+Which presents another wrinkle.
+You need an absolute majority of electoral votes (270 presently) to win the presidency, otherwise the House of Representatives decides via arm wrestling or something.
+With proportional allocation, third parties now get a small residue of electoral votes that can much more easily push the major party candidates below the 50% threshold.
+
+There are a few solutions:
+
+- in the same constitutional amendment you needed to force all states to adopt a common allocation method, lower the threshold to win to 40% or so, and require only a plurality (easy)
+
+- allow electors multiple rounds of voting to converge on a majority winner, not unlike delegates at the conventions (in the original spirit of things, but not a chance)
+
+- acknowledge the inherent two-party hegemony built into our system and treat third parties like the annoying flies to be swatted at every four years that they are
+
+If we limit proportional allocation to just the top two winners in each state, we get:
+
 <table class="ev-tally rounded">
 <tr>
   <th></th>
@@ -1734,7 +1755,7 @@ Let's see how it plays out:
 </tr>
 </table>
 
-past elections
+To summarize:
 
 <style>
 
@@ -1748,6 +1769,14 @@ past elections
 
 .summary td:nth-child(1) {
   padding-right: 1em;
+}
+
+.year {
+font-family: "Open Sans", sans-serif;
+font-weight: bold;
+font-size: 18pt;
+text-align: left;
+vertical-align: top;
 }
 
 </style>
@@ -1809,11 +1838,24 @@ past elections
 &dagger; ignoring faithless electors
 {: .footnote}
 
-2012
+So it looks like everything behaves pretty well.
+Final results are much more in line with the popular vote, but the margin is narrower, which is the desired effect from boosting certain segments of voters.
+
+This isn't just sour grapes that all the alternate scenarios result in a Hillary win.
+Standard caveats apply that campaigns are run to optimize for the system currently in place, and if a different one had been then the entire election could have played out completely differently.
+The point here is to highlight the undemocratic and chaotic effect that winner-take-all and swings states exact on the election outcome -- in this case that 0.06% of the votes flipped an election with a popular vote margin of almost 2%.
+
+I stand by these results despite such caveats, since although swing state dynamics depress voter turnout in safe states, I see no reason why they would materially alter the proportion of votes currently cast within each state.
+It's actually impressive these alternate vote counts track the popular vote as well as they do.
+
+Historical Results
+------------------
+
+And what would have happened in elections past?
 
 <table class="summary">
 <tr>
-  <th></th>
+  <th class="year">2012</th>
   <th class="datahdr">Popular Vote</th>
   <th class="datahdr">Actual EVs&dagger;</th>
   <th class="datahdr">Proportional EVs</th>
@@ -1846,11 +1888,9 @@ past elections
 </tr>
 </table>
 
-2008
-
 <table class="summary">
 <tr>
-  <th></th>
+  <th class="year">2008</th>
   <th class="datahdr">Popular Vote</th>
   <th class="datahdr">Actual EVs&dagger;</th>
   <th class="datahdr">Proportional EVs</th>
@@ -1875,11 +1915,9 @@ past elections
 </tr>
 </table>
 
-2004
-
 <table class="summary">
 <tr>
-  <th></th>
+  <th class="year">2004</th>
   <th class="datahdr">Popular Vote</th>
   <th class="datahdr">Actual EVs&dagger;</th>
   <th class="datahdr">Proportional EVs</th>
@@ -1904,12 +1942,9 @@ past elections
 </tr>
 </table>
 
-
-2000
-
 <table class="summary">
 <tr>
-  <th></th>
+  <th class="year">2000</th>
   <th class="datahdr">Popular Vote</th>
   <th class="datahdr">Actual EVs&dagger;</th>
   <th class="datahdr">Proportional EVs</th>
@@ -1942,12 +1977,25 @@ past elections
 </tr>
 </table>
 
-1996
+This election was very close no matter how you slice it.
 
+It also forces us to confront a supposed 'benefit' of winner-take-all: that in close races recounts can be localized to just the state the was close.
+Otherwise, a small change in any state enough to eke out one more electoral vote could make or break the election.
+So a close race like this may have triggered recounts in most if not all states.
+
+I am not very sympathetic to this argument.
+
+Saying you can restrict the recount to just one problem state exposes the lie that you're not really running a national election in the first place -- just an election in several key states.
+And if we have the resources to run a national election in the first place, we certainly can afford to perform a national recount.
+And states should be auditing their results *as a matter of course* already, not only where there is a problem!
+
+A nationwide recount would also do well to expose the absolute *insanity* of not having consistent national standards for how polls are run.
+
+To me this argument exposes an extremely disturbing concern for the lack of rigor in how we run elections.
 
 <table class="summary">
 <tr>
-  <th></th>
+  <th class="year">1996</th>
   <th class="datahdr">Popular Vote</th>
   <th class="datahdr">Actual EVs&dagger;</th>
   <th class="datahdr">Proportional EVs</th>
@@ -1988,13 +2036,9 @@ past elections
 </tr>
 </table>
 
-
-
-1992
-
 <table class="summary">
 <tr>
-  <th></th>
+  <th class="year">1992</th>
   <th class="datahdr">Popular Vote</th>
   <th class="datahdr">Actual EVs&dagger;</th>
   <th class="datahdr">Proportional EVs</th>
@@ -2023,15 +2067,16 @@ past elections
   <td class="data empty">&mdash;</td>
   <td class="data">101.5<div class="total-pct">(18.87%)</div></td>
   <td class="data">104<div class="total-pct">(19.33%)</div></td>
-  <td class="data">4<div class="total-pct">(0.74%)</div></td>
+  <td class="data">4<sup style="font-weight: normal;">&Dagger;</sup><div class="total-pct">(0.74%)</div></td>
 </tr>
 </table>
 
+&Dagger; Perot placed 2<sup>nd</sup> in two states (one won by Clinton and one by Bush), so he still got electoral votes even with the top-two method.
+{: .footnote}
 
 
-which leads to a special point. with this proportional scheme, 3<sup>rd</sup> parties will now actually get a few EVs, which means it’s harded for one of the two major candidates to reach 50%. if they don’t, the house of representatives gets to choose. while it may have been the original intent that that would get the happen pretty frequently, now it seems like an error. so that threshold would have to be lowered, or the electors would need to get multiple rounds to build a majority coalition, like in conventions.
 
-recounts
+the boost is marginal
 
 
 honestly, it would be great if we could use a preference-based system like STV or condorcet, but that is the realm of fantasy
