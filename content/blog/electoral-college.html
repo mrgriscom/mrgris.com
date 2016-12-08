@@ -172,14 +172,15 @@ The more 'safe' the state is, the more indistinguishable it is whether you actua
 In this sense, a voter in New Hampshire or North Carolina or Florida has hundreds to thousands of times more weight -- as in real ability to alter the tally of electoral votes -- than a voter in either Wyoming or California.
 
 We can quantify this voter power as a function of how close the race is (how likely it will end up in the magic 50/50 scenario), the state's voting population* (how likely you are to be the one to cast the deciding vote), and the number of electoral votes you would flip.
-Obviously these metrics are very sensitive to current polling and change based on which states are the most swingy, but the general principle -- and the order-of-magnitude difference between certain states -- still holds.
+Obviously these metrics are very sensitive to current polling&dagger; but the general principle -- and the order-of-magnitude difference between certain states -- still holds.
 
 \* for simplicity we're not actually considering how many people in each state are eligible to vote. The proportion varies by state (from ~64--80%), which would affect the relative rankings below, but only slightly.
 {: .footnote}
 
-Using FiveThirtyEight's final published polling data and margins of error, we get the following figures:
+&dagger; particularly how *well* that state has been polled-- margin of error has a huge impact on the likelihood of an even split, especially for a not-so-close race
+{: .footnote}
 
-(As a baseline, the equivalent strength of a vote under National Popular Vote is ##1.74 &#x3bc;EV##.)
+Using FiveThirtyEight's final published polling data, we get the following figures:
 
 <style>
 
@@ -197,7 +198,6 @@ td {
 }
 
 .data {
-  font-weight: bold;
   font-family: "Open Sans", sans-serif;
   font-size: 12pt;
   text-align: center;
@@ -211,8 +211,12 @@ td {
   padding-bottom: 0.5em;
 }
 
-#vote-power td:nth-child(2).data {
-  font-weight: normal;
+#vote-power td:nth-child(3).data {
+  font-weight: bold;
+}
+
+#vote-power td:nth-child(4).data {
+  font-weight: bold;
 }
 
 #vote-power sup {
@@ -536,22 +540,1498 @@ td {
 </tr>
 </table>
 
-Disenfranchising a *single* vote in North Carolina has the same electoral impact as erasing an entire small town in California.
+Disenfranchising a *single vote* in North Carolina has the same electoral impact as erasing an entire small town in California.
 If that's not the antithesis of democracy, I don't know what is.
 
 The D.C. situation is also interesting in light of their struggle to get representation in national elections.
-Collectively they matter, but the district is so safe that any *individual* has an impact of literally zero.
+Collectively they now matter, but the district is so safe that any *individual* has literally zero impact.
+
+Nearly all the problems with the electoral college can be blamed on this swing state mess we've created for ourselves.
+
+And it's hard to sympathize with hand-wringing over voter turnout when so many votes are demonstrably worth very little.
+
+Alternatives
+------------
+
+States don't have to use winner-take-all.
+
+Two states don't, in fact.
+Both allocate electoral votes by congressional district, with the two 'senator' votes going to the statewide winner.
+
+Just to get this out of the way, this is a **terrible** idea.
+It brings gerrymandering into the presidency.
+If you want your electoral votes to correspond one-to-one with votes for members of congress, you should just skip the foreplay and have congress directly appoint the president.
+
+It turns out if states were forced (and they'd have to be forced, because prisoner's dilemma) to allocate their electoral votes proportionally to the popular vote in that state, everything would work out pretty well.
+Minority votes in all states would be heard.
+There'd be less incentive for voter suppression, having neutralized the greatly amplified voting power of swing states.
+Small states would still get their originally intended bump by having more electors per capita.
+
+Let's see how it plays out:
 
 
-if states were forced to allocate their electoral votes proportionally to the popular vote in their state (and they would have to be forced, due to prisoner’s dilemma), nearly all problems would be fixed.
+<style>
+
+.ev-tally td:nth-child(1) {
+  white-space: nowrap;
+}
+
+.total {
+  font-weight: bold;
+}
+
+.evs {
+  text-align: right;
+}
+
+.pct {
+  font-size: 9.6pt;  /* 80% of .data size */
+  text-align: left;
+  padding-left: .5em;
+}
+
+.total-pct {
+  font-size: 80%;
+}
+
+.winner {
+  background-color: #cfc;
+}
+
+.tie {
+  background-color: #ffc;
+}
+
+</style>
+
+<table class="ev-tally">
+<tr>
+  <th></th>
+  <th class="datahdr" colspan="2">Clinton</th>
+  <th class="datahdr" colspan="2">Trump</th>
+  <th class="datahdr" colspan="2">Johnson</th>
+  <th class="datahdr" colspan="2">Stein</th>
+  <th class="datahdr" colspan="2">McMullin</th>
+</tr>
+<tr>
+  <td>Alabama</td>
+  <td class="data evs">3.09</td><td class="data pct">(34%)</td>
+  <td class="data evs">5.59</td><td class="data pct">(62%)</td>
+  <td class="data evs">0.19</td><td class="data pct">(2%)</td>
+  <td class="data evs">0.04</td><td class="data pct">(0%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Alaska</td>
+  <td class="data evs">1.10</td><td class="data pct">(37%)</td>
+  <td class="data evs">1.54</td><td class="data pct">(51%)</td>
+  <td class="data evs">0.18</td><td class="data pct">(6%)</td>
+  <td class="data evs">0.05</td><td class="data pct">(2%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Arizona</td>
+  <td class="data evs">5.00</td><td class="data pct">(45%)</td>
+  <td class="data evs">5.39</td><td class="data pct">(49%)</td>
+  <td class="data evs">0.46</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.15</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Arkansas</td>
+  <td class="data evs">2.02</td><td class="data pct">(34%)</td>
+  <td class="data evs">3.63</td><td class="data pct">(61%)</td>
+  <td class="data evs">0.16</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.05</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.07</td><td class="data pct">(1%)</td>
+</tr>
+<tr>
+  <td>California</td>
+  <td class="data evs">34.25</td><td class="data pct">(62%)</td>
+  <td class="data evs">17.53</td><td class="data pct">(32%)</td>
+  <td class="data evs">1.87</td><td class="data pct">(3%)</td>
+  <td class="data evs">1.09</td><td class="data pct">(2%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Colorado</td>
+  <td class="data evs">4.33</td><td class="data pct">(48%)</td>
+  <td class="data evs">3.89</td><td class="data pct">(43%)</td>
+  <td class="data evs">0.47</td><td class="data pct">(5%)</td>
+  <td class="data evs">0.12</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.09</td><td class="data pct">(1%)</td>
+</tr>
+<tr>
+  <td>Connecticut</td>
+  <td class="data evs">3.82</td><td class="data pct">(55%)</td>
+  <td class="data evs">2.86</td><td class="data pct">(41%)</td>
+  <td class="data evs">0.21</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.10</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.01</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>Delaware</td>
+  <td class="data evs">1.60</td><td class="data pct">(53%)</td>
+  <td class="data evs">1.26</td><td class="data pct">(42%)</td>
+  <td class="data evs">0.10</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.04</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>D.C.</td>
+  <td class="data evs">2.71</td><td class="data pct">(90%)</td>
+  <td class="data evs">0.12</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.05</td><td class="data pct">(2%)</td>
+  <td class="data evs">0.04</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Florida</td>
+  <td class="data evs">13.87</td><td class="data pct">(48%)</td>
+  <td class="data evs">14.22</td><td class="data pct">(49%)</td>
+  <td class="data evs">0.64</td><td class="data pct">(2%)</td>
+  <td class="data evs">0.20</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Georgia</td>
+  <td class="data evs">7.34</td><td class="data pct">(46%)</td>
+  <td class="data evs">8.17</td><td class="data pct">(51%)</td>
+  <td class="data evs">0.49</td><td class="data pct">(3%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Hawaii</td>
+  <td class="data evs">2.44</td><td class="data pct">(61%)</td>
+  <td class="data evs">1.18</td><td class="data pct">(29%)</td>
+  <td class="data evs">0.15</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.12</td><td class="data pct">(3%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Idaho</td>
+  <td class="data evs">1.10</td><td class="data pct">(27%)</td>
+  <td class="data evs">2.37</td><td class="data pct">(59%)</td>
+  <td class="data evs">0.16</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.05</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.27</td><td class="data pct">(7%)</td>
+</tr>
+<tr>
+  <td>Illinois</td>
+  <td class="data evs">11.17</td><td class="data pct">(56%)</td>
+  <td class="data evs">7.75</td><td class="data pct">(39%)</td>
+  <td class="data evs">0.76</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.28</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.04</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>Indiana</td>
+  <td class="data evs">4.17</td><td class="data pct">(38%)</td>
+  <td class="data evs">6.25</td><td class="data pct">(57%)</td>
+  <td class="data evs">0.54</td><td class="data pct">(5%)</td>
+  <td class="data evs">0.03</td><td class="data pct">(0%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Iowa</td>
+  <td class="data evs">2.50</td><td class="data pct">(42%)</td>
+  <td class="data evs">3.07</td><td class="data pct">(51%)</td>
+  <td class="data evs">0.23</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.04</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.05</td><td class="data pct">(1%)</td>
+</tr>
+<tr>
+  <td>Kansas</td>
+  <td class="data evs">2.16</td><td class="data pct">(36%)</td>
+  <td class="data evs">3.40</td><td class="data pct">(57%)</td>
+  <td class="data evs">0.28</td><td class="data pct">(5%)</td>
+  <td class="data evs">0.12</td><td class="data pct">(2%)</td>
+  <td class="data evs">0.03</td><td class="data pct">(1%)</td>
+</tr>
+<tr>
+  <td>Kentucky</td>
+  <td class="data evs">2.61</td><td class="data pct">(33%)</td>
+  <td class="data evs">5.00</td><td class="data pct">(63%)</td>
+  <td class="data evs">0.22</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.06</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.09</td><td class="data pct">(1%)</td>
+</tr>
+<tr>
+  <td>Louisiana</td>
+  <td class="data evs">3.08</td><td class="data pct">(38%)</td>
+  <td class="data evs">4.65</td><td class="data pct">(58%)</td>
+  <td class="data evs">0.15</td><td class="data pct">(2%)</td>
+  <td class="data evs">0.06</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.03</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>Maine</td>
+  <td class="data evs">1.91</td><td class="data pct">(48%)</td>
+  <td class="data evs">1.81</td><td class="data pct">(45%)</td>
+  <td class="data evs">0.20</td><td class="data pct">(5%)</td>
+  <td class="data evs">0.08</td><td class="data pct">(2%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Maryland</td>
+  <td class="data evs">6.03</td><td class="data pct">(60%)</td>
+  <td class="data evs">3.39</td><td class="data pct">(34%)</td>
+  <td class="data evs">0.29</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.13</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.03</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>Massachusetts</td>
+  <td class="data evs">6.70</td><td class="data pct">(61%)</td>
+  <td class="data evs">3.66</td><td class="data pct">(33%)</td>
+  <td class="data evs">0.46</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.16</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.01</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>Michigan</td>
+  <td class="data evs">7.56</td><td class="data pct">(47%)</td>
+  <td class="data evs">7.60</td><td class="data pct">(47%)</td>
+  <td class="data evs">0.57</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.17</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.03</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>Minnesota</td>
+  <td class="data evs">4.64</td><td class="data pct">(46%)</td>
+  <td class="data evs">4.49</td><td class="data pct">(45%)</td>
+  <td class="data evs">0.38</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.13</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.18</td><td class="data pct">(2%)</td>
+</tr>
+<tr>
+  <td>Mississippi</td>
+  <td class="data evs">2.39</td><td class="data pct">(40%)</td>
+  <td class="data evs">3.51</td><td class="data pct">(59%)</td>
+  <td class="data evs">0.07</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.02</td><td class="data pct">(0%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Missouri</td>
+  <td class="data evs">3.82</td><td class="data pct">(38%)</td>
+  <td class="data evs">5.74</td><td class="data pct">(57%)</td>
+  <td class="data evs">0.35</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.09</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.00</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>Montana</td>
+  <td class="data evs">1.08</td><td class="data pct">(36%)</td>
+  <td class="data evs">1.69</td><td class="data pct">(56%)</td>
+  <td class="data evs">0.17</td><td class="data pct">(6%)</td>
+  <td class="data evs">0.05</td><td class="data pct">(2%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Nebraska</td>
+  <td class="data evs">1.72</td><td class="data pct">(34%)</td>
+  <td class="data evs">3.00</td><td class="data pct">(60%)</td>
+  <td class="data evs">0.23</td><td class="data pct">(5%)</td>
+  <td class="data evs">0.05</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Nevada</td>
+  <td class="data evs">2.88</td><td class="data pct">(48%)</td>
+  <td class="data evs">2.73</td><td class="data pct">(46%)</td>
+  <td class="data evs">0.20</td><td class="data pct">(3%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>New Hampshire</td>
+  <td class="data evs">1.88</td><td class="data pct">(47%)</td>
+  <td class="data evs">1.86</td><td class="data pct">(47%)</td>
+  <td class="data evs">0.17</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.04</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.01</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>New Jersey</td>
+  <td class="data evs">7.68</td><td class="data pct">(55%)</td>
+  <td class="data evs">5.89</td><td class="data pct">(42%)</td>
+  <td class="data evs">0.28</td><td class="data pct">(2%)</td>
+  <td class="data evs">0.14</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>New Mexico</td>
+  <td class="data evs">2.41</td><td class="data pct">(48%)</td>
+  <td class="data evs">2.00</td><td class="data pct">(40%)</td>
+  <td class="data evs">0.47</td><td class="data pct">(9%)</td>
+  <td class="data evs">0.06</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.04</td><td class="data pct">(1%)</td>
+</tr>
+<tr>
+  <td>New York</td>
+  <td class="data evs">17.06</td><td class="data pct">(59%)</td>
+  <td class="data evs">10.86</td><td class="data pct">(37%)</td>
+  <td class="data evs">0.67</td><td class="data pct">(2%)</td>
+  <td class="data evs">0.41</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>North Carolina</td>
+  <td class="data evs">6.93</td><td class="data pct">(46%)</td>
+  <td class="data evs">7.47</td><td class="data pct">(50%)</td>
+  <td class="data evs">0.41</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.04</td><td class="data pct">(0%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>North Dakota</td>
+  <td class="data evs">0.82</td><td class="data pct">(27%)</td>
+  <td class="data evs">1.89</td><td class="data pct">(63%)</td>
+  <td class="data evs">0.19</td><td class="data pct">(6%)</td>
+  <td class="data evs">0.03</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Ohio</td>
+  <td class="data evs">7.88</td><td class="data pct">(44%)</td>
+  <td class="data evs">9.35</td><td class="data pct">(52%)</td>
+  <td class="data evs">0.57</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.15</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.04</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>Oklahoma</td>
+  <td class="data evs">2.03</td><td class="data pct">(29%)</td>
+  <td class="data evs">4.57</td><td class="data pct">(65%)</td>
+  <td class="data evs">0.40</td><td class="data pct">(6%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Oregon</td>
+  <td class="data evs">3.64</td><td class="data pct">(52%)</td>
+  <td class="data evs">2.84</td><td class="data pct">(41%)</td>
+  <td class="data evs">0.34</td><td class="data pct">(5%)</td>
+  <td class="data evs">0.18</td><td class="data pct">(3%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Pennsylvania</td>
+  <td class="data evs">9.60</td><td class="data pct">(48%)</td>
+  <td class="data evs">9.75</td><td class="data pct">(49%)</td>
+  <td class="data evs">0.48</td><td class="data pct">(2%)</td>
+  <td class="data evs">0.16</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Rhode Island</td>
+  <td class="data evs">2.19</td><td class="data pct">(55%)</td>
+  <td class="data evs">1.61</td><td class="data pct">(40%)</td>
+  <td class="data evs">0.14</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.06</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>South Carolina</td>
+  <td class="data evs">3.66</td><td class="data pct">(41%)</td>
+  <td class="data evs">4.94</td><td class="data pct">(55%)</td>
+  <td class="data evs">0.21</td><td class="data pct">(2%)</td>
+  <td class="data evs">0.06</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.09</td><td class="data pct">(1%)</td>
+</tr>
+<tr>
+  <td>South Dakota</td>
+  <td class="data evs">0.96</td><td class="data pct">(32%)</td>
+  <td class="data evs">1.87</td><td class="data pct">(62%)</td>
+  <td class="data evs">0.17</td><td class="data pct">(6%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Tennessee</td>
+  <td class="data evs">3.86</td><td class="data pct">(35%)</td>
+  <td class="data evs">6.76</td><td class="data pct">(61%)</td>
+  <td class="data evs">0.31</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.07</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Texas</td>
+  <td class="data evs">16.43</td><td class="data pct">(43%)</td>
+  <td class="data evs">19.85</td><td class="data pct">(52%)</td>
+  <td class="data evs">1.20</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.30</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.18</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>Utah</td>
+  <td class="data evs">1.67</td><td class="data pct">(28%)</td>
+  <td class="data evs">2.76</td><td class="data pct">(46%)</td>
+  <td class="data evs">0.21</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.05</td><td class="data pct">(1%)</td>
+  <td class="data evs">1.31</td><td class="data pct">(22%)</td>
+</tr>
+<tr>
+  <td>Vermont</td>
+  <td class="data evs">1.67</td><td class="data pct">(56%)</td>
+  <td class="data evs">0.89</td><td class="data pct">(30%)</td>
+  <td class="data evs">0.09</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.06</td><td class="data pct">(2%)</td>
+  <td class="data evs">0.01</td><td class="data pct">(0%)</td>
+</tr>
+<tr>
+  <td>Virginia</td>
+  <td class="data evs">6.47</td><td class="data pct">(50%)</td>
+  <td class="data evs">5.78</td><td class="data pct">(44%)</td>
+  <td class="data evs">0.39</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.09</td><td class="data pct">(1%)</td>
+  <td class="data evs">0.18</td><td class="data pct">(1%)</td>
+</tr>
+<tr>
+  <td>Washington</td>
+  <td class="data evs">6.57</td><td class="data pct">(55%)</td>
+  <td class="data evs">4.60</td><td class="data pct">(38%)</td>
+  <td class="data evs">0.61</td><td class="data pct">(5%)</td>
+  <td class="data evs">0.22</td><td class="data pct">(2%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>West Virginia</td>
+  <td class="data evs">1.33</td><td class="data pct">(27%)</td>
+  <td class="data evs">3.45</td><td class="data pct">(69%)</td>
+  <td class="data evs">0.16</td><td class="data pct">(3%)</td>
+  <td class="data evs">0.06</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Wisconsin</td>
+  <td class="data evs">4.73</td><td class="data pct">(47%)</td>
+  <td class="data evs">4.80</td><td class="data pct">(48%)</td>
+  <td class="data evs">0.36</td><td class="data pct">(4%)</td>
+  <td class="data evs">0.11</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr>
+  <td>Wyoming</td>
+  <td class="data evs">0.66</td><td class="data pct">(22%)</td>
+  <td class="data evs">2.05</td><td class="data pct">(68%)</td>
+  <td class="data evs">0.16</td><td class="data pct">(5%)</td>
+  <td class="data evs">0.03</td><td class="data pct">(1%)</td>
+  <td class="data" colspan="2">&mdash;</td>
+</tr>
+<tr class="total">
+  <td>Total</td>
+  <td class="data winner" colspan="2">257.2<div class="total-pct">(47.81%)</div></td>
+  <td class="data" colspan="2">251.4<div class="total-pct">(46.72%)</div></td>
+  <td class="data" colspan="2">18.2<div class="total-pct">(3.39%)</div></td>
+  <td class="data" colspan="2">5.8<div class="total-pct">(1.08%)</div></td>
+  <td class="data" colspan="2">2.8<div class="total-pct">(0.52%)</div></td>
+</tr>
+</table>
+
+<style>
+
+.rounded th.datahdr {
+  width: 2em;
+}
+  
+</style>
+
+<table class="ev-tally rounded">
+<tr>
+  <th></th>
+  <th class="datahdr">Clinton</th>
+  <th class="datahdr">Trump</th>
+  <th class="datahdr">Johnson</th>
+  <th class="datahdr">Stein</th>
+  <th class="datahdr">McMullin</th>
+</tr>
+<tr>
+  <td>Alabama</td>
+  <td class="data">3</td>
+  <td class="data">6</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Alaska</td>
+  <td class="data">1</td>
+  <td class="data">2</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Arizona</td>
+  <td class="data">5</td>
+  <td class="data">6</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Arkansas</td>
+  <td class="data">2</td>
+  <td class="data">4</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>California</td>
+  <td class="data">34</td>
+  <td class="data">18</td>
+  <td class="data">2</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Colorado</td>
+  <td class="data">5</td>
+  <td class="data">4</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Connecticut</td>
+  <td class="data">4</td>
+  <td class="data">3</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Delaware</td>
+  <td class="data">2</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>D.C.</td>
+  <td class="data">3</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Florida</td>
+  <td class="data">14</td>
+  <td class="data">14</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Georgia</td>
+  <td class="data">7</td>
+  <td class="data">8</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Hawaii</td>
+  <td class="data">3</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Idaho</td>
+  <td class="data">1</td>
+  <td class="data">3</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Illinois</td>
+  <td class="data">11</td>
+  <td class="data">8</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Indiana</td>
+  <td class="data">4</td>
+  <td class="data">6</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Iowa</td>
+  <td class="data">3</td>
+  <td class="data">3</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Kansas</td>
+  <td class="data">2</td>
+  <td class="data">4</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Kentucky</td>
+  <td class="data">3</td>
+  <td class="data">5</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Louisiana</td>
+  <td class="data">3</td>
+  <td class="data">5</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Maine</td>
+  <td class="data">2</td>
+  <td class="data">2</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Maryland</td>
+  <td class="data">6</td>
+  <td class="data">4</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Massachusetts</td>
+  <td class="data">7</td>
+  <td class="data">4</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Michigan</td>
+  <td class="data">7</td>
+  <td class="data">8</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Minnesota</td>
+  <td class="data">5</td>
+  <td class="data">5</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Mississippi</td>
+  <td class="data">2</td>
+  <td class="data">4</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Missouri</td>
+  <td class="data">4</td>
+  <td class="data">6</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Montana</td>
+  <td class="data">1</td>
+  <td class="data">2</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Nebraska</td>
+  <td class="data">2</td>
+  <td class="data">3</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Nevada</td>
+  <td class="data">3</td>
+  <td class="data">3</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>New Hampshire</td>
+  <td class="data">2</td>
+  <td class="data">2</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>New Jersey</td>
+  <td class="data">8</td>
+  <td class="data">6</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>New Mexico</td>
+  <td class="data">3</td>
+  <td class="data">2</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>New York</td>
+  <td class="data">17</td>
+  <td class="data">11</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>North Carolina</td>
+  <td class="data">7</td>
+  <td class="data">8</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>North Dakota</td>
+  <td class="data">1</td>
+  <td class="data">2</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Ohio</td>
+  <td class="data">8</td>
+  <td class="data">9</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Oklahoma</td>
+  <td class="data">2</td>
+  <td class="data">5</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Oregon</td>
+  <td class="data">4</td>
+  <td class="data">3</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Pennsylvania</td>
+  <td class="data">10</td>
+  <td class="data">10</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Rhode Island</td>
+  <td class="data">2</td>
+  <td class="data">2</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>South Carolina</td>
+  <td class="data">4</td>
+  <td class="data">5</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>South Dakota</td>
+  <td class="data">1</td>
+  <td class="data">2</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Tennessee</td>
+  <td class="data">4</td>
+  <td class="data">7</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Texas</td>
+  <td class="data">17</td>
+  <td class="data">20</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Utah</td>
+  <td class="data">2</td>
+  <td class="data">3</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">1</td>
+</tr>
+<tr>
+  <td>Vermont</td>
+  <td class="data">2</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Virginia</td>
+  <td class="data">7</td>
+  <td class="data">6</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Washington</td>
+  <td class="data">7</td>
+  <td class="data">4</td>
+  <td class="data">1</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>West Virginia</td>
+  <td class="data">1</td>
+  <td class="data">4</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Wisconsin</td>
+  <td class="data">5</td>
+  <td class="data">5</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Wyoming</td>
+  <td class="data">1</td>
+  <td class="data">2</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr class="total">
+  <td>Total</td>
+  <td class="data winner">264<div class="total-pct">(49.07%)</div></td>
+  <td class="data">261<div class="total-pct">(48.51%)</div></td>
+  <td class="data">11<div class="total-pct">(2.04%)</div></td>
+  <td class="data">1<div class="total-pct">(0.19%)</div></td>
+  <td class="data">1<div class="total-pct">(0.19%)</div></td>
+</tr>
+</table>
+
+<table class="ev-tally rounded">
+<tr>
+  <th></th>
+  <th class="datahdr">Clinton</th>
+  <th class="datahdr">Trump</th>
+</tr>
+<tr>
+  <td>Alabama</td>
+  <td class="data">3</td>
+  <td class="data">6</td>
+</tr>
+<tr>
+  <td>Alaska</td>
+  <td class="data">1</td>
+  <td class="data">2</td>
+</tr>
+<tr>
+  <td>Arizona</td>
+  <td class="data">5</td>
+  <td class="data">6</td>
+</tr>
+<tr>
+  <td>Arkansas</td>
+  <td class="data">2</td>
+  <td class="data">4</td>
+</tr>
+<tr>
+  <td>California</td>
+  <td class="data">36</td>
+  <td class="data">19</td>
+</tr>
+<tr>
+  <td>Colorado</td>
+  <td class="data">5</td>
+  <td class="data">4</td>
+</tr>
+<tr>
+  <td>Connecticut</td>
+  <td class="data">4</td>
+  <td class="data">3</td>
+</tr>
+<tr>
+  <td>Delaware</td>
+  <td class="data">2</td>
+  <td class="data">1</td>
+</tr>
+<tr>
+  <td>D.C.</td>
+  <td class="data">3</td>
+  <td class="data">&mdash;</td>
+</tr>
+<tr>
+  <td>Florida</td>
+  <td class="data">14</td>
+  <td class="data">15</td>
+</tr>
+<tr>
+  <td>Georgia</td>
+  <td class="data">8</td>
+  <td class="data">8</td>
+</tr>
+<tr>
+  <td>Hawaii</td>
+  <td class="data">3</td>
+  <td class="data">1</td>
+</tr>
+<tr>
+  <td>Idaho</td>
+  <td class="data">1</td>
+  <td class="data">3</td>
+</tr>
+<tr>
+  <td>Illinois</td>
+  <td class="data">12</td>
+  <td class="data">8</td>
+</tr>
+<tr>
+  <td>Indiana</td>
+  <td class="data">4</td>
+  <td class="data">7</td>
+</tr>
+<tr>
+  <td>Iowa</td>
+  <td class="data">3</td>
+  <td class="data">3</td>
+</tr>
+<tr>
+  <td>Kansas</td>
+  <td class="data">2</td>
+  <td class="data">4</td>
+</tr>
+<tr>
+  <td>Kentucky</td>
+  <td class="data">3</td>
+  <td class="data">5</td>
+</tr>
+<tr>
+  <td>Louisiana</td>
+  <td class="data">3</td>
+  <td class="data">5</td>
+</tr>
+<tr>
+  <td>Maine</td>
+  <td class="data">2</td>
+  <td class="data">2</td>
+</tr>
+<tr>
+  <td>Maryland</td>
+  <td class="data">6</td>
+  <td class="data">4</td>
+</tr>
+<tr>
+  <td>Massachusetts</td>
+  <td class="data">7</td>
+  <td class="data">4</td>
+</tr>
+<tr>
+  <td>Michigan</td>
+  <td class="data">8</td>
+  <td class="data">8</td>
+</tr>
+<tr>
+  <td>Minnesota</td>
+  <td class="data">5</td>
+  <td class="data">5</td>
+</tr>
+<tr>
+  <td>Mississippi</td>
+  <td class="data">2</td>
+  <td class="data">4</td>
+</tr>
+<tr>
+  <td>Missouri</td>
+  <td class="data">4</td>
+  <td class="data">6</td>
+</tr>
+<tr>
+  <td>Montana</td>
+  <td class="data">1</td>
+  <td class="data">2</td>
+</tr>
+<tr>
+  <td>Nebraska</td>
+  <td class="data">2</td>
+  <td class="data">3</td>
+</tr>
+<tr>
+  <td>Nevada</td>
+  <td class="data">3</td>
+  <td class="data">3</td>
+</tr>
+<tr>
+  <td>New Hampshire</td>
+  <td class="data">2</td>
+  <td class="data">2</td>
+</tr>
+<tr>
+  <td>New Jersey</td>
+  <td class="data">8</td>
+  <td class="data">6</td>
+</tr>
+<tr>
+  <td>New Mexico</td>
+  <td class="data">3</td>
+  <td class="data">2</td>
+</tr>
+<tr>
+  <td>New York</td>
+  <td class="data">18</td>
+  <td class="data">11</td>
+</tr>
+<tr>
+  <td>North Carolina</td>
+  <td class="data">7</td>
+  <td class="data">8</td>
+</tr>
+<tr>
+  <td>North Dakota</td>
+  <td class="data">1</td>
+  <td class="data">2</td>
+</tr>
+<tr>
+  <td>Ohio</td>
+  <td class="data">8</td>
+  <td class="data">10</td>
+</tr>
+<tr>
+  <td>Oklahoma</td>
+  <td class="data">2</td>
+  <td class="data">5</td>
+</tr>
+<tr>
+  <td>Oregon</td>
+  <td class="data">4</td>
+  <td class="data">3</td>
+</tr>
+<tr>
+  <td>Pennsylvania</td>
+  <td class="data">10</td>
+  <td class="data">10</td>
+</tr>
+<tr>
+  <td>Rhode Island</td>
+  <td class="data">2</td>
+  <td class="data">2</td>
+</tr>
+<tr>
+  <td>South Carolina</td>
+  <td class="data">4</td>
+  <td class="data">5</td>
+</tr>
+<tr>
+  <td>South Dakota</td>
+  <td class="data">1</td>
+  <td class="data">2</td>
+</tr>
+<tr>
+  <td>Tennessee</td>
+  <td class="data">4</td>
+  <td class="data">7</td>
+</tr>
+<tr>
+  <td>Texas</td>
+  <td class="data">17</td>
+  <td class="data">21</td>
+</tr>
+<tr>
+  <td>Utah</td>
+  <td class="data">2</td>
+  <td class="data">4</td>
+</tr>
+<tr>
+  <td>Vermont</td>
+  <td class="data">2</td>
+  <td class="data">1</td>
+</tr>
+<tr>
+  <td>Virginia</td>
+  <td class="data">7</td>
+  <td class="data">6</td>
+</tr>
+<tr>
+  <td>Washington</td>
+  <td class="data">7</td>
+  <td class="data">5</td>
+</tr>
+<tr>
+  <td>West Virginia</td>
+  <td class="data">1</td>
+  <td class="data">4</td>
+</tr>
+<tr>
+  <td>Wisconsin</td>
+  <td class="data">5</td>
+  <td class="data">5</td>
+</tr>
+<tr>
+  <td>Wyoming</td>
+  <td class="data">1</td>
+  <td class="data">2</td>
+</tr>
+<tr class="total">
+  <td>Total</td>
+  <td class="data winner">270<div class="total-pct">(50.19%)</div></td>
+  <td class="data">268<div class="total-pct">(49.81%)</div></td>
+</tr>
+</table>
+
+past elections
+
+<style>
+
+.summary .data {
+  font-weight: bold;
+}
+
+.summary .empty {
+  font-weight: normal;
+}
+
+.summary td:nth-child(1) {
+  padding-right: 1em;
+}
+
+</style>
+
+<table class="summary">
+<tr>
+  <th></th>
+  <th class="datahdr">Popular Vote</th>
+  <th class="datahdr">Actual EVs&dagger;</th>
+  <th class="datahdr">Proportional EVs</th>
+  <th class="datahdr">Proportional EVs, rounded</th>
+  <th class="datahdr">Top-2 EVs</th>
+</tr>
+<tr>
+  <td>Clinton</td>
+  <td class="data winner">48.31%<sup style="color: red;">*</sup></td>
+  <td class="data">232<div class="total-pct">(43.12%)</div></td>
+  <td class="data winner">257.2<sup style="color: red;">*</sup><div class="total-pct">(47.81%)</div></td>
+  <td class="data winner">264<sup style="color: red;">*</sup><div class="total-pct">(49.07%)</div></td>
+  <td class="data winner">270<div class="total-pct">(50.19%)</div></td>
+</tr>
+<tr>
+  <td>Trump</td>
+  <td class="data">46.45%</td>
+  <td class="data winner">306<div class="total-pct">(56.88%)</div></td>
+  <td class="data">251.4<div class="total-pct">(46.72%)</div></td>
+  <td class="data">261<div class="total-pct">(48.51%)</div></td>
+  <td class="data">268<div class="total-pct">(49.81%)</div></td>
+</tr>
+<tr>
+  <td>Johnson</td>
+  <td class="data">3.31%</td>
+  <td class="data empty">&mdash;</td>
+  <td class="data">18.2<div class="total-pct">(3.39%)</div></td>
+  <td class="data">11<div class="total-pct">(2.04%)</div></td>
+  <td class="data empty">&mdash;</td>
+</tr>
+<tr>
+  <td>Stein</td>
+  <td class="data">1.07%</td>
+  <td class="data empty">&mdash;</td>
+  <td class="data">5.8<div class="total-pct">(1.08%)</div></td>
+  <td class="data">1<div class="total-pct">(0.19%)</div></td>
+  <td class="data empty">&mdash;</td>
+</tr>
+<tr>
+  <td>McMullin</td>
+  <td class="data">0.45%</td>
+  <td class="data empty">&mdash;</td>
+  <td class="data">2.8<div class="total-pct">(0.52%)</div></td>
+  <td class="data">1<div class="total-pct">(0.19%)</div></td>
+  <td class="data empty">&mdash;</td>
+</tr>
+</table>
+
+\* not a majority
+{: .footnote}
+
+&dagger; ignoring faithless electors
+{: .footnote}
+
+2012
+
+<table class="summary">
+<tr>
+  <th></th>
+  <th class="datahdr">Popular Vote</th>
+  <th class="datahdr">Actual EVs&dagger;</th>
+  <th class="datahdr">Proportional EVs</th>
+  <th class="datahdr">Proportional EVs, rounded</th>
+  <th class="datahdr">Top-2 EVs</th>
+</tr>
+<tr>
+  <td>Obama</td>
+  <td class="data winner">51.06%</td>
+  <td class="data winner">332<div class="total-pct">(61.71%)</div></td>
+  <td class="data winner">272.2<div class="total-pct">(50.60%)</div></td>
+  <td class="data winner">275<div class="total-pct">(51.12%)</div></td>
+  <td class="data winner">276<div class="total-pct">(51.30%)</div></td>
+</tr>
+<tr>
+  <td>Romney</td>
+  <td class="data">47.20%</td>
+  <td class="data">206<div class="total-pct">(38.29%)</div></td>
+  <td class="data">256.1<div class="total-pct">(47.61%)</div></td>
+  <td class="data">262<div class="total-pct">(48.70%)</div></td>
+  <td class="data">262<div class="total-pct">(48.70%)</div></td>
+</tr>
+<tr>
+  <td>Johnson</td>
+  <td class="data">0.99%</td>
+  <td class="data empty">&mdash;</td>
+  <td class="data">5.5<div class="total-pct">(1.03%)</div></td>
+  <td class="data">1<div class="total-pct">(0.19%)</div></td>
+  <td class="data empty">&mdash;</td>
+</tr>
+</table>
+
+2008
+
+<table class="summary">
+<tr>
+  <th></th>
+  <th class="datahdr">Popular Vote</th>
+  <th class="datahdr">Actual EVs&dagger;</th>
+  <th class="datahdr">Proportional EVs</th>
+  <th class="datahdr">Proportional EVs, rounded</th>
+  <th class="datahdr">Top-2 EVs</th>
+</tr>
+<tr>
+  <td>Obama</td>
+  <td class="data winner">52.93%</td>
+  <td class="data winner">365<div class="total-pct">(67.84%)</div></td>
+  <td class="data winner">283.4<div class="total-pct">(52.68%)</div></td>
+  <td class="data winner">289<div class="total-pct">(53.72%)</div></td>
+  <td class="data winner">289<div class="total-pct">(53.72%)</div></td>
+</tr>
+<tr>
+  <td>McCain</td>
+  <td class="data">45.65%</td>
+  <td class="data">173<div class="total-pct">(32.16%)</div></td>
+  <td class="data">246.7<div class="total-pct">(45.86%)</div></td>
+  <td class="data">249<div class="total-pct">(46.28%)</div></td>
+  <td class="data">249<div class="total-pct">(46.28%)</div></td>
+</tr>
+</table>
+
+2004
+
+<table class="summary">
+<tr>
+  <th></th>
+  <th class="datahdr">Popular Vote</th>
+  <th class="datahdr">Actual EVs&dagger;</th>
+  <th class="datahdr">Proportional EVs</th>
+  <th class="datahdr">Proportional EVs, rounded</th>
+  <th class="datahdr">Top-2 EVs</th>
+</tr>
+<tr>
+  <td>Bush</td>
+  <td class="data winner">50.73%</td>
+  <td class="data winner">286<div class="total-pct">(53.16%)</div></td>
+  <td class="data winner">274.6<div class="total-pct">(51.03%)</div></td>
+  <td class="data winner">280<div class="total-pct">(52.04%)</div></td>
+  <td class="data winner">280<div class="total-pct">(52.04%)</div></td>
+</tr>
+<tr>
+  <td>Kerry</td>
+  <td class="data">48.27%</td>
+  <td class="data">252<div class="total-pct">(46.84%)</div></td>
+  <td class="data">257.8<div class="total-pct">(47.93%)</div></td>
+  <td class="data">258<div class="total-pct">(47.96%)</div></td>
+  <td class="data">258<div class="total-pct">(47.96%)</div></td>
+</tr>
+</table>
 
 
-hand-wringing over turnout
+2000
 
-the two states that aren’t winner-take-all -- they allocate votes by winner per congressional district, with the two ‘senate’ EVs as wildcards. this is a TERRIBLE idea. it essentially brings gerrymandering into the presidency. if you going to distribute presidential say seat-by-seat, you may as well just have congress pick the president themselves.
+<table class="summary">
+<tr>
+  <th></th>
+  <th class="datahdr">Popular Vote</th>
+  <th class="datahdr">Actual EVs&dagger;</th>
+  <th class="datahdr">Proportional EVs</th>
+  <th class="datahdr">Proportional EVs, rounded</th>
+  <th class="datahdr">Top-2 EVs</th>
+</tr>
+<tr>
+  <td>Gore</td>
+  <td class="data winner">48.38%<sup style="color: red;">*</sup></td>
+  <td class="data">267<div class="total-pct">(49.63%)</div></td>
+  <td class="data">258.3<div class="total-pct">(48.01%)</div></td>
+  <td class="data winner">266<sup style="color: red;">*</sup><div class="total-pct">(49.44%)</div></td>
+  <td class="data tie">269<div class="total-pct">(50.00%)</div></td>
+</tr>
+<tr>
+  <td>Bush</td>
+  <td class="data">47.87%</td>
+  <td class="data winner">271<div class="total-pct">(50.37%)</div></td>
+  <td class="data winner">259.2<sup style="color: red;">*</sup><div class="total-pct">(48.18%)</div></td>
+  <td class="data">265<div class="total-pct">(49.26%)</div></td>
+  <td class="data tie">269<div class="total-pct">(50.00%)</div></td>
+</tr>
+<tr>
+  <td>Nader</td>
+  <td class="data">2.74%</td>
+  <td class="data empty">&mdash;</td>
+  <td class="data">14.9<div class="total-pct">(2.77%)</div></td>
+  <td class="data">7<div class="total-pct">(1.30%)</div></td>
+  <td class="data empty">&mdash;</td>
+</tr>
+</table>
+
+1996
 
 
-which leads to a special point. with this proportional scheme, 3rd parties will now actually get a few EVs, which means it’s harded for one of the two major candidates to reach 50%. if they don’t, the house of representatives gets to choose. while it may have been the original intent that that would get the happen pretty frequently, now it seems like an error. so that threshold would have to be lowered, or the electors would need to get multiple rounds to build a majority coalition, like in conventions.
+<table class="summary">
+<tr>
+  <th></th>
+  <th class="datahdr">Popular Vote</th>
+  <th class="datahdr">Actual EVs&dagger;</th>
+  <th class="datahdr">Proportional EVs</th>
+  <th class="datahdr">Proportional EVs, rounded</th>
+  <th class="datahdr">Top-2 EVs</th>
+</tr>
+<tr>
+  <td>Clinton</td>
+  <td class="data winner">49.23%<sup style="color: red;">*</sup></td>
+  <td class="data winner">379<div class="total-pct">(70.45%)</div></td>
+  <td class="data winner">263.6<sup style="color: red;">*</sup><div class="total-pct">(49.00%)</div></td>
+  <td class="data winner">267<sup style="color: red;">*</sup><div class="total-pct">(49.63%)</div></td>
+  <td class="data winner">294<div class="total-pct">(54.65%)</div></td>
+</tr>
+<tr>
+  <td>Dole</td>
+  <td class="data">40.72%</td>
+  <td class="data">159<div class="total-pct">(29.55%)</div></td>
+  <td class="data">220.1<div class="total-pct">(40.92%)</div></td>
+  <td class="data">225<div class="total-pct">(41.82%)</div></td>
+  <td class="data">244<div class="total-pct">(45.35%)</div></td>
+</tr>
+<tr>
+  <td>Perot</td>
+  <td class="data">8.40%</td>
+  <td class="data empty">&mdash;</td>
+  <td class="data">45.2<div class="total-pct">(8.41%)</div></td>
+  <td class="data">45<div class="total-pct">(8.36%)</div></td>
+  <td class="data empty">&mdash;</td>
+</tr>
+<tr>
+  <td>Nader</td>
+  <td class="data">0.71%</td>
+  <td class="data empty">&mdash;</td>
+  <td class="data">3.9<div class="total-pct">(0.73%)</div></td>
+  <td class="data">1<div class="total-pct">(0.19%)</div></td>
+  <td class="data empty">&mdash;</td>
+</tr>
+</table>
+
+
+
+1992
+
+<table class="summary">
+<tr>
+  <th></th>
+  <th class="datahdr">Popular Vote</th>
+  <th class="datahdr">Actual EVs&dagger;</th>
+  <th class="datahdr">Proportional EVs</th>
+  <th class="datahdr">Proportional EVs, rounded</th>
+  <th class="datahdr">Top-2 EVs</th>
+</tr>
+<tr>
+  <td>Clinton</td>
+  <td class="data winner">43.01%<sup style="color: red;">*</sup></td>
+  <td class="data winner">370<div class="total-pct">(68.77%)</div></td>
+  <td class="data winner">230.5<sup style="color: red;">*</sup><div class="total-pct">(42.85%)</div></td>
+  <td class="data winner">237<sup style="color: red;">*</sup><div class="total-pct">(44.05%)</div></td>
+  <td class="data winner">287<div class="total-pct">(53.35%)</div></td>
+</tr>
+<tr>
+  <td>Bush</td>
+  <td class="data">37.45%</td>
+  <td class="data">168<div class="total-pct">(31.23%)</div></td>
+  <td class="data">202.3<div class="total-pct">(37.61%)</div></td>
+  <td class="data">197<div class="total-pct">(36.62%)</div></td>
+  <td class="data">247<div class="total-pct">(45.91%)</div></td>
+</tr>
+<tr>
+  <td>Perot</td>
+  <td class="data">18.91%</td>
+  <td class="data empty">&mdash;</td>
+  <td class="data">101.5<div class="total-pct">(18.87%)</div></td>
+  <td class="data">104<div class="total-pct">(19.33%)</div></td>
+  <td class="data">4<div class="total-pct">(0.74%)</div></td>
+</tr>
+</table>
+
+
+
+which leads to a special point. with this proportional scheme, 3<sup>rd</sup> parties will now actually get a few EVs, which means it’s harded for one of the two major candidates to reach 50%. if they don’t, the house of representatives gets to choose. while it may have been the original intent that that would get the happen pretty frequently, now it seems like an error. so that threshold would have to be lowered, or the electors would need to get multiple rounds to build a majority coalition, like in conventions.
+
+recounts
 
 
 honestly, it would be great if we could use a preference-based system like STV or condorcet, but that is the realm of fantasy
