@@ -20,7 +20,7 @@ module MP3Info
         #track['game'].gsub!(/\'/, '&#x2019;')
         #track['title'].gsub!(/\'/, '&#x2019;')
         track['title'].gsub!(/\[(.+)\]/, '<span class="titlemod">\1</span>')
-        track['title'].gsub!(/-/, '&ndash;')
+        track['title'].gsub!(/--/, '&ndash;')
       end
 
       track['rating'] = rating(track, ratings)
