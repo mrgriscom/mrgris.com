@@ -1,5 +1,5 @@
-<? header('Content-Type: text/json'); ?>
-<?
+<?php header('Content-Type: text/json'); ?>
+<?php
 
 $PREC = 1;
 
