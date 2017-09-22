@@ -8,13 +8,16 @@ projects = @item.children.select {|p| not p[:unpublished]}
 projects = projects.sort_by {|p| @item[:ordering].index(p[:title].downcase) or 999}
 %>
 
-<% projects.each do |proj| %>
-	<div class="project">
-		<div class="image"><div>
-      <%= link_to('<div style="background: url(/img/proj_thumb/%s) no-repeat center;"></div>' % proj[:thumb], proj) %> 
+<%
+projects.each do |proj|
+  dst = proj[:external_link] || proj
+%>
+  <div class="project">
+    <div class="image"><div>
+      <%= link_to('<div style="background: url(/img/proj_thumb/%s) no-repeat center;"></div>' % proj[:thumb], dst) %> 
     </div></div>
-		<h3><%= link_to(proj[:title], proj) %></h3>
+    <h3><%= link_to(proj[:title], dst) %></h3>
     <%= content_for(proj, :lede) %>
-	</div>
+  </div>
 <% end %>
 
