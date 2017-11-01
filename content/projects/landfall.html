@@ -235,7 +235,7 @@ panos.each do |p|
 </td>
 <td style="vertical-align: bottom; text-align: right; white-space: nowrap; width: *;">
 <a target="_blank" href="http://geojson.io/#data=data:text/x-url,<%= @config[:base_url] %><%= @items.find { |i| i.identifier == '/projects/landfall/geojson/%s/' % p[:name] }.path %>" title="Map view"><img alt="Map" src="/img/icon/map.png"></a>
-<a target="_blank" href="/img/landfall/photosphere/<%= p[:name] %>.photosphere.jpg" title="Photosphere: for immersive viewing in a VR environment, such as Google Photos app on Android"><img alt="Photosphere" src="/img/icon/photosphere.png"></a>
+<a target="_blank" href="https://cdn.pannellum.org/2.3/pannellum.htm?panorama=https://mrgris.com/img/landfall/photosphere/<%= p[:name] %>.photosphere.jpg" title="Immersive / Photosphere"><img alt="Photosphere" src="/img/icon/photosphere.png"></a>
 <a href="kml/<%= p[:name] %>.kml" title="Google Earth"><img alt="Google Earth" src="/img/icon/googleearth.png"></a>
 </td>
 </tr>
