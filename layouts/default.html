@@ -14,7 +14,8 @@
 </head>
 <body>
 
-<% if @item.identifier == '/projects/' %> 
+<%# 'hire me' ribbon %>
+<% if @item.identifier == '/projects/' %>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Open+Sans:400|600" />
   <style>
 div.caution {
@@ -34,14 +35,43 @@ div.stripe {
     margin-right: 150px;
   }
 }
-
+#hireinfo {
+  display: none;
+}
+#hireinfo:hover {
+  display: block;
+}
+#hireinfo.hover {
+  display: block;
+}
+body.blur > *:not(#hireinfo) {
+filter: blur(3px);
+}
   </style>
+  <!-- see associated jquery in projects.html -->
   <div style="position: absolute; top: 0; right: 0; height: 101px; display: flex; align-items: center; overflow: hidden; text-align: center; color: #222; pointer-events: none;">
     <div style="width: 200px; transform: rotate(45deg);">
       <div class="caution stripe"></div>
-      <div class="caution" style="padding: 2px 0; font-weight: bold; font-family: 'Open Sans', sans-serif; text-shadow: 0px 1px .5px #ff0;">HIRE ME</div>
+      <div id="hiretarget" class="caution" style="padding: 2px 0; font-weight: bold; font-family: 'Open Sans', sans-serif; text-shadow: 0px 1px .5px #ff0; pointer-events: auto; cursor: pointer;">HIRE ME</div>
       <div class="caution stripe"></div>
     </div>
+  </div>
+  <div id="hireinfo" style="background-color: black; color: white; position: absolute; top: 25px; right: 25px; width: 18em; padding: 1.6em; background: rgba(10, 10, 10, .8); border-radius: 20px; font-family: 'Open Sans', sans-serif; z-index: 50000;">
+    <p>
+      Hello, I am currently seeking new projects, with a particular interest in the arena of mapping/geospatial.
+    </p>
+
+    <p>
+      I am an American software dev based in Cape Town, South Africa (UTC+2), who has experience working remotely.
+    </p>
+
+    <p>
+      If you like what you've seen here, and have or know of any opportunities you think might be a good match, please do not hesitate to send them my way!
+    </p>
+    
+    <p>
+      <a href="/a/resume/" target="_blank">Resume</a>
+    </p>    
   </div>
 <% end %>
   

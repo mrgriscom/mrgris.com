@@ -3,6 +3,40 @@ title: Projects
 ordering: ['merc-extreme', 'landfall', 'minesweepr', 'lsdome', 'oilslick', 'birdseye', 'whereis']
 ---
 
+<% content_for :script do %>
+// interactivity for the hire ribbon
+$(document).ready(function() {
+  $('#hiretarget').bind('touchstart', function(e) {
+    e.preventDefault();
+    $('#hireinfo').show()
+    $('body').addClass('blur');
+  });
+  $(document).bind('touchstart', function(e) {
+    if ($(e.target).closest('#hiretarget').length) {
+      return;
+    }
+
+    if(!$(e.target).closest('#hireinfo').length) {
+      $('#hireinfo').hide();
+      $('body').removeClass('blur');
+    }
+  });
+
+  $('#hiretarget').mouseover(function() {
+    $('#hireinfo').addClass('hover');
+  });
+  $('#hiretarget').mouseout(function() {
+    $('#hireinfo').removeClass('hover');
+  });
+  $('#hireinfo').mouseover(function() {
+    $('body').addClass('blur');
+  });
+  $('#hireinfo').mouseout(function() {
+    $('body').removeClass('blur');
+  });
+});
+<% end %>
+
 <%
 projects = @item.children.select {|p| not p[:unpublished]}
 projects = projects.sort_by {|p| @item[:ordering].index(p.identifier.chop.split('/')[-1]) or 999}
