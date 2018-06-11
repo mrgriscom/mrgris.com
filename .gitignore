@@ -2,6 +2,7 @@ output/
 tmp/
 *~
 *.pyc
+crash.log
 
 # we need to generate rules dynamically; static rules now live in _Rules
 Rules

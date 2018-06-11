@@ -13,8 +13,41 @@
   <%= render 'google-analytics' %>
 </head>
 <body>
-	<div id="window"></div>
+
+<% if @item.identifier == '/projects/' %> 
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Open+Sans:400|600" />
+  <style>
+div.caution {
+  background-color: rgba(255, 233, 15, .85);
+  margin: 6px 0;
+}
+div.stripe {
+  height: 7px;
+}
+@media only screen and (max-width: 1200px) {
+  #nav {
+    margin-right: calc(150px - (100vw - 900px) / 2);
+  }
+}
+@media only screen and (max-width: 900px) {
+  #nav {
+    margin-right: 150px;
+  }
+}
+
+  </style>
+  <div style="position: absolute; top: 0; right: 0; height: 101px; display: flex; align-items: center; overflow: hidden; text-align: center; color: #222; pointer-events: none;">
+    <div style="width: 200px; transform: rotate(45deg);">
+      <div class="caution stripe"></div>
+      <div class="caution" style="padding: 2px 0; font-weight: bold; font-family: 'Open Sans', sans-serif; text-shadow: 0px 1px .5px #ff0;">HIRE ME</div>
+      <div class="caution stripe"></div>
+    </div>
+  </div>
+<% end %>
+  
+  <div id="window"></div>
 	<h2>Drew Griscom Roos</h2>
+
 	<div id="nav">
     <span class="navitem"><%= link_to_unless_current('Projects', @items.find { |i| i.identifier == '/projects/' }) %></span> &bull;
     <span class="navitem"><%= link_to_unless_current('Blog', @items.find { |i| i.identifier == '/blog/' }) %></span> &bull;
