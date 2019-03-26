@@ -3,17 +3,8 @@ module Nanoc::Filters
     identifiers :mathtex
     
     def run(content, params={})
-      image_dir = "output/img/math/"
-      ext = "png"
-      if (!File.exists?(image_dir))
-        system("mkdir -p " + image_dir)
-      end
-      # process latex
-      content = content.gsub(/\$\$(.+?)\$\$/) { |m|
-        command = "texvc /tmp " + image_dir + " '" + m[2..-3] + "' utf8"
-        digest = `#{command}`[1..32]
-        "<span class='equation'><img src='/img/math/" + digest + "." + ext + "' /></span>"
-      }
+      # latex equations now handled with mathjax js
+      
       # process numerical quantities
       content = content.gsub(/##(.+?)##/) { |m|
         quant = m[2..-3]
