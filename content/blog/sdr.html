@@ -27,14 +27,14 @@ FM
 
 Listening to FM radio. The SDR sampling is precise enough that we're receiving 8 other adjacent stations simultaneously. Listening to these other stations requires only changing a software parameter, not actually re-tuning the receiver.
 
-<img class="glightbox" src="http://drew/sdr/fm.png" />
+<img class="glightbox" src="http://drew/sdr/fm.png" width="740" />
 
 Walkie-talkies
 --------------
 
 Lots of chatter on walkie-talkie frequencies. Unlike a typical scanner, dozens of channels can be captured simultaneously. (As an aside, most of these people sounded very agitated... harried dock workers?)
 
-<img class="glightbox" src="http://drew/sdr/frs.png" />
+<img class="glightbox" src="http://drew/sdr/frs.png" width="740" />
 
 AM
 --
@@ -42,17 +42,17 @@ AM
 Capturing the AM band.
 Cape Town's 3 AM stations clearly visible.
 
-<img class="glightbox" src="http://drew/sdr/am.png" />
+<img class="glightbox" src="http://drew/sdr/am.png" width="740" />
 
 AM band much more alive in the US, with a station visible (thought not necessarily listenable) at every 10 kHz interval.
 The horizontal light blue lines are broad-spectrum interference from lightning in the area.
 
-<img class="glightbox" src="http://drew/sdr/amus.png" />
+<img class="glightbox" src="http://drew/sdr/amus.png" width="740" />
 
 You can see how much the signal is swamped mid-lightning strike.
 It's around this time I decided it'd be prudent to reel in my antenna and call it a night.
 
-<img class="glightbox" src="http://drew/sdr/am-lightning.gif" />
+<img class="glightbox" src="http://drew/sdr/am-lightning.gif" width="740" />
 
 Digital Radio
 -------------
@@ -60,11 +60,11 @@ Digital Radio
 HD radio
 
 <img class="glightbox" src="http://drew/sdr/hdradio-fft.png" />
-<img class="glightbox" src="http://drew/sdr/hdradio-console.png" />
+<img class="glightbox" src="http://drew/sdr/hdradio-console.png" width="740" />
 
 DAB
 
-<img class="glightbox" src="http://drew/sdr/dab.png" />
+<img class="glightbox" src="http://drew/sdr/dab.png" width="740" />
 
 AirNav beacons
 --------------
@@ -72,7 +72,7 @@ AirNav beacons
 Triangulating my position using the CPT airport and Robben Island VOR airnav beacons. Listening to these beacons directly, you will hear their callsign in morse code. But they also transmit a sub-signal that can derive your current bearing to the beacon.
 
 <!-- TODO fuzz the location -->
-<img class="glightbox" src="http://drew/sdr/vor.png" />
+<img class="glightbox" src="http://drew/sdr/vor.png" width="740" />
 
 A simpler NDB (non-direction beacon) that only broadcasts its callsign (BSW −••• ••• •−−)
 
@@ -84,36 +84,36 @@ Ship-tracking
 
 Live tracking of ships in Cape Town harbor using their AIS transponders.
 
-<img class="glightbox" src="http://drew/sdr/ais.png" />
+<img class="glightbox" src="http://drew/sdr/ais.png" width="740" />
 
 Plane-tracking
 --------------
 
 Live tracking of airplanes using their ADS-B transponders on 1090 Mhz.
 
-<img class="glightbox" src="http://drew/sdr/flights1.png" />
-<img class="glightbox" src="http://drew/sdr/flights2.png" />
+<img class="glightbox" src="http://drew/sdr/flights1.png" width="740" />
+<img class="glightbox" src="http://drew/sdr/flights2.png" width="740" />
 
 LoRa IoT and our DIY Burning Man trackers
 -----------------------------------------
 
 Decoding the location pings from our [DIY GPS trackers](http://doorinthewall.co.za/blog/lora-gps-trackers/), using LoRa internet-of-things protocol. LoRa is proprietary, but like all good things in software, some enterprising hacker has reverse-engineered it.
 
-<img class="glightbox" src="http://drew/sdr/lora.png" />
+<img class="glightbox" src="http://drew/sdr/lora.png" width="740" />
 
 Gate remotes
 ------------
 
 Intercepting the codes transmitted by our gate opener. The varied codes on subsequent button presses shows this is a more secure "rolling code" system.
 
-<img class="glightbox" src="http://drew/sdr/gateremote.png" />
+<img class="glightbox" src="http://drew/sdr/gateremote.png" width="740" />
 
 Cellular networks
 -----------------
 
 Sniffing serial #s of phones attempting to connect to a local cell tower over 2G.
 
-<img class="glightbox" src="http://drew/sdr/imsi.png" />
+<img class="glightbox" src="http://drew/sdr/imsi.png" width="740" />
 
 Weather satellites
 ------------------
@@ -124,17 +124,17 @@ Signal lock for NOAA 15 weather satellite passing overhead.
 
 Decoded transmission from orbiting weather satellite. Visible clouds (land indistinct because pass was at night). Pretty rough, but not bad for a first try and did I mention this is a minutes-old picture of Earth directly from SPACE.
 
-<img class="glightbox" src="http://drew/sdr/noaa15.jpg" />
+<img class="glightbox" src="http://drew/sdr/noaa15.jpg" width="740" />
 
 ...and reference weather map of the same instant for comparison
 
-<img class="glightbox" src="http://drew/sdr/weather-ref.jpg" />
+<img class="glightbox" src="http://drew/sdr/weather-ref.jpg" width="740" />
 
-<img class="glightbox" src="http://drew/sdr/noaa-sunset.png" />
+<img class="glightbox" src="http://drew/sdr/noaa-sunset.png" width="740" />
 
 setup shot?
 
-<img class="glightbox" src="http://drew/sdr/apt-best.png" />
+<img class="glightbox" src="http://drew/sdr/apt-best.png" width="740" />
 
 This is a legacy protocol from the 60s.
 New satellites no longer contain this capability, only 3 are left and one is already developing camera problems.
@@ -213,66 +213,147 @@ Medical Pagers
 
 <img class="glightbox" src="http://drew/sdr/pocsag.png">
 
-    multimon-ng 1.1.8
-    Available demodulators: POCSAG512 POCSAG1200 POCSAG2400 FLEX EAS UFSK1200 CLIPFSK FMSFSK AFSK1200 AFSK2400 AFSK2400_2 AFSK2400_3 HAPN4800 FSK9600 DTMF ZVEI1 ZVEI2 ZVEI3 DZVEI PZVEI EEA EIA CCIR MORSE_CW DUMPCSV X10 SCOPE
-    Enabled demodulators: POCSAG512 POCSAG1200 POCSAG2400
-    POCSAG1200: Address: 1605739  Function: 2  Alpha:   <EM><ENQ><FS>k~N<}<EM>.<VT>FN<VT>q8{<ACK><BEL>+c3tdP/?<SOH>slrSC^~BJWHQ<FF><ESC>Cd<LF>}iw<ETB>$2.L`}5LT<STX>]QT<NAK>>!)<BEL>X,<VT>1<SOH>`$b8Urp;<ACK><FF>k!<GS>r61.'o
-    POCSAG1200: Address:  695069  Function: 2  Alpha:   FR:EVSPaging@pinnaclehealth.org >End of Break >Break: Lunch Break<LF>Length: 30 minutes<LF>has ended.<LF>Sign in for your next assignment.<LF>Email tracking (CAL) ID: 7447159
-    POCSAG1200: Address:  698390  Function: 2  Alpha:   can you please call Lori on hfam6 @1653
-    POCSAG1200: Address:  695520  Function: 2  Alpha:   CONF DISCH:07/28/2019 13:10 [NAME REDACTED] 57 Medical #: 7264771 M Attending: GOTOFF, ROBERT ALAN Service: Med Purple Diagnosis: Hepatic failure, unspecified without coma<ETB>
-    POCSAG1200: Address:  677963  Function: 2  Alpha:   FR:EVSPaging@pinnaclehealth.org >Request Assignment >Bed: HH 7 731 731 W<LF>Normal, Room Occupied<LF>Email tracking (CAL) ID: 7447160<ETB>
-    POCSAG1200: Address:  696308  Function: 2  Alpha:   RRT TO RM 612B
-    POCSAG1200: Address:  678563  Function: 2  Alpha:   FR:TempTrakAdminGMC@geisinger.edu >!! TempTrak ALERT !! >OR34 Temperature Group B in OR Room Temperature Group B is at 67.1 (Range 68.0-85.0)<LF>THIS MESSAGE IS BEING SENT TO NOTIFY YOU THAT A SENSOR IN YOUR AREA HAS GONE OUT OF RANGE. <LF> Plea
-    POCSAG1200: Address:  669195  Function: 2  Alpha:    n202-1  [NAME REDACTED]   bladder scan 429ml   unable to void  thanks  Jennifer Harley rn*484628****<ETB>
-    POCSAG1200: Address:  705439  Function: 2  Alpha:    lr, room t1023.  vds qhr and small amounts.  PVR not much.  Has BPH  can he have Flomax.  michelle*484628****<ETB>
-    POCSAG1200: Address:  693514  Function: 2  Alpha:   CONF DISCH:07/28/2019 13:15 [NAME REDACTED] 58 Medical #: 3110773 F Attending: HUMMEL, CHRISTOPHER E Service: Oncology/Gynecology Diagnosis: Malignant neoplasm of endometrium
-    POCSAG1200: Address:  691258  Function: 2  Alpha:   SPILL CLEAN ALERT: SPILL: Shower BED: GP3-Shower BED ID: 9972624 STATUS TIME: 07/28/2019 13:05 REQUESTER: Nathan Roeder
-    POCSAG1200: Address:  616009  Function: 2  Alpha:    Lacey Smc East Norwegian (570)621-**** DOB **-**-92 Re [NAME REDACTED], Please Call To Authorize A Zofran Order For Her Vomiting 
-    POCSAG1200: Address:  694900  Function: 2  Alpha:   OR36 Humidity Group B 60.8% RH, turned heat up. 16511<ETB>
-    POCSAG1200: Address:  680545  Function: 2  Alpha:   STATUS CHANGE: BED: ICCU Room 03 BED ID: 2031 STATUS: Dirty STATUS TIME: 07/28/2019 13:11<ETB><ETB>
-    POCSAG1200: Address:  759992  Function: 3  Alpha:   Susan, 302-****, Brain Attack ED 6
-    POCSAG1200: Address:  763399  Function: 3  Alpha:   Susan, 302-****, Brain Attack ED 6
-    POCSAG1200: Address:  684121  Function: 2  Alpha:   CLEAN [T]: [NAME REDACTED] 61 MN:6421978 M UNIT:MS3W DRM:M309A DCS:Clean ORGN:MS ICU ATN:LOPEZ JR, JOSEPH MARTIN HS:General Surgery GWV DX:Fournier gangrene
-    POCSAG1200: Address:  701367  Function: 2  Alpha:   FR:EVS@sluhn.org > <LF>[St. Lukes University Health Network has been named one of the nat<LF>ions 100 Top Hospitals by IBM Watson Health for 2019. We <LF>are honored to be a 7-time recipient of this prestigious<ETB>
-    POCSAG1200: Address:  654342  Function: 2  Alpha:   STAT ADD ON HEPFA  X60646  Gcmctra, Seventy #7758519 - [NAME REDACTED]<ETB>
-    POCSAG1200: Address:  691816  Function: 2  Alpha:   FR:EVSPaging@pinnaclehealth.org >Escalation Warning >CG 2R 280 280 W<LF>will soon be escalated for taking too long to turn around.<LF>Email tracking (CAL) ID: 744717
-    POCSAG1200: Address:  701451  Function: 2  Alpha:    patient DO on T1 room 1013 refuses Veltassa K+5.4 Deanna Deao RN*484628****<ETB>
-    POCSAG1200: Address:  629526  Function: 2  Alpha:   814 237-****<ETB><ETB>
-    POCSAG1200: Address:  920624  Function: 0  Alpha:   <ENQ><BEL><SYN>BW.a"<BS><DC1>bBA<FF>
-    POCSAG1200: Address:  680026  Function: 2  Alpha:   FR:bbds@geisinger.edu >GWV Blood Bank Order Ready >Red blood cells ordered for patient: 7184821 are ready for pickup from the GWV BloodBank.
-    POCSAG1200: Address:  673630  Function: 2  Alpha:   Page:50: HBG HOSP- HAM (717)782-**** [NAME REDACTED] 714D DOB **-**-38 2252 DR. SAPNA ROUTINE HIST OF DHF- CURRENTLY ADMIT W/ VASCULAR CONGESTION NOT DIERESES WELL ON IV LASIX- PLEASE EVAL <ETB>
-    POCSAG1200: Address:  693535  Function: 2  Alpha:    New consult placed for N221.2, S,R known to cardiology.  Admitted for hypoxia, 2/2 to bronchi's/OSA, underlying CHF.  *847380****- No return call required!<ETB>
-    POCSAG1200: Address:  669254  Function: 2  Alpha:   FR:modelsystem@epicsys.com >Message:<LF>Pt:[NAME REDACTED]<LF>Sex:Male<LF>MRN:3180112<LF>CUR UNIT/BED: RH EMERGENCY E02<LF>ASN UNIT/BED: RH R3EA R309 02<LF>Iso:No active isolations<LF>Inf:<LF>Principal Problem:<LF>  Diverticulitis large intestine<LF>Act
-    POCSAG1200: Address:  701302  Function: 2  Alpha:   Routine AH 5F (814)889-**** [NAME REDACTED] 587 DOB **-**-88 Pacreatitis and possible colitis Rahman (same) 982039651 
-    POCSAG1200: Address:  678536  Function: 2  Alpha:   SURG :surgery CALLBACK#:717988**** REASON:discharge PT.IN:cc ROOM#:404<ETB>
-    POCSAG1200: Address:  697220  Function: 2  Alpha:   RQSTD [T]: [NAME REDACTED] 79 MN:3062896 F UNIT:4B ORGN:GLH-ICCU ATN:ESSRANI, RAJESH HS:Hospitalist (GLHHOS) DX:Acute respiratory failure, unspecified whether with hypoxia or hypercapnia <ETB>
-    POCSAG1200: Address:  703786  Function: 2  Alpha:   NB/HBG HOSPITAL 717 782 **** [NAME REDACTED] 1016D DOB **-**-34 8758 DR ANAND ROUTINE HIST OF CHF AFIB ADMITTED FOR POSSIBLE GIANT CELL ARTERIES SEE CHART  --NB-- <ETB>
-    POCSAG1200: Address:  658811  Function: 2  Alpha:    C114 S.K. CXR online.*484628****<ETB>
-    POCSAG1200: Address:  919004  Function: 3  Alpha:    Tier 3 - Adult : D2 : E T A 0<ETB>
-    POCSAG1200: Address:  678155  Function: 2  Alpha:   NEW JOB: BED: 7 East Room 730 Bed 01 BED ID: 73001 STATUS: Dirty  PRECAUTIONS: *Standard
-    POCSAG1200: Address:  661116  Function: 2  Alpha:   Hi, Re: [NAME REDACTED], she is Ag positive for c.diff and CT over read is in. Please call to discuss when convenient. Thanks, Sam and Noreen x310796<ETB><ETB>
-    POCSAG1200: Address:  585386  Function: 2  Alpha:   1 of 2: Page:14: POC: PT Dr:LANGON From:[NAME REDACTED] Can this wait till ofc open?: Relationship to PT:SAME ANI: AC/Tel#570-527-**** PT Nm:SAME If Hosp,  In PT or New admission? Med Rec# or DOB:**/**/61 Mssg:HA <ETB>
-    POCSAG1200: Address:  585386  Function: 2  Alpha:   2 of 2: S A QUESTION ON RABIES AND IF HIS CIRCUMSTANCES WARRANT A RABIES SHOT call back #800 359 ****
-    POCSAG1200: Address:  705429  Function: 2  Alpha:   FR:Discern_Expert@cerner.com >Patient Discharged >The patient in room 2166  has been discharged by Internal Medicine under the Rx-To-Go Program.<ETB>
-    POCSAG512: Address:  763909  Function: 0  Alpha:   <ETX>DI<#P<ACK>f
-    POCSAG512: Address:       0  Function: 0 
-    POCSAG512: Address:       1  Function: 0 
-    POCSAG512: Address:       2  Function: 0 
-    POCSAG512: Address:       2  Function: 0 
-    POCSAG512: Address:       3  Function: 0 
-    POCSAG1200: Address:  691491  Function: 2  Alpha:   TT PENDING REQUEST, JOB #2489206: [NAME REDACTED] 131618027 FROM GWV OBS Room 206 Bed A TO MS5 Room M516 Bed A, BY Wheelchair<ETB><ETB>
-    POCSAG1200: Address:  673576  Function: 2  Alpha:   FR:km911@fastmail.fm >LLEMS@13:23 > [ADDRESS REDACTED] E CHERRY ST, Palmyra Boro [NAME REDACTED] Med Class1 Difficulty Breathing MU4-2 Fire-Box 1-02 EMS-Box 4-1 <LF>To unsubscribe reply STOP<ETB>
-    POCSAG1200: Address:  926075  Function: 2  Alpha:   FR:modelsystem@epicsys.com >Message:<LF>Pt:[NAME REDACTED]<LF>Sex:Male<LF>MRN:0394009<LF>CUR UNIT/BED: RH R3SO 02<LF>ASN UNIT/BED: RH T2 T2018 01<LF>Iso:No active isolations<LF>Inf:<LF>Active Problems:<LF>  Hand abscess<LF>  Abscess of finger<ETB><ETB>
-    POCSAG1200: Address: 1605264  Function: 2  Alpha:   0-n<BEL>=EK|<ENQ>dZs<FS><DEL>O~<LF><NAK>'<EOT><ETB> |t<DLE>Ue.,?pL@<GS><SO><DC2>y<SOH>O7yP<SUB>y<SOH>7woo[<SYN><CAN>*U(}7xL3e<RS>[<SO>Wqf<SYN>#/O<DC1>7>YC2R|$<FF>J^<SI><ETB>Iz<EOT>l<{
-    POCSAG1200: Address:  646320  Function: 2  Alpha:    Hey its Jocelyn calling about R337-02 Brandenburg. Thank you *484628****<ETB>
-    POCSAG1200: Address:  663832  Function: 2  Alpha:   [NAME REDACTED]-- 570 490 **** -  -D.O.B.:**-**-99-Physician:NA-Oper Int.:TAN-MESSA
-    POCSAG1200: Address:  695525  Function: 2  Alpha:   CONF DISCH:07/28/2019 13:25 [NAME REDACTED] 64 Medical #: 348488 F Attending: BURNSIDE, JOYCE A Service: Cardiology Med B Diagnosis: Nonrheumatic aortic (valve) stenosis
-    POCSAG1200: Address:  698172  Function: 2  Alpha:    my NG tube is good to go on N408. would you mind signing the TF recs- No return call required!<ETB><ETB>
-    POCSAG1200: Address:  913861  Function: 2  Alpha:   YOU HAVE VOICE MAIL:496-****
-    POCSAG1200: Address:  691342  Function: 2  Alpha:   ASSGN: [NAME REDACTED] 78 MN:7003289 F UNIT:HFAM8 DRM:H85001 DCS:Occupied ORGN:BED MANAGEMENT ATN:BURNSIDE, JOYCE A HS:Cardiology GMC DX:Non-ST elevation (NSTEMI) myocardial infarction CMT
-    POCSAG1200: Address:  696760  Function: 2  Alpha:   FR:mailmgr@acmh.org >Housekeeping Request >  ***  NOTICE OF DISCHARGE  ***      <LF>ROOM/BED: 334<LF>DISCHARGE DATE:  07/28/19<LF>DISCHARGE TIME: 1257 <LF>ACCT# :  V00131749566<ETB>
-    POCSAG1200: Address:  702934  Function: 2  Alpha:   570703**** Please call Kevin RN, ext 8128, in regard to patient ED9, Ty
-    POCSAG1200: Address:  673514  Function: 2  Alpha:   FR:SMTPDefault@pinnaclehealth.org >Epic In Basket: Orders<LF>From: Fnu Sapna, MD<LF>The information transmitted is intended only for the person or entity to which it is addressed and may contain confidential and/or privileged material. Any r<ETB><ETB>
+<style>
+  .message {
+  font-size: 10pt;
+  line-height: 140%;
+  font-family: monospace;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+  margin-bottom: .3em;
+  }
+
+  .redact {
+  color: #fbb;
+  }
+</style>
+
+<div class="pre">
+<div class="message">
+multimon-ng 1.1.8<br>
+Available demodulators: POCSAG512 POCSAG1200 POCSAG2400 FLEX EAS UFSK1200 CLIPFSK FMSFSK AFSK1200 AFSK2400 AFSK2400_2 AFSK2400_3 HAPN4800 FSK9600 DTMF ZVEI1 ZVEI2 ZVEI3 DZVEI PZVEI EEA EIA CCIR MORSE_CW DUMPCSV X10 SCOPE
+</div>
+<div class="message">
+Addr:695069 FR:EVSPaging@pinnaclehealth.org >End of Break >Break: Lunch Break<br>Length: 30 minutes<br>has ended.<br>Sign in for your next assignment.<br>Email tracking (CAL) ID: 7447159
+</div>
+<div class="message">
+Addr:698390 can you please call Lori on hfam6 @1653
+</div>
+<div class="message">
+Addr:695520 CONF DISCH:07/28/2019 13:10 <span class="redact">[NAME REDACTED]</span> 57 Medical #: 7264771 M Attending: GOTOFF, ROBERT ALAN Service: Med Purple Diagnosis: Hepatic failure, unspecified without coma
+</div>
+<div class="message">
+Addr:696308 RRT TO RM 612B
+</div>
+<div class="message">
+Addr:678563 FR:TempTrakAdminGMC@geisinger.edu >!! TempTrak ALERT !! >OR34 Temperature Group B in OR Room Temperature Group B is at 67.1 (Range 68.0-85.0)<br>THIS MESSAGE IS BEING SENT TO NOTIFY YOU THAT A SENSOR IN YOUR AREA HAS GONE OUT OF RANGE. <br> Plea
+</div>
+<div class="message">
+Addr:669195  n202-1  <span class="redact">[NAME REDACTED]</span>   bladder scan 429ml   unable to void  thanks  Jennifer Harley rn*484628<span class="redact">****</span>
+</div>
+<div class="message">
+Addr:705439  lr, room t1023.  vds qhr and small amounts.  PVR not much.  Has BPH  can he have Flomax.  michelle*484628<span class="redact">****</span>
+</div>
+<div class="message">
+Addr:693514 CONF DISCH:07/28/2019 13:15 <span class="redact">[NAME REDACTED]</span> 58 Medical #: 3110773 F Attending: HUMMEL, CHRISTOPHER E Service: Oncology/Gynecology Diagnosis: Malignant neoplasm of endometrium
+</div>
+<div class="message">
+Addr:691258 SPILL CLEAN ALERT: SPILL: Shower BED: GP3-Shower BED ID: 9972624 STATUS TIME: 07/28/2019 13:05 REQUESTER: Nathan Roeder
+</div>
+<div class="message">
+Addr:616009  Lacey Smc East Norwegian (570)621-<span class="redact">****</span> DOB <span class="redact">**</span>-<span class="redact">**</span>-92 Re <span class="redact">[NAME REDACTED]</span>, Please Call To Authorize A Zofran Order For Her Vomiting 
+</div>
+<div class="message">
+Addr:694900 OR36 Humidity Group B 60.8% RH, turned heat up. 16511
+</div>
+<div class="message">
+Addr:680545 NEW JOB: BED: ICCU Room 03 BED ID: 2031 STATUS: Dirty   PRECAUTIONS: *Standard
+</div>
+<div class="message">
+Addr:759992 Susan, 302-<span class="redact">****</span>, Brain Attack ED 6
+</div>
+<div class="message">
+Addr:684121 CLEAN [T]: <span class="redact">[NAME REDACTED]</span> 61 MN:6421978 M UNIT:MS3W DRM:M309A DCS:Clean ORGN:MS ICU ATN:LOPEZ JR, JOSEPH MARTIN HS:General Surgery GWV DX:Fournier gangrene
+</div>
+<div class="message">
+Addr:701367 FR:EVS@sluhn.org &gt; <br>[St. Lukes University Health Network has been named one of the nat<br>ions 100 Top Hospitals by IBM Watson Health for 2019. We <br>are honored to be a 7-time recipient of this prestigious
+</div>
+<div class="message">
+Addr:654342 STAT ADD ON HEPFA  X60646  Gcmctra, Seventy #7758519 - <span class="redact">[NAME REDACTED]</span>
+</div>
+<div class="message">
+Addr:691816 FR:EVSPaging@pinnaclehealth.org &gt;Escalation Warning &gt;CG 2R 280 280 W<br>will soon be escalated for taking too long to turn around.<br>Email tracking (CAL) ID: 744717
+</div>
+<div class="message">
+Addr:701451  patient DO on T1 room 1013 refuses Veltassa K+5.4 Deanna Deao RN*484628<span class="redact">****</span>
+</div>
+<div class="message">
+Addr:680026 FR:bbds@geisinger.edu &gt;GWV Blood Bank Order Ready &gt;Red blood cells ordered for patient: 7184821 are ready for pickup from the GWV BloodBank.
+</div>
+<div class="message">
+Addr:673630 Page:50: HBG HOSP- HAM (717)782-<span class="redact">****</span> <span class="redact">[NAME REDACTED]</span> 714D DOB <span class="redact">**</span>-<span class="redact">**</span>-38 2252 DR. SAPNA ROUTINE HIST OF DHF- CURRENTLY ADMIT W/ VASCULAR CONGESTION NOT DIERESES WELL ON IV LASIX- PLEASE EVAL 
+</div>
+<div class="message">
+Addr:693535  New consult placed for N221.2, S,R known to cardiology.  Admitted for hypoxia, 2/2 to bronchi's/OSA, underlying CHF.  *847380<span class="redact">****</span>- No return call required!
+</div>
+<div class="message">
+Addr:701302 Routine AH 5F (814)889-<span class="redact">****</span> <span class="redact">[NAME REDACTED]</span> 587 DOB <span class="redact">**</span>-<span class="redact">**</span>-88 Pacreatitis and possible colitis Rahman (same) 982039651 
+</div>
+<div class="message">
+Addr:697220 RQSTD [T]: <span class="redact">[NAME REDACTED]</span> 79 MN:3062896 F UNIT:4B ORGN:GLH-ICCU ATN:ESSRANI, RAJESH HS:Hospitalist (GLHHOS) DX:Acute respiratory failure, unspecified whether with hypoxia or hypercapnia 
+</div>
+<div class="message">
+Addr:703786 NB/HBG HOSPITAL 717 782 <span class="redact">****</span> <span class="redact">[NAME REDACTED]</span> 1016D DOB <span class="redact">**</span>-<span class="redact">**</span>-34 8758 DR ANAND ROUTINE HIST OF CHF AFIB ADMITTED FOR POSSIBLE GIANT CELL ARTERIES SEE CHART  --NB-- 
+</div>
+<div class="message">
+Addr:661116 Hi, Re: <span class="redact">[NAME REDACTED]</span>, she is Ag positive for c.diff and CT over read is in. Please call to discuss when convenient. Thanks, Sam and Noreen x310796
+</div>
+<div class="message">
+Addr:585386 1 of 2: Page:14: POC: PT Dr:LANGON From:<span class="redact">[NAME REDACTED]</span> Can this wait till ofc open?: Relationship to PT:SAME ANI: AC/Tel#570-527-<span class="redact">****</span> PT Nm:SAME If Hosp,  In PT or New admission? Med Rec# or DOB:<span class="redact">**</span>/<span class="redact">**</span>/61 Mssg:HA 
+</div>
+<div class="message">
+Addr:585386 2 of 2: S A QUESTION ON RABIES AND IF HIS CIRCUMSTANCES WARRANT A RABIES SHOT call back #800 359 <span class="redact">****</span>
+</div>
+<div class="message">
+Addr:705429 FR:Discern_Expert@cerner.com &gt;Patient Discharged &gt;The patient in room 2166  has been discharged by Internal Medicine under the Rx-To-Go Program.
+</div>
+<div class="message">
+Addr:691491 TT PENDING REQUEST, JOB #2489206: <span class="redact">[NAME REDACTED]</span> 131618027 FROM GWV OBS Room 206 Bed A TO MS5 Room M516 Bed A, BY Wheelchair
+</div>
+<div class="message">
+Addr:673576 FR:km911@fastmail.fm &gt;LLEMS@13:23 &gt; <span class="redact">[ADDRESS REDACTED]</span> E CHERRY ST, Palmyra Boro <span class="redact">[NAME REDACTED]</span> Med Class1 Difficulty Breathing MU4-2 Fire-Box 1-02 EMS-Box 4-1 <br>To unsubscribe reply STOP
+</div>
+<div class="message">
+Addr:926075 FR:modelsystem@epicsys.com &gt;Message:<br>Pt:<span class="redact">[NAME REDACTED]</span><br>Sex:Male<br>MRN:0394009<br>CUR UNIT/BED: RH R3SO 02<br>ASN UNIT/BED: RH T2 T2018 01<br>Iso:No active isolations<br>Inf:<br>Active Problems:<br>  Hand abscess<br>  Abscess of finger
+</div>
+<div class="message">
+Addr:1605264 0-n&lt;BEL&gt;=EK|&lt;ENQ&gt;dZs&lt;FS&gt;&lt;DEL&gt;O~&lt;LF&gt;&lt;NAK&gt;'&lt;EOT&gt;&lt;ETB&gt; |t&lt;DLE&gt;Ue.,?pL@&lt;GS&gt;&lt;SO&gt;&lt;DC2&gt;y&lt;SOH&gt;O7yP&lt;SUB&gt;y&lt;SOH&gt;7woo[&lt;SYN&gt;&lt;CAN&gt;*U(}7xL3e&lt;RS&gt;[&lt;SO&gt;Wqf&lt;SYN&gt;#/O&lt;DC1&gt;7&gt;YC2R|$&lt;FF&gt;J^&lt;SI&gt;&lt;ETB&gt;Iz&lt;EOT&gt;l&lt;{
+</div>
+<div class="message">
+Addr:646320  Hey its Jocelyn calling about R337-02 Brandenburg. Thank you *484628<span class="redact">****</span>
+</div>
+<div class="message">
+Addr:695525 CONF DISCH:07/28/2019 13:25 <span class="redact">[NAME REDACTED]</span> 64 Medical #: 348488 F Attending: BURNSIDE, JOYCE A Service: Cardiology Med B Diagnosis: Nonrheumatic aortic (valve) stenosis
+</div>
+<div class="message">
+Addr:698172  my NG tube is good to go on N408. would you mind signing the TF recs- No return call required!
+</div>
+<div class="message">
+Addr:913861 YOU HAVE VOICE MAIL:496-<span class="redact">****</span>
+</div>
+<div class="message">
+Addr:691342 ASSGN: <span class="redact">[NAME REDACTED]</span> 78 MN:7003289 F UNIT:HFAM8 DRM:H85001 DCS:Occupied ORGN:BED MANAGEMENT ATN:BURNSIDE, JOYCE A HS:Cardiology GMC DX:Non-ST elevation (NSTEMI) myocardial infarction CMT
+</div>
+<div class="message">
+Addr:696760 FR:mailmgr@acmh.org &gt;Housekeeping Request &gt;  ***  NOTICE OF DISCHARGE  ***      <br>ROOM/BED: 334<br>DISCHARGE DATE:  07/28/19<br>DISCHARGE TIME: 1257 <br>ACCT# :  V00131749566
+</div>
+<div class="message">
+Addr:702934 570703<span class="redact">****</span> Please call Kevin RN, ext 8128, in regard to patient ED9, Ty
+</div>
+<div class="message">
+Addr:673514 FR:SMTPDefault@pinnaclehealth.org &gt;Epic In Basket: Orders<br>From: Fnu Sapna, MD<br>The information transmitted is intended only for the person or entity to which it is addressed and may contain confidential and/or privileged material. Any r
+</div>
+</div>
     
 Analog TV
 ---------
@@ -298,7 +379,7 @@ decode to frames
 
 <a class="glightbox video-thumbnail" href="http://drew/sdr/ntsc-cc.mp4"><video width="740"><source src="http://drew/sdr/ntsc-cc.mp4" type="video/mp4"></video></a>
 
-<img class="glightbox" src="http://drew/sdr/ntscinfo.png">
+<img class="glightbox" src="http://drew/sdr/ntscinfo.png" width="740">
 
 how faithfully can we recreate those analog artifacts? [[reference image](http://drew/sdr/colorbars_ref.png)]
 
@@ -310,7 +391,7 @@ that dot crawl! ringing artifacts! that color bleed!
 
 what can we actually do though? in theory receive scrambled channels, but those are long gone. can do next best thing, which is recreate ourselves
 
-<img class="glightbox" src="http://drew/sdr/gss-waveform.png">
+<img class="glightbox" src="http://drew/sdr/gss-waveform.png" width="740">
 
 <a href="http://drew/sdr/scramble_orig.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/scramble_orig.mp4" type="video/mp4"></video></a>
 
@@ -345,34 +426,26 @@ But alas, it's just some kind of signal quality marker.
 But apparently Teletext was active in South Africa, albeit in a somewhat moribund state, [as late as 2015](https://medium.com/@carinbevan/let-me-teledata-that-for-you-9a5a19cb01c4)!?
 I think I would have felt like winning the lottery if I had found an active Teletext system still running in 2019.
 
-HDTV
+Digital TV
 ----
 
 <img class="glightbox" src="http://drew/sdr/hdtv-ant.jpg" width="740" />
 
-potato
+decent reception with the rabbit ears antenna, but not consistent enough across the full bandwidth allocation to successfully decode.
+apparently sticking a [wire into a potato](https://blog.solidsignal.com/tutorials/hd-blade-vs-potato-can-spud-bring-goods/) works fairly well.
 
-TBN -- Hour of Power
+<div>
+<a style="margin-right: 20px;" href="http://drew/sdr/atsc/prog3.mp4" class="glightbox video-thumbnail"><video width="360" poster="http://drew/sdr/atsc/thumb3.jpg"><source src="http://drew/sdr/atsc/prog3.mp4" type="video/mp4"></video></a><a href="http://drew/sdr/atsc/prog4.mp4" class="glightbox video-thumbnail"><video width="360" poster="http://drew/sdr/atsc/thumb4.jpg"><source src="http://drew/sdr/atsc/prog4.mp4" type="video/mp4"></video></a>
+</div>
 
-<a href="http://drew/sdr/atsc/prog3.mp4" class="glightbox video-thumbnail"><video width="360"><source src="http://drew/sdr/atsc/prog3.mp4" type="video/mp4"></video></a>
-
-Hillsong -- InTouch
-
-<a href="http://drew/sdr/atsc/prog4.mp4" class="glightbox video-thumbnail"><video width="360"><source src="http://drew/sdr/atsc/prog4.mp4" type="video/mp4"></video></a>
-
-JUCE -- Music Blender
-
-<a href="http://drew/sdr/atsc/prog5.mp4" class="glightbox video-thumbnail"><video width="360"><source src="http://drew/sdr/atsc/prog5.mp4" type="video/mp4"></video></a>
-
-Enlace -- Maratónica
-
-<a href="http://drew/sdr/atsc/prog6.mp4" class="glightbox video-thumbnail"><video width="360"><source src="http://drew/sdr/atsc/prog6.mp4" type="video/mp4"></video></a>
-
+<div style="margin-top: 10px; text-align: center;">
+<a style="margin-right: 20px;" href="http://drew/sdr/atsc/prog5.mp4" class="glightbox video-thumbnail"><video width="297"><source src="http://drew/sdr/atsc/prog5.mp4" type="video/mp4"></video></a><a href="http://drew/sdr/atsc/prog6.mp4" class="glightbox video-thumbnail"><video width="297"><source src="http://drew/sdr/atsc/prog6.mp4" type="video/mp4"></video></a>
+</div>
 
 That's... a lot to unpack from just 60 seconds captured at random.
 That said, the [video for _I'm Turn't_](https://www.youtube.com/watch?v=YiUdrIsqmyQ) is pretty great
 
-<img class="glightbox" src="http://drew/sdr/atsc/program_guide.png" />
+<img class="glightbox" src="http://drew/sdr/atsc/program_guide.png" width="740" />
 
 SSTV from the ISS
 --------

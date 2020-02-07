@@ -209,6 +209,15 @@ code {
   font-size: 10pt;
 }
 
+.pre {
+  color: white;
+  background-color: #222;
+  margin: 3em 30px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px #667 solid;
+}
+
 #disqus_thread {
   margin-bottom: -80px;
 }
