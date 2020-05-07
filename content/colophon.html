@@ -50,7 +50,7 @@ end
 %>
 
 <p>
-Revision <a target="_blank" href="http://github.com/mrgriscom/mrgris.com"><span class="rev"><%= git_current_rev() + (git_is_dirty() ? ' (dirty)' : '') %></span></a>,
+Revision <a target="_blank" href="http://github.com/mrgriscom/mrgris.com"><span class="rev"><%= git_current_rev() + (git_is_dirty() ? '*' : '') %></span></a>,
 last modified on <b><%= git_last_modified() %></b>.
 </p>
 

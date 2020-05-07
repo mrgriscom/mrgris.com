@@ -132,10 +132,11 @@ class DjangoProject(object):
         rule_buffer.add((self, pagename))
 
     def override_template(self, pagename):
+        base = get_base_template(pagename)
         with open(os.path.join(self.template_override_dir, '%s.html' % pagename), 'w') as f:
-            f.write('{%% extends "_%s.html" %%}\n' % pagename)
+            f.write('{%% extends "%s.html" %%}\n' % base)
 
-            for blockname in get_blocks(pagename):
+            for blockname in get_blocks(base):
                 if blockname == 'main':
                     inner = 'yield'
                 else:
@@ -203,8 +204,15 @@ def django_dump(url, path):
         with open(path, 'w') as f:
             f.write(response.content)
 
+def get_base_template(pagename):
+    template_path = glob.glob('*/templates/%s.html' % pagename)[0]
+    with open(template_path) as f:
+        template = f.read()
+    EXT_TAG = '\{% *extends +"(?P<id>[a-zA-Z0-9_]+).html" *%\}'
+    return re.search(EXT_TAG, template).group('id')
+            
 def get_blocks(pagename):
-    template_path = glob.glob('*/templates/_%s.html' % pagename)[0]
+    template_path = glob.glob('*/templates/%s.html' % pagename)[0]
     with open(template_path) as f:
         template = f.read()
     BLOCK_TAG = '\{% *block +(?P<id>[a-zA-Z0-9_]+) *%\}'
