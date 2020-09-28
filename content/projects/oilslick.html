@@ -20,7 +20,7 @@ Provides global coverage to 3&#x2033; / 90m resolution.
     map.attributionControl.setPrefix('');
 
     var layers = {
-        'Oilslick': L.tileLayer('http://s3.amazonaws.com/oilslick/{z}/{x}/{y}.jpg', {
+        'Oilslick': L.tileLayer.fallback('http://s3.amazonaws.com/oilslick/{z}/{x}/{y}.jpg', {
             maxZoom: 11,
             attribution: '<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC4.0 BY-SA-NC</a> Drew Roos, <a href="http://www.viewfinderpanoramas.org/dem3.html">Jonathan de Ferranti</a>, <a href="http://nsidc.org/data/nsidc-0082">NSIDC</a>',
         }),
@@ -126,6 +126,7 @@ Provides global coverage to 3&#x2033; / 90m resolution.
 <% end %>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.js"></script>
+<script src="/script/leaflet.tilelayer.fallback.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9R4KmWiOCHumjFmrgKDEzdiPMd5NwwbY"></script>
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.css" />
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Open+Sans:400|600" />
