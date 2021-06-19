@@ -201,11 +201,27 @@ Appears to be some kind of news article in Greek transliterated to the latin alp
 
 If you listen carefully you can hear Turkish maritime station 8431 kHz bleeding though (TAH in morse code).
 
-[wefax]
+WEFAX
 
-bad SA image - not just me https://goughlui.com/2019/02/16/radiofax-the-quest-for-zsj-cape-naval-south-africa-updates/
+<img class="glightbox" width="740" src="http://drew/sdr/wefax/sa_best.png">
 
-better US captures
+Here's what it's [supposed to look like](http://drew/sdr/wefax/sa_ref_20191017.gif) -- (hand-drawn map!)
+
+Can't explain the weird echo/ghosting. Even quite apparent in the raw audio feed.
+
+<audio controls>
+  <source src="http://drew/sdr/wefax/sa_echo.mp3" type="audio/mpeg">
+</audio>
+<!-- todo make shorter, maybe a bit quieter? -->
+
+Turns out [it's not just me](https://goughlui.com/2019/02/16/radiofax-the-quest-for-zsj-cape-naval-south-africa-updates/). A relief to see that my struggles with this station weren't my own shortcomings but rather more [T.I.A.](https://www.youtube.com/watch?v=SLd74Ukkbic)
+
+Much better results from America.
+
+<img class="glightbox" width="740" src="http://drew/sdr/wefax/surface_analysis.png">
+<img class="glightbox" width="740" src="http://drew/sdr/wefax/iceberg.png">
+<img class="glightbox" width="740" src="http://drew/sdr/wefax/satcloud.png">
+<img class="glightbox" width="740" src="http://drew/sdr/wefax/schedule.png">
 
 NAVTEX
 ------
@@ -713,6 +729,14 @@ Also note how the IR pulses register on the camera sensor, although invisible to
 
 Applying AM demodulation reveals the underlying data signal.
 
+FT8 / WSPR
+----------
+
+<img class="glightbox" width="740" src="http://drew/sdr/ft8-usnj.png" />
+<img class="glightbox" width="740" src="http://drew/sdr/ft8-zawc.png" />
+
+<a href="http://drew/sdr/ft8-live.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/ft8-live.mp4" type="video/mp4"></video></a>
+
 UHF pirates
 -----------
 
@@ -780,13 +804,10 @@ A higher-specced SDR (at least 10 MHz bandwidth or ideally 30, vs. the RTL-SDR's
 
 TODO:
 
-navtex
 smart meter
-ft8
 numbers station
+ham ssb ragchewing
 
-wefax
-wefax sa botched audio?
 
 
 
