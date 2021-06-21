@@ -205,11 +205,11 @@ Also encode the date/time in some machine readable fashion.
 
 USA broadcats WWV on 2.5/5/10/15/20 MHz, and encodes the date and time with a 1-bit-per-second varying pulse length low hum.
 
-<a class="glightbox video-thumbnail" href="http://drew/sdr/wwv.mp4"><video width="740"><source src="http://drew/sdr/wwv.mp4" type="video/mp4"></video></a>
+<a class="glightbox video-thumbnail" href="http://drew/sdr/wwv.mp4"><video width="740" poster="http://drew/sdr/wwv_thumb.png"><source src="http://drew/sdr/wwv.mp4" type="video/mp4"></video></a>
 
 Canada's CHU 3.33 MHz encodes things differently, using a data burst. The protocol is the absolutely ancient [Bell 103 modem](http://drew/sdr/bell103.jpg) standard.
 
-<a class="glightbox video-thumbnail" href="http://drew/sdr/chu.mp4"><video width="740"><source src="http://drew/sdr/chu.mp4" type="video/mp4"></video></a>
+<a class="glightbox video-thumbnail" href="http://drew/sdr/chu.mp4"><video width="740" poster="http://drew/sdr/chu_thumb.png"><source src="http://drew/sdr/chu.mp4" type="video/mp4"></video></a>
 
 GPS has made these essentially obsolete.
 
@@ -412,13 +412,15 @@ Trunked Radio
 
 P25
 
-<img class="glightbox" src="http://drew/sdr/p25.png">
+<img class="glightbox" width="740" src="http://drew/sdr/p25.png">
 
-[add audio composite]
+<audio controls>
+  <source src="http://drew/sdr/p25.mp3" type="audio/mpeg">
+</audio>
 
-<img class="glightbox" src="http://drew/sdr/tetra.png">
+Seems like most of what these people do is reading numbers at each other. Think I'm missing a lot of the conversation due to all the concurrent talk groups and frequency hopping (which exceeds the range that a single RTL-SDR can receive concurrently). I never played with this beyond the proof-of-concept stage. 
 
-(this is kinda boring... remove?)
+Europe uses a different system called TETRA
 
 Medical Pagers
 --------------
@@ -778,7 +780,12 @@ FT8 / WSPR
 ----------
 
 <img class="glightbox" width="740" src="http://drew/sdr/ft8-usnj.png" />
+
+Fiji, Antarctica, Saudi Arabia!
+
 <img class="glightbox" width="740" src="http://drew/sdr/ft8-zawc.png" />
+
+St. Helena, Hawaii (nearly halfway around the world), far east Asia: Khabarovsk/Vladivostok/Hokkaido
 
 <a href="http://drew/sdr/ft8-live.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/ft8-live.mp4" type="video/mp4"></video></a>
 
