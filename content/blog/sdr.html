@@ -198,6 +198,23 @@ Appears to be some kind of news article in Greek transliterated to the latin alp
 
 If you listen carefully you can hear Turkish maritime station 8431 kHz bleeding though (TAH in morse code).
 
+Time signals
+
+Can listen to atomic clock time signals broadcast by national laboratories.
+Also encode the date/time in some machine readable fashion.
+
+USA broadcats WWV on 2.5/5/10/15/20 MHz, and encodes the date and time with a 1-bit-per-second varying pulse length low hum.
+
+<a class="glightbox video-thumbnail" href="http://drew/sdr/wwv.mp4"><video width="740"><source src="http://drew/sdr/wwv.mp4" type="video/mp4"></video></a>
+
+Canada's CHU 3.33 MHz encodes things differently, using a data burst. The protocol is the absolutely ancient [Bell 103 modem](http://drew/sdr/bell103.jpg) standard.
+
+<a class="glightbox video-thumbnail" href="http://drew/sdr/chu.mp4"><video width="740"><source src="http://drew/sdr/chu.mp4" type="video/mp4"></video></a>
+
+GPS has made these essentially obsolete.
+
+These are rebroadcasts of the fundamental signal, a data-only signal WWVB at 60 kHz. Also Germany's DCF at 77.5 kHz. These are what are used by those radio-synced "atomic clocks" you can buy. Noise becomes a major problem for wideband receivers at these low frequencies and I haven't had any luck receiving them. The lowest OTA signal I've been able to receive to date was Radio Antena Satelor at 153 kHz while in Romania.
+
 WEFAX
 
 <img class="glightbox" width="740" src="http://drew/sdr/wefax/sa_best.png">
@@ -832,9 +849,7 @@ A higher-specced SDR (at least 10 MHz bandwidth or ideally 30, vs. the RTL-SDR's
 
 TODO:
 
-smart meter
 ham ssb ragchewing
-wwvb/chu clock.exe
 
 
 
