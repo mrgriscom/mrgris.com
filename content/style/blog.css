@@ -61,6 +61,13 @@ p {
 	margin: 0 0 2.4em 0;
 }
 
+ul {
+	margin: 0 0 2.4em 0;
+}
+p + ul {
+	margin: -0.5em 0 2.4em 0;
+}
+
 a:focus {
 	outline: none;
 }
@@ -137,18 +144,19 @@ a:focus {
   font-style: normal;
   float: none;
   clear: both;
-  margin: 0.5em 0;
 }
 
 #post > h1 {
   font-size: 25pt;
   line-height: 25pt;
+  margin: 2.2em 0 1.4em 0;
 }
 #post > h2 {
   font-size: 18pt;
   line-height: 18pt;
   border-left: 5px #ccc solid;
   padding-left: 0.5em;
+  margin: 2em 0 1em 0;
 }
 
 a {
