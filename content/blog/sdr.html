@@ -10,33 +10,55 @@ title: "Adventures in SDR"
 <!-- replace with glightbox svg -->
 <script src="https://use.fontawesome.com/f347f9feb2.js"></script>
 
-I recently bought a Software Defined Radio for... reasons... and holy shit this thing has completely blown my mind. What is a software defined radio, you ask? Well, a traditional radio (where 'radio' means any wireless communication device) tunes to a specific frequency and has lots of purpose-built circuits to process and interpret the signal. A software-defined radio, on the other hand, captures the raw radio wave and sends it to a computer, which can replace all that specialized processing with software (oversimplifying a lot). As a result, a single hardware device can replicate many different kinds of radios, or even experiment with new ones, and provide access to the signals at a level normally hidden from view.
+I recently bought a Software Defined Radio for... [reasons...](https://news.ycombinator.com/item?id=19864189){:target="_blank"} and holy shit this thing has completely blown my mind.
+What is a software defined radio, you ask?
+Well, a traditional radio (where 'radio' is taken to mean any wireless communication device) tunes to a specific frequency and has lots of purpose-built circuits to process and interpret the signal.
+A software-defined radio, on the other hand, captures the raw radio wave and sends it to a computer, which can replace all that specialized processing with software (oversimplifying a lot).
+As a result, a single hardware device can replicate many different kinds of radios, or even experiment with new ones, and provide access to the signals at a level normally hidden from view.
+
+We know these radio waves are all around us at all times, but to actually be able to *see* and play with them... it's a very strange feeling-- a kind of escaping-the-matrix, pulling back on the veils of existence experience.
+
+Within minutes of unboxing you can listen to all kinds of radio chatter: FM radio, walkie-talkies, marine band, air band, weather band...
+And while audio transmissions are cool and all, the real 🤯 stuff starts when decoding data transmissions out of thin air.
+Wireless data seems so crisp and clean, but an SDR exposes all the squishy analog reality beneath.
+
+It's incredibly addictive.
+You keep chasing ever more new signals to intercept and decode.
+This post is a catalog of my various SDR trophies.
+And all from a [$20 USB dongle](https://www.rtl-sdr.com/buy-rtl-sdr-dvb-t-dongles/){:target="_blank"} and basic rabbit ears antenna.
+
+The delightfully minimal setup below. Most of the exploits in the post used nothing more than this:
 
 <img class="glightbox" src="http://drew/sdr/setup.jpg" width="740" class="glightbox" />
 
-We know these radio waves are all around us at all times, but to actually be able to *see* and play with them... it's a very strange feeling-- an escaping-the-matrix, pulling back on the veils of existence kind of vibe.
-
-In the short time I've had this thing, I've listened in on AM/FM radio, marine band, air traffic control, walkie-talkie channels, a shortwave station in China, aircraft navigational beacons...
-
-And while audio transmissions are cool and all, the real 🤯 stuff starts when decoding data transmissions out of thin air. Wireless data seems so crisp and clean, but an SDR exposes all the squishy analog reality beneath. So far I've achieved real-time tracking of ship and plane transponders, eavesdropped on the key fobs for my apartment building and car, sniffed cellular traffic, decoded our Burning Man DIY GPS tracker beacons, and even received a downlink from an orbiting weather satellite. All from a $20 USB dongle and simple rabbit ears antenna.
-
-Sorry not your normal facebook content; just had to share my enthusiasm. It's incredibly addictive. You keep chasing ever more new signals to intercept. Hit me up if you want to go signal hunting.
-
-FM
+Broadcast FM
 --
 
-Listening to FM radio. The SDR sampling is precise enough that we're receiving 8 other adjacent stations simultaneously. Listening to these other stations requires only changing a software parameter, not actually re-tuning the receiver.
+This is the obvious first stop for testing out a radio.
+These signals are strong, ubiquitous, and easy to decode.
 
 <img class="glightbox" src="http://drew/sdr/fm.png" width="740" />
+
+The station is coming in loud and clear, but notice we're also receiving 8 other nearby stations at the same time!
+The RTL-SDR can sample the radio wave up to 3.2 million times per second.
+This means it can 'see' 3.2MHz of the radio spectrum simultaneously*.
+In this case the radio is tuned to 99.0MHz, but is receiving everything happening from 97.4--100.6 MHz.
+Listening to these extra stations requires only changing a software parameter, not actually re-tuning the receiver like a typical radio.
+If we wanted to, we could even listen to them all at once.
+
+\* [Nyquist's theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem){:target="_blank"} says the receivable bandwidth is half the sampling rate, which would suggest only 1.6Mhz of spectrum. However, SDRs perform [IQ sampling](https://en.wikipedia.org/wiki/In-phase_and_quadrature_components){:target="_blank"} in the complex plane, effectively yielding two samples per sample.
+{: .footnote}
+
+Note we're also decoding the RDS metadata stream with song and station info.
 
 Walkie-talkies
 --------------
 
-Lots of chatter on walkie-talkie frequencies. Unlike a typical scanner, dozens of channels can be captured simultaneously. (As an aside, most of these people sounded very agitated... harried dock workers?)
+Lots of chatter on walkie-talkie frequencies. Unlike a typical scanner, dozens of channels can be captured simultaneously. (As an aside, most of these people sound very agitated... harried dock workers?)
 
 <img class="glightbox" src="http://drew/sdr/frs.png" width="740" />
 
-AM
+Broadcast AM
 --
 
 Capturing the AM band.
@@ -44,7 +66,7 @@ Cape Town's 3 AM stations clearly visible.
 
 <img class="glightbox" src="http://drew/sdr/am.png" width="740" />
 
-AM band much more alive in the US, with a station visible (thought not necessarily listenable) at every 10 kHz interval.
+The AM band is much more alive in the US, with a station visible (thought not necessarily listenable) at every 10 kHz interval.
 The horizontal light blue lines are broad-spectrum interference from lightning in the area.
 
 <img class="glightbox" src="http://drew/sdr/amus.png" width="740" />
@@ -57,7 +79,25 @@ It's around this time I decided it'd be prudent to reel in my antenna and call i
 Digital Radio
 -------------
 
-HD radio
+Many broadcasts are going digital these days.
+There are differing approaches in use.
+
+<style>
+
+  h3 {
+      font-weight: bold;
+      font-size: 110%;
+  }
+  
+</style>
+
+### HD radio
+
+The offering in North America is HD Radio (where HD actually means "hybrid digital", not "high definition").
+The original analog FM broadcast is left intact, and new digital sidebands add an 'HD' broadcast.
+The digital broadcasts eliminate noise and often provide multiple sub-channels with alternate content.
+
+The solid bar-like appearance means efficient use of the spectrum, though it’s pretty boring to look at.
 
 <img class="glightbox" src="http://drew/sdr/hdradio/hdradio-fft.png" />
 
@@ -93,13 +133,21 @@ SIG Service: type=data number=46 name=HERE TPEG
 SIG Service: type=data number=47 name=HERE Images
 </div>
 
+Here we see two digital broadcasts: channel 1 mirroring the legacy FM broadcast (as required by the FCC), and channel 2 offering a simulcast of the stations talk radio format AM station.
+
+The digital broadcast also includes value-add services like station logos, album art, traffic, and weather.
+It also appears that real-time navigation data might be streamed to certain proprietary GPS units, though I did not investigate further.
+
 <img class="glightbox" src="http://drew/sdr/hdradio/logo.jpg" />
 <img class="glightbox" src="http://drew/sdr/hdradio/album.jpg" />
+<img class="glightbox" src="http://drew/sdr/hdradio/logo2.jpg" />
 <img class="glightbox" src="http://drew/sdr/hdradio/traffic.png" />
 <img class="glightbox" src="http://drew/sdr/hdradio/weather.png" />
 
+### DAB
 
-DAB
+Europe implemented DAB instead or "Digital Audio Broadcasting".
+It makes a clean break with legacy FM, offering no analog counterpart and using completely different frequency ranges.
 
 <img class="glightbox" src="http://drew/sdr/dab.png" width="740" />
 
@@ -160,9 +208,13 @@ Decoded transmission from orbiting weather satellite. Visible clouds (land indis
 
 <img class="glightbox" src="http://drew/sdr/weather-ref.jpg" width="740" />
 
+More weather satellites. You may remember the very rough cut* from last post. Here’s the first decent result I got from the NOAA satellites. Taken around sunset, you can see shadows cast by clouds and land receding into night. It’s a bit hard to make out the coastline, so Cape Peninsula/False Bay circled for reference.
+
 <img class="glightbox" src="http://drew/sdr/noaa-sunset.png" width="740" />
 
 setup shot?
+
+Best result to date:
 
 <img class="glightbox" src="http://drew/sdr/apt-best.png" width="740" />
 
@@ -203,7 +255,7 @@ Shortwave
 
 Aside from lots of normal broadcasts stations, which have exotic languages, and strong dash of propaganda (both religious and political), and definite mystique, shortwave is filled with lots of other interesting stuff. Shortwave travels very long distances, a bit of the wild west, many transmissions used for clandestine purposes or to probe the properties of the ionosphere.
 
-CODAR
+CODAR a special kind of radar that can measure ocean waves and currents.
 
 <img class="glightbox" src="http://drew/sdr/codar.png">
 
@@ -444,10 +496,12 @@ COASTAL NAVWARNING 556 OF 2020
 NNNN
 </div>
 
-Trunked Radio
+Trunked Public Safety Radio
 -------------
 
 P25
+
+While some governments still use analog walkie-talkies*, each conversation requires a dedicated frequency channel. Most conversations are silent most of the time, wasting this limited resource. A trunking system uses virtualized 'talk groups', of which several can use the same channel simultaneously, and also employs frequency hopping to reassign talk groups as needed to maximize utilization.
 
 <img class="glightbox" width="740" src="http://drew/sdr/p25.png">
 
