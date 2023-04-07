@@ -10,6 +10,15 @@ title: "Adventures in SDR"
 <!-- replace with glightbox svg -->
 <script src="https://use.fontawesome.com/f347f9feb2.js"></script>
 
+<style>
+
+h3 {
+  font-weight: bold;
+  font-size: 110%;
+}
+ 
+</style>
+
 I recently bought a Software Defined Radio for... [reasons...](https://news.ycombinator.com/item?id=19864189){:target="_blank"} and holy shit this thing has completely blown my mind.
 What is a software defined radio, you ask?
 Well, a traditional radio (where 'radio' is taken to mean any wireless communication device) tunes to a specific frequency and has lots of purpose-built circuits to process and interpret the signal.
@@ -82,24 +91,15 @@ Digital Radio
 Many broadcasts are going digital these days.
 There are differing approaches in use.
 
-<style>
-
-  h3 {
-      font-weight: bold;
-      font-size: 110%;
-  }
-  
-</style>
-
 ### HD radio
 
-The offering in North America is HD Radio (where HD actually means "hybrid digital", not "high definition").
-The original analog FM broadcast is left intact, and new digital sidebands add an 'HD' broadcast.
-The digital broadcasts eliminate noise and often provide multiple sub-channels with alternate content.
+The North American offering is HD Radio (the HD actually stands for *Hybrid Digital*, not *High-Def*).
+The original analog FM broadcast is left intact, with new digital sidebands added.
 
-The solid bar-like appearance means efficient use of the spectrum, though it’s pretty boring to look at.
+<p style="text-align: center;"><img class="glightbox" src="http://drew/sdr/hdradio/hdradio-fft.png" /></p>
 
-<img class="glightbox" src="http://drew/sdr/hdradio/hdradio-fft.png" />
+The solid bar-like appearance is typical of digital transmissions.
+It means efficient use of the spectrum, though it’s pretty boring to look at.
 
 <style>
   .console {
@@ -108,9 +108,25 @@ The solid bar-like appearance means efficient use of the spectrum, though it’s
   line-height: 140%;
   font-family: monospace;
   }
+  .hdradio {
+      margin-left: 0;
+      width: 495px; // seems to exclude padding?
+  }
 </style>
 
-<div class="pre console">Country: US, FCC facility ID: 66465
+<div style="float: right; margin-left: 20px; margin-bottom: 15px;">
+  <div>
+    <img class="glightbox" src="http://drew/sdr/hdradio/logo.jpg" />
+  </div>
+  <div>
+    <img class="glightbox" src="http://drew/sdr/hdradio/logo2.jpg" />
+  </div>
+  <div>
+    <img class="glightbox" src="http://drew/sdr/hdradio/album.jpg" />
+  </div>
+</div>
+
+<div class="pre console hdradio">Country: US, FCC facility ID: 66465
 Station name: WTIC
 Slogan: 96.5 TIC
 Message: 96.5 TIC Todays Best Variety
@@ -133,21 +149,18 @@ SIG Service: type=data number=46 name=HERE TPEG
 SIG Service: type=data number=47 name=HERE Images
 </div>
 
-Here we see two digital broadcasts: channel 1 mirroring the legacy FM broadcast (as required by the FCC), and channel 2 offering a simulcast of the stations talk radio format AM station.
+As is common with digital broadcasts, multiple content streams are provided.
+Channel 1 duplicates the analog broadcast.
+Channel 2 simulcasts the station's AM talk radio format.
+We can see extensive digital metadata provided, and value-add services such as station logos, album art, traffic, and weather (and possibly proprietary real-time navigation data for specific GPS brands).
 
-The digital broadcast also includes value-add services like station logos, album art, traffic, and weather.
-It also appears that real-time navigation data might be streamed to certain proprietary GPS units, though I did not investigate further.
-
-<img class="glightbox" src="http://drew/sdr/hdradio/logo.jpg" />
-<img class="glightbox" src="http://drew/sdr/hdradio/album.jpg" />
-<img class="glightbox" src="http://drew/sdr/hdradio/logo2.jpg" />
-<img class="glightbox" src="http://drew/sdr/hdradio/traffic.png" />
-<img class="glightbox" src="http://drew/sdr/hdradio/weather.png" />
+<img width="367" style="float: left;" class="glightbox" src="http://drew/sdr/hdradio/traffic.png" />
+<img width="367" style="float: right;" class="glightbox" src="http://drew/sdr/hdradio/weather.png" />
+<p style="clear: both;" />
 
 ### DAB
 
-Europe implemented DAB instead or "Digital Audio Broadcasting".
-It makes a clean break with legacy FM, offering no analog counterpart and using completely different frequency ranges.
+<p>The European <abbr title="Digital Audio Broadcasting">DAB</abbr> standard makes a clean break with legacy FM, offering no analog counterpart and using completely different frequency ranges.</p>
 
 <img class="glightbox" src="http://drew/sdr/dab.png" width="740" />
 
