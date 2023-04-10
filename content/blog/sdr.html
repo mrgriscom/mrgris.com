@@ -150,8 +150,8 @@ SIG Service: type=data number=47 name=HERE Images
 </div>
 
 As is common with digital broadcasts, multiple content streams are provided.
-Channel 1 duplicates the analog broadcast.
-Channel 2 simulcasts the station's AM talk radio format.
+Channel 1 duplicates the analog broadcast (required by the FCC).
+For this station, channel 2 simulcasts their AM talk radio format.
 We can see extensive digital metadata provided, and value-add services such as station logos, album art, traffic, and weather (and possibly proprietary real-time navigation data for specific GPS brands).
 
 <img width="367" style="float: left;" class="glightbox" src="http://drew/sdr/hdradio/traffic.png" />
@@ -167,14 +167,31 @@ We can see extensive digital metadata provided, and value-add services such as s
 AirNav beacons
 --------------
 
-Triangulating my position using the CPT airport and Robben Island VOR airnav beacons. Listening to these beacons directly, you will hear their callsign in morse code. But they also transmit a sub-signal that can derive your current bearing to the beacon.
+<img class="glightbox" style="float: right; margin-left: 2em; margin-bottom: 15px;" src="http://drew/sdr/ndb.png" />
+
+Various radio systems exist to aid in aircraft navigation.
+The simplest -- an NDB (non-directional beacon) -- just endlessly broadcasts its own callsign in morse code.
+
+To the right, we're receiving beacon BSW (![dash](/img/icon/dash.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)&ensp;![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)&ensp;![dot](/img/icon/dot.svg)![dash](/img/icon/dash.svg)![dash](/img/icon/dash.svg)).
+Note you can even make out the morse code directly in the raw signal of the [waterfall plot](https://en.wikipedia.org/wiki/Waterfall_plot){:target="_blank"}.
+
+<p><abbr title="VHF Omnidirectional Range">VORs</abbr> are a more sophisticated beacon, which adds a radar-like sweep to the transmission.
+The timing of the sweep allows the receiver to determine their bearing from the beacon.</p>
+
+Below, I'm triangulating my position using the Cape Town airport (callsign CTV) and Robben Island (callsign RIV) VOR beacons.
+The error on my position fix is 180m, with the CTV and RIV beacons 19km and 15km away, respectively. 
+That puts me juts about at or slightly better than the expected +/-0.5deg accuracy.
+Not bad!
+
+I'm particularly surpised the RIV beacon does so well, with no direct line of sight and Signal Hill in the way.
+No opportunity to investigate further, as RIV was recently decommissioned (a casualty of GPS and common theme for many old signals).
+
+
+<div style="clear:both;" />
 
 <!-- TODO fuzz the location -->
 <img class="glightbox" src="http://drew/sdr/vor.png" width="740" />
 
-A simpler NDB (non-direction beacon) that only broadcasts its callsign (BSW −••• ••• •−−)
-
-<img class="glightbox" src="http://drew/sdr/ndb.png" />
 
 
 Ship-tracking
