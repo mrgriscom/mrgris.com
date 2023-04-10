@@ -172,27 +172,23 @@ AirNav beacons
 Various radio systems exist to aid in aircraft navigation.
 The simplest -- an NDB (non-directional beacon) -- just endlessly broadcasts its own callsign in morse code.
 
-To the right, we're receiving beacon BSW (![dash](/img/icon/dash.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)&ensp;![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)&ensp;![dot](/img/icon/dot.svg)![dash](/img/icon/dash.svg)![dash](/img/icon/dash.svg)).
+To the right, we're receiving beacon BSW (![dash](/img/icon/dash.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)&ensp;![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)&ensp;![dot](/img/icon/dot.svg)![dash](/img/icon/dash.svg)![dash](/img/icon/dash.svg)) at 521kHz.
 Note you can even make out the morse code directly in the raw signal of the [waterfall plot](https://en.wikipedia.org/wiki/Waterfall_plot){:target="_blank"}.
 
 <p><abbr title="VHF Omnidirectional Range">VORs</abbr> are a more sophisticated beacon, which adds a radar-like sweep to the transmission.
-The timing of the sweep allows the receiver to determine their bearing from the beacon.</p>
+The timing of the sweep determines the receiver's bearing from the beacon.</p>
 
 Below, I'm triangulating my position using the Cape Town airport (callsign CTV) and Robben Island (callsign RIV) VOR beacons.
-The error on my position fix is 180m, with the CTV and RIV beacons 19km and 15km away, respectively. 
-That puts me juts about at or slightly better than the expected +/-0.5deg accuracy.
-Not bad!
+A correction for magnetic declination is required as VORs are calibrated for magnetic north.
 
-I'm particularly surpised the RIV beacon does so well, with no direct line of sight and Signal Hill in the way.
-No opportunity to investigate further, as RIV was recently decommissioned (a casualty of GPS and common theme for many old signals).
+<img class="glightbox" style="clear: both;" src="http://drew/sdr/vor.png" width="740" />
 
+The error from my true position is 180m, with CTV and RIV located 19km and 15km away, respectively.
+This puts me just slightly better than the expected &#xb1;0.5&deg; accuracy.
 
-<div style="clear:both;" />
-
-<!-- TODO fuzz the location -->
-<img class="glightbox" src="http://drew/sdr/vor.png" width="740" />
-
-
+I'm particularly impressed the RIV beacon does so well, with no direct line of sight and Signal Hill in the way.
+No opportunity to investigate further, however, as RIV has just been decommissioned!
+Many VORs and NDBs are being shuttered as a casualty of GPS (though a minimum viable network will remain)... a common theme for many older signals.
 
 Ship-tracking
 -------------
