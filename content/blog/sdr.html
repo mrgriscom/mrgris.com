@@ -201,7 +201,7 @@ Flight-tracking
 --------------
 
 Live tracking of aircraft using their ADS-B transponders on 1090 Mhz.
-The Cape Town/Joburg corridor is busy.
+The Cape Town&#x2194;Joburg corridor is busy.
 
 <img class="glightbox" src="http://drew/sdr/flights1.png" width="740" />
 
@@ -219,6 +219,10 @@ LoRa IoT and our DIY Burning Man trackers
 Decoding the location pings from our [DIY GPS trackers](http://doorinthewall.co.za/blog/lora-gps-trackers/), using LoRa internet-of-things protocol. LoRa is proprietary, but like all good things in software, some enterprising hacker has reverse-engineered it.
 
 <img class="glightbox" src="http://drew/sdr/lora.png" width="740" />
+
+Only the bytes highlighted in red comprise our protocol.
+It appears some extra headers and checksums are added by the Arduino library and/or LoRa firmware.
+SDR lets us see the full data being sent 'over the wire'.
 
 Cellular networks
 -----------------
@@ -289,19 +293,26 @@ Shortwave
 
 Aside from lots of normal broadcasts stations, which have exotic languages, and strong dash of propaganda (both religious and political), and definite mystique, shortwave is filled with lots of other interesting stuff. Shortwave travels very long distances, a bit of the wild west, many transmissions used for clandestine purposes or to probe the properties of the ionosphere.
 
-CODAR a special kind of radar that can measure ocean waves and currents.
+Aside from normal broadcast radio, other oddities.
+I think I was able to tune into a broadcast in China, 16,000 km away.
+
+### CODAR
+
+a special kind of radar that can measure ocean waves and currents.
 
 <img class="glightbox" src="http://drew/sdr/codar.png">
 
-Over-the-Horizon defense radar, likely from RAF Akrotiri in Cyprus (received in Bucharest, Romania)
+### Over-the-Horizon defense radar
+
+likely from RAF Akrotiri in Cyprus (received in Bucharest, Romania)
 
 <img class="glightbox" src="http://drew/sdr/oth-radar.png"> <!-- would be cool if this were animated -->
 
-Ionosonde
+### Ionosonde
 
 <a href="http://drew/sdr/ionosonde.mp4" class="glightbox"><video width="740" controls autoplay loop muted><source src="http://drew/sdr/ionosonde.mp4" type="video/mp4"></video></a>
 
-Digital Radio Mondiale
+### Digital Radio Mondiale
 
 <img class="glightbox" src="http://drew/sdr/drm.png">
 
@@ -311,7 +322,7 @@ The raw feed sounds... extremely evil.
   <source src="http://drew/sdr/drm_raw.mp3" type="audio/mpeg">
 </audio>
 
-Radioteletype (rtty)
+### Radioteletype (rtty)
 
 Olympia Radio SVO Pirgos Greece 8424 kHz
 
@@ -321,7 +332,7 @@ Appears to be some kind of news article in Greek transliterated to the latin alp
 
 If you listen carefully you can hear Turkish maritime station 8431 kHz bleeding though (TAH in morse code).
 
-Time signals
+### Time signals
 
 Can listen to atomic clock time signals broadcast by national laboratories.
 Also encode the date/time in some machine readable fashion.
@@ -338,7 +349,7 @@ GPS has made these essentially obsolete.
 
 These are rebroadcasts of the fundamental signal, a data-only signal WWVB at 60 kHz. Also Germany's DCF at 77.5 kHz. These are what are used by those radio-synced "atomic clocks" you can buy. Noise becomes a major problem for wideband receivers at these low frequencies and I haven't had any luck receiving them. The lowest OTA signal I've been able to receive to date was Radio Antena Satelor at 153 kHz while in Romania.
 
-WEFAX
+### WEFAX
 
 <img class="glightbox" width="740" src="http://drew/sdr/wefax/sa_best.png">
 
@@ -360,7 +371,7 @@ Much better results from America.
 <img class="glightbox" width="740" src="http://drew/sdr/wefax/satcloud.png">
 <img class="glightbox" width="740" src="http://drew/sdr/wefax/schedule.png">
 
-Numbers station
+### Numbers station
 
 <audio controls>
   <source src="http://drew/sdr/numbers.mp3" type="audio/mpeg">
