@@ -172,13 +172,13 @@ AirNav beacons
 Various radio systems exist to aid in aircraft navigation.
 The simplest -- an NDB (non-directional beacon) -- just endlessly broadcasts its own callsign in morse code.
 
-To the right, we're receiving beacon BSW (![dash](/img/icon/dash.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)&ensp;![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)&ensp;![dot](/img/icon/dot.svg)![dash](/img/icon/dash.svg)![dash](/img/icon/dash.svg)) at 521kHz.
-Note you can even make out the morse code directly in the raw signal of the [waterfall plot](https://en.wikipedia.org/wiki/Waterfall_plot){:target="_blank"}.
+To the right, we're receiving beacon BSW (![dash](/img/icon/dash.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)&ensp;![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)![dot](/img/icon/dot.svg)&ensp;![dot](/img/icon/dot.svg)![dash](/img/icon/dash.svg)![dash](/img/icon/dash.svg)) at 521 kHz.
+You can even make out the morse code directly in the raw signal of the [waterfall plot](https://en.wikipedia.org/wiki/Waterfall_plot){:target="_blank"}.
 
 <p><abbr title="VHF Omnidirectional Range">VORs</abbr> are a more sophisticated beacon, which adds a radar-like sweep to the transmission.
 The timing of the sweep determines the receiver's bearing from the beacon.</p>
 
-Below, I'm triangulating my position using the Cape Town airport (callsign CTV) and Robben Island (callsign RIV) VOR beacons.
+Below, I'm triangulating my position using the Cape Town airport (callsign CTV, 115.7 MHz) and Robben Island (callsign RIV, 117.6 MHz) VOR beacons.
 A correction for magnetic declination is required as VORs are calibrated for magnetic north.
 
 <img class="glightbox" style="clear: both;" src="http://drew/sdr/vor.png" width="740" />
@@ -186,7 +186,7 @@ A correction for magnetic declination is required as VORs are calibrated for mag
 The error from my true position is 180m, with CTV and RIV located 19km and 15km away, respectively.
 This puts me just slightly better than the expected &#xb1;0.5&deg; accuracy.
 
-I'm particularly impressed the RIV beacon does so well, with no direct line of sight and Signal Hill in the way.
+I'm impressed (and honestly a bit skeptical) the RIV beacon does so well, with no direct line of sight and Signal Hill in the way.
 No opportunity to investigate further, however, as RIV has just been decommissioned!
 Many VORs and NDBs are being shuttered as a casualty of GPS (though a minimum viable network will remain)... a common theme for many older signals.
 
@@ -197,13 +197,21 @@ Live tracking of ships in Cape Town harbor using their AIS transponders.
 
 <img class="glightbox" src="http://drew/sdr/ais.png" width="740" />
 
-Plane-tracking
+Flight-tracking
 --------------
 
-Live tracking of airplanes using their ADS-B transponders on 1090 Mhz.
+Live tracking of aircraft using their ADS-B transponders on 1090 Mhz.
+The Cape Town/Joburg corridor is busy.
 
 <img class="glightbox" src="http://drew/sdr/flights1.png" width="740" />
+
+A helicopter circling downtown:
+
 <img class="glightbox" src="http://drew/sdr/flights2.png" width="740" />
+
+Aerobatics practice:
+
+<img class="glightbox" src="http://drew/sdr/flights3.png" width="740" />
 
 LoRa IoT and our DIY Burning Man trackers
 -----------------------------------------
