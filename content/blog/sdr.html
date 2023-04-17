@@ -38,7 +38,7 @@ And all from a [$20 USB dongle](https://www.rtl-sdr.com/buy-rtl-sdr-dvb-t-dongle
 
 The delightfully minimal setup below. Most of the exploits in the post used nothing more than this:
 
-<img class="glightbox" src="http://drew/sdr/setup.jpg" width="740" class="glightbox" />
+<img class="glightbox" src="http://drew-x1c5/sdr/setup.jpg" width="740" class="glightbox" />
 
 Broadcast FM
 --
@@ -46,7 +46,7 @@ Broadcast FM
 This is the obvious first stop for testing out a radio.
 These signals are strong, ubiquitous, and easy to decode.
 
-<img class="glightbox" src="http://drew/sdr/fm.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/fm.png" width="740" />
 
 The station is coming in loud and clear, but notice we're also receiving 8 other nearby stations at the same time!
 The RTL-SDR can sample the radio wave up to 3.2 million times per second.
@@ -65,7 +65,7 @@ Walkie-talkies
 
 Lots of chatter on walkie-talkie frequencies. Unlike a typical scanner, dozens of channels can be captured simultaneously. (As an aside, most of these people sound very agitated... harried dock workers?)
 
-<img class="glightbox" src="http://drew/sdr/frs.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/frs.png" width="740" />
 
 Broadcast AM
 --
@@ -73,17 +73,17 @@ Broadcast AM
 Capturing the AM band.
 Cape Town's 3 AM stations clearly visible.
 
-<img class="glightbox" src="http://drew/sdr/am.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/am.png" width="740" />
 
 The AM band is much more alive in the US, with a station visible (thought not necessarily listenable) at every 10 kHz interval.
 The horizontal light blue lines are broad-spectrum interference from lightning in the area.
 
-<img class="glightbox" src="http://drew/sdr/amus.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/amus.png" width="740" />
 
 You can see how much the signal is swamped mid-lightning strike.
 It's around this time I decided it'd be prudent to reel in my antenna and call it a night.
 
-<img class="glightbox" src="http://drew/sdr/am-lightning.gif" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/am-lightning.gif" width="740" />
 
 Digital Radio
 -------------
@@ -96,7 +96,7 @@ There are differing approaches in use.
 The North American offering is HD Radio (the HD actually stands for *Hybrid Digital*, not *High-Def*).
 The original analog FM broadcast is left intact, with new digital sidebands added.
 
-<p style="text-align: center;"><img class="glightbox" src="http://drew/sdr/hdradio/hdradio-fft.png" /></p>
+<p style="text-align: center;"><img class="glightbox" src="http://drew-x1c5/sdr/hdradio/hdradio-fft.png" /></p>
 
 The solid bar-like appearance is typical of digital transmissions.
 It means efficient use of the spectrum, though it’s pretty boring to look at.
@@ -116,13 +116,13 @@ It means efficient use of the spectrum, though it’s pretty boring to look at.
 
 <div style="float: right; margin-left: 20px; margin-bottom: 15px;">
   <div>
-    <img class="glightbox" src="http://drew/sdr/hdradio/logo.jpg" />
+    <img class="glightbox" src="http://drew-x1c5/sdr/hdradio/logo.jpg" />
   </div>
   <div>
-    <img class="glightbox" src="http://drew/sdr/hdradio/logo2.jpg" />
+    <img class="glightbox" src="http://drew-x1c5/sdr/hdradio/logo2.jpg" />
   </div>
   <div>
-    <img class="glightbox" src="http://drew/sdr/hdradio/album.jpg" />
+    <img class="glightbox" src="http://drew-x1c5/sdr/hdradio/album.jpg" />
   </div>
 </div>
 
@@ -154,20 +154,20 @@ Channel 1 duplicates the analog broadcast (required by the FCC).
 For this station, channel 2 simulcasts their AM talk radio format.
 We can see extensive digital metadata provided, and value-add services such as station logos, album art, traffic, and weather (and possibly proprietary real-time navigation data for specific GPS brands).
 
-<img width="367" style="float: left;" class="glightbox" src="http://drew/sdr/hdradio/traffic.png" />
-<img width="367" style="float: right;" class="glightbox" src="http://drew/sdr/hdradio/weather.png" />
+<img width="367" style="float: left;" class="glightbox" src="http://drew-x1c5/sdr/hdradio/traffic.png" />
+<img width="367" style="float: right;" class="glightbox" src="http://drew-x1c5/sdr/hdradio/weather.png" />
 <p style="clear: both;" />
 
 ### DAB
 
 <p>The European <abbr title="Digital Audio Broadcasting">DAB</abbr> standard makes a clean break with legacy FM, offering no analog counterpart and using completely different frequency ranges.</p>
 
-<img class="glightbox" src="http://drew/sdr/dab.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/dab.png" width="740" />
 
 AirNav beacons
 --------------
 
-<img class="glightbox" style="float: right; margin-left: 2em; margin-bottom: 15px;" src="http://drew/sdr/ndb.png" />
+<img class="glightbox" style="float: right; margin-left: 2em; margin-bottom: 15px;" src="http://drew-x1c5/sdr/ndb.png" />
 
 Various radio systems exist to aid in aircraft navigation.
 The simplest -- an NDB (non-directional beacon) -- just endlessly broadcasts its own callsign in morse code.
@@ -181,7 +181,7 @@ The timing of the sweep determines the receiver's bearing from the beacon.</p>
 Below, I'm triangulating my position using the Cape Town airport (callsign CTV, 115.7 MHz) and Robben Island (callsign RIV, 117.6 MHz) VOR beacons.
 A correction for magnetic declination is required as VORs are calibrated for magnetic north.
 
-<img class="glightbox" style="clear: both;" src="http://drew/sdr/vor.png" width="740" />
+<img class="glightbox" style="clear: both;" src="http://drew-x1c5/sdr/vor.png" width="740" />
 
 The error from my true position is 180m, with CTV and RIV located 19km and 15km away, respectively.
 This puts me just slightly better than the expected &#xb1;0.5&deg; accuracy.
@@ -195,7 +195,7 @@ Ship-tracking
 
 Live tracking of ships in Cape Town harbor using their AIS transponders.
 
-<img class="glightbox" src="http://drew/sdr/ais.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/ais.png" width="740" />
 
 Flight-tracking
 --------------
@@ -203,22 +203,26 @@ Flight-tracking
 Live tracking of aircraft using their ADS-B transponders on 1090 Mhz.
 The Cape Town&#x2194;Joburg corridor is busy.
 
-<img class="glightbox" src="http://drew/sdr/flights1.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/flights1.png" width="740" />
 
 A helicopter circling downtown:
 
-<img class="glightbox" src="http://drew/sdr/flights2.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/flights2.png" width="740" />
 
 Aerobatics practice:
 
-<img class="glightbox" src="http://drew/sdr/flights3.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/flights3.png" width="740" />
+
+My house is treated to an annual fighter jet flyover for the State of the Nation address.
+I tried to track the flyover (and immediate steep climb to avoid hitting Table Mountain) with ADS-B, but had no luck.
+The corroborates that military aircraft rarely enable it, even during routine flights.
 
 LoRa IoT and our DIY Burning Man trackers
 -----------------------------------------
 
 Decoding the location pings from our [DIY GPS trackers](http://doorinthewall.co.za/blog/lora-gps-trackers/), using LoRa internet-of-things protocol. LoRa is proprietary, but like all good things in software, some enterprising hacker has reverse-engineered it.
 
-<img class="glightbox" src="http://drew/sdr/lora.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/lora.png" width="740" />
 
 Only the bytes highlighted in red comprise our protocol.
 It appears some extra headers and checksums are added by the Arduino library and/or LoRa firmware.
@@ -229,32 +233,68 @@ Cellular networks
 
 Sniffing serial #s of phones attempting to connect to a local cell tower over 2G.
 
-<img class="glightbox" src="http://drew/sdr/imsi.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/imsi.png" width="740" />
 
 Weather satellites
 ------------------
 
-Signal lock for NOAA 15 weather satellite passing overhead.
+<img class="glightbox" style="float: right; margin-left: 20px; margin-bottom: 15px;" src="http://drew-x1c5/sdr/noaafft.png" />
 
-<img class="glightbox" src="http://drew/sdr/noaafft.png" />
+I never gave much thought to how weather maps made it from outer space to [my TV](https://www.twitch.tv/retroweatherchannel), but it makes sense that before the internet they had to be beamed directly to the data consumers.
 
-Decoded transmission from orbiting weather satellite. Visible clouds (land indistinct because pass was at night). Pretty rough, but not bad for a first try and did I mention this is a live picture of Earth directly from SPACE.
+There exist a fleet of satellites transmitting real-time weather info for all to see.
+Those in low-Earth orbit broadcast a moving swath of what's visible beneath them.
+Since weather is local, this limited viewport still works pretty fine.
 
-<img class="glightbox" src="http://drew/sdr/noaa15.jpg" width="740" />
+Here we have signal lock on NOAA 15 as it passes overhead.
+It transmits an analog protocol called <abbr title="Automatic Picture Transmission">APT</abbr> with a resolution of 4km/pixel.
 
-...and reference weather map of the same instant for comparison
+<div style="clear: both;" ></div>
 
-<img class="glightbox" src="http://drew/sdr/weather-ref.jpg" width="740" />
+And here we have the decoded transmission from an orbiting weather satellite.
+The pass was at night so the land is indistinct, but you can clearly see clouds in the infrared.
+Pretty rough to be honest, but not bad for a first try and did I mention this is a live picture of Earth directly from SPACE.
 
-More weather satellites. You may remember the very rough cut* from last post. Here’s the first decent result I got from the NOAA satellites. Taken around sunset, you can see shadows cast by clouds and land receding into night. It’s a bit hard to make out the coastline, so Cape Peninsula/False Bay circled for reference.
+<img class="glightbox" src="http://drew-x1c5/sdr/noaa15.jpg" width="740" />
 
-<img class="glightbox" src="http://drew/sdr/noaa-sunset.png" width="740" />
+The registration marks on the left are encouragement that we're not receiving garbage (don't be deceived -- as many are -- by the country boundaries and lat/lon grid; those are added in post by the decoding software and are not an indicator of reliable reception).
+Nonetheless, I would like some external confirmation that what I'm looking at corresponds to reality.
+So I compared against a commercial satellite image found online:
 
-setup shot?
+<img class="glightbox" src="http://drew-x1c5/sdr/weather-ref.jpg" width="740" />
 
-Best result to date:
+The clouds match up!
 
-<img class="glightbox" src="http://drew/sdr/apt-best.png" width="740" />
+This was a serious 'whoa' moment playing with this thing -- that I could intercept a functional result from something in orbit.
+
+A subsequent attempt removes some of the rough edges.
+Taken around sunset, you can see shadows cast by clouds and land receding into night.
+Visible light is on the left and infrared on the right.
+(It’s a bit hard to make out the coastline, so I've circled Cape Peninsula/False Bay in red for reference.)
+
+<img class="glightbox" src="http://drew-x1c5/sdr/noaa-sunset.png" width="740" />
+
+the satellite essentially loops around the earth endlessly and transmits a ticker-tape like view of what's beneath it
+the image has no start or end, just fades in and out.
+slightly weird thinking about how it just keeps broadcast even after it leaves the range you can receive it.
+remote parts of the earth where no one is listening.
+if a weather satellite transmits to the forest, but no one was there to receive it, etc etc
+
+endless broadcast loop on orbit
+
+resolution 4px/pixel. lrpt is 1km/px, 10 bit
+
+
+
+
+ascending vs descending pass, rotate 180
+
+After a few more tries, this was my best result.
+The right side is a composite of both the visible and infrared channels.
+
+<img class="glightbox" src="http://drew-x1c5/sdr/apt-best.png" width="740" />
+
+The protocol is called APT, has a resolution of 4km per pixel.
 
 This is a legacy protocol from the 60s.
 New satellites no longer contain this capability, only 3 are left and one is already developing camera problems.
@@ -262,18 +302,18 @@ This might not be around for much longer.
 
 And check out the doppler shift if we time-lapse the whole pass.
 
-<img class="glightbox" src="http://drew/sdr/doppler.png" />
+<img class="glightbox" src="http://drew-x1c5/sdr/doppler.png" />
 
-At an orbital velocity of 7400 m/s, which is 0.0025% of the speed of light, we'd expect a doppler shift of 3400 Hz on our carrier frequency 137.1 MHz. Double that for the satellite moving towards us then away from us -- 6.8 kHz total, which [pretty closely matches](https://xkcd.com/54/) the ~6 kHZ shift we see above.
+At an orbital velocity of 7400 m/s, which is 0.0025% of the speed of light, we'd expect a doppler shift of 3400 Hz on our carrier frequency 137.1 MHz. Double that for the satellite first moving towards then away from us -- 6.8 kHz total, which [pretty closely matches](https://xkcd.com/54/) the ~6 kHZ shift we see above.
 
 Here's a more modern transmission from the Russian Meteor M2-2 satellite.
 Uses digital encoding so better quality and error correction.
 
-<img class="glightbox" src="http://drew/sdr/meteor_demod.png" />
+<img class="glightbox" src="http://drew-x1c5/sdr/meteor_demod.png" />
 
 The four well-defined clusters (known as a [QAM constellation](https://en.wikipedia.org/wiki/Quadrature_amplitude_modulation#Digital_QAM)) means a clean digital signal.
 
-<img class="glightbox" width="740" src="http://drew/sdr/meteor-m2-2.png" />
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/meteor-m2-2.png" />
 
 False color.
 Red channel is thermal infrared -- you can see the [Agulhas current](https://en.wikipedia.org/wiki/Agulhas_Current) peeling off the east shore of South Africa.
@@ -300,26 +340,26 @@ I think I was able to tune into a broadcast in China, 16,000 km away.
 
 a special kind of radar that can measure ocean waves and currents.
 
-<img class="glightbox" src="http://drew/sdr/codar.png">
+<img class="glightbox" src="http://drew-x1c5/sdr/codar.png">
 
 ### Over-the-Horizon defense radar
 
 likely from RAF Akrotiri in Cyprus (received in Bucharest, Romania)
 
-<img class="glightbox" src="http://drew/sdr/oth-radar.png"> <!-- would be cool if this were animated -->
+<img class="glightbox" src="http://drew-x1c5/sdr/oth-radar.png"> <!-- would be cool if this were animated -->
 
 ### Ionosonde
 
-<a href="http://drew/sdr/ionosonde.mp4" class="glightbox"><video width="740" controls autoplay loop muted><source src="http://drew/sdr/ionosonde.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/ionosonde.mp4" class="glightbox"><video width="740" controls autoplay loop muted><source src="http://drew-x1c5/sdr/ionosonde.mp4" type="video/mp4"></video></a>
 
 ### Digital Radio Mondiale
 
-<img class="glightbox" src="http://drew/sdr/drm.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/drm.png">
 
 The raw feed sounds... extremely evil.
 
 <audio controls>
-  <source src="http://drew/sdr/drm_raw.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/drm_raw.mp3" type="audio/mpeg">
 </audio>
 
 ### Radioteletype (rtty)
@@ -328,7 +368,7 @@ Olympia Radio SVO Pirgos Greece 8424 kHz
 
 Appears to be some kind of news article in Greek transliterated to the latin alphabet.
 
-<a href="http://drew/sdr/rtty_svo.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/rtty_svo.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/rtty_svo.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rtty_svo.mp4" type="video/mp4"></video></a>
 
 If you listen carefully you can hear Turkish maritime station 8431 kHz bleeding though (TAH in morse code).
 
@@ -339,11 +379,11 @@ Also encode the date/time in some machine readable fashion.
 
 USA broadcats WWV on 2.5/5/10/15/20 MHz, and encodes the date and time with a 1-bit-per-second varying pulse length low hum.
 
-<a class="glightbox video-thumbnail" href="http://drew/sdr/wwv.mp4"><video width="740" poster="http://drew/sdr/wwv_thumb.png"><source src="http://drew/sdr/wwv.mp4" type="video/mp4"></video></a>
+<a class="glightbox video-thumbnail" href="http://drew-x1c5/sdr/wwv.mp4"><video width="740" poster="http://drew-x1c5/sdr/wwv_thumb.png"><source src="http://drew-x1c5/sdr/wwv.mp4" type="video/mp4"></video></a>
 
-Canada's CHU 3.33 MHz encodes things differently, using a data burst. The protocol is the absolutely ancient [Bell 103 modem](http://drew/sdr/bell103.jpg) standard.
+Canada's CHU 3.33 MHz encodes things differently, using a data burst. The protocol is the absolutely ancient [Bell 103 modem](http://drew-x1c5/sdr/bell103.jpg) standard.
 
-<a class="glightbox video-thumbnail" href="http://drew/sdr/chu.mp4"><video width="740" poster="http://drew/sdr/chu_thumb.png"><source src="http://drew/sdr/chu.mp4" type="video/mp4"></video></a>
+<a class="glightbox video-thumbnail" href="http://drew-x1c5/sdr/chu.mp4"><video width="740" poster="http://drew-x1c5/sdr/chu_thumb.png"><source src="http://drew-x1c5/sdr/chu.mp4" type="video/mp4"></video></a>
 
 GPS has made these essentially obsolete.
 
@@ -351,14 +391,14 @@ These are rebroadcasts of the fundamental signal, a data-only signal WWVB at 60 
 
 ### WEFAX
 
-<img class="glightbox" width="740" src="http://drew/sdr/wefax/sa_best.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/sa_best.png">
 
-Here's what it's [supposed to look like](http://drew/sdr/wefax/sa_ref_20191017.gif) -- (hand-drawn map!)
+Here's what it's [supposed to look like](http://drew-x1c5/sdr/wefax/sa_ref_20191017.gif) -- (hand-drawn map!)
 
 Can't explain the weird echo/ghosting. Even quite apparent in the raw audio feed.
 
 <audio controls>
-  <source src="http://drew/sdr/wefax/sa_echo.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/wefax/sa_echo.mp3" type="audio/mpeg">
 </audio>
 <!-- todo make shorter, maybe a bit quieter? -->
 
@@ -366,15 +406,15 @@ Turns out [it's not just me](https://goughlui.com/2019/02/16/radiofax-the-quest-
 
 Much better results from America.
 
-<img class="glightbox" width="740" src="http://drew/sdr/wefax/surface_analysis.png">
-<img class="glightbox" width="740" src="http://drew/sdr/wefax/iceberg.png">
-<img class="glightbox" width="740" src="http://drew/sdr/wefax/satcloud.png">
-<img class="glightbox" width="740" src="http://drew/sdr/wefax/schedule.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/surface_analysis.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/iceberg.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/satcloud.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/schedule.png">
 
 ### Numbers station
 
 <audio controls>
-  <source src="http://drew/sdr/numbers.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/numbers.mp3" type="audio/mpeg">
 </audio>
 
 
@@ -548,10 +588,10 @@ P25
 
 While some governments still use analog walkie-talkies*, each conversation requires a dedicated frequency channel. Most conversations are silent most of the time, wasting this limited resource. A trunking system uses virtualized 'talk groups', of which several can use the same channel simultaneously, and also employs frequency hopping to reassign talk groups as needed to maximize utilization.
 
-<img class="glightbox" width="740" src="http://drew/sdr/p25.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/p25.png">
 
 <audio controls>
-  <source src="http://drew/sdr/p25.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/p25.mp3" type="audio/mpeg">
 </audio>
 
 Seems like most of what these people do is reading numbers at each other. Think I'm missing a lot of the conversation due to all the concurrent talk groups and frequency hopping (which exceeds the range that a single RTL-SDR can receive concurrently). I never played with this beyond the proof-of-concept stage. 
@@ -561,7 +601,7 @@ Europe uses a different system called TETRA
 Medical Pagers
 --------------
 
-<img class="glightbox" src="http://drew/sdr/pocsag.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/pocsag.png">
 
 <style>
   .message {
@@ -712,17 +752,17 @@ Gate remotes
 
 Intercepting the codes transmitted by our gate opener. The varied codes on subsequent button presses shows this is a more secure "rolling code" system.
 
-<img class="glightbox" src="http://drew/sdr/gateremote.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/gateremote.png" width="740" />
 
 Pool thermometer
 
-<img class="glightbox" src="http://drew/sdr/tub_thermometer.jpg" width="740" />
-<img class="glightbox" src="http://drew/sdr/thermometer_cmdline.png" width="740" />
-<img class="glightbox" src="http://drew/sdr/tub_temp_log.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/tub_thermometer.jpg" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/thermometer_cmdline.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/tub_temp_log.png" width="740" />
 
 Smart electric meter
 
-<img class="glightbox" src="http://drew/sdr/smart_meter.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/smart_meter.png" width="740" />
 
 My mom's house has a 16kW PV solar array with net metering, and you can see even immediately after sunrise it starts to make a dent in the home's power consumption. Net neutral is achieved about an hour later, then the solar panels feed excess power to the grid all the way into the late afternoon.
 
@@ -739,51 +779,51 @@ but wait, cable is essentially a private broadcast antenna
 
 digital cable though - need a vcr or converter box
 
-<img class="glightbox" src="http://drew/sdr/tvsharp.png">
-<img class="glightbox" src="http://drew/sdr/vcr.jpg" width="740">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/tvsharp.png">
+<img class="glightbox" src="http://drew-x1c5/sdr/vcr.jpg" width="740">
 
 not enough bandwidth for color/audio/fine detail.
 but with rsp1a
 
-<img class="glightbox" src="http://drew/sdr/ntsc-wf.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/ntsc-wf.png">
 
 First hump is the main black&white signal, 2nd hump is the color information, and spike at the end is the audio channel.
 
 decode to frames
 
-<a class="glightbox video-thumbnail" href="http://drew/sdr/ntsc-cc.mp4"><video width="740"><source src="http://drew/sdr/ntsc-cc.mp4" type="video/mp4"></video></a>
+<a class="glightbox video-thumbnail" href="http://drew-x1c5/sdr/ntsc-cc.mp4"><video width="740"><source src="http://drew-x1c5/sdr/ntsc-cc.mp4" type="video/mp4"></video></a>
 
-<img class="glightbox" src="http://drew/sdr/ntscinfo.png" width="740">
+<img class="glightbox" src="http://drew-x1c5/sdr/ntscinfo.png" width="740">
 
-how faithfully can we recreate those analog artifacts? [[reference image](http://drew/sdr/colorbars_ref.png)]
+how faithfully can we recreate those analog artifacts? [[reference image](http://drew-x1c5/sdr/colorbars_ref.png)]
 
-(slowed down 4x -- [full speed here](http://drew/sdr/colorbars.mp4))
+(slowed down 4x -- [full speed here](http://drew-x1c5/sdr/colorbars.mp4))
 
-<img class="glightbox" src="http://drew/sdr/colorbars_slow.gif">
+<img class="glightbox" src="http://drew-x1c5/sdr/colorbars_slow.gif">
 
 that dot crawl! ringing artifacts! that color bleed!
 
 what can we actually do though? in theory receive scrambled channels, but those are long gone. can do next best thing, which is recreate ourselves
 
-<img class="glightbox" src="http://drew/sdr/gss-waveform.png" width="740">
+<img class="glightbox" src="http://drew-x1c5/sdr/gss-waveform.png" width="740">
 
-<a href="http://drew/sdr/scramble_orig.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/scramble_orig.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/scramble_orig.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/scramble_orig.mp4" type="video/mp4"></video></a>
 
 at last, realizing the dream of 90s teenager, control over the cable scrambling
 
 requires transmit capability
 
-<img class="glightbox" src="http://drew/sdr/txsetup.jpg" width="740">
+<img class="glightbox" src="http://drew-x1c5/sdr/txsetup.jpg" width="740">
 
 As someone who has a bit of a "thing" for connectors and adapters, this 7-degree daisy chain (USB &rarr; VGA &rarr; BNC &rarr; SMA &rarr; 20dB attenuator &rarr; Type F connector &rarr; TV coaxial) was _extreeeeemely_ satisfying.
 
 oh and it also works on some flat panel tvs too!?
 
-<a href="http://drew/sdr/scramble_poc_orig.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/scramble_poc_orig.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/scramble_poc_orig.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/scramble_poc_orig.mp4" type="video/mp4"></video></a>
 
 we can have other fun like injecting our own text into the closed captioning stream
 
-<a href="http://drew/sdr/thanks.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/thanks.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/thanks.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/thanks.mp4" type="video/mp4"></video></a>
 
 who knew closed captions supported colors?
 certainly not i.
@@ -792,8 +832,8 @@ but it was in the [spec](https://en.wikipedia.org/wiki/EIA-608), and if you send
 and after all that, turns out analog tv still being broadcast in south africa.
 i just didn't realize what i was looking at
 
-<img class="glightbox" src="http://drew/sdr/pal-ota-wf.png">
-<img class="glightbox" src="http://drew/sdr/sabc.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/pal-ota-wf.png">
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/sabc.png">
 
 That bright line in the vertical blanking interval gave some tantalizing hope of some sort of data to decode, possibly even a [Teletext](https://en.wikipedia.org/wiki/Teletext) feed.
 But alas, it's just some kind of signal quality marker.
@@ -803,39 +843,39 @@ I think I would have felt like winning the lottery if I had found an active Tele
 Digital TV
 ----
 
-<img class="glightbox" src="http://drew/sdr/hdtv-ant.jpg" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/hdtv-ant.jpg" width="740" />
 
 decent reception with the rabbit ears antenna, but not consistent enough across the full bandwidth allocation to successfully decode.
 apparently sticking a [wire into a potato](https://blog.solidsignal.com/tutorials/hd-blade-vs-potato-can-spud-bring-goods/) works fairly well.
 
 <div>
-<a style="margin-right: 20px;" href="http://drew/sdr/atsc/prog3.mp4" class="glightbox video-thumbnail"><video width="360" poster="http://drew/sdr/atsc/thumb3.jpg"><source src="http://drew/sdr/atsc/prog3.mp4" type="video/mp4"></video></a><a href="http://drew/sdr/atsc/prog4.mp4" class="glightbox video-thumbnail"><video width="360" poster="http://drew/sdr/atsc/thumb4.jpg"><source src="http://drew/sdr/atsc/prog4.mp4" type="video/mp4"></video></a>
+<a style="margin-right: 20px;" href="http://drew-x1c5/sdr/atsc/prog3.mp4" class="glightbox video-thumbnail"><video width="360" poster="http://drew-x1c5/sdr/atsc/thumb3.jpg"><source src="http://drew-x1c5/sdr/atsc/prog3.mp4" type="video/mp4"></video></a><a href="http://drew-x1c5/sdr/atsc/prog4.mp4" class="glightbox video-thumbnail"><video width="360" poster="http://drew-x1c5/sdr/atsc/thumb4.jpg"><source src="http://drew-x1c5/sdr/atsc/prog4.mp4" type="video/mp4"></video></a>
 </div>
 
 <div style="margin-top: 10px; text-align: center;">
-<a style="margin-right: 20px;" href="http://drew/sdr/atsc/prog5.mp4" class="glightbox video-thumbnail"><video width="297"><source src="http://drew/sdr/atsc/prog5.mp4" type="video/mp4"></video></a><a href="http://drew/sdr/atsc/prog6.mp4" class="glightbox video-thumbnail"><video width="297"><source src="http://drew/sdr/atsc/prog6.mp4" type="video/mp4"></video></a>
+<a style="margin-right: 20px;" href="http://drew-x1c5/sdr/atsc/prog5.mp4" class="glightbox video-thumbnail"><video width="297"><source src="http://drew-x1c5/sdr/atsc/prog5.mp4" type="video/mp4"></video></a><a href="http://drew-x1c5/sdr/atsc/prog6.mp4" class="glightbox video-thumbnail"><video width="297"><source src="http://drew-x1c5/sdr/atsc/prog6.mp4" type="video/mp4"></video></a>
 </div>
 
 That's... a lot to unpack from just 60 seconds captured at random.
 That said, the [video for _I'm Turn't_](https://www.youtube.com/watch?v=YiUdrIsqmyQ) is pretty great
 
-<img class="glightbox" src="http://drew/sdr/atsc/program_guide.png" width="740" />
+<img class="glightbox" src="http://drew-x1c5/sdr/atsc/program_guide.png" width="740" />
 
 SSTV from the ISS
 --------
 
-<a style="float: right; margin-left: 30px;" href="http://drew/sdr/sstv.mp4" class="glightbox video-thumbnail"><video width="300"><source src="http://drew/sdr/sstv.mp4" type="video/mp4"></video></a>
+<a style="float: right; margin-left: 30px;" href="http://drew-x1c5/sdr/sstv.mp4" class="glightbox video-thumbnail"><video width="300"><source src="http://drew-x1c5/sdr/sstv.mp4" type="video/mp4"></video></a>
 
 SSTV means "slow-scan television" but it's kind of a misnomer as it actually transmits still images (i.e., really slow).
 ISS does this several times a year as outreach for HAM radio, usually commemorating a famous astronaut that has recently passed away.
 kinda thought this was veering too much into HAM geekery for my tastes, but holy shit once that signal comes through it's pretty primal.
 basically, expecting [this](https://s3.amazonaws.com/files.qrz.com/x/i0jx/jxyoung.jpg), but actually [this](https://www.youtube.com/watch?v=NCkbekhUdw4&t=16s)
 
-<img class="glightbox" src="http://drew/sdr/iss03.png" />
+<img class="glightbox" src="http://drew-x1c5/sdr/iss03.png" />
 
-<img class="glightbox" src="http://drew/sdr/iss12.png" />
+<img class="glightbox" src="http://drew-x1c5/sdr/iss12.png" />
 
-<img class="glightbox" src="http://drew/sdr/iss04.png" />
+<img class="glightbox" src="http://drew-x1c5/sdr/iss04.png" />
 
 Last one signal lost as the station set below the horizon.
 
@@ -843,16 +883,16 @@ FM hidden subcarriers
 ---------------------
 
 <audio controls>
-  <source src="http://drew/sdr/sca_host.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/sca_host.mp3" type="audio/mpeg">
 </audio>
 
-<img class="glightbox" src="http://drew/sdr/fmsca.png" />
+<img class="glightbox" src="http://drew-x1c5/sdr/fmsca.png" />
 
 <audio controls>
-  <source src="http://drew/sdr/sca_talk.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/sca_talk.mp3" type="audio/mpeg">
 </audio>
 <audio controls>
-  <source src="http://drew/sdr/sca_song.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/sca_song.mp3" type="audio/mpeg">
 </audio>
 
 mention tubular bells 16khz bleed?
@@ -868,29 +908,29 @@ I had access to one of the dog training collars proliferating on Amazon so seeme
 
 First gotta find the frequency.
 
-<a href="http://drew/sdr/rc/freq.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/rc/freq.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/rc/freq.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rc/freq.mp4" type="video/mp4"></video></a>
 
 Didn't expect it to be so low.
 This turns out to be CB radio channel 19A, "reserved for remote control of devices such as model aircraft, cars, and boats"
 
 Beware of harmonics.
 
-<a href="http://drew/sdr/rc/harmonics_rough.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/rc/harmonics_rough.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/rc/harmonics_rough.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rc/harmonics_rough.mp4" type="video/mp4"></video></a>
 
 Here's the demodulated waveform.
 
-<img class="glightbox" src="http://drew/sdr/rc/bfsk.png" />
-<img class="glightbox" src="http://drew/sdr/rc/bfsk-zoom.png" />
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/rc/bfsk.png" />
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/rc/bfsk-zoom.png" />
 <!-- annotate these? -->
 
 And fully decoded.
 
-<a href="http://drew/sdr/rc/decode.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/rc/decode.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/rc/decode.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rc/decode.mp4" type="video/mp4"></video></a>
 
 With the FL2k transmitter, we can even do a replay attack.
 This doesn't even require knowing how to decode the transmission.
 
-<a href="http://drew/sdr/rc/replay.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/rc/replay.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/rc/replay.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rc/replay.mp4" type="video/mp4"></video></a>
 
 IR remotes
 ----------
@@ -898,49 +938,49 @@ IR remotes
 Almost all remote controls communicate via pulsed infrared light, modulated between 30-56 kHz.
 An IR photodiode acts as an 'antenna' that can receive this IR light.
 
-<img class="glightbox" width="740" src="http://drew/sdr/irdiode.jpg" />
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/irdiode.jpg" />
 
 IR light hitting the diode produces minute amounts of electricity, akin to the voltage induced in a metal antenna from radio waves.
 Although IR light is itself electromagnetic radiation (with a frequency of ~300 THz), it's best to think of it here as an alternate 'medium' through which the lower-frequency signal propgates.
 
-<a href="http://drew/sdr/irrecv.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/irrecv.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/irrecv.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/irrecv.mp4" type="video/mp4"></video></a>
 
 Note the signal centered on the 38 kHz carrier frequency, by far the most common.
 Also note how the IR pulses register on the camera sensor, although invisible to the human eye.
 
-<img class="glightbox" src="http://drew/sdr/irdecode.png" />
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/irdecode.png" />
 
 Applying AM demodulation reveals the underlying data signal.
 
 FT8 / WSPR
 ----------
 
-<img class="glightbox" width="740" src="http://drew/sdr/ft8-usnj.png" />
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/ft8-usnj.png" />
 
 Fiji, Antarctica, Saudi Arabia!
 
-<img class="glightbox" width="740" src="http://drew/sdr/ft8-zawc.png" />
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/ft8-zawc.png" />
 
 St. Helena, Hawaii (nearly halfway around the world), far east Asia: Khabarovsk/Vladivostok/Hokkaido
 
-<a href="http://drew/sdr/ft8-live.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/ft8-live.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/ft8-live.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/ft8-live.mp4" type="video/mp4"></video></a>
 
 UHF pirates
 -----------
 
-<img class="glightbox" src="http://drew/sdr/uhfsatcom.png" />
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/uhfsatcom.png" />
 
 <audio controls>
-  <source src="http://drew/sdr/uhf-ptbr1.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/uhf-ptbr1.mp3" type="audio/mpeg">
 </audio>
 <audio controls>
-  <source src="http://drew/sdr/uhf-ptbr2.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/uhf-ptbr2.mp3" type="audio/mpeg">
 </audio>
 <audio controls>
-  <source src="http://drew/sdr/uhf-ptbr3.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/uhf-ptbr3.mp3" type="audio/mpeg">
 </audio>
 <audio controls>
-  <source src="http://drew/sdr/uhf-ru1.mp3" type="audio/mpeg">
+  <source src="http://drew-x1c5/sdr/uhf-ru1.mp3" type="audio/mpeg">
 </audio>
 
 TEMPEST attacks
@@ -950,19 +990,19 @@ Reading a screen remotely via its stray radio emissions.
 
 First step is to identify the frequency of the emissions. Need to make the monitor "sing".
 
-<a href="http://drew/sdr/tempest/furelise.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/tempest/furelise.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/tempest/furelise.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/tempest/furelise.mp4" type="video/mp4"></video></a>
 
 Though I prefer to sing to a different tune.
 
-<a href="http://drew/sdr/tempest/darude.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/tempest/darude.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/tempest/darude.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/tempest/darude.mp4" type="video/mp4"></video></a>
 
 So we've found the frequency; can we actually read the screen?
 
-<a href="http://drew/sdr/tempest/app.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/tempest/app.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/tempest/app.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/tempest/app.mp4" type="video/mp4"></video></a>
 
 It works! It even works from across the room (and very faintly in the neighboring room).
 
-<a href="http://drew/sdr/tempest/across-room.mp4" class="glightbox"><video width="600" controls autoplay loop muted><source src="http://drew/sdr/tempest/across-room.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/tempest/across-room.mp4" class="glightbox"><video width="600" controls autoplay loop muted><source src="http://drew-x1c5/sdr/tempest/across-room.mp4" type="video/mp4"></video></a>
 
 It is extremely tempermental, though.
 High-contrast imagery and hard transitions work best.
@@ -972,13 +1012,13 @@ How the image carries over to the eavesdropping session is not intuitive and see
 With perfect antenna placement and still a healthy dose of luck, I got what you see below.
 Oftentimes, though, a real-world desktop barely registers as more than a smudge.
 
-<a href="http://drew/sdr/tempest/desktop.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew/sdr/tempest/desktop.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/tempest/desktop.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/tempest/desktop.mp4" type="video/mp4"></video></a>
 
 A higher-specced SDR (at least 10 MHz bandwidth or ideally 30, vs. the RTL-SDR's 3) would work better, but hey, I'm amazed this works at all.
 
 <hr />
 
-<a href="http://drew/sdr/thatsall.mp4" class="glightbox"><video controls autoplay loop muted><source src="http://drew/sdr/thatsall.mp4" type="video/mp4"></video></a>
+<a href="http://drew-x1c5/sdr/thatsall.mp4" class="glightbox"><video controls autoplay loop muted><source src="http://drew-x1c5/sdr/thatsall.mp4" type="video/mp4"></video></a>
 
 <script type="text/javascript">
     const lightbox = GLightbox({});
