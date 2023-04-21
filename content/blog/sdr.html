@@ -194,17 +194,18 @@ Ship-tracking
 -------------
 
 Live tracking of ships in Cape Town harbor using their AIS transponders.
-I suspect Signal Hill is blocking a lot of the action in Table Bay/Granger Bay (more like no-signal hill, amirite).
 
 <img class="glightbox" src="http://drew-x1c5/sdr/ais1.png" width="740" />
 
-I let it run overnight and by sheer luck I captured the *SA Agulhas II* -- South Africa's Antarctic research vessel -- departing at 4AM on her annual resupply voyage to [Marion Island](<%= geolink(-46.876, 37.859, 0.02) %>).
+I let it run overnight and by chance I captured the *SA Agulhas II* -- South Africa's Antarctic research vessel -- departing at 4AM on her once-a-year resupply voyage to [Marion Island](<%= geolink(-46.876, 37.859, 0.02) %>).
 
 <img class="glightbox" src="http://drew-x1c5/sdr/ais2.png" width="740" />
 
-Tugs escorting a ship into port.
+Tugs escorting a ship into port:
 
 <a href="http://drew-x1c5/sdr/aisanim.mp4" class="glightbox"><video width="740" controls autoplay loop muted><source src="http://drew-x1c5/sdr/aisanim.mp4" type="video/mp4"></video></a>
+
+The signal from *Umbilo* seems choppy during the final manouvers-- I wonder if it's being obscured by the cargo ship itself.
 
 Flight-tracking
 --------------
@@ -221,10 +222,6 @@ A helicopter circling downtown:
 Aerobatics practice:
 
 <img class="glightbox" src="http://drew-x1c5/sdr/flights3.png" width="740" />
-
-My house is treated to an annual fighter jet flyover for the State of the Nation address.
-I tried to track the flyover (and immediate steep climb to avoid hitting Table Mountain) with ADS-B, but had no luck.
-The corroborates that military aircraft rarely enable it, even during routine flights.
 
 LoRa IoT and our DIY Burning Man trackers
 -----------------------------------------
@@ -247,95 +244,91 @@ Sniffing serial #s of phones attempting to connect to a local cell tower over 2G
 Weather satellites
 ------------------
 
-<img class="glightbox" style="float: right; margin-left: 20px; margin-bottom: 15px;" src="http://drew-x1c5/sdr/noaafft.png" />
+<img class="glightbox" style="float: right; margin-left: 25px; margin-bottom: 25px;" src="http://drew-x1c5/sdr/noaafft.png" />
 
-I never gave much thought to how weather maps made it from outer space to [my TV](https://www.twitch.tv/retroweatherchannel), but it makes sense that before the internet they had to be beamed directly to the data consumers.
+I never gave much thought to how those satellite weather overlays made it from outer space onto [my TV](https://www.twitch.tv/retroweatherchannel), but it makes sense that before the internet they had to be beamed directly to the broadcaster and meteorologists.
 
-There exist a fleet of satellites transmitting real-time weather info for all to see.
-Those in low-Earth orbit broadcast a moving swath of what's visible beneath them.
-Since weather is local, this limited viewport still works pretty fine.
+As such, there exists a fleet of satellites transmitting real-time weather info for all to see.
 
-Here we have signal lock on NOAA 15 as it passes overhead.
-It transmits an analog protocol called <abbr title="Automatic Picture Transmission">APT</abbr> with a resolution of 4km/pixel.
+Here we have signal lock on one of those satellites -- NOAA 15 -- as it passes overhead...
 
 <div style="clear: both;" ></div>
 
-And here we have the decoded transmission from an orbiting weather satellite.
+Behold the decoded downlink from an orbiting weather satellite!
 The pass was at night so the land is indistinct, but you can clearly see clouds in the infrared.
-Pretty rough to be honest, but not bad for a first try and did I mention this is a live picture of Earth directly from SPACE.
+Pretty rough to be honest, but not bad for a first try and did I mention this is a live picture of Earth directly from *SPACE*.
 
 <img class="glightbox" src="http://drew-x1c5/sdr/noaa15.jpg" width="740" />
 
-The registration marks on the left are encouragement that we're not receiving garbage (don't be deceived -- as many are -- by the country boundaries and lat/lon grid; those are added in post by the decoding software and are not an indicator of reliable reception).
+The registration marks on the left are encouragement that we're not receiving garbage (don't be deceived -- as many are -- by the country boundaries* and lat/lon grid; those are added in post by the decoding software and are not an indicator of reliable reception).
 Nonetheless, I would like some external confirmation that what I'm looking at corresponds to reality.
 So I compared against a commercial satellite image found online:
+
+\* how old is that dataset, btw? Is that the [Walvis Bay Territory](https://en.wikipedia.org/wiki/Walvis_Bay#History)??
+{: .footnote}
 
 <img class="glightbox" src="http://drew-x1c5/sdr/weather-ref.jpg" width="740" />
 
 The clouds match up!
 
-This was a serious 'whoa' moment playing with this thing -- that I could intercept a functional result from something in orbit.
+This was a serious "whoa" moment playing with this thing -- that I, a mere mortal with the most basic of antennas, could pull something tangible and useful from an orbiting spacecraft.
 
 A subsequent attempt removes some of the rough edges.
 Taken around sunset, you can see shadows cast by clouds and land receding into night.
-Visible light is on the left and infrared on the right.
+This image shows the full frame as received, with both spectral channels included: visible light on the left and infrared on the right.
 (It’s a bit hard to make out the coastline, so I've circled Cape Peninsula/False Bay in red for reference.)
 
 <img class="glightbox" src="http://drew-x1c5/sdr/noaa-sunset.png" width="740" />
 
-the satellite essentially loops around the earth endlessly and transmits a ticker-tape like view of what's beneath it
-the image has no start or end, just fades in and out.
-slightly weird thinking about how it just keeps broadcast even after it leaves the range you can receive it.
-remote parts of the earth where no one is listening.
-if a weather satellite transmits to the forest, but no one was there to receive it, etc etc
+These particular satellites lie in low-Earth orbit, thus they can only see a limited portion of the Earth at one time-- about 2--3,000km away.
+Since weather is local, this limited field of view is mostly fine.
 
-endless broadcast loop on orbit
+Note that these images don't really have a beginning and an end; they just kinda fade in and out.
+The satellite doesn't take a photo per se, but rather livestreams the narrow swath of Earth immediately visible beneath it.
+As the satellite loops around the planet in perpetuity, the result becomes a never-ending, ticker tape-like view of the Earth.
 
-resolution 4px/pixel. lrpt is 1km/px, 10 bit
-
-
-
-
-ascending vs descending pass, rotate 180
+It's a bit weird to think how it just keeps sending its view even once out of range... and that it continues to do so even over the remotest parts of the world where perhaps no one is even listening.
 
 After a few more tries, this was my best result.
-The right side is a composite of both the visible and infrared channels.
+The right side has been composited from both the visible and infrared channels.
 
 <img class="glightbox" src="http://drew-x1c5/sdr/apt-best.png" width="740" />
 
-The protocol is called APT, has a resolution of 4km per pixel.
+Keen eyes may notice that this image is rotated 180&deg; from the previous ones.
+Africa is also tilted at a different angle.
+The difference being this capture is from a descending (southbound) pass as opposed to the prior ascending passes.
+Since the satellite streams its 'first-person view', the initial image as received would be flipped upside-down.
 
-This is a legacy protocol from the 60s.
-New satellites no longer contain this capability, only 3 are left and one is already developing camera problems.
+This is a legacy protocol (<abbr title="Automatic Picture Transmission">APT</abbr>) from the 1960s.
+It's fully analog and has a resolution of only 4km/pixel.
+New satellites no longer contain this capability; only 3 are left and one is already developing camera problems.
 This might not be around for much longer.
 
-And check out the doppler shift if we time-lapse the whole pass.
+Check out the doppler shift if we time-lapse the whole pass:
 
 <img class="glightbox" src="http://drew-x1c5/sdr/doppler.png" />
 
 At an orbital velocity of 7400 m/s, which is 0.0025% of the speed of light, we'd expect a doppler shift of 3400 Hz on our carrier frequency 137.1 MHz. Double that for the satellite first moving towards then away from us -- 6.8 kHz total, which [pretty closely matches](https://xkcd.com/54/) the ~6 kHZ shift we see above.
 
 Here's a more modern transmission from the Russian Meteor M2-2 satellite.
-Uses digital encoding so better quality and error correction.
+It uses a digital encoding (<abbr title="Low-Rate Picture Transmission">LRPT</abbr>), giving better quality (6 spectral bands vs. 2, 4x improvement in resolution) and error correction.
 
-<img class="glightbox" src="http://drew-x1c5/sdr/meteor_demod.png" />
+<p style="text-align: center;"><img class="glightbox" src="http://drew-x1c5/sdr/meteor_demod.png" /></p>
 
 The four well-defined clusters (known as a [QAM constellation](https://en.wikipedia.org/wiki/Quadrature_amplitude_modulation#Digital_QAM)) means a clean digital signal.
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/meteor-m2-2.png" />
 
-False color.
-Red channel is thermal infrared -- you can see the [Agulhas current](https://en.wikipedia.org/wiki/Agulhas_Current) peeling off the east shore of South Africa.
-
+The image is <abbr title="meaning the red/green/blue channels don't correspond to those normal colors seen by our eyes">false color</abbr>, with red mapped to thermal infrared &ndash; you can see the warm <a href="https://en.wikipedia.org/wiki/Agulhas_Current">Agulhas current</a> peeling off the east shore of South Africa.
 The image is squashed left-to-right due to the perspective of the satellite's view from low-earth orbit (think like pressing your eye against a basketball).
 
-Literally the day after I captured this the satellite was [hit by a micrometeor](https://translate.google.com/translate?sl=ru&tl=en&u=https%3A%2F%2Fwww.roscosmos.ru%2F27891%2F) and will likely be retired, leaving only Meteor M2 that broadcasts this particular digital mode.
+Literally the day after I captured this, the satellite was [hit by a micrometeor](https://translate.google.com/translate?sl=ru&tl=en&u=https%3A%2F%2Fwww.roscosmos.ru%2F27891%2F) and will likely be retired, leaving only Meteor M2 that broadcasts this particular digital mode.
 Even that one occasionally loses orientation and points sideways, returning pictures [like this](https://i.redd.it/cp3vjqrty8w01.jpg).
 Space is hard.
 
+Some [easy-to-make](https://www.google.com/search?q=qfh+antenna&sxsr&tbm=isch) [homebrew](https://www.google.com/search?q=turnstile+antenna&sxsr&tbm=isch) antennas will greatly improve the performance of these satellite modes.
+Though, personally, I get a kick out of seeing how far I can get with just the basic antenna (specialized antennas are a bit too much hardware in my software defined radio).
 Going beyond here for real-time Earth imagery generally requires large dishes and/or tracking mounts.
-Ain't nobody got time for that.
-
 
 Shortwave
 ---------
