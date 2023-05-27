@@ -50,12 +50,12 @@ These signals are strong, ubiquitous, and easy to decode.
 
 The station is coming in loud and clear, but notice we're also receiving 8 other nearby stations at the same time!
 The RTL-SDR can sample the radio wave up to 3.2 million times per second.
-This means it can 'see' 3.2MHz of the radio spectrum simultaneously*.
-In this case the radio is tuned to 99.0MHz, but is receiving everything happening from 97.4--100.6 MHz.
+This means it can 'see' 3.2 MHz of the radio spectrum simultaneously*.
+In this case the radio is tuned to 99.0 MHz, but is receiving everything happening from 97.4--100.6 MHz.
 Listening to these extra stations requires only changing a software parameter, not actually re-tuning the receiver like a typical radio.
 If we wanted to, we could even listen to them all at once.
 
-\* [Nyquist's theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem){:target="_blank"} says the receivable bandwidth is half the sampling rate, which would suggest only 1.6Mhz of spectrum. However, SDRs perform [IQ sampling](https://en.wikipedia.org/wiki/In-phase_and_quadrature_components){:target="_blank"} in the complex plane, effectively yielding two samples per sample.
+\* [Nyquist's theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem){:target="_blank"} says the receivable bandwidth is half the sampling rate, which would suggest only 1.6 MHz of spectrum. However, SDRs perform [IQ sampling](https://en.wikipedia.org/wiki/In-phase_and_quadrature_components){:target="_blank"} in the complex plane, effectively yielding two samples per sample.
 {: .footnote}
 
 Note we're also decoding the RDS metadata stream with song and station info.
@@ -246,7 +246,7 @@ Weather satellites
 
 <img class="glightbox" style="float: right; margin-left: 25px; margin-bottom: 25px;" src="http://drew-x1c5/sdr/noaafft.png" />
 
-I never gave much thought to how those satellite weather overlays made it from outer space onto [my TV](https://www.twitch.tv/retroweatherchannel), but it makes sense that before the internet they had to be beamed directly to the broadcaster and meteorologists.
+I never gave much thought to how those satellite weather overlays made it from outer space onto [my TV](https://www.twitch.tv/retroweatherchannel), but it makes sense that before the internet they had to be beamed directly to the broadcaster and other meteorologists.
 
 As such, there exists a fleet of satellites transmitting real-time weather info for all to see.
 
@@ -285,12 +285,13 @@ Since weather is local, this limited field of view is mostly fine.
 
 Note that these images don't really have a beginning and an end; they just kinda fade in and out.
 The satellite doesn't take a photo per se, but rather livestreams the narrow swath of Earth immediately visible beneath it.
-As the satellite loops around the planet in perpetuity, the result becomes a never-ending, ticker tape-like view of the Earth.
+As the satellite loops around the planet in perpetuity, the result becomes a never-ending, ticker tape-like record of the Earth.
 
 It's a bit weird to think how it just keeps sending its view even once out of range... and that it continues to do so even over the remotest parts of the world where perhaps no one is even listening.
 
 After a few more tries, this was my best result.
 The right side has been composited from both the visible and infrared channels.
+I love the sun glint off the ocean!
 
 <img class="glightbox" src="http://drew-x1c5/sdr/apt-best.png" width="740" />
 
@@ -308,7 +309,7 @@ Check out the doppler shift if we time-lapse the whole pass:
 
 <img class="glightbox" src="http://drew-x1c5/sdr/doppler.png" />
 
-At an orbital velocity of 7400 m/s, which is 0.0025% of the speed of light, we'd expect a doppler shift of 3400 Hz on our carrier frequency 137.1 MHz. Double that for the satellite first moving towards then away from us -- 6.8 kHz total, which [pretty closely matches](https://xkcd.com/54/) the ~6 kHZ shift we see above.
+At an orbital velocity of 7400 m/s, which is 0.0025% of the speed of light, we'd expect a doppler shift of 3400 Hz on our carrier frequency 137.1 MHz. Double that for the satellite first moving towards then away from us -- 6.8 kHz total, which [pretty closely matches](https://xkcd.com/54/) the ~6 kHz shift we see above.
 
 Here's a more modern transmission from the Russian Meteor M2-2 satellite.
 It uses a digital encoding (<abbr title="Low-Rate Picture Transmission">LRPT</abbr>), giving better quality (6 spectral bands vs. 2, 4x improvement in resolution) and error correction.
@@ -326,12 +327,25 @@ Literally the day after I captured this, the satellite was [hit by a micrometeor
 Even that one occasionally loses orientation and points sideways, returning pictures [like this](https://i.redd.it/cp3vjqrty8w01.jpg).
 Space is hard.
 
+This is also our first exposure to the *digital cliff*, wherein digital signals tend to drop out entirely after exceeding a certain threshold of degraded signal.
+Whereas analog signals just get progressively noisier in the face of increasing interference (including *any amount whatsoever*), digital signals retain perfect fidelity up to a certain point via the use of redundant bits and error correction techniques.
+But once that point goes too far, the signal becomes unrecoverable.
+
 Some [easy-to-make](https://www.google.com/search?q=qfh+antenna&sxsr&tbm=isch) [homebrew](https://www.google.com/search?q=turnstile+antenna&sxsr&tbm=isch) antennas will greatly improve the performance of these satellite modes.
 Though, personally, I get a kick out of seeing how far I can get with just the basic antenna (specialized antennas are a bit too much hardware in my software defined radio).
 Going beyond here for real-time Earth imagery generally requires large dishes and/or tracking mounts.
 
 Shortwave
 ---------
+
+Shortwave, roughly 2--30 MHz, 
+
+
+long distance broadcasts in foreign languages from around the world
+strong dash of propaganda (both religious and political)
+many transmissions used for clandestine purposes
+probe the properties of the ionosphere
+
 
 Aside from lots of normal broadcasts stations, which have exotic languages, and strong dash of propaganda (both religious and political), and definite mystique, shortwave is filled with lots of other interesting stuff. Shortwave travels very long distances, a bit of the wild west, many transmissions used for clandestine purposes or to probe the properties of the ionosphere.
 
@@ -346,7 +360,8 @@ a special kind of radar that can measure ocean waves and currents.
 
 ### Over-the-Horizon defense radar
 
-likely from RAF Akrotiri in Cyprus (received in Bucharest, Romania)
+This extremely strong and frenetic signal is a military radar that can see beyond the horizon due to the long-distance properties of shortwave.
+Its likely origin is RAF Akrotiri in Cyprus (reception occurred in Romania ~1,250 km away).
 
 <img class="glightbox" src="http://drew-x1c5/sdr/oth-radar.png"> <!-- would be cool if this were animated -->
 
@@ -368,11 +383,26 @@ The raw feed sounds... extremely evil.
 
 Olympia Radio SVO Pirgos Greece 8424 kHz
 
-Appears to be some kind of news article in Greek transliterated to the latin alphabet.
+Appears to be some kind of news article in Greek transliterated to the Latin alphabet.
 
 <a href="http://drew-x1c5/sdr/rtty_svo.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rtty_svo.mp4" type="video/mp4"></video></a>
 
-If you listen carefully you can hear Turkish maritime station 8431 kHz bleeding though (TAH in morse code).
+(If you listen carefully you can hear Turkish maritime station 8431 kHz bleeding though -- TAH in morse code.)
+
+I put it through Google Translate so you don't have to:
+
+<div style="display: flex; flex-direction: row;">
+  <div stlye="width: 50%;">
+    
+ἀνιχς ἐπικρατειας πο ἐλεγχον να χρσιμοποιθει ἀπο 'τρομοκρατικεσ' ὀργανοσεισ. ὀ ἐπικεφαλς ἀμερικανος διαπραγματεθς ζαλμαι χαλιλζαντ διαβεβαιοσε χθες μεσο τιττερ ὀτι ῾ ὀασινγκτον 'θα περασπιστει τις ἀφγανικες δναμεις τορα και μετα θν ὀποια σμφονια με τος ταλιμπαν', προσπαθοντας να διασκεδασει τις φμες κατα τις ὀποιες  σμφονια δεν κανει καμια ἀναφορα στον πολεμο πο διεξαγον οἰ ἰσλαμιστες ἀνταρτες ἐναντιον τον δναμεον θς κβερνσς σθν καμπολ. κατα τον χαλιλζαντ, τα δο μερ σμφονον ὀτι "το μελλον το ἀφγανισταν θα καθοριστει σε διαπραγματεσεις μεταξ τον ἀφγανον'. περαν θς ἀποχορσς τον στρατεματον τον ῾πα και ἀλλον ξενον δναμεον (σνολικα εἰναι περιπο 20,000) ἀπο το ἀφγανισταν, ἀναμενεται να σμπεριλφθει  χρξ καταπασς το προς ἀναμεσα στος ἀμερικανος και τος ἰσλαμιστες ἀνταρτεσ,  τολαχιστον  'μειοσ το ἐπιπεδο
+
+  </div>
+<div stlye="width: 50%;">
+
+  ... territory that they control to be used by "terrorist" organizations, the chief US negotiator Zalmay Khalilzad assured via Twitter yesterday that Washington "will defend the Afghan forces now and after any accord with the Taliban", trying to entertain the rumors against which he made no reference to the war waged by the Islamic insurgents against the government forces in Kabul. According to Khalilzad, the two parties agree that "the future of Afghanistan will be determined in negotiations between the Afghans". In addition to the withdrawal of US troops and other foreign troops (almost 20,000 in total) from Afghanistan, it is expected to include the declaration of a cease-fire between the Americans and the Islamic insurgents, at least the "reduction of the plateau ...
+
+</div>
+</div>
 
 ### Time signals
 
@@ -586,7 +616,7 @@ COASTAL NAVWARNING 556 OF 2020
 NNNN
 </div>
 
-Incredible how well this bulletin captures the zeitgeist of the time: [crayfishing](https://en.wikipedia.org/wiki/Jasus_lalandii), [desalination](https://en.wikipedia.org/wiki/Cape_Town_water_crisis), and a broken lighthouse.
+Incredible how well this bulletin captures the local zeitgeist: [crayfishing](https://en.wikipedia.org/wiki/Jasus_lalandii), [desalination](https://en.wikipedia.org/wiki/Cape_Town_water_crisis), and a broken lighthouse.
 
 Trunked Public Safety Radio
 -------------
@@ -902,7 +932,7 @@ FM hidden subcarriers
   <source src="http://drew-x1c5/sdr/sca_song.mp3" type="audio/mpeg">
 </audio>
 
-mention tubular bells 16khz bleed?
+mention tubular bells 16 kHz bleed?
 
 Remote control and reverse engineering
 --------------------------------------
