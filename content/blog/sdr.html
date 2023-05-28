@@ -338,42 +338,59 @@ Going beyond here for real-time Earth imagery generally requires large dishes an
 Shortwave
 ---------
 
-Shortwave, roughly 2--30 MHz, 
+The shortwave band is popularly known as the place to receive foreign radio broadcasts.
+Frequencies below ~30 MHz are not limited by line-of-sight and can travel extremely long distances beyond the horizon due to the Earth's ionosphere.
+An environment where countries can broadcast far outside their borders leads to some interesting finds -- essentially the 'wild west' of radio.
 
+Not only will you find dozens of public broadcasts from far-flung destinations in exotic languages, but also:
 
-long distance broadcasts in foreign languages from around the world
-strong dash of propaganda (both religious and political)
-many transmissions used for clandestine purposes
-probe the properties of the ionosphere
+{:style="margin-top: -2em;"}
+- a strong dash of propaganda (both religious and political)
+- communication for ships and planes many thousands of miles from land
+- many transmissions of clandestine, military, or otherwise unknown purpose
+- scientific transmissions to probe the properties of the ionosphere
+- *DXing* -- seeing how far away you can hear or be heard, just for sport
 
+Signals *may* travel very far, but results are highly volatile based on frequency, location, time of day, and solar activity ("space weather"), further adding to the mystique of the band.
 
-Aside from lots of normal broadcasts stations, which have exotic languages, and strong dash of propaganda (both religious and political), and definite mystique, shortwave is filled with lots of other interesting stuff. Shortwave travels very long distances, a bit of the wild west, many transmissions used for clandestine purposes or to probe the properties of the ionosphere.
-
-Aside from normal broadcast radio, other oddities.
-I think I was able to tune into a broadcast in China, 16,000 km away.
+Below are various shortwave oddities.
+I won't give much attention to broadcast shortwave, though they are plentiful.
+I was just barely able to tune into a broadcast from China, 16,000 km away (*I think-- it's not always trivial to determine where a shortwave broadcast is coming from).
 
 ### CODAR
 
-a special kind of radar that can measure ocean waves and currents.
+A special kind of radar that can measure ocean waves and currents:
 
-<img class="glightbox" src="http://drew-x1c5/sdr/codar.png">
+<p style="text-align: center;"><img class="glightbox" src="http://drew-x1c5/sdr/codar.png"></p>
 
 ### Over-the-Horizon defense radar
 
 This extremely strong and frenetic signal is a military radar that can see beyond the horizon due to the long-distance properties of shortwave.
-Its likely origin is RAF Akrotiri in Cyprus (reception occurred in Romania ~1,250 km away).
+Its likely origin is [RAF Akrotiri](https://en.wikipedia.org/wiki/RAF_Akrotiri) in Cyprus (reception occurred in Romania ~1,250 km away).
 
-<img class="glightbox" src="http://drew-x1c5/sdr/oth-radar.png"> <!-- would be cool if this were animated -->
+<p style="text-align: center;"><img class="glightbox" src="http://drew-x1c5/sdr/oth-radar.png"></p> <!-- would be cool if this were animated -->
 
 ### Ionosonde
 
+Ionosondes are chirps that sweep across the entire band to measure conditions in the ionosphere, and in turn, real-time reception characteristics.
+
+Like... just to underscore that wild west mentality, it's incredible this is considered OK to do-- to interfere with literally every other user of the band on a regular basis.
+You can hear the chirp momentarily trounce the tuned-in station at 0:17.
+
 <a href="http://drew-x1c5/sdr/ionosonde.mp4" class="glightbox"><video width="740" controls autoplay loop muted><source src="http://drew-x1c5/sdr/ionosonde.mp4" type="video/mp4"></video></a>
+
+And here might some other kind of broad-spectrum probe using a different pattern?
+
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/ionosonde2.png">
 
 ### Digital Radio Mondiale
 
+Shortwave even has its own version of digital radio known as DRM.
+Two content streams are available on this station.
+
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/drm.png">
 
-The raw feed sounds... extremely evil.
+The raw analog feed sounds... extremely evil.
 
 <audio controls>
   <source src="http://drew-x1c5/sdr/drm_raw.mp3" type="audio/mpeg">
@@ -381,17 +398,17 @@ The raw feed sounds... extremely evil.
 
 ### Radioteletype (RTTY)
 
-Olympia Radio SVO Pirgos Greece 8424 kHz
-
-Appears to be some kind of news article in Greek transliterated to the Latin alphabet.
+Olympia Radio (callsign SVO) is broadcasting a text stream out of Pyrgos, Greece on 8424 kHz.
+It appears to be some kind of news article in Greek transliterated to the Latin alphabet.
 
 <a href="http://drew-x1c5/sdr/rtty_svo.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rtty_svo.mp4" type="video/mp4"></video></a>
 
-(If you listen carefully you can hear Turkish maritime station 8431 kHz bleeding though -- TAH in morse code.)
+(If you listen carefully you can hear the adjacent Turkish maritime station 8431 kHz bleeding though -- TAH in morse code.)
 
 I put it through Google Translate so you don't have to:
 
-<div style="display: flex; flex-direction: row;">
+<p>
+<div style="display: flex; flex-direction: row; gap: 1.5em;">
   <div stlye="width: 50%;">
     
 ἀνιχς ἐπικρατειας πο ἐλεγχον να χρσιμοποιθει ἀπο 'τρομοκρατικεσ' ὀργανοσεισ. ὀ ἐπικεφαλς ἀμερικανος διαπραγματεθς ζαλμαι χαλιλζαντ διαβεβαιοσε χθες μεσο τιττερ ὀτι ῾ ὀασινγκτον 'θα περασπιστει τις ἀφγανικες δναμεις τορα και μετα θν ὀποια σμφονια με τος ταλιμπαν', προσπαθοντας να διασκεδασει τις φμες κατα τις ὀποιες  σμφονια δεν κανει καμια ἀναφορα στον πολεμο πο διεξαγον οἰ ἰσλαμιστες ἀνταρτες ἐναντιον τον δναμεον θς κβερνσς σθν καμπολ. κατα τον χαλιλζαντ, τα δο μερ σμφονον ὀτι "το μελλον το ἀφγανισταν θα καθοριστει σε διαπραγματεσεις μεταξ τον ἀφγανον'. περαν θς ἀποχορσς τον στρατεματον τον ῾πα και ἀλλον ξενον δναμεον (σνολικα εἰναι περιπο 20,000) ἀπο το ἀφγανισταν, ἀναμενεται να σμπεριλφθει  χρξ καταπασς το προς ἀναμεσα στος ἀμερικανος και τος ἰσλαμιστες ἀνταρτεσ,  τολαχιστον  'μειοσ το ἐπιπεδο
@@ -403,13 +420,15 @@ I put it through Google Translate so you don't have to:
 
 </div>
 </div>
+</p>
 
 ### Time signals
 
-Can listen to atomic clock time signals broadcast by national laboratories.
-Also encode the date/time in some machine readable fashion.
+Several national laboratories broadcast their official atomic clock time over shortwave due to its wide reach.
+They typically speak the time aloud and also encode the date/time in a machine readable fashion.
 
-USA broadcats WWV on 2.5/5/10/15/20 MHz, and encodes the date and time with a 1-bit-per-second varying pulse length low hum.
+USA broadcats WWV on 2.5/5/10/15/20 MHz; it encodes the date and time as a series of long and short pulses, 1 pulse/bit per second.
+The pulses are the low humming noise (not audible with cheap speakers).
 
 <a class="glightbox video-thumbnail" href="http://drew-x1c5/sdr/wwv.mp4"><video width="740" poster="http://drew-x1c5/sdr/wwv_thumb.png"><source src="http://drew-x1c5/sdr/wwv.mp4" type="video/mp4"></video></a>
 
@@ -418,6 +437,8 @@ Canada's CHU 3.33 MHz encodes things differently, using a data burst. The protoc
 <a class="glightbox video-thumbnail" href="http://drew-x1c5/sdr/chu.mp4"><video width="740" poster="http://drew-x1c5/sdr/chu_thumb.png"><source src="http://drew-x1c5/sdr/chu.mp4" type="video/mp4"></video></a>
 
 GPS has made these essentially obsolete.
+
+
 
 These are rebroadcasts of the fundamental signal, a data-only signal WWVB at 60 kHz. Also Germany's DCF at 77.5 kHz. These are what are used by those radio-synced "atomic clocks" you can buy. Noise becomes a major problem for wideband receivers at these low frequencies and I haven't had any luck receiving them. The lowest OTA signal I've been able to receive to date was Radio Antena Satelor at 153 kHz while in Romania.
 
