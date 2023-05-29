@@ -338,29 +338,31 @@ But once that point goes too far, the signal becomes unrecoverable.
 
 Some [easy-to-make](https://www.google.com/search?q=qfh+antenna&sxsr&tbm=isch) [homebrew](https://www.google.com/search?q=turnstile+antenna&sxsr&tbm=isch) antennas will greatly improve the performance of these satellite modes.
 Though, personally, I get a kick out of seeing how far I can get with just the basic antenna (specialized antennas are a bit too much hardware in my software defined radio).
-Going beyond here for real-time Earth imagery generally requires large dishes and/or tracking mounts.
+Going further beyond here for real-time Earth imagery generally requires large dishes and/or tracking mounts.
 
 Shortwave
 ---------
 
-The shortwave band is popularly known as the place to receive foreign radio broadcasts.
+Shortwave is essentially *the wild west* of radio.
+Popularly known as the place to receive foreign radio broadcasts, it is full of much more.
 Frequencies below ~30 MHz are not limited by line-of-sight and can travel extremely long distances beyond the horizon due to the Earth's ionosphere.
-An environment where countries can broadcast far outside their borders leads to some interesting finds -- essentially the 'wild west' of radio.
-
-Not only will you find dozens of public broadcasts from far-flung destinations in exotic languages, but also:
+An environment where countries can broadcast far outside their borders leads to some interesting finds:
 
 {:style="margin-top: -2em;"}
+- dozens of public broadcasts from far-flung destinations in exotic languages
 - a strong dash of propaganda (both religious and political)
-- communication for ships and planes many thousands of miles from land
+- communication for ships and planes hundreds/thousands of miles from land
 - many transmissions of clandestine, military, or otherwise unknown purpose
 - scientific transmissions to probe the properties of the ionosphere
 - *DXing* -- seeing how far away you can hear or be heard, just for sport
 
 Signals *may* travel very far, but results are highly volatile based on frequency, location, time of day, and solar activity ("space weather"), further adding to the mystique of the band.
 
-Below are various shortwave oddities.
-I won't give much attention to broadcast shortwave, though they are plentiful.
-I was just barely able to tune into a broadcast from China, 16,000 km away (*I think-- it's not always trivial to determine where a shortwave broadcast is coming from).
+Below are various shortwave oddities I have encountered.
+I won't give much attention to the foreign radio programs, though they are intriguing and plentiful.
+The farthest such station I was (just barely) able to tune into was (I believe) in China-- 16,000 km away! (though it's not always possible to determine the origin with certainty)
+
+<!-- TODO explain antenna setup -->
 
 ### CODAR
 
@@ -391,11 +393,11 @@ And here might be some other kind of broad-spectrum probe using a different patt
 ### Digital Radio Mondiale
 
 Shortwave even has its own version of digital radio known as DRM.
-Two content streams are available on this station.
+Two content streams are provided on this station.
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/drm.png">
 
-The raw analog feed sounds... extremely evil.
+The undecoded analog feed sounds... extremely evil.
 
 <audio controls>
   <source src="http://drew-x1c5/sdr/drm_raw.mp3" type="audio/mpeg">
@@ -403,7 +405,7 @@ The raw analog feed sounds... extremely evil.
 
 ### Radioteletype (RTTY)
 
-Olympia Radio (callsign SVO) is broadcasting a text stream out of Pyrgos, Greece on 8424 kHz.
+Here, SVO Olympia Radio is broadcasting a text stream out of Pyrgos, Greece on 8424 kHz.
 It appears to be some kind of news article in Greek transliterated to the Latin alphabet.
 
 <a href="http://drew-x1c5/sdr/rtty_svo.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rtty_svo.mp4" type="video/mp4"></video></a>
@@ -447,7 +449,7 @@ Some countries offer their 'true' time standard at a much lower frequency, and r
 USA has WWVB at 60 kHz and Germany has DCF at 77.5 kHz, well into the longwave band.
 These signals are data-only (no bandwidth for voice at these low frequencies) and are what those consumer "atomic" clocks (really radio-synced clocks) use to get the time.
 
-My understanding is that noise becomes a major problem for wideband receivers at these low frequencies and to date I haven't had any success receiving them. The lowest over-the-air signal I've been able to receive so far was Radio Antena Satelor at 153 kHz while in Romania.
+My understanding is that noise becomes a major problem for wideband receivers at these low frequencies and to date I haven't had any success receiving them. The lowest over-the-air frequency I've been able to receive so far was Radio Antena Satelor at 153 kHz while in Romania.
 
 ### WEFAX
 
@@ -478,7 +480,31 @@ Much better results from America:
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/schedule.png">
 
 While overwhelmingly used for weather, there are still a few other niche users.
-At least one newspaper in Japan still broadcasts a [radiofax edition](https://archive.goughlui.com/legacy/hffax/jjc-megajapnews.jpg) over shortwave.
+At least one newspaper in Japan still broadcasts a [radiofax edition](https://archive.goughlui.com/legacy/hffax/jjc-megajapnews.jpg).
+
+### DXing with FT8 / WSPR
+
+Shortwave is a popular venue for ham radio, since it affords making contact with people in faraway or novel locations.
+This sport is known as *DXing*.
+Modern technology has refined this process into a fully automated form that removes the pesky human interaction entirely.
+
+I jest, but by focusing on "minimum viable contact", enthusiasts have created transmission modes (such as FT8 and WSPR) that can work even with extremely weak signals.
+You can rack up an astonishing number and range of contacts that would be technically and logistically impossible otherwise.
+
+But it does sound like some sort of warbling chorus of the damned.
+
+<a href="http://drew-x1c5/sdr/ft8-live_crop.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/ft8-live_crop.mp4" type="video/mp4"></video></a>
+
+Running overnight in New Jersey, I was astounded at the breadth of contacts received, including some very far away places like Saudi Arabia, Antarctica, Australia, New Zealand, and Fiji!
+
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/ft8-usnj.png" />
+
+Running in South Africa yielded a similarly impressive spread: St. Helena, Far East Asia (Vladivostok, Khabarovsk, Hokkaido), and Hawaii (nearly the opposite side of the planet).
+
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/ft8-zawc.png" />
+
+I honestly expected more representation from the African continent.
+But passive reception like this is really more a statement on how powerful the sender's antenna is.
 
 ### Numbers station
 
@@ -945,8 +971,8 @@ SSTV from the ISS
 <a style="float: right; margin-left: 30px;" href="http://drew-x1c5/sdr/sstv.mp4" class="glightbox video-thumbnail"><video width="300"><source src="http://drew-x1c5/sdr/sstv.mp4" type="video/mp4"></video></a>
 
 SSTV means "slow-scan television" but it's kind of a misnomer as it actually transmits still images (i.e., really slow).
-ISS does this several times a year as outreach for HAM radio, usually commemorating a famous astronaut that has recently passed away.
-kinda thought this was veering too much into HAM geekery for my tastes, but holy shit once that signal comes through it's pretty primal.
+ISS does this several times a year as outreach for ham radio, usually commemorating a famous astronaut that has recently passed away.
+kinda thought this was veering too much into ham geekery for my tastes, but holy shit once that signal comes through it's pretty primal.
 basically, expecting [this](https://s3.amazonaws.com/files.qrz.com/x/i0jx/jxyoung.jpg), but actually [this](https://www.youtube.com/watch?v=NCkbekhUdw4&t=16s)
 
 <img class="glightbox" src="http://drew-x1c5/sdr/iss03.png" />
@@ -1029,19 +1055,6 @@ Also note how the IR pulses register on the camera sensor, although invisible to
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/irdecode.png" />
 
 Applying AM demodulation reveals the underlying data signal.
-
-FT8 / WSPR
-----------
-
-<img class="glightbox" width="740" src="http://drew-x1c5/sdr/ft8-usnj.png" />
-
-Fiji, Antarctica, Saudi Arabia!
-
-<img class="glightbox" width="740" src="http://drew-x1c5/sdr/ft8-zawc.png" />
-
-St. Helena, Hawaii (nearly halfway around the world), far east Asia: Khabarovsk/Vladivostok/Hokkaido
-
-<a href="http://drew-x1c5/sdr/ft8-live.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/ft8-live.mp4" type="video/mp4"></video></a>
 
 UHF pirates
 -----------
