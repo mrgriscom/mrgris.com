@@ -16,7 +16,12 @@ h3 {
   font-weight: bold;
   font-size: 110%;
 }
- 
+
+audio {
+    margin-top: -2em;
+    margin-bottom: 2.4em;
+}
+
 </style>
 
 I recently bought a Software Defined Radio for... [reasons...](https://news.ycombinator.com/item?id=19864189){:target="_blank"} and holy shit this thing has completely blown my mind.
@@ -374,12 +379,12 @@ Its likely origin is [RAF Akrotiri](https://en.wikipedia.org/wiki/RAF_Akrotiri) 
 
 Ionosondes are chirps that sweep across the entire band to measure conditions in the ionosphere, and in turn, real-time reception characteristics.
 
-Like... just to underscore that wild west mentality, it's incredible this is considered OK to do-- to interfere with literally every other user of the band on a regular basis.
+Like... just to underscore that wild west mentality, it's incredible that it's considered OK to do this-- interfering with literally every other user of the band on a regular basis.
 You can hear the chirp momentarily trounce the tuned-in station at 0:17.
 
 <a href="http://drew-x1c5/sdr/ionosonde.mp4" class="glightbox"><video width="740" controls autoplay loop muted><source src="http://drew-x1c5/sdr/ionosonde.mp4" type="video/mp4"></video></a>
 
-And here might some other kind of broad-spectrum probe using a different pattern?
+And here might be some other kind of broad-spectrum probe using a different pattern?
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/ionosonde2.png">
 
@@ -436,33 +441,44 @@ Canada's CHU 3.33 MHz encodes things differently, using a data burst. The protoc
 
 <a class="glightbox video-thumbnail" href="http://drew-x1c5/sdr/chu.mp4"><video width="740" poster="http://drew-x1c5/sdr/chu_thumb.png"><source src="http://drew-x1c5/sdr/chu.mp4" type="video/mp4"></video></a>
 
-GPS has made these essentially obsolete.
+GPS (yet again) has essentially made these obsolete.
 
+Some countries offer their 'true' time standard at a much lower frequency, and re-broadcast them on shortwave only for convenience.
+USA has WWVB at 60 kHz and Germany has DCF at 77.5 kHz, well into the longwave band.
+These signals are data-only (no bandwidth for voice at these low frequencies) and are what those consumer "atomic" clocks (really radio-synced clocks) use to get the time.
 
-
-These are rebroadcasts of the fundamental signal, a data-only signal WWVB at 60 kHz. Also Germany's DCF at 77.5 kHz. These are what are used by those radio-synced "atomic clocks" you can buy. Noise becomes a major problem for wideband receivers at these low frequencies and I haven't had any luck receiving them. The lowest OTA signal I've been able to receive to date was Radio Antena Satelor at 153 kHz while in Romania.
+My understanding is that noise becomes a major problem for wideband receivers at these low frequencies and to date I haven't had any success receiving them. The lowest over-the-air signal I've been able to receive so far was Radio Antena Satelor at 153 kHz while in Romania.
 
 ### WEFAX
 
-<img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/sa_best.png">
+<img class="glightbox" style="float: right; margin-left: 25px; margin-bottom: 25px;" width="400" src="http://drew-x1c5/sdr/wefax/sa_best.png">
 
-Here's what it's [supposed to look like](http://drew-x1c5/sdr/wefax/sa_ref_20191017.gif) -- (hand-drawn map!)
+Weatherfax is a protocol for sending images, typically weather forecasts for shipping.
 
-Can't explain the weird echo/ghosting. Even quite apparent in the raw audio feed.
+My results from South Africa were mixed.
+There's clearly something there, but the quality is poor and there's a weird echo/ghosting that's affecting the image.
+(The vertical black bars are from me hopping frequencies trying to improve reception.)
+
+Here's what it's [supposed to look like](http://drew-x1c5/sdr/wefax/sa_ref_20191017.gif) (how quaint-- they still hand-draw the map!)
+
+I could never counteract the strange echo and it's even quite apparent in the raw audio feed:
 
 <audio controls>
   <source src="http://drew-x1c5/sdr/wefax/sa_echo.mp3" type="audio/mpeg">
 </audio>
 <!-- todo make shorter, maybe a bit quieter? -->
 
-Turns out [it's not just me](https://goughlui.com/2019/02/16/radiofax-the-quest-for-zsj-cape-naval-south-africa-updates/). A relief to see that my struggles with this station weren't my own shortcomings but rather more [T.I.A.](https://www.youtube.com/watch?v=SLd74Ukkbic)
+Turns out [it's not just me](https://goughlui.com/2019/02/16/radiofax-the-quest-for-zsj-cape-naval-south-africa-updates/)... a relief to see that my struggles with this station weren't my own shortcomings but rather more [T.I.A.](https://www.youtube.com/watch?v=SLd74Ukkbic)
 
-Much better results from America.
+I had much better results in America.
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/surface_analysis.png">
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/iceberg.png">
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/satcloud.png">
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/wefax/schedule.png">
+
+While overwhelmingly used for weather, there are still a few other niche users.
+At least one newspaper in Japan still broadcasts a [radiofax edition](https://archive.goughlui.com/legacy/hffax/jjc-megajapnews.jpg) over shortwave.
 
 ### Numbers station
 
