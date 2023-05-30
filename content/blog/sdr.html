@@ -966,49 +966,50 @@ If we inject a [perfectly clean](http://drew-x1c5/sdr/colorbars_ref.png) signal,
 
 That dot crawl! The color ringing! Be still, my beating heart! [Full-speed version here](http://drew-x1c5/sdr/colorbars.mp4)
 
-
-
-what can we actually do though? in theory receive scrambled channels, but those are long gone. can do next best thing, which is recreate ourselves
+### Scrambling
 
 I was hoping to actually do something with an analog channel that I normally wouldn't be able to do.
 Descrambling a scrambled channel felt like a worthy goal.
 But those signals are long gone.
 So what's the next best thing... create my own scrambled channel and broadcast it back to the TV? (hmm emoji)
 
-Turns out old scrambling was quite simplistic: it hid the frame sync markers among the normal picture data, so the TV couldn't figure out where to lock on, resulting in rolling and tearing. (blue = original; red = scrambled)
-
+Turns out old scrambling was quite simplistic: it hid the frame sync markers among the normal picture data, so the TV couldn't figure out where to lock on, resulting in a rolling and tearing image.
+This method was known as Gated Sync Suppression.
+Sometimes the video signal was inverted as well.
 
 <img class="glightbox" src="http://drew-x1c5/sdr/gss-waveform.png" width="740">
 
+And at last, realizing the dream of every 90s teenager, mastery over the cable scrambling:
+
 <a href="http://drew-x1c5/sdr/scramble_orig.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/scramble_orig.mp4" type="video/mp4"></video></a>
 
-at last, realizing the dream of 90s teenager, control over the cable scrambling
+One subtlety is that I'm transmitting back to the TV.
+But the SDRs available to me are receive only, and those with transmit capability generally cost $$$.
+So how am I doing it?
+Well, someone figured out how to drive a certain breed of cheap USB→VGA adapter to act as a quick-and-dirty transmitter.
+Emphasis on dirty-- more like it spews out ridiculous amounts of radio interference that just happens to also contain your signal of interest.
+The project is known as [FL2K](https://osmocom.org/projects/osmo-fl2k/wiki), and can be considered a spiritual sibling of RTL-SDR-- getting a commodity device to harness the power of radio in extremely capable and unexpected ways.
 
-requires transmit capability
-
-Another complication: the RTL-SDR stick is receive only, and SDRs with transmit capability are $$$.
-Someone figured out how to modify a cheap USB-VGA adapter to act as a quick-and-dirty transmitter.
-Emphasis on dirty-- more like it spews out ridiculous amounts of radio interference that just happens to also include your signal of interest.
-
+My setup for these experiments confines the signal entirely within the cable connection to the TV, with no signal radiated into the vicinity, mitigating the negative (and illegal) consequences of interference.
 
 <img class="glightbox" src="http://drew-x1c5/sdr/txsetup.jpg" width="740">
 
 As someone who has a bit of a "thing" for connectors and adapters, this 7-degree daisy chain (USB &rarr; VGA &rarr; BNC &rarr; SMA &rarr; 20dB attenuator &rarr; Type F connector &rarr; TV coaxial) was _extreeeeemely_ satisfying.
 
-oh and it also works on some flat panel tvs too!?
+Apparently the effect works on some flat panel TVs too!?
+I guess their analog decoder chip still mostly works in the same way.
 
 <a href="http://drew-x1c5/sdr/scramble_poc_orig.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/scramble_poc_orig.mp4" type="video/mp4"></video></a>
 
-we can have other fun like injecting our own text into the closed captioning stream
+With the power of transmit, we can have other fun, like injecting our own text into the closed captioning stream.
 
 <a href="http://drew-x1c5/sdr/thanks.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/thanks.mp4" type="video/mp4"></video></a>
 
-who knew closed captions supported colors?
-certainly not i.
-but it was in the [spec](https://en.wikipedia.org/wiki/EIA-608), and if you send the right control sequences, it works!
+I never knew closed captions supported color!
+But there it is right in the [spec](https://en.wikipedia.org/wiki/EIA-608), and if you send the right control sequences, it works!
 
-and after all that, turns out analog tv still being broadcast in south africa.
-i just didn't realize what i was looking at
+And... after all that, turns out analog TV still alive and well in South Africa.
+I just didn't realize what I was looking at at the time.
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/pal-ota-wf.png">
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/sabc.png">
