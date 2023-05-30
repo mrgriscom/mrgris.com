@@ -328,7 +328,7 @@ The four well-defined clusters (known as a [QAM constellation](https://en.wikipe
 The image is <abbr title="meaning the red/green/blue channels don't correspond to those normal colors seen by our eyes">false color</abbr>, with red mapped to thermal infrared &ndash; you can see the warm <a href="https://en.wikipedia.org/wiki/Agulhas_Current">Agulhas current</a> peeling off the east shore of South Africa.
 The image is squashed left-to-right due to the perspective of the satellite's view from low-earth orbit (think like pressing your eye against a basketball).
 
-Literally the day after I captured this, the satellite was [hit by a micrometeor](https://translate.google.com/translate?sl=ru&tl=en&u=https%3A%2F%2Fwww.roscosmos.ru%2F27891%2F) and will likely be retired, leaving only Meteor M2 that broadcasts this particular digital mode.
+Literally the day after I captured this, the satellite -- Meteor M2-2 -- was... [hit by a micrometeor](https://translate.google.com/translate?sl=ru&tl=en&u=https%3A%2F%2Fwww.roscosmos.ru%2F27891%2F) and will likely be retired, leaving only Meteor M2 that broadcasts this particular digital mode.
 Even that one occasionally loses orientation and points sideways, returning pictures [like this](https://i.redd.it/cp3vjqrty8w01.jpg).
 Space is hard.
 
@@ -694,7 +694,7 @@ Most agencies in America are modernizing to the P25 system:
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/p25.png">
 
 Kinda crazy to see so many operations under one roof.
-Seems like most of what these people do is reading numbers at each other...
+But seems like most of what these people do is reading numbers at each other...
 
 <audio controls>
   <source src="http://drew-x1c5/sdr/p25.mp3" type="audio/mpeg">
@@ -719,7 +719,7 @@ I would have thought pagers had gone extinct in the era of 4G, but medical pager
 
 And, uhhh, apparently they still transmit sensitive medical info completely in the clear!
 
-<p style="clear: both; margin-bottom: -1.5em;">Everything in pink below is <abbr title="Personally Identifiable Information">PII</abbr> that I personally removed myself.</p>
+<p>Everything in pink below is <abbr title="Personally Identifiable Information">PII</abbr> that I personally removed myself.</p>
 
 <style>
   .message {
@@ -736,7 +736,7 @@ And, uhhh, apparently they still transmit sensitive medical info completely in t
   }
 </style>
 
-<div class="pre">
+<div class="pre" style="clear: both;">
 <div class="message">
 multimon-ng 1.1.8<br>
 Available demodulators: POCSAG512 POCSAG1200 POCSAG2400 FLEX EAS UFSK1200 CLIPFSK FMSFSK AFSK1200 AFSK2400 AFSK2400_2 AFSK2400_3 HAPN4800 FSK9600 DTMF ZVEI1 ZVEI2 ZVEI3 DZVEI PZVEI EEA EIA CCIR MORSE_CW DUMPCSV X10 SCOPE
@@ -902,24 +902,41 @@ I know technically these numbers are visible on the outside of everyone's house,
 Analog TV
 ---------
 
-wanted to capture analog tv, but off air
-but wait, cable is essentially a private broadcast antenna
+I really wanted to capture and play around with old-school analog TV.
+But those signals have gone off the air almost everywhere.
 
-[digital cable pedestal? -- if i have the right catv raw file]
+Then I thought, the coax cable for cable TV is essentially a private radio spectrum... but cable TV also went digital over 20 years ago.
 
-digital cable though - need a vcr or converter box
+But *then* I realized, any device with an old style RF-out would give me an analog video signal on that coax cablee, regardless of the input source!
+
+Let's see what's on channel 86 at 5AM when I had this idea...
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/tvsharp.png">
+
+Success!
+And from a VCR:
+
 <img class="glightbox" src="http://drew-x1c5/sdr/vcr.jpg" width="740">
 
-not enough bandwidth for color/audio/fine detail.
-but with rsp1a
+<p>
+Note the capture is only in black & white (and also lacks sound).
+The RTL-SDR can only capture 3.2 MHz of bandwidth, but a full <abbr title="The American standard, as opposed to European PAL">NTSC</abbr> TV channel is 6 MHz wide.
+Due to the magic (i.e., wastefulness) of analog, we still get the rough picture, but lose finer detail, color, and audio.
+</p>
 
-<img class="glightbox" width="740" src="http://drew-x1c5/sdr/ntsc-wf.png">
+I had to upgrade to a [better SDR](https://www.sdrplay.com/rsp1a/) to capture the full channel at once:
 
-First hump is the main black&white signal, 2nd hump is the color information, and spike at the end is the audio channel.
+<p style="text-align: center;"><img class="glightbox" src="http://drew-x1c5/sdr/ntsc-wf.png"></p>
 
 decode to frames
+
+I upgraded to a beefier SDR* to capture the full TV signal and decode with color.
+To my surprise, no existing decoder seemed to support this, so I wrote one myself.
+Good god, do I know a lot about how old-school TV worked now.
+
+Here you can see all the parts of the picture normally hidden out of frame -- the frame synchronization markers (grey bars), color calibration (green bar), anti-copy protection (slowly pulsing black-to-white bars), and the closed captioning stream (white dashes at bottom).
+
+
 
 <a class="glightbox video-thumbnail" href="http://drew-x1c5/sdr/ntsc-cc.mp4"><video width="740"><source src="http://drew-x1c5/sdr/ntsc-cc.mp4" type="video/mp4"></video></a>
 
@@ -933,7 +950,20 @@ how faithfully can we recreate those analog artifacts? [[reference image](http:/
 
 that dot crawl! ringing artifacts! that color bleed!
 
+A true test of the decoder is does it faithfully recreate the analog artifacts of yore?
+Here I've injected a perfectly clean signal to see what comes out.
+The ringing and crawling jagged edges look pretty faithful to me (and really takes me back, frankly!).
+
+
 what can we actually do though? in theory receive scrambled channels, but those are long gone. can do next best thing, which is recreate ourselves
+
+I was hoping to actually do something with an analog channel that I normally wouldn't be able to do.
+Descrambling a scrambled channel felt like a worthy goal.
+But those signals are long gone.
+So what's the next best thing... create my own scrambled channel and broadcast it back to the TV? (hmm emoji)
+
+Turns out old scrambling was quite simplistic: it hid the frame sync markers among the normal picture data, so the TV couldn't figure out where to lock on, resulting in rolling and tearing. (blue = original; red = scrambled)
+
 
 <img class="glightbox" src="http://drew-x1c5/sdr/gss-waveform.png" width="740">
 
@@ -942,6 +972,11 @@ what can we actually do though? in theory receive scrambled channels, but those 
 at last, realizing the dream of 90s teenager, control over the cable scrambling
 
 requires transmit capability
+
+Another complication: the RTL-SDR stick is receive only, and SDRs with transmit capability are $$$.
+Someone figured out how to modify a cheap USB-VGA adapter to act as a quick-and-dirty transmitter.
+Emphasis on dirty-- more like it spews out ridiculous amounts of radio interference that just happens to also include your signal of interest.
+
 
 <img class="glightbox" src="http://drew-x1c5/sdr/txsetup.jpg" width="740">
 
@@ -975,6 +1010,10 @@ Digital TV
 
 <img class="glightbox" src="http://drew-x1c5/sdr/hdtv-ant.jpg" width="740" />
 
+Unlike analog, if anything less than the full 6 MHz is received, the stream is unreadable.
+Hence, the better SDR is required.
+
+
 decent reception with the rabbit ears antenna, but not consistent enough across the full bandwidth allocation to successfully decode.
 apparently sticking a [wire into a potato](https://blog.solidsignal.com/tutorials/hd-blade-vs-potato-can-spud-bring-goods/) works fairly well.
 
@@ -988,6 +1027,9 @@ apparently sticking a [wire into a potato](https://blog.solidsignal.com/tutorial
 
 That's... a lot to unpack from just 60 seconds captured at random.
 That said, the [video for _I'm Turn't_](https://www.youtube.com/watch?v=YiUdrIsqmyQ) is pretty great
+
+Skip to the end for good glitch art.
+
 
 <img class="glightbox" src="http://drew-x1c5/sdr/atsc/program_guide.png" width="740" />
 
@@ -1012,11 +1054,20 @@ Last one signal lost as the station set below the horizon.
 FM hidden subcarriers
 ---------------------
 
+FM stations have more bandwidth allocated to them than they need to broadcast audio, so they use the extra space in the ultrasonic range for various purposes: stereo, RDS (song/artist info), proprietary data streams like traffic and stock quotes, or even completely unrelated additional broadcasts.
+
+Here's a breakdown of a station with such a broadcast: KBOO 90.7 FM in Portland, Oregon.
+Your typical NPR fare...
+
+
 <audio controls>
   <source src="http://drew-x1c5/sdr/sca_host.mp3" type="audio/mpeg">
 </audio>
 
 <img class="glightbox" src="http://drew-x1c5/sdr/fmsca.png" />
+
+Some kind of Vietnamese talk radio!
+
 
 <audio controls>
   <source src="http://drew-x1c5/sdr/sca_talk.mp3" type="audio/mpeg">
@@ -1085,6 +1136,18 @@ Applying AM demodulation reveals the underlying data signal.
 UHF pirates
 -----------
 
+The US military runs a number of relay satellites from the 70s.
+Using old tech, they are just dumb repeaters with no access control.
+There are overrun nowadays with pirate broadcasts -- typically Brazilian outlaws involved in drug trafficking or illegal logging.
+
+The faint yellow columns are repeater channels.
+Those with sharper lines are active transmissions being relayed.
+
+Here's a snippet, two guys possibly discussing logistics around a drug mule, along with the latest soccer.
+They're in Brazil; I'm in South Africa; these guys are broadcasting this chat to half the planet (facepalm)
+
+
+
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/uhfsatcom.png" />
 
 <audio controls>
@@ -1104,6 +1167,8 @@ TEMPEST attacks
 ---------------
 
 Reading a screen remotely via its stray radio emissions.
+
+In theory you can read someone's screen just by its stray radio emissions (called a TEMPEST attack or Van Eck phreaking).
 
 First step is to identify the frequency of the emissions. Need to make the monitor "sing".
 
@@ -1132,6 +1197,13 @@ Oftentimes, though, a real-world desktop barely registers as more than a smudge.
 <a href="http://drew-x1c5/sdr/tempest/desktop.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/tempest/desktop.mp4" type="video/mp4"></video></a>
 
 A higher-specced SDR (at least 10 MHz bandwidth or ideally 30, vs. the RTL-SDR's 3) would work better, but hey, I'm amazed this works at all.
+
+It even works from across the room (and very faintly in the neighboring room).
+In general though it's extremely temperamental and barely usable.
+It amazing it works at all, though, especially with such a cheap device -- this is the kind of thing you thought was only within the means of the CIA.
+More capable SDRs -- still under $1,000 -- would do much better.
+Break out the tinfoil hats.
+
 
 <hr />
 
