@@ -865,22 +865,32 @@ Addr:673514 FR:SMTPDefault@pinnaclehealth.org &gt;Epic In Basket: Orders<br>From
 
 YIKES 😬😬😬
 
-ISM bands
+Short-range devices
 ---------
 
-Gate remotes
+All those miscellaneous radio doohickeys in your life operate in a few narrow bands known for 'unlicensed' use.
+The reality is more nuanced, but generally if a wireless device wants to send only small, intermittent chunks of data, and not send them very far, it can do so here without much red tape.
+The numbers may seem familiar they're so commonly used: 315, 433, 868, 915 MHz are all such bands.
+So is 2.4 GHz-- the home of wifi, bluetooth, zigbee home automation, and... microwave ovens, the interference from which caused these bands to be set aside from normal licensed use in the first place.
+
+Most of these devices use standard chipsets and are easily decoded by existing libraries.
+Here are a few I've played with:
+
+### Gate remotes
 
 Intercepting the codes transmitted by our gate opener. The varied codes on subsequent button presses shows this is a more secure "rolling code" system.
 
 <img class="glightbox" src="http://drew-x1c5/sdr/gateremote.png" width="740" />
 
-Pool thermometer
+### Pool thermometer
+
+Implementing datalogging for a wireless pool thermometer off AliExpress.
 
 <img class="glightbox" src="http://drew-x1c5/sdr/tub_thermometer.jpg" width="740" />
 <img class="glightbox" src="http://drew-x1c5/sdr/thermometer_cmdline.png" width="740" />
 <img class="glightbox" src="http://drew-x1c5/sdr/tub_temp_log.png" width="740" />
 
-Smart electric meter
+### Smart electric meter
 
 <img class="glightbox" src="http://drew-x1c5/sdr/smart_meter.png" width="740" />
 
