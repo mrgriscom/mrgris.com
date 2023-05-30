@@ -344,7 +344,7 @@ Shortwave
 ---------
 
 Shortwave is essentially *the wild west* of radio.
-Popularly known as the place to receive foreign radio broadcasts, it is full of much more.
+Generally known as the place to receive foreign radio broadcasts, it is full of much more.
 Frequencies below ~30 MHz are not limited by line-of-sight and can travel extremely long distances beyond the horizon due to the Earth's ionosphere.
 An environment where countries can broadcast far outside their borders leads to some interesting finds:
 
@@ -358,15 +358,13 @@ An environment where countries can broadcast far outside their borders leads to 
 
 Signals *may* travel very far, but results are highly volatile based on frequency, location, time of day, and solar activity ("space weather"), further adding to the mystique of the band.
 
-Below are various shortwave oddities I have encountered.
-I won't give much attention to the foreign radio programs, though they are intriguing and plentiful.
-The farthest such station I was (just barely) able to tune into was (I believe) in China-- 16,000 km away! (though it's not always possible to determine the origin with certainty)
+Below are various shortwave oddities I have encountered:
 
 <!-- TODO explain antenna setup -->
 
 ### CODAR
 
-A special kind of radar that can measure ocean waves and currents:
+A special kind of radar that can measure ocean waves and currents.
 
 <p style="text-align: center;"><img class="glightbox" src="http://drew-x1c5/sdr/codar.png"></p>
 
@@ -488,23 +486,21 @@ Shortwave is a popular venue for ham radio, since it affords making contact with
 This sport is known as *DXing*.
 Modern technology has refined this process into a fully automated form that removes the pesky human interaction entirely.
 
-I jest, but by focusing on "minimum viable contact", enthusiasts have created transmission modes (such as FT8 and WSPR) that can work even with extremely weak signals.
+I jest, but by focusing on "minimum viable contact", enthusiasts have created transmission modes (of which FT8 and WSPR are two) that can work even with extremely weak signals.
 You can rack up an astonishing number and range of contacts that would be technically and logistically impossible otherwise.
 
 But it does sound like some sort of warbling chorus of the damned.
 
 <a href="http://drew-x1c5/sdr/ft8-live_crop.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/ft8-live_crop.mp4" type="video/mp4"></video></a>
 
-Running overnight in New Jersey, I was astounded at the breadth of contacts received, including some very far away places like Saudi Arabia, Antarctica, Australia, New Zealand, and Fiji!
+Running overnight in New Jersey, I was astounded at the breadth of contacts received, including some very far away places like Saudi Arabia, Antarctica, Australia, and Fiji!
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/ft8-usnj.png" />
 
-Running in South Africa yielded a similarly impressive spread: St. Helena, Far East Asia (Vladivostok, Khabarovsk, Hokkaido), and Hawaii (nearly the opposite side of the planet).
+Listening in South Africa yielded a similarly impressive spread: St. Helena, Far East Asia (Vladivostok, Khabarovsk, Hokkaido), and Hawaii (nearly the opposite side of the planet).
+I expected more representation from the African continent, though...
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/ft8-zawc.png" />
-
-I honestly expected more representation from the African continent.
-But passive reception like this is really more a statement on how powerful the sender's antenna is.
 
 ### Numbers station
 
@@ -688,19 +684,31 @@ Incredible how well this bulletin captures the local zeitgeist: [crayfishing](ht
 Trunked Public Safety Radio
 -------------
 
-P25
+While some government agencies still use analog walkie-talkies, each conversation requires a dedicated frequency channel.
+Most conversations are silent most of the time, wasting this limited resource.
+A trunking system uses virtualized 'talk groups', of which several can use the same channel simultaneously, and also employs frequency hopping to reassign talk groups as needed to maximize utilization.
+Digital encoding of the audio further increases efficiency.
 
-While some governments still use analog walkie-talkies*, each conversation requires a dedicated frequency channel. Most conversations are silent most of the time, wasting this limited resource. A trunking system uses virtualized 'talk groups', of which several can use the same channel simultaneously, and also employs frequency hopping to reassign talk groups as needed to maximize utilization.
+Most agencies in America are modernizing to the P25 system:
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/p25.png">
+
+Kinda crazy to see so many operations under one roof.
+Seems like most of what these people do is reading numbers at each other...
 
 <audio controls>
   <source src="http://drew-x1c5/sdr/p25.mp3" type="audio/mpeg">
 </audio>
 
-Seems like most of what these people do is reading numbers at each other. Think I'm missing a lot of the conversation due to all the concurrent talk groups and frequency hopping (which exceeds the range that a single RTL-SDR can receive concurrently). I never played with this beyond the proof-of-concept stage. 
+I think I'm missing a lot of the conversation due to all the concurrent talk groups and frequency hopping (which exceeds the range that a single RTL-SDR can receive concurrently).
+I never played with this beyond the proof-of-concept stage. 
 
-Europe uses a different system called TETRA
+In theory P25 supports data services in addition to voice, but in practice I believe these are rarely implemented.
+The cyberpunk aesthetic of snooping on police cruiser data terminals will have to wait.
+
+<img width="740" src="https://mattpilz.com/wp-content/uploads/2022/09/Terminator-2-MDT870-A.jpg">
+
+Europe uses a different system called TETRA, but it's almost always encrypted.
 
 Medical Pagers
 --------------
