@@ -922,37 +922,50 @@ And from a VCR:
 Note the capture is only in black & white (and also lacks sound).
 The RTL-SDR can only capture 3.2 MHz of bandwidth, but a full <abbr title="The American standard, as opposed to European PAL">NTSC</abbr> TV channel is 6 MHz wide.
 Due to the magic (i.e., wastefulness) of analog, we still get the rough picture, but lose finer detail, color, and audio.
+This is a testament to the extreme redundancy of analog signals&ndash; the antithesis of the digital cliff.
 </p>
 
 I had to upgrade to a [better SDR](https://www.sdrplay.com/rsp1a/) to capture the full channel at once:
 
 <p style="text-align: center;"><img class="glightbox" src="http://drew-x1c5/sdr/ntsc-wf.png"></p>
 
-decode to frames
-
-I upgraded to a beefier SDR* to capture the full TV signal and decode with color.
-To my surprise, no existing decoder seemed to support this, so I wrote one myself.
-Good god, do I know a lot about how old-school TV worked now.
-
-Here you can see all the parts of the picture normally hidden out of frame -- the frame synchronization markers (grey bars), color calibration (green bar), anti-copy protection (slowly pulsing black-to-white bars), and the closed captioning stream (white dashes at bottom).
-
-
+Now to put that extra bandwidth to use and actually decode a color image.
+But to my surprise, I could find no existing decoder that did this, so I wrote one myself.
+Good god, do I know a lot about how vintage TV worked now.
 
 <a class="glightbox video-thumbnail" href="http://drew-x1c5/sdr/ntsc-cc.mp4"><video width="740"><source src="http://drew-x1c5/sdr/ntsc-cc.mp4" type="video/mp4"></video></a>
 
+It's so cool to see the full frame, with all the parts normally hidden from view:
+
 <img class="glightbox" src="http://drew-x1c5/sdr/ntscinfo.png" width="740">
 
-how faithfully can we recreate those analog artifacts? [[reference image](http://drew-x1c5/sdr/colorbars_ref.png)]
+How *does* it all work, anyway?
+Well, you apply AM demodulation to the TV signal to get the video baseband signal.
+The baseband signal controls the brightness of the electron gun as it whizzes across the TV screen 15,750 times a second (technically 15,750 ÷ 1.001 for color TV).
+Each horizontal pass completes one line of one frame.
+The beam deflects downward to cover 60 vertical passes in the same interval of one (1.001) seconds.
+A low signal value indicates black while a high value indicates full white.
+At the start of each line, the signal briefly goes "blacker than black" so the TV can calibrate resetting the beam at the right time.
 
-(slowed down 4x -- [full speed here](http://drew-x1c5/sdr/colorbars.mp4))
+Color was an ingenious modification that maintained backwards compatibility with black & white TVs.
+The color signal was added as a ~3.58 MHz sine wave onto the baseband signal.
+The amplitude of this wave at any point indicates the strength of the color saturation (high = vivid color; low = black/white/grey) at that point being drawn on the screen.
+The phase of the wave at the same point indicates the color hue.
+If perfectly in phase with the green color sync (formally called the *colorburst*) offscreen, that green color is used; if out of phase, the appropriate color is chosen from the color wheel, offset by an angle equal to the phase difference.
+
+The color scheme creates an ambiguity.
+The ~3.58 MHz color signal is identical to a black & white intensity signal of sufficiently fine detail-- namely cycling between black & white & back again 227.5 times per line.
+Changes in black vs. white at a sufficiently high spatial frequency will be confused for color information.
+Color that changes hue too quickly can be confused for changes in black/white intensity.
+The challenge of building a good decoder is to do the best thing in these ambiguous situations, and no decoder can be perfect; there will always be artifacts.
+
+In fact, we can use those artifacts to gauge how faithful our decoder is.
+If we inject a [perfectly clean](http://drew-x1c5/sdr/colorbars_ref.png) signal, how well does it recreate those analog artifacts of yore?
 
 <img class="glightbox" src="http://drew-x1c5/sdr/colorbars_slow.gif">
 
-that dot crawl! ringing artifacts! that color bleed!
+That dot crawl! The color ringing! Be still, my beating heart! [Full-speed version here](http://drew-x1c5/sdr/colorbars.mp4)
 
-A true test of the decoder is does it faithfully recreate the analog artifacts of yore?
-Here I've injected a perfectly clean signal to see what comes out.
-The ringing and crawling jagged edges look pretty faithful to me (and really takes me back, frankly!).
 
 
 what can we actually do though? in theory receive scrambled channels, but those are long gone. can do next best thing, which is recreate ourselves
