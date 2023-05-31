@@ -1023,15 +1023,26 @@ I think I would have felt like winning the lottery if I had found an active Tele
 Digital TV
 ----
 
+As said, analog TV broadcasts have mostly been supplanted by digital.
+ATSC is the North American standard.
+Most of the rest of the world uses DVB (the RTL-SDR originated as a dongle to receive DVB broadcasts!).
+China and Japan each also have their own standards.
+
+An ATSC channel requires 6 MHz of bandwidth, same as NTSC.
+But due to the digital cliff, receiving anything less than the full 6 MHz renders the stream unreadable.
+Hence the RTL-SDR cannot be used and the better SDR is required.
+
+It also appears to require a better antenna.
+While I still had decent reception with the default rabbit ears antenna, it was not consistent enough across the full band to achieve a decode.
+An HDTV active antenna is in use below.
+Apparently sticking a [wire into a potato](https://blog.solidsignal.com/tutorials/hd-blade-vs-potato-can-spud-bring-goods/) works fairly well too.
+
 <img class="glightbox" src="http://drew-x1c5/sdr/hdtv-ant.jpg" width="740" />
 
-Unlike analog, if anything less than the full 6 MHz is received, the stream is unreadable.
-Hence, the better SDR is required.
+The channel contains 4 content streams: two @ 720p and two @ 480p.
+Reception wasn't perfect so watch to the end for some good glitch art.
 
-
-decent reception with the rabbit ears antenna, but not consistent enough across the full bandwidth allocation to successfully decode.
-apparently sticking a [wire into a potato](https://blog.solidsignal.com/tutorials/hd-blade-vs-potato-can-spud-bring-goods/) works fairly well.
-
+<p>
 <div>
 <a style="margin-right: 20px;" href="http://drew-x1c5/sdr/atsc/prog3.mp4" class="glightbox video-thumbnail"><video width="360" poster="http://drew-x1c5/sdr/atsc/thumb3.jpg"><source src="http://drew-x1c5/sdr/atsc/prog3.mp4" type="video/mp4"></video></a><a href="http://drew-x1c5/sdr/atsc/prog4.mp4" class="glightbox video-thumbnail"><video width="360" poster="http://drew-x1c5/sdr/atsc/thumb4.jpg"><source src="http://drew-x1c5/sdr/atsc/prog4.mp4" type="video/mp4"></video></a>
 </div>
@@ -1039,12 +1050,12 @@ apparently sticking a [wire into a potato](https://blog.solidsignal.com/tutorial
 <div style="margin-top: 10px; text-align: center;">
 <a style="margin-right: 20px;" href="http://drew-x1c5/sdr/atsc/prog5.mp4" class="glightbox video-thumbnail"><video width="297"><source src="http://drew-x1c5/sdr/atsc/prog5.mp4" type="video/mp4"></video></a><a href="http://drew-x1c5/sdr/atsc/prog6.mp4" class="glightbox video-thumbnail"><video width="297"><source src="http://drew-x1c5/sdr/atsc/prog6.mp4" type="video/mp4"></video></a>
 </div>
+</p>
 
-That's... a lot to unpack from just 60 seconds captured at random.
+That's... a lot to unpack from 60 seconds captured at random.
 That said, the [video for _I'm Turn't_](https://www.youtube.com/watch?v=YiUdrIsqmyQ) is pretty great
 
-Skip to the end for good glitch art.
-
+We also get a program guide:
 
 <img class="glightbox" src="http://drew-x1c5/sdr/atsc/program_guide.png" width="740" />
 
@@ -1059,9 +1070,7 @@ kinda thought this was veering too much into ham geekery for my tastes, but holy
 basically, expecting [this](https://s3.amazonaws.com/files.qrz.com/x/i0jx/jxyoung.jpg), but actually [this](https://www.youtube.com/watch?v=NCkbekhUdw4&t=16s)
 
 <img class="glightbox" src="http://drew-x1c5/sdr/iss03.png" />
-
 <img class="glightbox" src="http://drew-x1c5/sdr/iss12.png" />
-
 <img class="glightbox" src="http://drew-x1c5/sdr/iss04.png" />
 
 Last one signal lost as the station set below the horizon.
