@@ -281,7 +281,7 @@ This was a serious "whoa" moment playing with this thing -- that I, a mere morta
 A subsequent attempt removes some of the rough edges.
 Taken around sunset, you can see shadows cast by clouds and land receding into night.
 This image shows the full frame as received, with both spectral channels included: visible light on the left and infrared on the right.
-(It’s a bit hard to make out the coastline, so I've circled Cape Peninsula/False Bay in red for reference.)
+(It’s a bit hard to make out the coastline, so I've faintly circled Cape Peninsula/False Bay in red for reference.)
 
 <img class="glightbox" src="http://drew-x1c5/sdr/noaa-sunset.png" width="740" />
 
@@ -940,38 +940,40 @@ It's so cool to see the full frame, with all the parts normally hidden from view
 <img class="glightbox" src="http://drew-x1c5/sdr/ntscinfo.png" width="740">
 
 How *does* it all work, anyway?
-Well, you apply AM demodulation to the TV signal to get the video baseband signal.
+Well, you apply AM demodulation to the TV signal to get the video baseband signal (also known as [composite video](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Composite-video-cable.jpg/300px-Composite-video-cable.jpg)).
 The baseband signal controls the brightness of the electron gun as it whizzes across the TV screen 15,750 times a second (technically 15,750 ÷ 1.001 for color TV).
-Each horizontal pass completes one line of one frame.
-The beam deflects downward to cover 60 vertical passes in the same interval of one (1.001) seconds.
+Each horizontal pass completes one line of one frame (technically, one-half of an 'interlaced' frame known as a field).
+The beam deflects downward to cover 60 vertical passes in the same interval of one (or 1.001) seconds.
 A low signal value indicates black while a high value indicates full white.
 At the start of each line, the signal briefly goes "blacker than black" so the TV can calibrate resetting the beam at the right time.
 
 Color was an ingenious modification that maintained backwards compatibility with black & white TVs.
 The color signal was added as a ~3.58 MHz sine wave onto the baseband signal.
-The amplitude of this wave at any point indicates the strength of the color saturation (high = vivid color; low = black/white/grey) at that point being drawn on the screen.
-The phase of the wave at the same point indicates the color hue.
-If perfectly in phase with the green color sync (formally called the *colorburst*) offscreen, that green color is used; if out of phase, the appropriate color is chosen from the color wheel, offset by an angle equal to the phase difference.
+Just as the baseband signal level at a given point in time controls the brightness for a corresponding spot on the screen (where the electron beam happens to be at that time), the properties of this overlaid sine wave at the same point in time control the color at that spot.
+The wave's amplitude indicates the degree of color saturation (high = vivid color; low = black/white/grey).
+The wave's phase indicates the color hue (i.e., rainbow color).
+Phase is measured with respect to a reference color sine wave provided in the offscreen portion of the signal (the green color sync bar above, formally called the *colorburst*).
+When perfectly in phase with this reference, that green is the correct color; otherwise, the [color wheel](https://en.wikipedia.org/wiki/Color_wheel) is rotated by an angle equal to the phase difference to yield the indicated color.
 
 The color scheme creates an ambiguity.
-The ~3.58 MHz color signal is identical to a black & white intensity signal of sufficiently fine detail-- namely cycling between black & white & back again 227.5 times per line.
-Changes in black vs. white at a sufficiently high spatial frequency will be confused for color information.
+The ~3.58 MHz color signal is identical to a black & white intensity signal of sufficiently fine detail-- namely cycling between light & dark & back again 227.5 times per line.
+Changes in monochrome brightness at a sufficiently high spatial frequency will be confused for color information.
 Color that changes hue too quickly can be confused for changes in black/white intensity.
 The challenge of building a good decoder is to do the best thing in these ambiguous situations, and no decoder can be perfect; there will always be artifacts.
 
-In fact, we can use those artifacts to gauge how faithful our decoder is.
+In fact, we can use those artifacts to gauge how historically faithful our decoder is.
 If we inject a [perfectly clean](http://drew-x1c5/sdr/colorbars_ref.png) signal, how well does it recreate those analog artifacts of yore?
 
 <img class="glightbox" src="http://drew-x1c5/sdr/colorbars_slow.gif">
 
-That dot crawl! The color ringing! Be still, my beating heart! [Full-speed version here](http://drew-x1c5/sdr/colorbars.mp4)
+That dot crawl! The color ringing! Be still, my beating heart! [(full-speed version here)](http://drew-x1c5/sdr/colorbars.mp4)
 
 ### Scrambling
 
 I was hoping to actually do something with an analog channel that I normally wouldn't be able to do.
 Descrambling a scrambled channel felt like a worthy goal.
 But those signals are long gone.
-So what's the next best thing... create my own scrambled channel and broadcast it back to the TV? (hmm emoji)
+So what's the next best thing... create my own scrambled channel and broadcast it back to the TV? 🤔
 
 Turns out old scrambling was quite simplistic: it hid the frame sync markers among the normal picture data, so the TV couldn't figure out where to lock on, resulting in a rolling and tearing image.
 This method was known as Gated Sync Suppression.
@@ -1006,15 +1008,15 @@ With the power of transmit, we can have other fun, like injecting our own text i
 <a href="http://drew-x1c5/sdr/thanks.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/thanks.mp4" type="video/mp4"></video></a>
 
 I never knew closed captions supported color!
-But there it is right in the [spec](https://en.wikipedia.org/wiki/EIA-608), and if you send the right control sequences, it works!
+But there it is right in the [spec](https://en.wikipedia.org/wiki/EIA-608), and if you send the correct control sequences, it works!
 
 And after all that... it turns out analog TV is still alive and well in South Africa.
 I just didn't realize what I was looking at at the time.
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/pal-ota-wf.png">
 
-That bright line in the vertical blanking interval gave a tantalizing hope of some sort of data to decode, possibly even a [Teletext](https://en.wikipedia.org/wiki/Teletext) feed.
-But alas, it's just some kind of signal quality marker.
+That bright line in the vertical blanking interval gave me tantalizing hope of some sort of data to decode, possibly even a [Teletext](https://en.wikipedia.org/wiki/Teletext) feed.
+But alas, it's just a signal quality diagnostic.
 But apparently Teletext was active in South Africa, albeit in a somewhat moribund state, [as late as 2015](https://medium.com/@carinbevan/let-me-teledata-that-for-you-9a5a19cb01c4)!?
 I think I would have felt like winning the lottery if I had found an active Teletext system still running in 2019.
 
