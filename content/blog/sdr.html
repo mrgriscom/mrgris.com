@@ -990,9 +990,9 @@ But the SDRs available to me are receive only, and those with transmit capabilit
 So how am I doing it?
 Well, someone figured out how to drive a certain breed of cheap USB→VGA adapter to act as a quick-and-dirty transmitter.
 Emphasis on dirty-- more like it spews out ridiculous amounts of radio interference that just happens to also contain your signal of interest.
-The project is known as [FL2K](https://osmocom.org/projects/osmo-fl2k/wiki), and can be considered a spiritual sibling of RTL-SDR-- getting a commodity device to harness the power of radio in extremely capable and unexpected ways.
+This project is [fl2k](https://osmocom.org/projects/osmo-fl2k/wiki), and can be considered a spiritual sibling of RTL-SDR-- getting a commodity device to perform unintentioned and impressive feats of radio.
 
-My setup for these experiments confines the signal entirely within the cable connection to the TV, with no signal radiated into the vicinity, mitigating the negative (and illegal) consequences of interference.
+My setup for these experiments confines the signal entirely within the cable connection to the TV, with no signal radiating into the surrounding space, thus not polluting my local RF environment with interference (not to mention that transmitting without a license is itself illegal).
 
 <img class="glightbox" src="http://drew-x1c5/sdr/txsetup.jpg" width="740">
 
@@ -1081,29 +1081,38 @@ Signal was lost on the final image as the station set below the horizon.
 FM hidden subcarriers
 ---------------------
 
-FM stations have more bandwidth allocated to them than they need to broadcast audio, so they use the extra space in the ultrasonic range for various purposes: stereo, RDS (song/artist info), proprietary data streams like traffic and stock quotes, or even completely unrelated additional broadcasts.
+FM stations are allocated more bandwidth than is strictly needed to broadcast audio.
+They can use the extra space in this ultrasonic range for various purposes: stereo sound, [RDS](https://en.wikipedia.org/wiki/Radio_Data_System) (song and station metadata), proprietary data streams like traffic and stock quotes, or even completely unrelated additional broadcasts.
 
 Here's a breakdown of a station with such a broadcast: KBOO 90.7 FM in Portland, Oregon.
 Your typical NPR fare...
-
 
 <audio controls>
   <source src="http://drew-x1c5/sdr/sca_host.mp3" type="audio/mpeg">
 </audio>
 
+But if we look at the demodulated audio stream, we can see there's a lot more there.
+We have nearly 100 kHz of signal, while adult humans can only hear up to ~17 kHz.
+
 <img class="glightbox" src="http://drew-x1c5/sdr/fmsca.png" />
 
-Some kind of Vietnamese talk radio!
+If we treated this ultrasonic audio signal as its own self-contained radio spectrum, and then 'tuned' an AM radio to it at 92 kHz, we'd then hear the nested broadcast.
 
+It's some kind of Vietnamese talk radio!
 
-<audio controls>
-  <source src="http://drew-x1c5/sdr/sca_talk.mp3" type="audio/mpeg">
-</audio>
 <audio controls>
   <source src="http://drew-x1c5/sdr/sca_song.mp3" type="audio/mpeg">
 </audio>
+<audio controls>
+  <source src="http://drew-x1c5/sdr/sca_talk.mp3" type="audio/mpeg">
+</audio>
 
-mention tubular bells 16 kHz bleed?
+<p>
+Being a parasitic broadcast, bandwidth is at a premium, therefore much lower quality than the host FM broadcast.
+These are known as <abbr title="Subsidiary Communications Authorization">SCA</abbr> broadcasts, and typical uses included niche foreign language programming (like this), book/periodical reading services for the blind, and muzak piped into retail businesses (now obsoleted). Interestingly, while FM is deemed free-to-listen, these hidden broadcasts were not, and you could get into trouble for receiving them unauthorized.
+</p>
+
+But wait-- did I think to look within the hidden broadcast for another hidden broadcast?
 
 Remote control and reverse engineering
 --------------------------------------
@@ -1111,39 +1120,44 @@ Remote control and reverse engineering
 <!-- trim and crop these videos -->
 
 I wanted to cross over into actual radio hacking by reverse engineering an unknown protocol observed over the airwaves.
-Wanted it to be manageable so simple simple with a RC remote, that also didn't overlap with established chipsets in the 433 MHz range.
-I had access to one of the dog training collars proliferating on Amazon so seemed like a worthwhile target.
+It needed to be simple enough to be a digestable challenge, but not so simple that it was already handled by the established chipsets in the 433 MHz range.
+I had access to one of those dog training collars proliferating on Amazon, so that seemed like a worthwhile target.
 
-First gotta find the frequency.
+First step is to find the frequency:
 
 <a href="http://drew-x1c5/sdr/rc/freq.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rc/freq.mp4" type="video/mp4"></video></a>
 
-Didn't expect it to be so low.
-This turns out to be CB radio channel 19A, "reserved for remote control of devices such as model aircraft, cars, and boats"
+I didn't expect it to be so low.
+This turns out to be CB radio channel 19A, "reserved for remote control of devices such as model aircraft, cars, and boats".
 
-Beware of harmonics.
+Beware of harmonics:
 
 <a href="http://drew-x1c5/sdr/rc/harmonics_rough.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rc/harmonics_rough.mp4" type="video/mp4"></video></a>
 
-Here's the demodulated waveform.
+Here's the demodulated waveform:
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/rc/bfsk.png" />
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/rc/bfsk-zoom.png" />
 <!-- annotate these? -->
 
-And fully decoded.
+It looks like your standard format of a 'wake up' preamble, then a repeated data burst.
+And the data bursts themselves have their own preamble followed by binary data as short and long pulses.
+But, in a twist, the 'correction' intensity is conveyed in some weird coded-decimal scheme, with each base-10 digit of the zap strength (which is still represented as an 8-bit binary range 000--255 😅) encoded in sequence as a variable length pulse and not binary.
+Perhaps that was a safer way of not misinterpreting a drastically wrong strength level, since the protocol has no checksum.
+Fun!
+
+Knowledge applied to create a software decoder:
 
 <a href="http://drew-x1c5/sdr/rc/decode.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rc/decode.mp4" type="video/mp4"></video></a>
 
-With the FL2k transmitter, we can even do a replay attack.
-This doesn't even require knowing how to decode the transmission.
+With the fl2k transmitter, we can even do a replay attack (which doesn't actually require understanding the data format).
 
 <a href="http://drew-x1c5/sdr/rc/replay.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rc/replay.mp4" type="video/mp4"></video></a>
 
 IR remotes
 ----------
 
-Almost all remote controls communicate via pulsed infrared light, modulated between 30-56 kHz.
+Almost all remote controls communicate via pulsed infrared light, modulated between 30--56 kHz.
 An IR photodiode acts as an 'antenna' that can receive this IR light.
 
 <img class="glightbox" width="740" src="http://drew-x1c5/sdr/irdiode.jpg" />
@@ -1156,9 +1170,9 @@ Although IR light is itself electromagnetic radiation (with a frequency of ~300 
 Note the signal centered on the 38 kHz carrier frequency, by far the most common.
 Also note how the IR pulses register on the camera sensor, although invisible to the human eye.
 
-<img class="glightbox" width="740" src="http://drew-x1c5/sdr/irdecode.png" />
+Applying AM demodulation reveals the underlying data signal:
 
-Applying AM demodulation reveals the underlying data signal.
+<img class="glightbox" width="740" src="http://drew-x1c5/sdr/irdecode.png" />
 
 UHF pirates
 -----------
