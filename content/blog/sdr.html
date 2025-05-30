@@ -30,7 +30,7 @@ Well, a traditional radio (where 'radio' is taken to mean any wireless communica
 A software-defined radio, on the other hand, captures the raw radio wave and sends it to a computer, which can replace all that specialized processing with software (oversimplifying a lot).
 As a result, a single hardware device can replicate many different kinds of radios, or even experiment with new ones, and provide access to the signals at a level normally hidden from view.
 
-We know these radio waves are all around us at all times, but to actually be able to *see* and play with them... it's a very strange feeling-- a kind of escaping-the-matrix, pulling back on the veils of existence experience.
+We know these radio waves are all around us at all times, but to actually be able to *see* and play with them... it's a very strange feeling-- kind of like escaping-the-matrix and pulling back on the veils of existence.
 
 Within minutes of unboxing you can listen to all kinds of radio chatter: FM radio, walkie-talkies, marine band, air band, weather band...
 And while audio transmissions are cool and all, the real 🤯 stuff starts when decoding data transmissions out of thin air.
@@ -43,7 +43,7 @@ And all from a [$20 USB dongle](https://www.rtl-sdr.com/buy-rtl-sdr-dvb-t-dongle
 
 The delightfully minimal setup below. Most of the exploits in the post used nothing more than this:
 
-<img class="glightbox" src="http://drew-x1c5/sdr/setup.jpg" width="740" class="glightbox" />
+<img class="glightbox" src="http://drew-x1c5/sdr/setup.jpg" width="740" />
 
 Broadcast FM
 --
@@ -155,8 +155,8 @@ SIG Service: type=data number=47 name=HERE Images
 </div>
 
 As is common with digital broadcasts, multiple content streams are provided.
-Channel 1 duplicates the analog broadcast (required by the FCC).
-For this station, channel 2 simulcasts their AM talk radio format.
+Channel 1 duplicates the analog broadcast (as required by the FCC).
+For channel 2, this station simulcasts their AM talk radio format.
 We can see extensive digital metadata provided, and value-add services such as station logos, album art, traffic, and weather (and possibly proprietary real-time navigation data for specific GPS brands).
 
 <img width="367" style="float: left;" class="glightbox" src="http://drew-x1c5/sdr/hdradio/traffic.png" />
@@ -189,7 +189,7 @@ A correction for magnetic declination is required as VORs are calibrated for mag
 <img class="glightbox" style="clear: both;" src="http://drew-x1c5/sdr/vor.png" width="740" />
 
 The error from my true position is 180m, with CTV and RIV located 19km and 15km away, respectively.
-This puts me just slightly better than the expected &#xb1;0.5&deg; accuracy.
+This puts me just slightly better than the expected &#xb1;0.5&deg; accuracy (though I did average my readings over ~15 seconds which is cheating the stats a bit).
 
 I'm impressed (and honestly a bit skeptical) the RIV beacon does so well, with no direct line of sight and Signal Hill in the way.
 No opportunity to investigate further, however, as RIV has just been decommissioned!
@@ -220,11 +220,11 @@ The Cape Town&#x2194;Joburg corridor is busy.
 
 <img class="glightbox" src="http://drew-x1c5/sdr/flights1.png" width="740" />
 
-A helicopter circling downtown:
+A [helicopter](http://drew-x1c5/sdr/zsrtg.jpg){:target="_blank"} circling downtown:
 
 <img class="glightbox" src="http://drew-x1c5/sdr/flights2.png" width="740" />
 
-Aerobatics practice:
+[Aerobatics](http://drew-x1c5/sdr/n536gc.jpg){:target="_blank"} practice:
 
 <img class="glightbox" src="http://drew-x1c5/sdr/flights3.png" width="740" />
 
@@ -975,8 +975,8 @@ Descrambling a scrambled channel felt like a worthy goal.
 But those signals are long gone.
 So what's the next best thing... create my own scrambled channel and broadcast it back to the TV? 🤔
 
-Turns out old scrambling was quite simplistic: it hid the frame sync markers among the normal picture data, so the TV couldn't figure out where to lock on, resulting in a rolling and tearing image.
-This method was known as Gated Sync Suppression.
+Turns out the trick to scrambling was quite simple: hide the "blacker than black" frame sync markers among the normal picture data by making them brighter, so the TV couldn't figure out where to lock on, resulting in a rolling and tearing image.
+This method was known as *Gated Sync Suppression*.
 Sometimes the video signal was inverted as well.
 
 <img class="glightbox" src="http://drew-x1c5/sdr/gss-waveform.png" width="740">
@@ -1130,7 +1130,7 @@ First step is to find the frequency:
 I didn't expect it to be so low.
 This turns out to be CB radio channel 19A, "reserved for remote control of devices such as model aircraft, cars, and boats".
 
-Beware of harmonics:
+Don't be led astray by harmonics:
 
 <a href="http://drew-x1c5/sdr/rc/harmonics_rough.mp4" class="glightbox video-thumbnail"><video width="740"><source src="http://drew-x1c5/sdr/rc/harmonics_rough.mp4" type="video/mp4"></video></a>
 
@@ -1142,7 +1142,8 @@ Here's the demodulated waveform:
 
 It looks like your standard format of a 'wake up' preamble, then a repeated data burst.
 And the data bursts themselves have their own preamble followed by binary data as short and long pulses.
-But, in a twist, the 'correction' intensity is conveyed in some weird coded-decimal scheme, with each base-10 digit of the zap strength (which is still represented as an 8-bit binary range 000--255 😅) encoded in sequence as a variable length pulse and not binary.
+But, in a twist, the collar's 'correction' intensity is conveyed not as binary but in some weird coded-decimal scheme.
+Each base-10 digit of the zap strength (which is nonetheless still represented as an 8-bit binary range 000--255 😅) is encoded in a single pulse, whose length varies based on the digit 0--9.
 Perhaps that was a safer way of not misinterpreting a drastically wrong strength level, since the protocol has no checksum.
 Fun!
 
@@ -1177,23 +1178,31 @@ Applying AM demodulation reveals the underlying data signal:
 UHF pirates
 -----------
 
-The US military runs a number of relay satellites from the 70s.
-Using old tech, they are just dumb repeaters with no access control.
-There are overrun nowadays with pirate broadcasts -- typically Brazilian outlaws involved in drug trafficking or illegal logging.
+<p style="float: right; margin-left: 2em; margin-bottom: 2em;"><img class="glightbox" width="400" src="http://drew-x1c5/sdr/uhfsatcom.png" /></p>
 
-The faint yellow columns are repeater channels.
-Those with sharper lines are active transmissions being relayed.
+The US military operates a fleet of relay satellites in geostationary orbit.
+The first generation from the late 70s/early 80s didn't have any access control; they were just dumb repeaters for anything they received.
+Nowadays they are overrun with pirate broadcasts -- typically Brazilian outlaws involved in drug trafficking or illegal logging.
 
-Here's a snippet, two guys possibly discussing logistics around a drug mule, along with the latest soccer.
+
+The faint yellow columns are repeater channels; when not in use they're just relaying static, but that causes them to appear slightly 'hotter' than background.
+The sharper lines within them are active transmisisons being relayed.
+You can see how the pirate broadcast frequencies don't quite line up with those the repeaters are expecting.
+But so long as they fall within the range, it works well enough.
+
 They're in Brazil; I'm in South Africa; these guys are broadcasting this chat to half the planet (facepalm)
 
 
 
-<img class="glightbox" width="740" src="http://drew-x1c5/sdr/uhfsatcom.png" />
+
+Here's a snippet, two guys possibly discussing logistics around a drug mule, along with the latest soccer.
 
 <audio controls>
   <source src="http://drew-x1c5/sdr/uhf-ptbr1.mp3" type="audio/mpeg">
 </audio>
+
+
+
 <audio controls>
   <source src="http://drew-x1c5/sdr/uhf-ptbr2.mp3" type="audio/mpeg">
 </audio>
@@ -1247,6 +1256,9 @@ Break out the tinfoil hats.
 
 
 <hr />
+
+The End
+-------
 
 <a href="http://drew-x1c5/sdr/thatsall.mp4" class="glightbox"><video controls autoplay loop muted><source src="http://drew-x1c5/sdr/thatsall.mp4" type="video/mp4"></video></a>
 
