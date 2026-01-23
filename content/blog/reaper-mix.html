@@ -42,8 +42,8 @@ The general principle is:
 
 In reality, the full process has a few more steps:
 
-- [Track selection and rough cut](#rough-cut)
 - [Track acquisition](#track-dl)
+- [Track selection and rough cut](#rough-cut)
 - [_Beatmatching_](#beatmatch)
 - [_Arranging_](#arranging)
 - [_Transitions_](#transitions)
@@ -65,7 +65,7 @@ What can a DAW do well vs. not?
 - _stupid easy_ -- volume crossfade, BPM adjust, pitch adjust, loops, hot cues, samples
 - _reasonably easy_ -- EQ
 - _doable_ -- stem separation
-- _diminishing returns_ -- most FX: echo out, reverb, vinyl scratch, vinyl brake
+- _diminishing returns_ -- most FX: echo out, reverb, vinyl effects (scratch, brake, backspin)
 
 So why do this at all if you can't showboat your florid transitions?
 Well, simply, beatmatching is insanely fun.
@@ -73,25 +73,34 @@ Personally I love the sound of a beatmatched transition; it keeps the energy hig
 
 Now, into the weeds...
 
-<a name="rough-cut" />
-
-## Step 1: Rough Cut
-
-I would definitely recommend getting proficient in Mixxx, et al, and doing most of your noodling there.
-It is software suited to the task.
-Once you have a concept of your track ordering and how you'd like to transition, then start codifying things in reaper.
-
 <a name="track-dl" />
 
-## Step 2: Track Acquisition
+## Step 1: Downloading Music
 
-To mix, you need a local copy of the track, streaming services won't do.
-MP3s are an endangered species these days; even paid downloads it can be hard to find a lot of recently released dance music. There are stores like beatport.
-However, you can find pretty much anything on youtube.
-I use yt-dlp to rip those to a local copy. Spotify also has a surprisingly functional downloader
-It will likely be 128 kbit equivalent quality and won't satisfy any audiophiles, but in practice it hasn't bothered me.
-Some also say you should never download off youtube because you'll lose out on frequency response or things will be compressed to shit.
-I think this is an issue if you choose a random re-rip), but if you are able to get from the official channel, I feel quality is pretty decent.
+MP3s are an endangered species these days, but in order to mix, you need local copies of all your audio files -- streaming services won't do.
+
+I can't remember that last time I couldn't find a track I wanted on youtube.
+With the [yt-dlp](https://github.com/yt-dlp/yt-dlp) command line tool, I can have that track on my hard drive in seconds.
+The `-x` flag will further extract just the audio.
+Be sure to get the latest version as these download bots and streaming sites are in a constant arms race.
+
+People act like if you download off youtube, your mix will sound so ass you'll have to go into exile.
+It is true you'll likely be capped at ~128kbps quality and won't win any audiophile awards, but in practice it hasn't bothered me.
+Another nebulous claim is that youtube is EQ'ed for home listening on crappy laptop speakers, and it will be painfully obvious only once you're on the club sound system.
+Well, it's hard to falsify that claim because I don't play on the club sound system.
+But our speakers aren't exactly small and again, it hasn't affected me in practice.
+Now there defintely are bad re-rips uploaded by gods-knows-who (a risk as old as Napster), but if you get from the official channel, I assume the quality will be decent, especially since youtube runs its own music service now too.
+
+If you're still concerned, you can buy the track off [Beatport](https://www.beatport.com/).
+
+<a name="rough-cut" />
+
+## Step 2: Rough Cut
+
+I would definitely recommend still getting proficient in a live DJ program (I prefer Mixxx), and doing most of your noodling around there.
+It is software suited to the task, and makes a great playground for experimenting during the early stages of conceiving your set.
+
+Once you have a concept of your track ordering and the transitions you'd like to make, start codifying things in Reaper.
 
 <a name="beatmatch" />
 
