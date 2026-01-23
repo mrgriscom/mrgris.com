@@ -34,7 +34,7 @@ Well... I'm a rank amaetur in both DJing and digital music production, but I wan
 
 The general principle is:
 
-- Load your playlist into separate DAW tracks
+- Load the songs of your playlist into separate DAW tracks
 - Normalize their playback speed to all have the same BPM (i.e., beatmatch everything)
 - Arrange the tracks in time for desired mix-in/out points
 - Use the tracks' volume envelopes to cross-fade
@@ -42,28 +42,48 @@ The general principle is:
 
 In reality, the full process has a few more steps:
 
-- Track selection and rough cut
-- Track acquisition
-- _Beatmatching_
-- _Arranging_
-- _Transitions_
-- _BPM recovery_
-- Mastering
+- [Track selection and rough cut](#rough-cut)
+- [Track acquisition](#track-dl)
+- [_Beatmatching_](#beatmatch)
+- [_Arranging_](#arranging)
+- [_Transitions_](#transitions)
+- [_BPM recovery_](#bpm-recovery)
+- [Mastering](#mastering)
 
-Reaper is very powerful, and can probably simulate anything a DJ deck can do, albeit not as easily. Volume crossfade, BPM adjustment, looping, hot-cue are very easy. EQ is fairly easy. Effects like echo, reverb, and scratching are getting into diminishing returns.
+First, a caveat: a DAW is not a DJ controller; trying to replicate every bell and whistle thereof will be a cumbersome and frustrating experience.
+While Reaper is very powerful, and with enough effort probably _can_ simulate anything a DJ deck can do, that doesn't mean you should.
 
-Before we go further: NO ONE CARES ABOUT YOUR TRANSITIONS
+A counter-caveat: **NO ONE CARES ABOUT YOUR DJ TRANSITIONS**
 
-Using a DAW to mix might not be able to replicate all the nuanced transitions of a skilled DJ, but in my opinion, simpler is better (both for the end result and your sanity), and a DAW does the 'simple' parts very very well. Most of my friends use Spotify auto-crossfade to DJ and everyone still has a great time. Good track selection is 95% of a good mix. Transitions are 5% and poring over fancy transitions that you aren't even doing live honestly feels a bit cringe. Personally I like the sound of a beatmatched transition because it keeps the energy high and feels like you're being propelled forward into the next track, but I don't really feel the need to go much farther beyond that.
+Most of my friends DJ using a Spotify playlist with auto-crossfade and everyone still has a great time.
+Good track selection is 95% of a good mix.
+Transitions are 5%, and poring over fancy transitions that you aren't even doing live honestly feels a bit cringe.
+In my opinion, simpler is better (both for the end result and for your sanity), and a DAW does the 'simple' parts very very well.
 
+What can a DAW do well vs. not?
 
-Rough draft:
+- _stupid easy_ -- volume crossfade, BPM adjust, pitch adjust, loops, hot cues, samples
+- _reasonably easy_ -- EQ
+- _doable_ -- stem separation
+- _diminishing returns_ -- most FX: echo out, reverb, vinyl scratch, vinyl brake
+
+So why do this at all if you can't showboat your florid transitions?
+Well, simply, beatmatching is insanely fun.
+Personally I love the sound of a beatmatched transition; it keeps the energy high and feels like you're being propelled forward into the next track.
+
+Now, into the weeds...
+
+<a name="rough-cut" />
+
+## Step 1: Rough Cut
 
 I would definitely recommend getting proficient in Mixxx, et al, and doing most of your noodling there.
 It is software suited to the task.
 Once you have a concept of your track ordering and how you'd like to transition, then start codifying things in reaper.
 
-Track downloading:
+<a name="track-dl" />
+
+## Step 2: Track Acquisition
 
 To mix, you need a local copy of the track, streaming services won't do.
 MP3s are an endangered species these days; even paid downloads it can be hard to find a lot of recently released dance music. There are stores like beatport.
@@ -72,6 +92,10 @@ I use yt-dlp to rip those to a local copy. Spotify also has a surprisingly funct
 It will likely be 128 kbit equivalent quality and won't satisfy any audiophiles, but in practice it hasn't bothered me.
 Some also say you should never download off youtube because you'll lose out on frequency response or things will be compressed to shit.
 I think this is an issue if you choose a random re-rip), but if you are able to get from the official channel, I feel quality is pretty decent.
+
+<a name="beatmatch" />
+
+## Step 3: Beatmatching
 
 Loading a track:
 load your track into mixxx and note its BPM
@@ -93,7 +117,9 @@ there is a third scenario in which you track may truly have a variable bpm, in w
 once your track is fully beat aligned, extend the silence in front of the start of the track so that there are 4 full bars before the first beat (this is why we turned off looping). this makes it so you can drag the track around at will and grid snapping will ensure it generally meshes well with the downbeats of other tracks in the project. you almost never want to mix not on the downbeat, and musical phrasing usually dictates you want to mix at 8-bar divisions (though tempos can get sneaky and change the phrase-change point to a 4- or 2-bar offset)
 note: this can trigger an annoying bug where it appears to shift your beats slightly off the beat grid. but if you zoom way in and the beat still appears aligned, i believe it is still correct, and it's just an artifact of the waveform not drawing right
 
-Track arrangement:
+<a name="arranging" />
+
+## Step 4: Phrasing & Arranging for Mix-in/out
 
 Once this is done for all tracks, you can generally drag your tracks around at will and they won't sound like a trainwreck. More likely than not, they'll even sound good.
 
@@ -104,8 +130,9 @@ As long as you chop on the 8-bar boundaries, you likely won't even be able to te
 If there is a noticeable 'jump cut' from e.g., a choral effect, you can create a bit of overlap in the cut and reaper will auto-crossfade the overlapping items.
 You can also repeat segments of items for looping
 
+<a name="transitions" />
 
-Transitions:
+## Step 5: DJ Transitions!
 
 Volume envelope. I like a bit of hard-cut on either end
 
@@ -120,8 +147,9 @@ Echo – can set up with effects but it's involved. A short loop on rapid fade-o
 
 hotcueing / "mash-up" / hype up
 
+<a name="bpm-recovery" />
 
-BPM recovery:
+## Step 6: BPM Recovery
 
 global playrate enable constant pitch
 
@@ -197,11 +225,9 @@ perceived change will be greater when BPM is lower
 could actually argue that exponential is more “correct” perceptually
 
 
+<a name="mastering" />
 
-
-
-
-mastering:
+## Step 7: Mastering & Final Render
 
 separate mixing and mastering
 only do mastering at the end
