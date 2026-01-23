@@ -1,0 +1,227 @@
+---
+kind: article
+created_at: 2026-01-23
+title: "Mixing a DJ set in Reaper"
+---
+
+
+
+I am the quintessential “press play” DJ.
+I don’t have the skills to mix live.
+Nor would I really want to, even if I did have them.
+If I’ve done all the work of putting together a DJ set, I want to be enjoying it when it goes on, bouncing on the dancefloor and being not-fully-sober, instead of standing on the sidelines hunched over a computer, concentrating and stressed while doing a live performance.
+So for me, the best method is to mix your set ahead of time, ready to playback at the push of a button.
+
+Live DJ software (rekordbox, traktor, serato, mixxx, etc.) doesn’t have a great way to do this.
+Sure you can record your mix to audio, but that requires being able to live mix it in one pass, akin to having the skills to actually do it live.
+There’s no options for re-do’s or tweaking adjustments.
+Instead I’d want something that records the inputs (“set this slider to X, press this button, nudge this jog wheel, etc”), like a piano roll for a player piano.
+This would allow you to automate the mixing and make adjustments over time.
+But it doesn’t seem like live mixing software supports this.
+You could hack it up on your own with some sort of MIDI event capture/playback, but without any track-aware knowledge (trigger this event at beat ## of track #, rather than at time ##.### seconds), it’s likely to de-sync and become an unrecoverable mess if you change things w/o being careful.
+
+I’m a noob for both DJing and digital music production, but I want to share a workflow that was worked well for me and has been quite fun.
+
+So, what we need instead is a full DAW.
+Enter reaper.
+There are many DAWs, but reaper is fantastic, affordable, runs on linux, and is friendly to both the beginner and power-user.
+
+One thing I particularly like about reaper is that it’s file format is essentially plaintext. That means you can diff changes easily to reassure yourself you haven’t screwed up something in some way that will only lurk up later. You can track your project in git!
+
+How do we make a DJ set in reaper?
+Well the general principle is:
+Load your playlist into separate DAW tracks
+Normalize their playback speed to all have the same BPM (beatmatch everything)
+Arrange the tracks in time for desired mix-in/out points
+Use the tracks’ volume envelopes to cross-fade
+Use the “master” track’s playrate envelope to recover the original desired BPM throughout the set
+
+In reality, the full process has a few more steps:
+Track selection and rough cut
+Track acquisition
+[everything above]
+beatmatching
+arranging
+transitions
+master bpm
+Mastering
+
+Reaper is very powerful, and can probably simulate anything a DJ deck can do, albeit not as easily. Volume crossfade, BPM adjustment, looping, hot-cue are very easy. EQ is fairly easy. Effects like echo, reverb, and scratching are getting into diminishing returns.
+
+Before we go further: NO ONE CARES ABOUT YOUR TRANSITIONS
+
+Using a DAW to mix might not be able to replicate all the nuanced transitions of a skilled DJ, but in my opinion, simpler is better (both for the end result and your sanity), and a DAW does the ‘simple’ parts very very well. Most of my friends use Spotify auto-crossfade to DJ and everyone still has a great time. Good track selection is 95% of a good mix. Transitions are 5% and poring over fancy transitions that you aren’t even doing live honestly feels a bit cringe. Personally I like the sound of a beatmatched transition because it keeps the energy high and feels like you’re being propelled forward into the next track, but I don’t really feel the need to go much farther beyond that.
+
+
+Rough draft:
+
+I would definitely recommend getting proficient in Mixxx, et al, and doing most of your noodling there.
+It is software suited to the task.
+Once you have a concept of your track ordering and how you’d like to transition, then start codifying things in reaper.
+
+Track downloading:
+
+To mix, you need a local copy of the track, streaming services won’t do.
+MP3s are an endangered species these days; even paid downloads it can be hard to find a lot of recently released dance music. There are stores like beatport.
+However, you can find pretty much anything on youtube.
+I use yt-dlp to rip those to a local copy. Spotify also has a surprisingly functional downloader
+It will likely be 128 kbit equivalent quality and won’t satisfy any audiophiles, but in practice it hasn’t bothered me.
+Some also say you should never download off youtube because you’ll lose out on frequency response or things will be compressed to shit.
+I think this is an issue if you choose a random re-rip), but if you are able to get from the official channel, I feel quality is pretty decent.
+
+Loading a track:
+load your track into mixxx and note its BPM
+create new track and insert your media file
+item properties:
+playrate -> ‘set…’ -> enter source BPM from mixxx
+turn off ‘loop source’
+(note: change also pitch shift / change key here)
+zoom way in on the first beat of the song, align this beat to the beat grid via shift+drag. (shift disables grid snapping)
+note: strongly recommended aligning beats visually via the waveform, rather than trying to do it by ear
+now examine a beat near the end of the track and ensure it is still aligned to the beat grid
+if so, examine 1-3 other places elsewhere in the track to ensure beat alignment
+if not:
+you might have the wrong bpm. electronically produced music will usually have a very consistent and integer bpm
+tracks ripped from vinyl will likely have a non-integer bpm or a bpm that slightly varies throughout the track
+it is recommended to do a better job of determining the right bpm and trying again
+but otherwise, use stretch markers (shift+w) to make precise and ad-hoc changes to the track’s playback. insert a marker where you see the beat, and shift-drag it so it falls on the beat grid
+there is a third scenario in which you track may truly have a variable bpm, in which case… you have your work cut out for you
+once your track is fully beat aligned, extend the silence in front of the start of the track so that there are 4 full bars before the first beat (this is why we turned off looping). this makes it so you can drag the track around at will and grid snapping will ensure it generally meshes well with the downbeats of other tracks in the project. you almost never want to mix not on the downbeat, and musical phrasing usually dictates you want to mix at 8-bar divisions (though tempos can get sneaky and change the phrase-change point to a 4- or 2-bar offset)
+note: this can trigger an annoying bug where it appears to shift your beats slightly off the beat grid. but if you zoom way in and the beat still appears aligned, i believe it is still correct, and it’s just an artifact of the waveform not drawing right
+
+Track arrangement:
+
+Once this is done for all tracks, you can generally drag your tracks around at will and they won’t sound like a trainwreck. More likely than not, they’ll even sound good.
+
+One place where a DAW really shines compared to linear mixing is how easily you can chop up and rearrange tracks.
+Often there’s a track with a good hook, but it drags on for too long or gets repetitive.
+You can easily cut out just the parts you want.
+As long as you chop on the 8-bar boundaries, you likely won’t even be able to tell something is missing.
+If there is a noticeable ‘jump cut’ from e.g., a choral effect, you can create a bit of overlap in the cut and reaper will auto-crossfade the overlapping items.
+You can also repeat segments of items for looping
+
+
+Transitions:
+
+Volume envelope. I like a bit of hard-cut on either end
+
+EQ mixing
+cumbersome to manage lots of envelopes. don’t want to diddle with 15 different knobs.
+ppl say you shouldn’t clash bass, but i think it often sounds kinda nice / builds up suspense. volume frade can take care of the worst of the ‘clash’
+1 control point as highpass filter
+wet/dry
+worried about softness and suppressed low freqs that you can only hear on the main system
+
+Echo – can set up with effects but it’s involved. A short loop on rapid fade-out can be just as good
+
+hotcueing / "mash-up" / hype up
+
+
+BPM recovery:
+
+global playrate enable constant pitch
+
+master track, playrate envelope to control output bpm. not a lot of resolution. 1.##x = eg 1.15 * base bpm of 120 = 138bpm
+can edit directly in RPP file in text editor if need exact
+
+instantaneous bpm changes are a bit tricky. how you handle depends on exactly what you want to achieve and how tolerant you are
+instantaneous playrate change – will cause audio artifact
+tempo change and bpm rebase
+
+deep dive on bpm rate change
+exponential vs linear
+
+I went down a bit of a rabbithole after noticing that the rate the BPM is changing is set by your forward progression through the mix, which itself is set by the BPM, which is changing in response to BPM…
+
+The playrate envelope gives the appearance of a nice constant change to BPM, but I realized there’s a wrinkle.
+How fast the BPM changes is linked to your speed through the track. But… as your BPM increases, you move through the track faster, which means the BPM increases faster, so you move through the track faster… seemingly giving you this runaway effect.
+I wanted to characterize this.
+
+Math!
+
+Let us define our location within the mix as position \\(p\\), in units of beats.
+Our playback speed is \\( v= \frac{dp}{dt} \\), i.e., \\( \frac{beats}{minute} \\).
+We have a start BPM \\(v_0\\), a target BPM \\( (v_0 + \Delta v) \\), and an interval of beats over which to complete the transition \\(\Delta p\\).
+
+The playrate envelope in reaper will change the BPM \\(v\\) at a fixed slope with respect to position \\(p\\): \\( v(p) = v_0 + \tfrac{\Delta v}{\Delta p} p \\)
+
+To get BPM with respect to elapsed time \\(t\\) (in minutes), we must solve the differential equation \\( p'(t) = v_0 + \tfrac{\Delta v}{\Delta p} p \\) with initial condition \\( p(0) = 0 \\), yielding:
+
+$$ p(t) = \frac{v_0}{\frac{\Delta v}{\Delta p}} (e^{\frac{\Delta v}{\Delta p} t}-1) $$
+
+$$ v(t) = v_0 e^{\frac{\Delta v}{\Delta p} t} $$
+
+We can see there is indeed an exponential runaway term.
+
+<!--
+(Total time to complete the transition is \\( \Delta t = \tfrac{1}{\frac{\Delta v}{\Delta p}} \ln(1+\frac{\Delta v}{v_0}) \\) )
+-->
+
+However, this is not how a human DJ would adjust the BPM live.
+They would move the BPM slider at a steady rate in the time domain, i.e.: \\( v(t) = v_0 + \tfrac{\Delta v}{\Delta t} t \\)
+
+This equation is not self-referential, so we can get position via simple integration: \\( p(t) = v_0 t + \tfrac{1}{2}\tfrac{\Delta v}{\Delta t} t^2 \\)
+Note we must solve for \\(\Delta t\\): given \\( p(\Delta t) = \Delta p \\), \\( \Delta t = \frac{\Delta p}{v_0 + \frac{1}{2}\Delta v} \\)
+
+To backport this constant-via-time BPM change into the reaper envelope, we must redefine \\( v(t) \\) with respect to \\(p\\). First we must get \\( t(p) \\) from \\( p(t) \\) via the quadratic equation \\( At^2 + Bt + C = 0 \\), where \\( A = \tfrac{1}{2}\tfrac{\Delta v}{\Delta t} \\), \\( B = v_0 \\), \\( C = -p \\).
+
+$$ t(p) = \frac{-v_0 + \sqrt{v_0^2 + 2\frac{\Delta v}{\Delta t}p}}{\frac{\Delta v}{\Delta t}} $$
+
+Substituting \\( t(p) \\) into \\( v(t) \\):
+
+$$ \begin{aligned}
+v(p) &= \sqrt{v_0^2 + 2\tfrac{\Delta v}{\Delta t}p} \\
+ &= \sqrt{v_0^2 + \frac{2v_0 \Delta v + \Delta v^2}{\Delta p} p}
+\end{aligned} $$
+
+[ show graph comparing envelopes ]
+
+Does this difference matter in practice?
+[show graph p vs t and v vs t]
+Apparently not. I’d say it’s inconsequential for any sane BPM transition
+surprised that the relative differences are time invariant
+
+We tend to perceive changes as relative difference, so let’s analyze how fast the BPM is changing at any moment. What does that look like?
+We need to compute acceleration \\(a\\) ( \\( \frac{BPM}{minute} \\) i.e., \\( \frac{beats}{min \cdot min} \\) ) with respect to \\(v\\).
+
+Reaper method (linear w.r.t. position): \\( a(v) = \tfrac{\Delta v}{\Delta p}v \\) (constant relative rate of change to BPM)
+
+DJ method (linear w.r.t. time): \\( a = \tfrac{\Delta v}{\Delta t} \\) (constant absolute rate of change to BPM)
+
+perceived change will be greater when BPM is lower
+
+could actually argue that exponential is more “correct” perceptually
+
+
+
+
+
+
+mastering:
+
+separate mixing and mastering
+only do mastering at the end
+jump around set to make sure you’re happy with the relative levels of your different tracks
+listen to your transitions and fine-tune the volume envelopes
+set your master volume so you don’t clip and have a modest (6db) amount of headroom
+don’t make the rest of your set too quiet to accommodate a particularly punchy track. consider a limiter FX (with constant gain enabled – otherwise you’re just making that track louder vs. softening the peaks) on that track
+render your track and ensure no excessive clipping
+like to open the final rendered track and look at the waveform
+
+
+
+ripple editing as needed if making changes not at end
+
+
+
+
+
+
+
+
+advanced topic: tempo
+
+key signature change for dropped beats
+tempo envelope for variable bpm
+
+
