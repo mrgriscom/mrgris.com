@@ -29,7 +29,7 @@ Another aspect I'm quite fond of is that its file format is 99% plaintext.
 That means you can actually examine what changed in your project whenever you worry you accidentally screwed something up.
 You can even track your project in git!
 
-So how do we make a DJ set in reaper?
+So how do we make a DJ set in Reaper?
 Well... I'm a rank amaetur in both DJing and digital music production, but I want to share a workflow that was worked well for me, and has been tons of fun.
 
 The general principle is:
@@ -79,26 +79,27 @@ Now, into the weeds...
 
 MP3s are an endangered species these days, but in order to mix, you need local copies of all your audio files -- streaming services won't do.
 
-I can't remember that last time I couldn't find a track I wanted on youtube.
+I can't remember the last time I couldn't find a track I wanted on youtube.
 With the [yt-dlp](https://github.com/yt-dlp/yt-dlp) command line tool, I can have that track on my hard drive in seconds.
 The `-x` flag will further extract just the audio.
-Be sure to get the latest version as these download bots and streaming sites are in a constant arms race.
+Be sure to install the latest version as these download bots and streaming sites are in a constant arms race.
 
 People act like if you download off youtube, your mix will sound so ass you'll have to go into exile.
-It is true you'll likely be capped at ~128kbps quality and won't win any audiophile awards, but in practice it hasn't bothered me.
-Another nebulous claim is that youtube is EQ'ed for home listening on crappy laptop speakers, and it will be painfully obvious only once you're on the club sound system.
+While you will likely be capped at ~128kbps quality and won't win any audiophile awards, in practice it hasn't bothered me.
+Another nebulous claim is that youtube is EQ'ed/squashed for home listening on crappy laptop speakers, and it will be painfully obvious only once you're on the club sound system.
 Well, it's hard to falsify that claim because I don't play on the club sound system.
-But our speakers aren't exactly small and again, it hasn't affected me in practice.
-Now there defintely are bad re-rips uploaded by gods-knows-who (a risk as old as Napster), but if you get from the official channel, I assume the quality will be decent, especially since youtube runs its own music service now too.
+But our speakers aren't exactly small and again, it hasn't affected me in practice...
+There definitely are bad re-rips uploaded by gods-knows-who (a risk as old as Napster), but if you get from the official channel, I assume the quality will be sufficient, especially since youtube now runs its own music service too.
 
 If you're still concerned, you can buy the track off [Beatport](https://www.beatport.com/).
 
 <a name="rough-cut" />
 
-## Step 2: Rough Cut
+## Step 2: Track Selection, Rough Cut
 
-I would definitely recommend still getting proficient in a live DJ program (I prefer Mixxx), and doing most of your noodling around there.
-It is software suited to the task, and makes a great playground for experimenting during the early stages of conceiving your set.
+The earliest stages of making a set involves just messing around with tracks to see what sounds good with each other.
+For this, I would definitely recommend still getting proficient in a live DJ program (I prefer Mixxx), and doing most of your noodling there.
+It is software suited to the task, and makes a great playground for experimentation when you're still conceiving your set.
 
 Once you have a concept of your track ordering and the transitions you'd like to make, start codifying things in Reaper.
 
@@ -106,31 +107,72 @@ Once you have a concept of your track ordering and the transitions you'd like to
 
 ## Step 3: Beatmatching
 
-Loading a track:
-load your track into mixxx and note its BPM
-create new track and insert your media file
-item properties:
-playrate -> 'set…' -> enter source BPM from mixxx
-turn off 'loop source'
-(note: change also pitch shift / change key here)
-zoom way in on the first beat of the song, align this beat to the beat grid via shift+drag. (shift disables grid snapping)
-note: strongly recommended aligning beats visually via the waveform, rather than trying to do it by ear
-now examine a beat near the end of the track and ensure it is still aligned to the beat grid
-if so, examine 1-3 other places elsewhere in the track to ensure beat alignment
-if not:
-you might have the wrong bpm. electronically produced music will usually have a very consistent and integer bpm
-tracks ripped from vinyl will likely have a non-integer bpm or a bpm that slightly varies throughout the track
-it is recommended to do a better job of determining the right bpm and trying again
-but otherwise, use stretch markers (shift+w) to make precise and ad-hoc changes to the track's playback. insert a marker where you see the beat, and shift-drag it so it falls on the beat grid
-there is a third scenario in which you track may truly have a variable bpm, in which case… you have your work cut out for you
-once your track is fully beat aligned, extend the silence in front of the start of the track so that there are 4 full bars before the first beat (this is why we turned off looping). this makes it so you can drag the track around at will and grid snapping will ensure it generally meshes well with the downbeats of other tracks in the project. you almost never want to mix not on the downbeat, and musical phrasing usually dictates you want to mix at 8-bar divisions (though tempos can get sneaky and change the phrase-change point to a 4- or 2-bar offset)
-note: this can trigger an annoying bug where it appears to shift your beats slightly off the beat grid. but if you zoom way in and the beat still appears aligned, i believe it is still correct, and it's just an artifact of the waveform not drawing right
+The Reaper beatgrid is our biggest asset.
+Our goal is to align every track's beats to the beatgrid.
+Once that is done, we can move tracks around at will while staying... on beat.
+
+This is the most technical part of the process, but once you get the hang of it, it can be done quite quickly.
+The procedure is thus:
+
+- load your track into Mixxx (or equivalent) and note its BPM
+
+(pic)
+
+- create a new track in Reaper and insert the track (Insert > Media file)
+- right-click on the content > Item properties...
+  - Playback rate > Set... > Source BPM > enter the BPM from Mixxx
+  - turn off 'Loop source'
+  - (optionally, transpose the pitch/key via 'Pitch Adjust')
+- zoom way in on the first beat of the song, align this beat to the beat grid via shift+drag (shift disables snapping to grid). Note: strongly recommend aligning beats visually via the waveform, rather than trying to do it by ear (unpredictable playback latency can make this difficult).
+- now examine a beat near the end of the track and ensure it is still aligned to the beat grid
+- examine 1--3 other places in the interior of the track to ensure beat alignment throughout
+
+(vid)
+
+If subsequent beats are not aligned:
+
+- you might have the wrong BPM. Electronically produced music will usually have a very consistent and integer BPM
+- tracks ripped from vinyl may have a non-integer BPM or a BPM that slightly varies throughout the track
+- the track truly has a variable tempo/BPM, in which case you have your work cut out for you (see: xxx)
+
+If the end of the track is off by more than a full beat, advise correcting the BPM and starting over.
+Otherwise you can make fine adjustments via _stretch markers_.
+
+- disable grid snapping (alt+S)
+- place the cursor on the beat
+- create a stretch marker (shift+W)
+- re-enable grid snapping (alt+S)
+- drag the marker to the beatgrid
+
+(vid)
+
+The beat should now be beatgrid-aligned, and all the beats before it scaled proportionally.
+Note: the scaling happens from the beginning of the track, not the first beat, so your first beat may be moved ever so slightly off the beatgrid.
+If you want to be pedantic, place as stretch marker on the first beat as well to anchor it.
+
+(pic before/after)
+
+Hopefully, all the track's interior beats have now fallen into place, but if not, use additional stretch markers as needed.
+
+We now need to align the track's start to the beat grid, otherwise as soon as we move it, the start will snap to the grid and misalign the beats again.
+
+Once your track is fully beat aligned, extend the start of the track so it starts on the beatgrid.
+Extend until there's 4 bars of lead-in before the first beat.
+(If extending doesn't prepend the track with silence, you forgot to disable 'Loop source')
+
+The 4-bar buffer ensures that, combined with grid snapping, when you move the track around the timeline, it will generally stay musically aligned with other tracks.
+
+Note: extending the track start seems to (at least on my version of Reaper) trigger an annoying bug where your beats appear to shift slightly off-grid.
+As far as I can tell, this is just a artifact of rendering the waveform.
+If you zoom way in, the beats are still aligned.
 
 <a name="arranging" />
 
-## Step 4: Phrasing & Arranging for Mix-in/out
+## Step 4: Arranging the Timeline, Mix-in/out Points
 
 Once this is done for all tracks, you can generally drag your tracks around at will and they won't sound like a trainwreck. More likely than not, they'll even sound good.
+
+sometimes a track sneakily extends/reduces a phrase by 1 or 2 bars, breaking the 4/8-bar symmetry thereafter
 
 One place where a DAW really shines compared to linear mixing is how easily you can chop up and rearrange tracks.
 Often there's a track with a good hook, but it drags on for too long or gets repetitive.
@@ -139,11 +181,15 @@ As long as you chop on the 8-bar boundaries, you likely won't even be able to te
 If there is a noticeable 'jump cut' from e.g., a choral effect, you can create a bit of overlap in the cut and reaper will auto-crossfade the overlapping items.
 You can also repeat segments of items for looping
 
+ripple editing as needed if making changes not at end
+
 <a name="transitions" />
 
 ## Step 5: DJ Transitions!
 
 Volume envelope. I like a bit of hard-cut on either end
+
+don't be precious about it because of the mastering phase
 
 EQ mixing
 cumbersome to manage lots of envelopes. don't want to diddle with 15 different knobs.
@@ -248,8 +294,6 @@ render your track and ensure no excessive clipping
 like to open the final rendered track and look at the waveform
 
 
-
-ripple editing as needed if making changes not at end
 
 
 
