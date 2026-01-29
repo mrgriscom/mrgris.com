@@ -89,7 +89,7 @@ While you will likely be capped at ~128kbps quality and won't win any audiophile
 Another nebulous claim is that youtube is EQ'ed/squashed for home listening on crappy laptop speakers, and it will be painfully obvious only once you're on the club sound system.
 Well, it's hard to falsify that claim because I don't play on the club sound system.
 But our speakers aren't exactly small and again, it hasn't affected me in practice...
-There definitely are bad re-rips uploaded by gods-knows-who (a risk as old as Napster), but if you get from the official channel, I assume the quality will be sufficient, especially since youtube now runs its own music service too.
+There definitely are bad re-rips out there uploaded by gods-knows-who (a risk as old as Napster), but if you get from the official channel, I assume the quality will be sufficient, especially since youtube now runs its own music service too.
 
 If you're still concerned, you can buy the track off [Beatport](https://www.beatport.com/).
 
@@ -122,21 +122,22 @@ The procedure is thus:
 - right-click on the content > Item properties...
   - Playback rate > Set... > Source BPM > enter the BPM from Mixxx
   - turn off 'Loop source'
-  - (optionally, transpose the pitch/key via 'Pitch Adjust')
-- zoom way in on the first beat of the song, align this beat to the beat grid via shift+drag (shift disables snapping to grid). Note: strongly recommend aligning beats visually via the waveform, rather than trying to do it by ear (unpredictable playback latency can make this difficult).
+  - (optionally, you can transpose the pitch/key here via 'Pitch Adjust')
+- zoom way in on the first beat of the song (just the first obvious percussion or transient -- doesn't need to be the exact first beat), align this beat to the beat grid via shift+drag (shift disables snapping to grid). My opinion is it's much easier and faster to align the beats visually via the waveform, rather than by ear. (But if you're struggling to align visually, add a click track (Insert > Click Source))
 - now examine a beat near the end of the track and ensure it is still aligned to the beat grid
 - examine 1--3 other places in the interior of the track to ensure beat alignment throughout
 
-(vid)
+The following example shows this 'happy path'.
+
+(vid of ride or die)
 
 If subsequent beats are not aligned:
 
-- you might have the wrong BPM. Electronically produced music will usually have a very consistent and integer BPM
-- tracks ripped from vinyl may have a non-integer BPM or a BPM that slightly varies throughout the track
-- the track truly has a variable tempo/BPM, in which case you have your work cut out for you (see: xxx)
+- doublecheck your BPM. EDM will usually have a very consistent and integer BPM
+- some music indeed has a non-whole-number BPM, or the BPM may waver slightly throughout the track (e.g., vinyl rips, older analog production)
+- the track truly has a variable tempo/BPM, in which case you have your work cut out for you (see: Advanced Tempo)
 
-If the end of the track is off by more than a full beat, advise correcting the BPM and starting over.
-Otherwise you can make fine adjustments via _stretch markers_.
+Make fine adjustments via _stretch markers_.
 
 - disable grid snapping (alt+S)
 - place the cursor on the beat
@@ -144,15 +145,57 @@ Otherwise you can make fine adjustments via _stretch markers_.
 - re-enable grid snapping (alt+S)
 - drag the marker to the beatgrid
 
-(vid)
+The beat should now be beatgrid-aligned, and everything in between scaled proportionally.
 
-The beat should now be beatgrid-aligned, and all the beats before it scaled proportionally.
-Note: the scaling happens from the beginning of the track, not the first beat, so your first beat may be moved ever so slightly off the beatgrid.
-If you want to be pedantic, place as stretch marker on the first beat as well to anchor it.
+Here's a worked example with Daft Punk's _Harder, Better, Faster, Stronger_.
+
+(vid of HBFS)
+
+Daft Punk tracks are notorious for unusual BPMs.
+Let's naively trust the commonly cited BPM of 123 (rounded off from the true BPM of ~123.48).
+We align the first beat, but due to our imprecise starting BPM, the end of the track needs correction with a stretch marker.
+Easy enough.
+
+The first and last beats are now aligned, but as we scan the track we see the beatgrid is still wrong.
+The beat goes in and out of phase with the grid twice (a ["beat frequency"](https://en.wikipedia.org/wiki/Beat_(acoustics)) ha ha), meaning our final beat is 2 beats off.
+Our beats are slightly too short (since the beat moves opposite to the direction of scan), so we lenghten by moving the stretch marker two beats later.
+
+We now need to clean up the start and end of the track due to the nature of the elastic stretch.
+The stretch is anchored at the start/end of the track, which is not the behavior we want.
+
+For the start of the track, we want the stretch anchored at the first _beat_.
+By instead anchoring at the track start, our first beat that we initially aligned has been pulled slightly out of sync.
+We can anchor and correct the first beat with another stretch marker.
+
+For the end of the track, we don't want it anchored at all.
+Note how the tail of the track has been squeezed and now plays abnormally fast.
+We want the tail to play at original speed, i.e., we want the end of the track to 'float' at a fixed offset from the last stretch marker.
+We do this by deleting the implicit stretch marker placed at the end of the track (alt+click).
+We might also have to extend the end of the track, as this is not updated automatically.
+(While the start of track issue is often negligible, end of track is more likely to suffer distorions since the interval between the stretch marker on the final beat and the track end is much much shorter)
+
+Note that this example is meant to show what happens when you start which a quite coarse BPM and are off by more than a full beat.
+Mixxx reports a BPM of 123.5 for this track (and detail view shows you the full unrounded BPM).
+The more precise your starting BPM, the more likely you can just slightly adjust the final beat via a stretch marker and avoid all these ancillary steps.
+
+Here's a track that has a slightly non-constant BPM:
+
+(vid self control)
+
+It's important to not get too OCD about this.
+Resist the urge to fully regularize the beatgrid (assuming nothing is grossly off).
+Humans can rarely resolve beat differences of less than 20 milliseconds (1/25th of a beat at 120 BPM).
+AND, precise beat alignment only matters when you're mixing with another track.
+You can always add additional stretch markers later as needed.
+Get the track intro and outro synced up, don't worry about the middle unless it comes up.
+
+
+
 
 (pic before/after)
 
 Hopefully, all the track's interior beats have now fallen into place, but if not, use additional stretch markers as needed.
+If struggling, add a click track
 
 We now need to align the track's start to the beat grid, otherwise as soon as we move it, the start will snap to the grid and misalign the beats again.
 
@@ -224,6 +267,22 @@ The playrate envelope gives the appearance of a nice constant change to BPM, but
 How fast the BPM changes is linked to your speed through the track. But… as your BPM increases, you move through the track faster, which means the BPM increases faster, so you move through the track faster… seemingly giving you this runaway effect.
 I wanted to characterize this.
 
+
+<style>
+
+#asdf {
+  background-color: #faf;
+  margin-left: -80px;
+  padding-left: 80px;
+}
+
+</style>
+
+<div id="asdf" markdown="1">
+
+
+
+
 Math!
 
 Let us define our location within the mix as position \\(p\\), in units of beats.
@@ -278,6 +337,10 @@ DJ method (linear w.r.t. time): \\( a = \tfrac{\Delta v}{\Delta t} \\) (constant
 perceived change will be greater when BPM is lower
 
 could actually argue that exponential is more “correct” perceptually
+
+
+</div>
+
 
 
 <a name="mastering" />
