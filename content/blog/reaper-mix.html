@@ -107,9 +107,11 @@ Once you have a concept of your track ordering and the transitions you'd like to
 
 ## Step 3: Beatmatching
 
-The Reaper beatgrid is our biggest asset.
+The Reaper beatgrid is what makes this whole thing work.
 Our goal is to align every track's beats to the beatgrid.
 Once that is done, we can move tracks around at will while staying... on beat.
+Note that this necessarily homogenizes all tracks to play at the same tempo.
+We fix this later during [BPM recovery](#bpm-recovery).
 
 This is the most technical part of the process, but once you get the hang of it, it can be done quite quickly.
 The procedure is thus:
@@ -123,21 +125,29 @@ The procedure is thus:
   - Playback rate > Set... > Source BPM > enter the BPM from Mixxx
   - turn off 'Loop source'
   - (optionally, you can transpose the pitch/key here via 'Pitch Adjust')
-- zoom way in on the first beat of the song (just the first obvious percussion or transient -- doesn't need to be the exact first beat), align this beat to the beat grid via shift+drag (shift disables snapping to grid). My opinion is it's much easier and faster to align the beats visually via the waveform, rather than by ear. (But if you're struggling to align visually, add a click track (Insert > Click Source))
+  {:style="margin-bottom: 0;"}
+- align the first beat:
+  - zoom way in on the first beat of the song (just the first obvious percussion or transient -- doesn't need to be the exact first beat)
+  - align this beat to the beat grid via shift+drag (shift disables snap-to-grid, allowing smooth dragging)
+  {:style="margin-bottom: 0;"}
 - now examine a beat near the end of the track and ensure it is still aligned to the beat grid
-- examine 1--3 other places in the interior of the track to ensure beat alignment throughout
+- if so, examine a few other places elsewhere in the track to ensure beat alignment throughout
+
+Note we never actually listened to the song during this process-- it's much easier and faster to align the beats visually via the waveform, rather than by ear.
+But if you are struggling to ascertain the beats visually, add a click track (Insert > Click Source) to 'hear' the beat grid.
 
 The following example shows this 'happy path'.
 
 (vid of ride or die)
 
-If subsequent beats are not aligned:
+If subsequent beats are not aligned, the BPM you used is not accurate enough.
+While EDM typically will have a very consistent and integer BPM, there are exceptions:
 
-- doublecheck your BPM. EDM will usually have a very consistent and integer BPM
-- some music indeed has a non-whole-number BPM, or the BPM may waver slightly throughout the track (e.g., vinyl rips, older analog production)
+- some music indeed has a non-whole-number BPM
+- BPM may waver slightly throughout the track (vinyl rips, older analog production)
 - the track truly has a variable tempo/BPM, in which case you have your work cut out for you (see: Advanced Tempo)
 
-Make fine adjustments via _stretch markers_.
+If you've doublechecked your BPM and grid alignment still fails, make fine adjustments via _stretch markers_.
 
 - disable grid snapping (alt+S)
 - place the cursor on the beat
@@ -160,42 +170,39 @@ The first and last beats are now aligned, but as we scan the track we see the be
 The beat goes in and out of phase with the grid twice (a ["beat frequency"](https://en.wikipedia.org/wiki/Beat_(acoustics)) ha ha), meaning our final beat is 2 beats off.
 Our beats are slightly too short (since the beat moves opposite to the direction of scan), so we lenghten by moving the stretch marker two beats later.
 
-We now need to clean up the start and end of the track due to the nature of the elastic stretch.
-The stretch is anchored at the start/end of the track, which is not the behavior we want.
+Are we done yet?
+No.
+The stretch marker fixes the marked beat, but in order to fix all the beats before and after, the elastic stretching must be anchored at a suitable place.
+By default it anchors at the start and end of the track, which creates undesirable results:
 
 For the start of the track, we want the stretch anchored at the first _beat_.
-By instead anchoring at the track start, our first beat that we initially aligned has been pulled slightly out of sync.
+By instead anchoring at the absolute start, we see our first beat has now been pulled slightly out of sync.
 We can anchor and correct the first beat with another stretch marker.
 
-For the end of the track, we don't want it anchored at all.
-Note how the tail of the track has been squeezed and now plays abnormally fast.
-We want the tail to play at original speed, i.e., we want the end of the track to 'float' at a fixed offset from the last stretch marker.
-We do this by deleting the implicit stretch marker placed at the end of the track (alt+click).
-We might also have to extend the end of the track, as this is not updated automatically.
-(While the start of track issue is often negligible, end of track is more likely to suffer distorions since the interval between the stretch marker on the final beat and the track end is much much shorter)
+For the end of the track, the tail segment after the last beat is now stretched severely.
+We want it to play back at its original speed (technically, at the slightly stretched speed the rest of the track now plays at, but the difference is negligible).
+Essentially, we don't want this tail stretched at all, but rather to 'float' after the final beat's stretch marker.
+There are several ways to accomplish this -- all involve moving the end anchor back to the appropriate place -- but the easiest is to double-click on the stretch marker, which resets the stretch after the marker (or you can achieve the desired floating behavior by default by holding alt+shift when originally dragging the stretch marker).
 
-Note that this example is meant to show what happens when you start which a quite coarse BPM and are off by more than a full beat.
+Note that this is a complex example, meant to show what happens when you start with a quite coarse BPM and are off by more than a full beat.
 Mixxx reports a BPM of 123.5 for this track (and detail view shows you the full unrounded BPM).
-The more precise your starting BPM, the more likely you can just slightly adjust the final beat via a stretch marker and avoid all these ancillary steps.
+The more accurate your starting BPM, the more likely you can just slightly adjust the final beat and avoid all these ancillary clean-up.
 
 Here's a track that has a slightly non-constant BPM:
 
 (vid self control)
 
 It's important to not get too OCD about this.
-Resist the urge to fully regularize the beatgrid (assuming nothing is grossly off).
-Humans can rarely resolve beat differences of less than 20 milliseconds (1/25th of a beat at 120 BPM).
+Resist the urge to slavishly regularize the beatgrid (assuming nothing is grossly off).
+Humans struggle to resolve beat differences of less than 20 milliseconds (1/25th of a beat at 120 BPM).
 AND, precise beat alignment only matters when you're mixing with another track.
 You can always add additional stretch markers later as needed.
-Get the track intro and outro synced up, don't worry about the middle unless it comes up.
+Get your intro and outro synced up; don't worry about the middle unless it comes up.
 
 
 
+(pic before/after (of...?))
 
-(pic before/after)
-
-Hopefully, all the track's interior beats have now fallen into place, but if not, use additional stretch markers as needed.
-If struggling, add a click track
 
 We now need to align the track's start to the beat grid, otherwise as soon as we move it, the start will snap to the grid and misalign the beats again.
 
