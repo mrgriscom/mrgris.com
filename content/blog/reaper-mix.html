@@ -23,14 +23,19 @@ So, what we need instead is a full <abbr title="Digital Audio Workstation">DAW</
 Enter [Reaper](https://www.reaper.fm/).
 <!-- todo link target -->
 
-There are many DAWs, but Reaper is fantastic, shockingly affordable (and, without a license, the gentlest of nagware), runs on linux, and is friendly to both the beginner and power-user.
+There are many DAWs, but Reaper is fantastic, shockingly affordable (and without a license, the gentlest of nagware), runs on linux, and is friendly to both the beginner and power-user.
+
+(move this elsewhere)
+=============
 
 Another aspect I'm quite fond of is that its file format is 99% plaintext.
 That means you can actually examine what changed in your project whenever you worry you accidentally screwed something up.
 You can even track your project in git!
 
+=============
+
 So how do we make a DJ set in Reaper?
-Well... I'm a rank amaetur in both DJing and digital music production, but I want to share a workflow that was worked well for me, and has been tons of fun.
+Well... I'm a rank amaetur in both DJing and digital music production, but I want to share a workflow that has worked well for me, and has been tons of fun.
 
 The general principle is:
 
@@ -117,8 +122,10 @@ Since we want the beatgrid to work for us, ensure 'Snap' is enabled in your Reap
 This locks the cursor to exact beats.
 We will only disable it for specialized operations.
 
-This is the most technical step, but once you get the hang of it, it can be done quite quickly.
+Beatmatching is the most technical step, but once you get the hang of it, it can be done quite quickly.
 The procedure is thus:
+
+### Scenario 1: Integer BPM
 
 - load your track into Mixxx (or equivalent) and note its BPM
 
@@ -137,19 +144,21 @@ The procedure is thus:
 - now examine a beat near the end of the track and ensure it is still aligned to the beat grid
 - if so, examine a few other places elsewhere in the track to ensure beat alignment throughout
 
-Note we never actually listened to the song during this process-- it's much easier and faster to align the beats visually via the waveform, rather than by ear.
+Note we never actually listened to the song during this process-- it's much easier/faster to align the beats visually via the waveform, rather than by ear.
 But if you are struggling to ascertain the beats visually, add a click track (Insert > Click Source) to 'hear' the beat grid.
 
 Here's what this 'happy path' looks like:
 
 (vid of ride or die)
 
+### Scenario 2: Fractional BPM
+
 If subsequent beats are not aligned, the BPM you used is not accurate enough.
 While EDM will typically have a very consistent and integer BPM, there are exceptions:
 
 - some music indeed has a non-whole-number BPM
 - BPM may waver slightly throughout the track (vinyl rips, older analog production)
-- the track truly has a variable tempo/BPM, in which case you have your work cut out for you (see: Advanced Tempo)
+- the track truly has a variable tempo/BPM, in which case you have your work cut out for you (see: [Advanced Tempo](#tempo))
 
 If you've doublechecked your BPM and grid alignment still fails, make fine adjustments via _stretch markers_.
 
@@ -172,7 +181,7 @@ Easy enough.
 
 The first and last beats are now aligned, but as we scan the track we see the beatgrid is still wrong.
 The beat goes in and out of phase with the grid twice (a ["beat frequency"](https://en.wikipedia.org/wiki/Beat_(acoustics)) ha ha), meaning our final beat is 2 beats off.
-Our beats are slightly too short (since the beat moves opposite to the direction of scan), so we lenghten by moving the stretch marker two beats later.
+Our beats are slightly too short (since the beat drift moves opposite to the direction of scan), so we lenghten by moving the stretch marker two beats later.
 
 Are we done yet?
 No.
@@ -188,18 +197,21 @@ We can anchor and correct the first beat with another stretch marker.
 Unlike the start, the difference is _not_ minimal, due to the short time interval between the last beat's stretch marker and the end of the track.
 We want the tail to play back at its original speed (technically, at the slightly stretched speed the rest of the track now plays at, but the difference is negligible).
 Essentially, we don't want this tail stretched at all, but rather to 'float' after the stretch marker.
-There are several ways to accomplish this with varying degrees of _stretchmarker-fu_ -- but the easiest is to double-click on the stretch marker, which resets the stretch after the marker (or you can achieve the desired floating behavior by default by holding alt+shift when originally dragging the stretch marker).
+There are several ways to accomplish this with varying degrees of _stretchmarker-fu_ -- but the easiest is to double-click on the stretch marker, which resets the stretch after the marker (or, you can achieve the desired floating behavior by default by holding alt+shift when originally dragging the stretch marker).
 
-Note that this is a complex example, meant to show what happens when you start with a quite coarse BPM and are off by more than a full beat.
-Mixxx reports a BPM of 123.5 for this track (and detail view shows you the full unrounded BPM).
-The more accurate your starting BPM, the more likely you can just slightly adjust the final beat and avoid all this ancillary clean-up.
+Note that this is a complex example, meant to show what happens when you start with a coarse BPM and are off by more than a full beat.
+A more accurate starting BPM avoids most of the headache.
+Mixxx reports a BPM of 123.5 for this track (and its detail view shows a full unrounded BPM -- though still not 100% accurate -- of 123.46779) -- close enough to get away with just slightly adjusting the final beat and avoiding all this ancillary clean-up.
 
-Here's what it looks like when a track (from 1984) lacks a perfectly steady BPM:
+### Scenario 3: Non-steady BPM
+
+If the beatgrid _still_ isn't aligned throughout, your track suffers from a non-constant BPM.
+Here's such a track whose BPM is not perfectly steady:
 
 (vid miko mission)
 
-The first and last beats _are_ aligned properly, but the beat drifts slightly without a clear pattern, up to a max deviation of ~1/5th of a beat.
-Personally, I would add a few more stretch markers to tame it.
+The first and last beats _are_ aligned properly, but the beat drifts slightly and without a clear pattern, deviating up to ~1/5th of a beat.
+You can add more stretch markers to tame it (make sure you've anchored your first and last beats with their own markers first!)
 
 **HOWEVER**, it's important to not get too OCD about this.
 Humans struggle to resolve beat differences of less than 20 milliseconds (1/25th of a beat at 120 BPM).
@@ -208,19 +220,21 @@ Don't slavishly mold the track to the beatgrid.
 Stretch markers shouldn't be about perceptably changing the pace of a song, but rather zeroing out accumulated error.
 If you're placing too many stretch markers too close together, you may be flattening out the 'groove' of the music that arises from imperfection.
 
-You can always add additional stretch markers to trouble areas later as needed.
+If needed, you can always add additional stretch markers to problem areas later.
+
+### Quantize the track start
 
 Whew, we're almost done -- the track's beats are all aligned to the beatgrid, but the start of the track is not.
-This means as soon as we move the track, the start will snap to a gridline, making all that follows off-beat.
+This means as soon as we move the track, the start will snap to a gridline, making all that follows now off-beat.
 To avoid this, we must extend the track start to also start on a beat.
 But let's take this further...
 
 (video of extending start, and moving to show snap)
 
 As you zoom out, grid snapping will occur on ever more coarse boundaries (every measure, every 4 measures, etc.).
-For more ergonomic snapping behavior, extend the track start so that there's a full 4 bars (or multiple thereof) of lead-in before the first beat.
+For more ergonomic snapping behavior, extend the start of track so that there's a full 4 bars (or multiple thereof) of lead-in before the first downbeat.
 When mixing music, you always want to sync on the downbeat (1st beat of a bar/measure), and even more practically, on the 4- or 8-bar intervals that delineate musical phrases.
-Keeping the track start in-line with these boundaries means the structure of all tracks will stay musically cohesive even as you move them around the timeline at a high level.
+By keeping the track start in-line with these boundaries, the structure of all tracks will stay musically cohesive even as you move them around the timeline.
 Otherwise, every time you moved a track you'd find its downbeat out of sync from the other tracks', which is extremely irritating.
 Think of this as a higher nested level of syncing with the beatgrid.
 
@@ -236,13 +250,18 @@ If you zoom way in, the beats are still aligned.
 
 ## Step 4: Arranging the Timeline, Mix-in/out Points
 
-Once this is done for all tracks, you can generally drag your tracks around at will and they won't sound like a trainwreck. More likely than not, they'll even sound good.
+Once all tracks are beatmatched, you can generally drag your tracks around at will and they won't sound like a trainwreck. More likely than not, they'll even sound good together.
 
-sometimes a track sneakily extends/reduces a phrase by 1 or 2 bars, breaking the 4/8-bar symmetry thereafter
+You'll probably already have your target mixing points from [Step 2](#rough-cut).
+
+Most dance music is structured around 8-bar phrases.
+If you move tracks in units of 8 bars, they generally stay sync with each other in a pleasing way.
+but sometimes aligning at 4-bar markers is appropriate too.
+sometimes a track sneakily extends/reduces a phrase by 1 or 2 bars, meaning you'll have to note the alignment change thereafter
 
 One place where a DAW really shines compared to linear mixing is how easily you can chop up and rearrange tracks.
 Often there's a track with a good hook, but it drags on for too long or gets repetitive.
-You can easily cut out just the parts you want.
+You can easily cut out just the parts you want ('S' for split).
 As long as you chop on the 8-bar boundaries, you likely won't even be able to tell something is missing.
 If there is a noticeable 'jump cut' from e.g., a choral effect, you can create a bit of overlap in the cut and reaper will auto-crossfade the overlapping items.
 You can also repeat segments of items for looping
@@ -253,9 +272,16 @@ ripple editing as needed if making changes not at end
 
 ## Step 5: DJ Transitions!
 
-Volume envelope. I like a bit of hard-cut on either end
+AKA the fun part.
 
-don't be precious about it because of the mastering phase
+Volume envelope. I like a bit of hard-cut on either end
+Right-click on the track tab on the left -> Envelopes -> Toggle volume active
+Note if you've adjusted the track's gain, that gain gets baked into the envelope and reset to 0db, which I find annoying and revert (when I remember)
+
+envelope edit actions
+decouple move item and move envelope
+
+don't be precious about it because relative volumes may change during the mastering phase. you'll dial it in then
 
 EQ mixing
 cumbersome to manage lots of envelopes. don't want to diddle with 15 different knobs.
@@ -267,10 +293,14 @@ worried about softness and suppressed low freqs that you can only hear on the ma
 Echo – can set up with effects but it's involved. A short loop on rapid fade-out can be just as good
 
 hotcueing / "mash-up" / hype up
+copied item segments are just time offsets; they can be extended
 
 <a name="bpm-recovery" />
 
 ## Step 6: BPM Recovery
+
+We likely want our tracks to play at something resembling their original speed.
+Currently they're all a single flat BPM from beatmatching.
 
 global playrate enable constant pitch
 
@@ -386,9 +416,9 @@ like to open the final rendered track and look at the waveform
 
 
 
+<a name="tempo" />
 
-
-advanced topic: tempo
+## Advanced Topic: Custom Tempo
 
 key signature change for dropped beats
 tempo envelope for variable bpm
