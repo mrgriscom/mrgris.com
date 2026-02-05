@@ -65,9 +65,9 @@ In my opinion, simpler is better (both for the end result and for your sanity), 
 What can a DAW do well vs. not?
 
 - _stupid easy_ -- volume crossfade, BPM adjust, pitch adjust, loops, hot cues, samples
-- _reasonably easy_ -- EQ
+- _reasonably easy_ -- EQ, echo
 - _doable_ -- stem separation
-- _diminishing returns_ -- most FX: echo out, reverb, vinyl effects (scratch, brake, backspin)
+- _diminishing returns_ -- most other FX, especially vinyl effects (scratch, brake, backspin)
 
 So why do this at all if you can't showboat your florid transitions?
 Well, simply, beatmatching is insanely fun.
@@ -207,11 +207,11 @@ Here's such a track whose BPM is not perfectly steady:
 
 (vid miko mission)
 
-The first and last beats _are_ aligned properly, but the beat drifts slightly and without a clear pattern, deviating up to ~1/5th of a beat.
+The first and last beats _are_ aligned properly, but the beat drifts slightly and without a clear pattern, deviating up to ~&#x2155;th of a beat.
 You can add more stretch markers to tame it (make sure you've anchored your first and last beats with their own markers first!)
 
 **HOWEVER**, it's important to not get too OCD about this.
-Humans struggle to resolve beat differences of less than 20 milliseconds (1/25th of a beat at 120 BPM).
+Humans struggle to resolve beat differences of less than 20 milliseconds (\\( \nicefrac{1}{25} \\)th of a beat at 120 BPM).
 AND, precise beat alignment only really matters when you're mixing with another track.
 Don't slavishly mold the track to the beatgrid.
 Stretch markers shouldn't be about perceptably changing the pace of a song, but rather zeroing out accumulated error.
@@ -302,31 +302,31 @@ In rough order of usefulness for me personally:
 ### Crossfade
 
 The workhorse... 90% of transitions are a simple crossfade.
-Two volume envelopes -- one on each track -- gradually fade in the incoming track and fade out the outgoing track.
+Two volume envelopes -- one on each track -- gradually fades in the incoming track and fades out the outgoing track.
 Sometimes you can omit an envelope if the track suitably fades on its own.
 
-Create the volume envelope: on the track's left-side tab, click the 'trim' folder > toggle 'Volume' under 'Track Envelopes'.
-Note that if you're already adjusted the track's gain using the faders in the bottom pane, that gain gets baked into the envelope and the fader gets reset to 0db.
-I don't like this behavior so I undo it manually (when I remember to).
+Create the volume envelope: on the track's left-side tab, click the 'trim' folder > toggle 'Volume' under 'Track Envelopes'
+
+Note that if you've already adjusted the track's gain using the per-track faders along the bottom pane, that gain gets baked into the envelope and the fader gets reset to 0 dB.
+I don't like this behavior so I revert it manually (when I remember to).
 
 Set the fade curve to your liking with control points.
 Personally I like a bit of hard cut on either end.
-Make sure that, out side of the transition zone, the envelope is set to normal volume (0db) or muted (&minus;&infin;db).
+Make sure that, outside of the transition zone, the envelope is set to normal volume (0 dB) or muted (&minus;&infin; dB).
 Ideally you don't want envelopes influencing the sound outside of defined transitions; it's easy to overlook later and makes it hard to debug why your mix is not sounding the way you expect.
 
 Don't be too precious about the exact fade curve here, as relative volumes may change during the [mastering phase](#mastering); you'll dial it in then.
 
 ### Hot Cue (Gate Cue)
 
-Alternative to a gradual fade is to tease/hype up the incoming track with some snippets of the baseline and then drop in the new track at full blast.
+Sometimes you don't want a gradual crossfade.
+Sometimes you want to tease/hype up the incoming track by dropping samples of its bassline, then slam-cut over at full blast.
 
-I believe the closest equivalent to this in DJ world is using Hot Cues in Gated Playback mode.
+In DJ lingo I believe this is called _drop-mixing_ and _Hot Cueing in Gated Playback mode_.
 
-To do this, just copy the snippets you want from the incoming track and paste them at the appropriate lead-in points.
+To gate cue/sample a track, just copy the snippet in question and paste it on the timeline before the track's main drop-in. (It's helpful to remember that snippets remember their offset in the parent track and can easily be extended on both ends.)
 
-Remember that snippets are just offsets into the parent tracks, so their start/stop points can be easily extended without having to copy a new snippet.
-
-If you want you can even take this technique farther and start doing quasi-mashups of the two tracks.
+You can take this technique quite far, eventually morphing into a quasi-mashup of the two tracks.
 
 ### Echo out
 
@@ -336,9 +336,9 @@ This is our first use of an FX plugin.
 
 - enable the plugin on the track: click the 'FX' button on the track's tab > search for 'ReaDelay' > Add
 - configure the plugin
-  - set Volume to control decay rate (-3db is a good start)
+  - set Volume to control decay rate (&minus;3 dB is a good start)
   - the echo won't repeat unless you use Feedback (set it to match Volume)
-  - set the echo delay, likely 1 beat or 1/2 beat. Specify in 'Length (musical)' in units of \\( \frac{1}{8} \\)th notes (1 beat = 1 quarter note = 2&times; \\( \frac{1}{8} \\)th notes)
+  - set the echo delay, likely 1 beat or &frac12; beat. Specify in 'Length (musical)' in units of \\( \frac{1}{8} \\)th notes (1 beat = 1 quarter note = 2&times; \\( \frac{1}{8} \\)th notes)
   {:style="margin-bottom: 0;"}
 - we don't want the track to echo the whole time, so we need to activate it at a certain point via automation:
   - In the FX dialog, click 'Param' > FX Parameter List > Show Track Envelope > '1: Enabled'
@@ -362,22 +362,30 @@ Lots of DJ tutorials online swear by EQ mixing.
 But remember that every adjustment you make is something you have to record for automation.
 If you diddle with 15 different knobs, that's a lot of envelopes to manage.
 
-I find the biggest bang-for-the-buck is to manage your EQ as a highpass filter, controlled by a single parameter -- the frequency cutoff.
-This let's you cut out the bass frequencies, which is the main EQ use case of avoiding 'bass clash'.
+The main use case for EQ is to cut out the low frequencies of one track to avoid "bass clash".
+This reduces a multi-band EQ setup into a simple highoass filter, controlled by one parameter -- the cutoff frequency.
 
-To configure, add the plugin as in Echo Out.
-Remove all band tabs except for '1'.
-Set Type to 'High Pass'.
-Make the cutoff a bit steeper by setting Bandwidth to 1.5
-Create an envelope for 'Freq-High Pass 1'
+bang-for-the-buck
 
-The 'Wet' param again controls how much of the effect comes through, so if you're cutting out the bass but set Wet to 70%, 30% volume of the original bass will still come through.
+To configure (consult instructions from _Echo Out_ as applicable):
 
-One concern is that, althought you can drop the frequency cutoff down to 20Hz, it doens't turn off entirely.
+- add the ReaEQ plugin
+- remove all band tabs except for '1'
+- set Type to 'High Pass'.
+- make the cutoff a bit steeper by setting Bandwidth to 1.5
+- create an envelope for 'Freq-High Pass 1'
+
+Again, the 'Wet' param controls how much of the effect comes through, so if we're cutting out the bass but set Wet to 70%, 30% volume of the original bass will still come through.
+
+One concern is that, althought you can drop the frequency cutoff down to 20 Hz, it doens't turn off entirely.
 And the cutoff is not particularly steep, so i'm worried about attenuating my low freqs at all times in way that my headphone can't tell but the subwoofer on d-day will.
 So out of paranoia, I add another envelope for 'Bypass' to engage the effect only during the transition.
 
+You could apply this template to implement more advanced EQs, should you want them.
+
 ### Tape Stop / Vinyl Brake
+
+This simulates the sudden stop of vinyl or casette, where mechanical intertia propels the playback just a little bit forward, with rapidly dropping speed and pitch.
 
 Variable rate stretch marker
 but we have pitch lock turned on, so need to split item where slowdown starts, and turn off pitch lock.
@@ -454,7 +462,7 @@ We have a start BPM \\(v_0\\), a target BPM \\( (v_0 + \Delta v) \\), and an int
 
 The playrate envelope in reaper will change the BPM \\(v\\) at a fixed slope with respect to position \\(p\\): \\( v(p) = v_0 + \tfrac{\Delta v}{\Delta p} p \\)
 
-To get BPM with respect to elapsed time \\(t\\) (in minutes), we must solve the differential equation \\( p'(t) = v_0 + \tfrac{\Delta v}{\Delta p} p \\) with initial condition \\( p(0) = 0 \\), yielding:
+To get BPM with respect to elapsed time \\(t\\) (in minutes), we must solve the differential equation \\( v(t) = p'(t) = v_0 + \tfrac{\Delta v}{\Delta p} p \\) with initial condition \\( p(0) = 0 \\), yielding:
 
 $$ p(t) = \frac{v_0}{\frac{\Delta v}{\Delta p}} (e^{\frac{\Delta v}{\Delta p} t}-1) $$
 
@@ -474,7 +482,7 @@ Note we must solve for \\(\Delta t\\): given \\( p(\Delta t) = \Delta p \\), \\(
 
 To backport this constant-via-time BPM change into the reaper envelope, we must redefine \\( v(t) \\) with respect to \\(p\\). First we must get \\( t(p) \\) from \\( p(t) \\) via the quadratic equation \\( At^2 + Bt + C = 0 \\), where \\( A = \tfrac{1}{2}\tfrac{\Delta v}{\Delta t} \\), \\( B = v_0 \\), \\( C = -p \\).
 
-$$ t(p) = \frac{-v_0 + \sqrt{v_0^2 + 2\frac{\Delta v}{\Delta t}p}}{\frac{\Delta v}{\Delta t}} $$
+$$ t(p) = \frac{-v_0 \pm \sqrt{v_0^2 + 2\frac{\Delta v}{\Delta t}p}}{\frac{\Delta v}{\Delta t}} $$
 
 Substituting \\( t(p) \\) into \\( v(t) \\):
 
