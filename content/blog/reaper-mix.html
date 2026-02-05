@@ -4,7 +4,14 @@ created_at: 2026-01-23
 title: "Mixing a DJ set in Reaper"
 ---
 
+<style>
 
+  h3 {
+      font-size: 18px;
+      font-style: italic !important;
+  }
+
+</style>
 
 I am the quintessential "press play" DJ.
 I don't have the skills to mix live.
@@ -17,22 +24,12 @@ Live DJ software (Rekordbox, Traktor, Serato, Mixxx, etc.) doesn't have a great 
 Sure you can record your mix, but that still requires 'performing' it one shot, in realtime, with no chance to fix mistakes or make tweaks later.
 I don't want to record the outputs; I want to record the inputs ("adjust this slider", "press this button", "nudge this jog wheel")... like the piano roll from a player piano.
 DJ software isn't built for this.
-You could probably hack up a way to capture raw MIDI events, but without any track-aware integration that can link events to rhythmic milestones vs. arbitary timestamps, you're just asking for a world of headaches.
 
 So, what we need instead is a full <abbr title="Digital Audio Workstation">DAW</abbr>.
 Enter [Reaper](https://www.reaper.fm/).
 <!-- todo link target -->
 
 There are many DAWs, but Reaper is fantastic, shockingly affordable (and without a license, the gentlest of nagware), runs on linux, and is friendly to both the beginner and power-user.
-
-(move this elsewhere)
-=============
-
-Another aspect I'm quite fond of is that its file format is 99% plaintext.
-That means you can actually examine what changed in your project whenever you worry you accidentally screwed something up.
-You can even track your project in git!
-
-=============
 
 So how do we make a DJ set in Reaper?
 Well... I'm a rank amaetur in both DJing and digital music production, but I want to share a workflow that has worked well for me, and has been tons of fun.
@@ -197,11 +194,11 @@ We can anchor and correct the first beat with another stretch marker.
 Unlike the start, the difference is _not_ minimal, due to the short time interval between the last beat's stretch marker and the end of the track.
 We want the tail to play back at its original speed (technically, at the slightly stretched speed the rest of the track now plays at, but the difference is negligible).
 Essentially, we don't want this tail stretched at all, but rather to 'float' after the stretch marker.
-There are several ways to accomplish this with varying degrees of _stretchmarker-fu_ -- but the easiest is to double-click on the stretch marker, which resets the stretch after the marker (or, you can achieve the desired floating behavior by default by holding alt+shift when originally dragging the stretch marker).
+There are several ways to accomplish this with varying degrees of _stretchmarker-fu_ -- but the easiest is to double-click on the stretch marker, which resets the stretch after the marker (or, you can achieve the desired floating behavior upfront by holding alt+shift when originally dragging the stretch marker).
 
 Note that this is a complex example, meant to show what happens when you start with a coarse BPM and are off by more than a full beat.
 A more accurate starting BPM avoids most of the headache.
-Mixxx reports a BPM of 123.5 for this track (and its detail view shows a full unrounded BPM -- though still not 100% accurate -- of 123.46779) -- close enough to get away with just slightly adjusting the final beat and avoiding all this ancillary clean-up.
+Mixxx reports a BPM of 123.5 for this track (and its detail view shows a full unrounded (though still not 100% accurate) BPM of 123.46779) -- close enough to get away with just slightly adjusting the final beat and avoiding all this ancillary clean-up.
 
 ### Scenario 3: Non-steady BPM
 
@@ -222,7 +219,7 @@ If you're placing too many stretch markers too close together, you may be flatte
 
 If needed, you can always add additional stretch markers to problem areas later.
 
-### Quantize the track start
+### Beat-aligning the track start
 
 Whew, we're almost done -- the track's beats are all aligned to the beatgrid, but the start of the track is not.
 This means as soon as we move the track, the start will snap to a gridline, making all that follows now off-beat.
@@ -266,34 +263,130 @@ As long as you chop on the 8-bar boundaries, you likely won't even be able to te
 If there is a noticeable 'jump cut' from e.g., a choral effect, you can create a bit of overlap in the cut and reaper will auto-crossfade the overlapping items.
 You can also repeat segments of items for looping
 
+cut-pasted items still remember their offsets in the parents track so you can extend the start and end easily
+
 ripple editing as needed if making changes not at end
+i prefer to not keep this turned on all the time to minimize 'spooky action at a distance'
 
 <a name="transitions" />
 
 ## Step 5: DJ Transitions!
 
 AKA the fun part.
+Let's start blending one track into another.
 
-Volume envelope. I like a bit of hard-cut on either end
-Right-click on the track tab on the left -> Envelopes -> Toggle volume active
-Note if you've adjusted the track's gain, that gain gets baked into the envelope and reset to 0db, which I find annoying and revert (when I remember)
+### Working with envelopes
 
-envelope edit actions
-decouple move item and move envelope
+Almost all of these involve setting up an _envelope_ or 'automation lane' linked to the track.
+These are time-varying parameters defined by control points.
 
-don't be precious about it because relative volumes may change during the mastering phase. you'll dial it in then
+First learn to manipulate these control points:
 
-EQ mixing
-cumbersome to manage lots of envelopes. don't want to diddle with 15 different knobs.
-ppl say you shouldn't clash bass, but i think it often sounds kinda nice / builds up suspense. volume frade can take care of the worst of the 'clash'
-1 control point as highpass filter
-wet/dry
-worried about softness and suppressed low freqs that you can only hear on the main system
+- add a point -- shift+click
+- delete a point -- alt+click
+- select multiple points -- right-click+drag a selection region
 
-Echo – can set up with effects but it's involved. A short loop on rapid fade-out can be just as good
+The y-axis on most envelopes is very compressed, where even a 1-pixel change makes a big difference.
+Avoid frustration and exercise precise control via:
+
+- move a point horizontally only, with vertical position locked -- ctrl+shift+drag
+- set the point's value directly -- right-click > Set point value...
+
+Also, this project setting [icon] controls whether track content and track envelopes are moved in lockstep.
+I.e., when you move a track on the timeline, does the envelope follow or stay put.
+I would suggest you keep this setting **on** (envelope follows).
+
+Now, onto different transition techniques.
+In rough order of usefulness for me personally:
+
+### Crossfade
+
+The workhorse... 90% of transitions are a simple crossfade.
+Two volume envelopes -- one on each track -- gradually fade in the incoming track and fade out the outgoing track.
+Sometimes you can omit an envelope if the track suitably fades on its own.
+
+Create the volume envelope: on the track's left-side tab, click the 'trim' folder > toggle 'Volume' under 'Track Envelopes'.
+Note that if you're already adjusted the track's gain using the faders in the bottom pane, that gain gets baked into the envelope and the fader gets reset to 0db.
+I don't like this behavior so I undo it manually (when I remember to).
+
+Set the fade curve to your liking with control points.
+Personally I like a bit of hard cut on either end.
+Make sure that, out side of the transition zone, the envelope is set to normal volume (0db) or muted (&minus;&infin;db).
+Ideally you don't want envelopes influencing the sound outside of defined transitions; it's easy to overlook later and makes it hard to debug why your mix is not sounding the way you expect.
+
+Don't be too precious about the exact fade curve here, as relative volumes may change during the [mastering phase](#mastering); you'll dial it in then.
+
+### Hot Cue (Gate Cue)
 
 hotcueing / "mash-up" / hype up
 copied item segments are just time offsets; they can be extended
+
+### Echo out
+
+If you want to end a track abruptly or without a good outro, use an echo effect to soften the landing.
+
+This is our first use of an FX plugin.
+
+- enable the plugin on the track: click the 'FX' button on the track's tab > search for 'ReaDelay' > Add
+- configure the plugin
+  - set Volume to control decay rate (-3db is a good start)
+  - the echo won't repeat unless you use Feedback (set it to match Volume)
+  - set the echo delay, likely 1 beat or 1/2 beat. Specify in 'Length (musical)' in units of \\( \frac{1}{8} \\)th notes (1 beat = 1 quarter note = 2&times; \\( \frac{1}{8} \\)th notes)
+  {:style="margin-bottom: 0;"}
+- we don't want the track to echo the whole time, so we need to activate it at a certain point via automation:
+  - In the FX dialog, click 'Param' > FX Parameter List > Show Track Envelope > '1: Enabled'
+  - this creates the envelope to automate turning on the echo at the right time
+  - shape this envelope to start out as off, and switch on just before the track's mix-out point
+
+If your echo delay is 1 beat, you need to activate the effect at least 1 beat before the track end (otherwise you'll just be echoing silence).
+If you activate it exactly 1&times; delay units before end, the echo repitition sounds a bit abrupt, so I would suggest starting a bit earlier to prime the echo for longer.
+But this also means the audible echo starts earlier, which can be distracting.
+Should you care, you can gradually bring in the echo effect by automating and fading in the effect's 'Wet' param.
+(In FX parlance, 'Dry' refers to the original audio and 'Wet' is solely the audio added by the effect).
+In other words: 'Enabled' controls whether the currently playing audio is being fed into the echo; 'Wet' volume controls how much of that echo you can hear in the output.
+
+This is a nice example of how a DAW sometimes gives you too much flexibility, compared to a one-button operation on a DJ controller.
+
+
+
+
+### EQ mixing
+
+Lots of DJ tutorials online swear by EQ mixing.
+But remember that every param you tweak you have to record for automation.
+If you diddle with 15 different knobs, that's a lot of envelopes to manage.
+ppl say you shouldn't clash bass, but i think it often sounds kinda nice / builds up suspense. volume frade can take care of the worst of the 'clash'
+
+Bang for the buck with a simple highpass filter, which only requires one control variable.
+
+wet/dry
+worried about softness and suppressed low freqs that you can only hear on the main system
+
+### Tape Stop / Vinyl Brake
+
+Variable rate stretch marker
+but we have pitch lock turned on, so need to split item where slowdown starts, and turn off pitch lock.
+but now pitch will be wrong bc of playrate, need to compensate with pitch adjust
+
+A slight annoyance, playrate is expressed as a multiplier, while relative pitch is expressed in the musical unit of _semitones_ (the difference from C to C&#x266f; -- 12 semitones in an octave).
+Convert between the two via $$ -12 \log_2 playrate $$.
+
+create a 2nd marker to have a period of stopped audio, to avoid blip.
+unfortunately, combined with playrate adjustment on the master track, this creates some artifact at the very slow end, which you might want to fade out
+
+can also not turn off pitch lock and play with pitch manually. less accurate but fun:
+take > pitch envelope, set a custom range
+
+I've never actually used this, wanted to challenge to see how it could be done.
+
+as should be obvious, attempting other 'vinyl' effects by hand is extremely laborious without a purpose-built FX plugin
+
+### Other FX
+
+reaper has lots of plugs that can probably set up anything you want.
+but again, because you can doesn't mean you should.
+but don't let me limit your curiousity.
+and once you figure an effect out, you can probably drop it in quite easily.
 
 <a name="bpm-recovery" />
 
@@ -359,7 +452,7 @@ We can see there is indeed an exponential runaway term.
 However, this is not how a human DJ would adjust the BPM live.
 They would move the BPM slider at a steady rate in the time domain, i.e.: \\( v(t) = v_0 + \tfrac{\Delta v}{\Delta t} t \\)
 
-This equation is not self-referential, so we can get position via simple integration: \\( p(t) = v_0 t + \tfrac{1}{2}\tfrac{\Delta v}{\Delta t} t^2 \\)
+This equation is not self-referential, so we can get position via simple integration: \\( p(t) = \int v(t) \,dt = v_0 t + \tfrac{1}{2}\tfrac{\Delta v}{\Delta t} t^2 \\).
 Note we must solve for \\(\Delta t\\): given \\( p(\Delta t) = \Delta p \\), \\( \Delta t = \frac{\Delta p}{v_0 + \frac{1}{2}\Delta v} \\)
 
 To backport this constant-via-time BPM change into the reaper envelope, we must redefine \\( v(t) \\) with respect to \\(p\\). First we must get \\( t(p) \\) from \\( p(t) \\) via the quadratic equation \\( At^2 + Bt + C = 0 \\), where \\( A = \tfrac{1}{2}\tfrac{\Delta v}{\Delta t} \\), \\( B = v_0 \\), \\( C = -p \\).
@@ -389,7 +482,7 @@ DJ method (linear w.r.t. time): \\( a = \tfrac{\Delta v}{\Delta t} \\) (constant
 
 perceived change will be greater when BPM is lower
 
-could actually argue that exponential is more “correct” perceptually
+could actually argue that exponential is more “correct” perceptually, and perhaps this is even what a human DJ would do subconsciously
 
 
 </div>
@@ -401,12 +494,23 @@ could actually argue that exponential is more “correct” perceptually
 ## Step 7: Mastering & Final Render
 
 separate mixing and mastering
+
+"final balancing, shaping, polishing of the sound, and concerns about the mechanics of transferring to fixed media"
+
 only do mastering at the end
+
 jump around set to make sure you're happy with the relative levels of your different tracks
+
 listen to your transitions and fine-tune the volume envelopes
+
+start doing test renders to mp3 or flac
+
 set your master volume so you don't clip and have a modest (6db) amount of headroom
+
 don't make the rest of your set too quiet to accommodate a particularly punchy track. consider a limiter FX (with constant gain enabled – otherwise you're just making that track louder vs. softening the peaks) on that track
+
 render your track and ensure no excessive clipping
+
 like to open the final rendered track and look at the waveform
 
 
@@ -421,6 +525,17 @@ like to open the final rendered track and look at the waveform
 ## Advanced Topic: Custom Tempo
 
 key signature change for dropped beats
+
 tempo envelope for variable bpm
 
+
+
+
+
+
+xxxxxxxxxxxx
+
+Another aspect I'm quite fond of is that its file format is 99% plaintext.
+That means you can actually examine what changed in your project whenever you worry you accidentally screwed something up.
+You can even track your project in git!
 
